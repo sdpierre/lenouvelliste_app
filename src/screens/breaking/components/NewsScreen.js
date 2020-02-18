@@ -12,8 +12,6 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import 'moment/min/locales';
 import HTMLView from 'react-native-htmlview';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Typography, Colors, Buttons, Spacing} from '../../../styles';
 import {
