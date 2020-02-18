@@ -8,11 +8,9 @@ import { connect } from "react-redux";
 import EmptyScreen from "../screens/EmptyScreen";
 import MenuNavigator from "../screens/EmptyScreen";
 import SelectionScreen from "../screens/EmptyScreen";
-import BreakingNavigator from "../screens/EmptyScreen";
+import BreakingNavigator from "./breaking/BreakingNavigator";
 import CitizenNavigator from "../screens/EmptyScreen";
 import HomeNavigator from "../screens/EmptyScreen";
-
-
 
 export default AppNavigator = createBottomTabNavigator(
     {
