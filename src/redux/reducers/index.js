@@ -7,13 +7,11 @@ import {
 
 import user from './user';
 import nav from './navigation';
-import favoriteReducer from './favoriteReducer';
 
 
 const reducers = combineReducers({
     nav,
     user,
-   favoriteReducer
 });
 
 export default reducers;
