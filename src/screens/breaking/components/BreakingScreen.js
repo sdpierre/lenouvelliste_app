@@ -27,26 +27,89 @@ import {
   Title,
   Content
 } from "native-base";
+//Realm
+import Realm from 'realm';
+let realm;
+var testDataSet=[] ;
+//NetInfo
+//import NetInfo from "@react-native-community/netinfo";
+
+
 class BreakingScreen extends React.Component {
     constructor(props) {
       super(props);
-      
+      realm = new Realm({
+        path: 'NewsDb.realm',
+        schema: [
+          {
+            name: 'breaking_news',
+            primaryKey:'id',
+            properties: {
+              
+              //breaking_news_data: 'string',
+              id:'int',
+              title:'string',
+              body:'string',
+              date:'string',
+              category:'string',
+              url:'string'
+              
+              
+            },
+          },
+        ],
+      });
       this.state = {
         data: [],
         refreshing: true,
-        title: 'Breaking'
+        title: 'Breaking',
+        isNetAvailable:false
+
       };
+      testDataSet = realm.objects('breaking_news');
+
       this.fetchNews = this.fetchNews.bind(this);
     }
     // Called after a component is mounted
     componentDidMount() {
-      this.fetchNews();
+     /* NetInfo.fetch().then(state => {
+        console.log("Connection type", state.type);
+        console.log("Connection isConnected", state.isConnected);
+        
+        this.setState({'isNetAvailable': state.isConnected });*/
+        //this.setState({'isNetAvailable': false });
+        //console.log(this.state.isNetAvailable, '<<<VALUE');
+        this.fetchNews();
+      //});
     }
   
     fetchNews() {
+      if(!(testDataSet.length> 0)){
+
       getBreakingNews()
-        .then(data => this.setState({ data, refreshing: false }))
+        .then(data => {
+
+          realm.write(() => {
+            this.setState({ data, refreshing: false });
+
+            realm.deleteAll();
+
+            data.forEach(element => {
+              realm.create('breaking_news', element);  
+            });
+            
+          });
+        })
         .catch(() => this.setState({ refreshing: false }));
+      }else{
+        realm = new Realm({ path: 'NewsDb.realm' });
+        var newsJson = realm.objects('breaking_news');
+        console.log('FetchinFromDB>>>', newsJson.length);
+        this.setState ({
+          data: newsJson,
+          refreshing:false
+        });
+      }
     }
   
     handleRefresh() {
@@ -88,7 +151,7 @@ class BreakingScreen extends React.Component {
                 <View style={Spacing.breakingContainer}>
                   <View>
                     <Text style={Typography.subHead}>
-                      {(time = moment(item.date || moment.now()).fromNow())} |
+                      {(moment(item.date || moment.now()).fromNow())} |
                       <Text style={Typography.headline}> {item.category}</Text>
                     </Text>
                   </View>
