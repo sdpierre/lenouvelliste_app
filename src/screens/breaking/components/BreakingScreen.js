@@ -32,7 +32,7 @@ import Realm from 'realm';
 let realm;
 var testDataSet=[] ;
 //NetInfo
-//import NetInfo from "@react-native-community/netinfo";
+import NetInfo from "@react-native-community/netinfo";
 
 
 class BreakingScreen extends React.Component {
@@ -67,52 +67,91 @@ class BreakingScreen extends React.Component {
 
       };
       testDataSet = realm.objects('breaking_news');
+      console.log('Constructor>>', testDataSet.length);
 
       this.fetchNews = this.fetchNews.bind(this);
+      this.fetchFromDataBase=this.fetchFromDataBase.bind(this);
+
     }
     // Called after a component is mounted
     componentDidMount() {
-     /* NetInfo.fetch().then(state => {
-        console.log("Connection type", state.type);
-        console.log("Connection isConnected", state.isConnected);
+      //let fetchOverNet=false;
+      console.log('DIDMOUNTCALLED>>>');
+      NetInfo.fetch().then(conn => {
+        console.log("Connection type", conn.type);
+        console.log("Is connected?", conn.isConnected);
+        fetchOverNet=conn.isConnected;
+        /*this.setState({
+          isNetAvailable:conn.isConnected
+        });*/
+      }).then(()=>{
+        console.log('Value ofOver>>', fetchOverNet);
+        if(fetchOverNet)
+        this.fetchNews(); 
+        else 
+        {
+          this
+        .setState({
+          refreshing:false,
+          data:testDataSet
+        });
+        }
+        //  this.fetchFromDataBase()
         
-        this.setState({'isNetAvailable': state.isConnected });*/
-        //this.setState({'isNetAvailable': false });
-        //console.log(this.state.isNetAvailable, '<<<VALUE');
-        this.fetchNews();
-      //});
+      });
     }
-  
-    fetchNews() {
-      if(!(testDataSet.length> 0)){
 
-      getBreakingNews()
-        .then(data => {
-
-          realm.write(() => {
-            this.setState({ data, refreshing: false });
-
-            realm.deleteAll();
-
-            data.forEach(element => {
-              realm.create('breaking_news', element);  
-            });
-            
-          });
-        })
-        .catch(() => this.setState({ refreshing: false }));
-      }else{
+    fetchFromDataBase(){
+      try{
         realm = new Realm({ path: 'NewsDb.realm' });
         var newsJson = realm.objects('breaking_news');
         console.log('FetchinFromDB>>>', newsJson.length);
-        this.setState ({
+        console.log('FetchinFromDBSize>>>', newsJson.length);
+        this.setState ( {
           data: newsJson,
           refreshing:false
         });
+      }catch(e){
+        console.log('InsideFunError>>', e);
       }
+     
+      
+     // console.log(newsJson, '<<<DataOFFLINE', realm.path, 'PATH<<<');
+     
+    }
+    
+
+    fetchNews() {
+      getBreakingNews()
+      .then(resp => {
+        console.log('RESPONSE>>> ', resp);
+
+        realm.write(() => {
+          realm.deleteAll();
+
+          resp.forEach(element => {
+            console.log('SIZEE>>>', element.id);
+            
+            realm.create('breaking_news', element);  
+
+            console.log('SavedSizE>>', realm.objects.length);
+
+          });
+          
+        });
+        //realm.close();
+        this.setState({ data : resp, refreshing: false });
+
+      })
+      .catch((e) => {
+        this.setState({ refreshing: false });
+        console.log('ECSPTION CAUGHT', e)
+      });
+
     }
   
     handleRefresh() {
+      console.log('Refreshing<<<');
       this.setState(
         {
           refreshing: true
