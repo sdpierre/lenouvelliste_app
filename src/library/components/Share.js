@@ -7,9 +7,6 @@ class MyCarousel extends Component {
   constructor(props) {
     super(props);
   }
-
- 
-  
   onClick(url, titre) {
     Share.share(
       {
