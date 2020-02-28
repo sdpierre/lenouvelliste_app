@@ -3,3 +3,7 @@ export async function getBreakingNews() {
     return result.data;
   }
   
+  export async function getHomeNews() {
+    let result = await fetch("http://lenouvelis.com/api/homenews").then(response => response.json());
+    return result.data;
+  }
