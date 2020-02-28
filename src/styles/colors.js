@@ -18,6 +18,10 @@ export const gray = {
     color: '#1a1917',
   };
 
+  export const white = {
+    color: '#FFFF',
+  };
+
   // export const gray = {
   //   color: '#888888',
   // };

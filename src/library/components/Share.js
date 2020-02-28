@@ -33,7 +33,7 @@ class MyCarousel extends Component {
           onPress={this.onClick.bind(this, this.props.url, this.props.titre)}
           id="offline">
           <Text style={{}}>
-            <Ionicons name="share" size={22} color="#454f63" />
+            <Ionicons name="share" size={22} color="#FFFF" />
           </Text>
         </TouchableOpacity>
       </View>
