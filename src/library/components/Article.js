@@ -1,6 +1,6 @@
 <script src="http://localhost:8097"></script>
 import React from 'react';
-import { View, Linking, TouchableHighlight, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
+import { View, Linking, TouchableHighlight, StyleSheet, TouchableOpacity, Text, Image, Alert} from 'react-native';
 import moment from "moment";
 import 'moment/min/locales';
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -12,15 +12,55 @@ import Share from "library/components/Share";
 import ImageLoad from 'react-native-image-placeholder';
 import Nophoto from "library/components/nophoto";
 
+//Realm
+import Realm from 'realm';
+let realm;
+let isBookmarked=false;
+let dbData;
 class Article extends React.Component {
 
   constructor(props) {
     super(props)
+
+    realm = new Realm({
+      path: 'BookmarkDb.realm',
+      schema: [
+        {
+          name: 'book_news',
+          primaryKey:'id',
+          properties: {
+            
+            titre:'string',
+            headline:'string',
+            date:'string',
+            photo:'string',
+            surtitre:'string',
+            nophoto:'string',
+            rubrique:'string',
+            article:'string',
+            author:'string',
+            id:'int',
+            url:'string',
+                     
+          },
+        },
+      ],
+    });
+    
+    dbData=realm.objects('book_news');
+    
+
+    //let dbSize=realm.objects('book_news');
+    
     this.state = {
+      dataToRender : [],
+      isBookmarked : this.props.isBookmarked,
+      isSelection:this.props.isSelection
+
     }
     
   } 
- 
+
   render() {
     
     const {
@@ -34,15 +74,26 @@ class Article extends React.Component {
       article,
       author,
       id,
-      url
+      url,
+      isBookmarked
     } = this.props.article;
+
+    const saveArticle = this.props.article;
+    
+    //let imgUrl = props.photo ? { uri: props.photo } : require("../assets/images/image.jpg");
+
 
     const time = moment(date || moment.now()).fromNow();
     moment.locale('fr');
 
     const { navigate } = this.props;
-
+    
+    var bookmarkedArticle = realm
+                .objects('book_news')
+                .filtered('id =' + saveArticle.id);                
+    let alreadyBookmarked = bookmarkedArticle.length>0;
     return (
+      
       <View>
 
       <TouchableHighlight
@@ -72,9 +123,9 @@ class Article extends React.Component {
 
                         <View style={{marginRight: 10}}>
                     
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>this.onBookmarkClicked(saveArticle)}>
                         <Text style={{}}>
-                          <Ionicons name="bookmark-outline" size={20} color="#454f63" />
+                          <Ionicons name={alreadyBookmarked?'bookmark':"bookmark-outline"} size={20} color={alreadyBookmarked?'red':"#454f63"} />
                         </Text>
                       </TouchableOpacity>
                       
@@ -101,7 +152,7 @@ class Article extends React.Component {
                         style={{ width: 80, height: 80 }}
                         placeholderSource={require('../../../src/res/images/noimage.jpg')}
                         loadingStyle={{ size: 'large', color: 'blue' }}
-                        source={{ uri: photo }}
+                        source={{ uri:photo || nophoto }}
                     />
 
                     </View>
@@ -110,7 +161,45 @@ class Article extends React.Component {
           </View>
     );
   }
+
+  onBookmarkClicked=(article)=>{
+    realm.write(() => {
+      //realm.deleteAll();
+  
+        var obj = realm
+                .objects('book_news')
+                .filtered('id =' + article.id);
+              
+              if (obj.length > 0) {   
+              if(this.state.isSelection){
+                //alert('You can remove article from Home Tab by pressing on Bookmark icon.')
+              }  else{
+                realm.delete(
+                  realm.objects('book_news').filtered('id =' + article.id)
+                  );
+                  this.setState({
+                    isBookmarked:false
+                  }); 
+              }
+                
+              }else{
+                realm.create('book_news', article);  
+                this.setState({
+                  isBookmarked:true
+                });
+
+              }
+  
+      
+  
+     
+      
+    });
+  }
+
 }
+
+
 
 const mapStateToProps = (state) => {
   return state

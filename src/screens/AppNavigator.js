@@ -7,21 +7,38 @@ import { connect } from "react-redux";
 
 import EmptyScreen from "../screens/EmptyScreen";
 import MenuNavigator from "../screens/EmptyScreen";
-import SelectionScreen from "../screens/selection/SelectionScreen";
+import SelectionScreen from "../screens/selection/SelectionNavigator";
 import BreakingNavigator from "./breaking/BreakingNavigator";
 import CitizenNavigator from "../screens/EmptyScreen";
 import HomeNavigator from "../screens/home/HomeNavigator";
+import SelectionNavigator from './selection/SelectionNavigator'
 
-export default AppNavigator = createBottomTabNavigator(
+const getScreenRegisteredFunctions = navState => {
+  // When we use stack navigators. 
+  // Also needed for react-navigation@2
+  const { routes, index, params } = navState;
+
+  if (navState.hasOwnProperty('index')) {
+    return getScreenRegisteredFunctions(routes[index]);
+  }
+  // When we have the final screen params
+  else {
+    return params;
+  }
+}
+
+const AppNavigator = createBottomTabNavigator(
+
     {
       Home: HomeNavigator,
       Breaking: BreakingNavigator,
       Citizen: CitizenNavigator,
-      Selection: SelectionScreen,
+      Selection: SelectionNavigator,
       Menu: MenuNavigator,
     },
     {
-      defaultNavigationOptions: ({ navigation }) => ({
+      defaultNavigationOptions: ({ navigation }) => (
+        {
         tabBarIcon: ({ focused, horizontal, tintColor }) => {
           const { routeName } = navigation.state;
   
@@ -51,3 +68,5 @@ export default AppNavigator = createBottomTabNavigator(
       }
     }
   );
+
+  export default AppNavigator;

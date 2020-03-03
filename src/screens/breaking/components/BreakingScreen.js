@@ -39,7 +39,7 @@ class BreakingScreen extends React.Component {
     constructor(props) {
       super(props);
       realm = new Realm({
-        path: 'NewsDb.realm',
+        path: 'BreakingDb.realm',
         schema: [
           {
             name: 'breaking_news',
@@ -124,23 +124,24 @@ class BreakingScreen extends React.Component {
     fetchNews() {
       getBreakingNews()
       .then(resp => {
-        console.log('RESPONSE>>> ', resp);
+        
 
         realm.write(() => {
           realm.deleteAll();
 
           resp.forEach(element => {
-            console.log('SIZEE>>>', element.id);
+        
             
             realm.create('breaking_news', element);  
 
-            console.log('SavedSizE>>', realm.objects.length);
+        
 
           });
           
         });
         //realm.close();
         this.setState({ data : resp, refreshing: false });
+        realm.close();
 
       })
       .catch((e) => {
