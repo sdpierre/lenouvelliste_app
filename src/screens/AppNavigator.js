@@ -9,7 +9,7 @@ import EmptyScreen from "../screens/EmptyScreen";
 import MenuNavigator from "../screens/EmptyScreen";
 import SelectionScreen from "../screens/selection/SelectionNavigator";
 import BreakingNavigator from "./breaking/BreakingNavigator";
-import CitizenNavigator from "../screens/EmptyScreen";
+import CitizenNavigator from "../screens/citizen/CitizenNavigator";
 import HomeNavigator from "../screens/home/HomeNavigator";
 import SelectionNavigator from './selection/SelectionNavigator'
 

@@ -34,6 +34,17 @@
 		7A7787D258DD4CD3A79F75D3 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B698E6E1D8C84192B9EAE4C3 /* Ionicons.ttf */; };
 		7CD50193F1F3458A8663F9DF /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D950E29AB3FA4D4786E435E4 /* FontAwesome5_Brands.ttf */; };
 		8088D26504453EB7906834C5 /* libPods-lenouvelliste_app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B794C56F4F404C97065EA86E /* libPods-lenouvelliste_app.a */; };
+		8360F9A024101F2E000C972D /* RNGADBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8360F98A24101F2D000C972D /* RNGADBannerView.m */; };
+		8360F9A124101F2E000C972D /* RNAdMobUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8360F98C24101F2D000C972D /* RNAdMobUtils.m */; };
+		8360F9A224101F2E000C972D /* RNAdMobInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = 8360F98E24101F2D000C972D /* RNAdMobInterstitial.m */; };
+		8360F9A324101F2E000C972D /* RNAdMobRewarded.m in Sources */ = {isa = PBXBuildFile; fileRef = 8360F98F24101F2D000C972D /* RNAdMobRewarded.m */; };
+		8360F9A424101F2E000C972D /* RNDFPBannerViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8360F99124101F2D000C972D /* RNDFPBannerViewManager.m */; };
+		8360F9A524101F2E000C972D /* RNDFPBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8360F99524101F2E000C972D /* RNDFPBannerView.m */; };
+		8360F9A624101F2E000C972D /* RCTConvert+GADAdSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 8360F99824101F2E000C972D /* RCTConvert+GADAdSize.m */; };
+		8360F9A724101F2E000C972D /* RNGADBannerViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8360F99F24101F2E000C972D /* RNGADBannerViewManager.m */; };
+		8360F9AB241026F5000C972D /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8360F9A8241026F2000C972D /* GoogleUtilities.framework */; };
+		8360F9AC241026F5000C972D /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8360F9A9241026F3000C972D /* GoogleAppMeasurement.framework */; };
+		8360F9AD241026F5000C972D /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8360F9AA241026F5000C972D /* GoogleMobileAds.framework */; };
 		8592B3DAFD72418381B14765 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAEE858296FB4041916315A0 /* Octicons.ttf */; };
 		8BB6A84D54D14D438FB03C89 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE721F6B215743D7B9A60FE0 /* SimpleLineIcons.ttf */; };
 		940D75D21A734287AED8197C /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDE1A2EC1D4F4CBF832CBAA0 /* SimpleLineIcons.ttf */; };
@@ -64,6 +75,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = lenouvelliste_app;
+		};
+		8360F99D24101F2E000C972D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8360F99924101F2E000C972D /* RNAdMobManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A96DA7741C146D7200FC639B;
+			remoteInfo = RNAdMobManager;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -96,6 +114,26 @@
 		6E0C6341B7DD48ECB6A8575A /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../src/res/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		6F5358597C1B4F93AE5B9D9A /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		76E65D9B5D9A48E395A35CDB /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		8360F98A24101F2D000C972D /* RNGADBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNGADBannerView.m; path = "../node_modules/react-native-admob/ios/RNGADBannerView.m"; sourceTree = "<group>"; };
+		8360F98B24101F2D000C972D /* RNAdMobInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNAdMobInterstitial.h; path = "../node_modules/react-native-admob/ios/RNAdMobInterstitial.h"; sourceTree = "<group>"; };
+		8360F98C24101F2D000C972D /* RNAdMobUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNAdMobUtils.m; path = "../node_modules/react-native-admob/ios/RNAdMobUtils.m"; sourceTree = "<group>"; };
+		8360F98D24101F2D000C972D /* RCTConvert+GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RCTConvert+GADAdSize.h"; path = "../node_modules/react-native-admob/ios/RCTConvert+GADAdSize.h"; sourceTree = "<group>"; };
+		8360F98E24101F2D000C972D /* RNAdMobInterstitial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNAdMobInterstitial.m; path = "../node_modules/react-native-admob/ios/RNAdMobInterstitial.m"; sourceTree = "<group>"; };
+		8360F98F24101F2D000C972D /* RNAdMobRewarded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNAdMobRewarded.m; path = "../node_modules/react-native-admob/ios/RNAdMobRewarded.m"; sourceTree = "<group>"; };
+		8360F99024101F2D000C972D /* RNDFPBannerViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNDFPBannerViewManager.h; path = "../node_modules/react-native-admob/ios/RNDFPBannerViewManager.h"; sourceTree = "<group>"; };
+		8360F99124101F2D000C972D /* RNDFPBannerViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNDFPBannerViewManager.m; path = "../node_modules/react-native-admob/ios/RNDFPBannerViewManager.m"; sourceTree = "<group>"; };
+		8360F99224101F2D000C972D /* RNGADBannerViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNGADBannerViewManager.h; path = "../node_modules/react-native-admob/ios/RNGADBannerViewManager.h"; sourceTree = "<group>"; };
+		8360F99324101F2D000C972D /* RNAdMobRewarded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNAdMobRewarded.h; path = "../node_modules/react-native-admob/ios/RNAdMobRewarded.h"; sourceTree = "<group>"; };
+		8360F99424101F2D000C972D /* RNGADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNGADBannerView.h; path = "../node_modules/react-native-admob/ios/RNGADBannerView.h"; sourceTree = "<group>"; };
+		8360F99524101F2E000C972D /* RNDFPBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNDFPBannerView.m; path = "../node_modules/react-native-admob/ios/RNDFPBannerView.m"; sourceTree = "<group>"; };
+		8360F99624101F2E000C972D /* RNDFPBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNDFPBannerView.h; path = "../node_modules/react-native-admob/ios/RNDFPBannerView.h"; sourceTree = "<group>"; };
+		8360F99724101F2E000C972D /* RNAdMobUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNAdMobUtils.h; path = "../node_modules/react-native-admob/ios/RNAdMobUtils.h"; sourceTree = "<group>"; };
+		8360F99824101F2E000C972D /* RCTConvert+GADAdSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RCTConvert+GADAdSize.m"; path = "../node_modules/react-native-admob/ios/RCTConvert+GADAdSize.m"; sourceTree = "<group>"; };
+		8360F99924101F2E000C972D /* RNAdMobManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNAdMobManager.xcodeproj; path = "../node_modules/react-native-admob/ios/RNAdMobManager.xcodeproj"; sourceTree = "<group>"; };
+		8360F99F24101F2E000C972D /* RNGADBannerViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNGADBannerViewManager.m; path = "../node_modules/react-native-admob/ios/RNGADBannerViewManager.m"; sourceTree = "<group>"; };
+		8360F9A8241026F2000C972D /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = "<group>"; };
+		8360F9A9241026F3000C972D /* GoogleAppMeasurement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleAppMeasurement.framework; sourceTree = "<group>"; };
+		8360F9AA241026F5000C972D /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		84859A0C20064FCFA7C1D118 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		8FADD2FE4F2449C784E8F399 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		91EED102EF5053F816792E91 /* libPods-lenouvelliste_appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lenouvelliste_appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,7 +184,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8360F9AB241026F5000C972D /* GoogleUtilities.framework in Frameworks */,
 				8088D26504453EB7906834C5 /* libPods-lenouvelliste_app.a in Frameworks */,
+				8360F9AD241026F5000C972D /* GoogleMobileAds.framework in Frameworks */,
+				8360F9AC241026F5000C972D /* GoogleAppMeasurement.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +241,23 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				8360F98D24101F2D000C972D /* RCTConvert+GADAdSize.h */,
+				8360F99824101F2E000C972D /* RCTConvert+GADAdSize.m */,
+				8360F98B24101F2D000C972D /* RNAdMobInterstitial.h */,
+				8360F98E24101F2D000C972D /* RNAdMobInterstitial.m */,
+				8360F99924101F2E000C972D /* RNAdMobManager.xcodeproj */,
+				8360F99324101F2D000C972D /* RNAdMobRewarded.h */,
+				8360F98F24101F2D000C972D /* RNAdMobRewarded.m */,
+				8360F99724101F2E000C972D /* RNAdMobUtils.h */,
+				8360F98C24101F2D000C972D /* RNAdMobUtils.m */,
+				8360F99624101F2E000C972D /* RNDFPBannerView.h */,
+				8360F99524101F2E000C972D /* RNDFPBannerView.m */,
+				8360F99024101F2D000C972D /* RNDFPBannerViewManager.h */,
+				8360F99124101F2D000C972D /* RNDFPBannerViewManager.m */,
+				8360F99424101F2D000C972D /* RNGADBannerView.h */,
+				8360F98A24101F2D000C972D /* RNGADBannerView.m */,
+				8360F99224101F2D000C972D /* RNGADBannerViewManager.h */,
+				8360F99F24101F2E000C972D /* RNGADBannerViewManager.m */,
 			);
 			name = lenouvelliste_app;
 			sourceTree = "<group>";
@@ -207,6 +265,9 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8360F9A9241026F3000C972D /* GoogleAppMeasurement.framework */,
+				8360F9AA241026F5000C972D /* GoogleMobileAds.framework */,
+				8360F9A8241026F2000C972D /* GoogleUtilities.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				B794C56F4F404C97065EA86E /* libPods-lenouvelliste_app.a */,
@@ -268,6 +329,14 @@
 			children = (
 			);
 			name = Libraries;
+			sourceTree = "<group>";
+		};
+		8360F99A24101F2E000C972D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8360F99E24101F2E000C972D /* libRNAdMobManager.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		83CBB9F61A601CBA00E9B192 = {
@@ -393,6 +462,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8360F99A24101F2E000C972D /* Products */;
+					ProjectRef = 8360F99924101F2E000C972D /* RNAdMobManager.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* lenouvelliste_app */,
@@ -401,6 +476,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8360F99E24101F2E000C972D /* libRNAdMobManager.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNAdMobManager.a;
+			remoteRef = 8360F99D24101F2E000C972D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
@@ -610,7 +695,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				8360F9A324101F2E000C972D /* RNAdMobRewarded.m in Sources */,
+				8360F9A124101F2E000C972D /* RNAdMobUtils.m in Sources */,
+				8360F9A724101F2E000C972D /* RNGADBannerViewManager.m in Sources */,
+				8360F9A224101F2E000C972D /* RNAdMobInterstitial.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				8360F9A424101F2E000C972D /* RNDFPBannerViewManager.m in Sources */,
+				8360F9A624101F2E000C972D /* RCTConvert+GADAdSize.m in Sources */,
+				8360F9A024101F2E000C972D /* RNGADBannerView.m in Sources */,
+				8360F9A524101F2E000C972D /* RNDFPBannerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,8 +791,16 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = lenouvelliste_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -718,8 +819,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = lenouvelliste_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -816,6 +925,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "/Users/lenouvellistepsd/Downloads/GoogleMobileAdsSdkiOS-7.56.0";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -869,6 +979,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "/Users/lenouvellistepsd/Downloads/GoogleMobileAdsSdkiOS-7.56.0";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

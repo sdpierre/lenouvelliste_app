@@ -19,6 +19,11 @@ export async function getBreakingNews() {
   }
 
   export async function getCitizenTopNews() {
-    let result = await fetch("http://v2.lenouvelliste.com/api/citizennews").then(response => response.json());
+    let result = await fetch("http://lenouvelis.com/api/topcitizennews").then(response => response.json());
+    return result.data;
+  }
+
+  export async function getCitizenNews() {
+    let result = await fetch("http://lenouvelis.com/api/allcitizennews").then(response => response.json());
     return result.data;
   }
