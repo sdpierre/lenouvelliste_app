@@ -140,13 +140,6 @@ class Article extends React.Component {
                     </View>
 
                     <View style={styles.articleImage}>
-                    
-                    {/* <Image
-                        source={{
-                          uri: photo || nophoto
-                      }}
-                        style={{width: 80, height: 80 }}
-                      /> */}
 
                     <ImageLoad
                         style={{ width: 80, height: 80 }}
@@ -190,10 +183,6 @@ class Article extends React.Component {
 
               }
   
-      
-  
-     
-      
     });
   }
 

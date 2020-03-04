@@ -43,12 +43,12 @@ target 'lenouvelliste_app' do
   use_native_modules!
 end
 
-target 'lenouvelliste_app-tvOS' do
-  # Pods for lenouvelliste_app-tvOS
+# target 'lenouvelliste_app-tvOS' do
+#   # Pods for lenouvelliste_app-tvOS
 
-  target 'lenouvelliste_app-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+#   target 'lenouvelliste_app-tvOSTests' do
+#     inherit! :search_paths
+#     # Pods for testing
+#   end
 
-end
+# end

@@ -9,13 +9,8 @@ import {
   Text,
 } from "react-native";
 import { Typography, Colors, Buttons, Spacing, Margins } from "../../../styles";
-
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
-
-
-
 import Article from "library/components/Article";
-import LogoTitle from "library/components/logo";
 
 import {
   Container,
@@ -90,12 +85,10 @@ class SelectionScreen extends React.Component {
       return (
         <Container>
 <Header>
-  <Body>
-    <Title>
-      <LogoTitle />
-    </Title>
-  </Body>
-</Header>
+          <Body>
+            <Title>{title}</Title>
+          </Body>
+        </Header>
 
 <View style={styles.MainContainer}>
    <FlatList
