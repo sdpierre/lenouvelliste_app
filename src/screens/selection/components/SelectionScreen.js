@@ -37,7 +37,6 @@ class SelectionScreen extends React.Component {
 
     dataRender=realm.objects('book_news');
 
-    dataRender.addListener(this.changeListener.bind(this));    
   
     //console.log('SelectionSize>>', bookmarkData.length);
     this.state = {
@@ -62,16 +61,8 @@ class SelectionScreen extends React.Component {
 
   // Called after a component is mounted
   componentDidMount() {
-  
-  }
+    dataRender.addListener(this.changeListener.bind(this));    
 
-   // Call on tab bar tap
-   tapOnTabNavigator = () => {
-     console.log('OnPresseTabCalled<<<');
-    let newBookmarkData=realm.objects('book_news');
-    this.setState({
-      bookmarkData:newBookmarkData
-    })
   }
 
   render() {
