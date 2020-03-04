@@ -171,16 +171,21 @@ class Article extends React.Component {
                 .filtered('id =' + article.id);
               
               if (obj.length > 0) {   
-              if(this.state.isSelection){
-                //alert('You can remove article from Home Tab by pressing on Bookmark icon.')
-              }  else{
+              /*if(this.state.isSelection){
+                alert('You can remove article from Home Tab by pressing on Bookmark icon.')
+              }  else{*/
                 realm.delete(
                   realm.objects('book_news').filtered('id =' + article.id)
                   );
+                  if(this.state.isSelection){
+
+                  }else{
+                   
                   this.setState({
                     isBookmarked:false
                   }); 
-              }
+                  } 
+             // }
                 
               }else{
                 realm.create('book_news', article);  
