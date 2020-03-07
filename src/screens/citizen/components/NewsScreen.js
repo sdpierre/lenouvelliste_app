@@ -14,7 +14,7 @@ import FitImage from 'react-native-fit-image';
 
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, ListItem, List} from 'native-base';
-class NewsScreen extends React.Component {
+class CitizenNewsScreen extends React.Component {
 
   constructor(props){
     super(props);
@@ -45,13 +45,15 @@ class NewsScreen extends React.Component {
     // const { navigation } = this.props;
     // const title = navigation.getParam('title');
     return (
-        <Container>
+      <View style={{flex: 1}}>
         <Header>
           <Left>
             <Button transparent onPress={()=>{this.props.navigation.goBack()}}>
-              <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
+              <Ionicons name="ios-arrow-back" size={30} style={Colors.white} />
             </Button>
           </Left>
+          <Body></Body>
+          <Right></Right>
         </Header>
         <Content>
 
@@ -98,7 +100,7 @@ class NewsScreen extends React.Component {
         
         </View>
         </Content>
-      </Container>
+      </View>
     );
   }
 }
@@ -183,4 +185,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(NewsScreen);
+)(CitizenNewsScreen);

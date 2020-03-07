@@ -87,6 +87,7 @@ class Article extends React.Component {
     moment.locale('fr');
 
     const { navigate } = this.props;
+
     
     var bookmarkedArticle = realm
                 .objects('book_news')

@@ -18,26 +18,86 @@ import "moment/min/locales";
 
 // Import getNews function from news.js
 import { getCitizenNews } from "library/networking/Api";
-
+//Realm
+import Realm from 'realm';
+let realm;
+//Data from database
+let offlineData=[];
+//NetInfo
+import NetInfo from '@react-native-community/netinfo';
+let fetchOverNet;
 class CitizenScreen extends React.Component {
 
   constructor(props){
     super(props);
+
+    realm = new Realm({
+      path: 'AllCitizenDb.realm',
+      schema: [
+        {
+          name: 'all_citi_news',
+          primaryKey: 'id',
+          properties: {
+            
+            id : 'int',
+            title : "string",
+            body : "string",
+            category : "string?",
+            thumb : "string",
+            media : "string",
+            user_id : "string",
+            username : "string",
+            userphoto : "string",
+            nouserphoto : "string",
+            date : 'string?'
+          },
+        },
+      ],
+    });
+
     this.state = {
         title : "Citizen",
-        data: [], refreshing: true
+        data: [], 
+        refreshing: true
     }
+    offlineData = realm.objects('all_citi_news');
+    console.log('AllCitiSize>>>', offlineData.length);
     this.fetchNews = this.fetchNews.bind(this);
   }
   // Called after a component is mounted
   componentDidMount() {
-    this.fetchNews();
+    NetInfo.fetch()
+    .then(conn => {
+      fetchOverNet = conn.isConnected;
+    })
+    .then(() => {
+      if (fetchOverNet) this.fetchNews();
+      else {
+        this.setState({
+          refreshing: false,
+          data: offlineData,
+          
+        });
+      }
+    });
   }
 
   fetchNews() {
     getCitizenNews()
-      .then(data => this.setState({ data, refreshing: false }))
-      .catch(() => this.setState({ refreshing: false }));
+    .then(resp => {
+      realm.write(() => {
+        realm.deleteAll();
+
+        resp.forEach(element => {
+          realm.create('all_citi_news', element);
+        });
+      });
+      this.setState({data: resp, refreshing: false});
+    })
+    .catch(e => {
+      console.log('ExceptionHOME>>>', e);
+      this.setState({refreshing: false});
+    });
   }
 
   handleRefresh() {
@@ -45,7 +105,19 @@ class CitizenScreen extends React.Component {
       {
         refreshing: true
       },
-      () => this.fetchNews()
+      () => {
+        if(fetchOverNet)
+        this.fetchNews()
+        else{
+          alert('Internet connection required!')
+          this.setState(
+            {
+              refreshing: false
+            })        
+
+        }
+
+      }
     );
   }
   render() {
@@ -96,7 +168,7 @@ class CitizenScreen extends React.Component {
                   <View>
                   <TouchableHighlight
                   onPress={() =>
-                    navigate("UserPost", {
+                    navigate("Profil", {
                       title: item.title,
                       media: item.media,
                       body: item.body,

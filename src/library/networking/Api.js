@@ -14,6 +14,7 @@ export async function getBreakingNews() {
   }
 
   export async function getMostRead() {
+    
     let result = await fetch("http://lenouvelis.com/api/mostread/").then(response => response.json());
     return result.data;
   }

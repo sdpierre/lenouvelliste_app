@@ -5,6 +5,7 @@ import { setAppInfo } from '../../redux/actions';
 import { connect } from 'react-redux';
 import HomeScreen from './components/HomeScreen';
 import NewsScreen from '../news/newsScreen';
+import CitizenNewsScreen from '../citizen/components/NewsScreen'
 
 const HomeStackNav = createStackNavigator({
     Home: {
@@ -12,7 +13,9 @@ const HomeStackNav = createStackNavigator({
     },
     News: {
         screen: NewsScreen
-    }
+    },NewsCarousel: {
+        screen: CitizenNewsScreen
+    }   
 }, {
     initialRouteName: 'Home',
     headerMode: 'none',

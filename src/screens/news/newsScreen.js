@@ -52,7 +52,7 @@ class NewsScreen extends React.Component {
         <Header>
           <Left>
             <Button transparent onPress={()=>{this.props.navigation.goBack()}}>
-              <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
+              <Ionicons name="ios-arrow-back" size={30} style={Colors.white} />
             </Button>
           </Left>
           <Right>

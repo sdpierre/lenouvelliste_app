@@ -33,6 +33,7 @@ let realm;
 var testDataSet=[] ;
 //NetInfo
 import NetInfo from "@react-native-community/netinfo";
+let fetchOverNet;
 
 
 class BreakingScreen extends React.Component {
@@ -76,16 +77,16 @@ class BreakingScreen extends React.Component {
     // Called after a component is mounted
     componentDidMount() {
       //let fetchOverNet=false;
-      console.log('DIDMOUNTCALLED>>>');
+      
       NetInfo.fetch().then(conn => {
-        console.log("Connection type", conn.type);
-        console.log("Is connected?", conn.isConnected);
+      
+      
         fetchOverNet=conn.isConnected;
         /*this.setState({
           isNetAvailable:conn.isConnected
         });*/
       }).then(()=>{
-        console.log('Value ofOver>>', fetchOverNet);
+      
         if(fetchOverNet)
         this.fetchNews(); 
         else 
@@ -105,18 +106,18 @@ class BreakingScreen extends React.Component {
       try{
         realm = new Realm({ path: 'NewsDb.realm' });
         var newsJson = realm.objects('breaking_news');
-        console.log('FetchinFromDB>>>', newsJson.length);
-        console.log('FetchinFromDBSize>>>', newsJson.length);
+        
+        
         this.setState ( {
           data: newsJson,
           refreshing:false
         });
       }catch(e){
-        console.log('InsideFunError>>', e);
+        console.log('BreakingDBError>>', e);
       }
      
       
-     // console.log(newsJson, '<<<DataOFFLINE', realm.path, 'PATH<<<');
+     
      
     }
     
@@ -157,7 +158,19 @@ class BreakingScreen extends React.Component {
         {
           refreshing: true
         },
-        () => this.fetchNews()
+        () => {
+          if(fetchOverNet)
+          this.fetchNews()
+          else
+          {
+            alert('Internet connection required!')
+            
+      this.setState(
+        {
+          refreshing: false
+        })
+          }
+        }
       );
     }
   

@@ -7,7 +7,8 @@ import {
   TouchableHighlight,
   TouchableOpacity, Dimensions, 
 } from "react-native";
-
+//Equal
+import equal from 'fast-deep-equal'
 
 import { Typography, Colors, Buttons, Spacing, Margins } from "../../../styles";
 
@@ -26,25 +27,51 @@ function wp (percentage) {
     const value = (percentage * viewportWidth) / 100;
     return Math.round(value);
 }
-
+let that;
 class Mostread extends React.Component {
   constructor(props) {
     super(props);
-    
+    console.log('MostreadCalled<<<');
     this.state = {
       data: [],
-      refreshing: true
+      refreshing: true,
+      propsData:props.mostReadData
     };
-    this.fetchNews = this.fetchNews.bind(this);
-  }
-  // Called after a component is mounted
-  componentDidMount() {
-    this.fetchNews();
-    this.handleRefresh();
-    
+    this.fetchMostRead = this.fetchMostRead.bind(this);
+    that=this;
   }
 
-  fetchNews() {
+  /*static getDerivedStateFromProps(props, state) {
+    console.log('DerivedCalled')
+    that.setState({
+      propsData:props.mostread
+    })
+    }*/
+
+  /*componentWillReceiveProps(nextProps){
+    console.log('WillREceivePropsCalled')
+      this.setState({
+        propsData:nextProps
+      })
+  }*/
+
+  // Called after a component is mounted
+  componentDidMount() {
+   // this.fetchMostRead();
+    //this.handleRefresh();
+    
+  }
+  componentDidUpdate(prevProps) {
+    if(!equal(this.props.mostReadData, prevProps.mostReadData)) // Check if it's a new prop
+    {
+      this.setState({
+        propsData : this.props.mostReadData
+      })
+      console.log('NotEqual');
+    }else console.log('equal')
+  } 
+  fetchMostRead() {
+    console.log('Calling MostReadApi');
     getMostRead()
       .then(data => this.setState({ data, refreshing: false }))
       .catch(() => this.setState({ refreshing: false }));
@@ -56,31 +83,20 @@ class Mostread extends React.Component {
       {
         refreshing: true
       },
-      () => this.fetchNews()
+      () => this.fetchMostRead()
     );
   }
 
   render() {
-    const {
-      titre,
-      headline,
-      date,
-      photo,
-      surtitre,
-      nophoto,
-      rubrique,
-      article,
-      author,
-      id,
-      url,
-    
-    } = this.props.mostread;
-    
+    console.log('MostREad Reresndering');
+   
     const { navigate } = this.props;
 
     return (
       <FlatList
-      data={this.state.data}
+      //data={this.state.data}
+      data={this.state.propsData}
+      onRefresh={this.handleRefresh.bind(this)}
       //renderItem={({ item }) => <Text>{item.titre}</Text>}
     
               renderItem={({ item }) => (
