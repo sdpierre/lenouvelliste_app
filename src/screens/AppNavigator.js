@@ -6,12 +6,13 @@ import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
 
 import EmptyScreen from "../screens/EmptyScreen";
-import MenuNavigator from "../screens/EmptyScreen";
+
 import SelectionScreen from "../screens/selection/SelectionNavigator";
 import BreakingNavigator from "./breaking/BreakingNavigator";
 import CitizenNavigator from "../screens/citizen/CitizenNavigator";
 import HomeNavigator from "../screens/home/HomeNavigator";
 import SelectionNavigator from './selection/SelectionNavigator'
+import MenuNavigator from './menu/MenuNavigator'
 
 const getScreenRegisteredFunctions = navState => {
   // When we use stack navigators. 
