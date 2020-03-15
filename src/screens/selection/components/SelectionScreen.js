@@ -1,5 +1,5 @@
 import React from "react";
-import { useFocusEffect } from '@react-navigation/native';
+
 import { withNavigation, withNavigationFocus  } from "react-navigation";
 
 import {

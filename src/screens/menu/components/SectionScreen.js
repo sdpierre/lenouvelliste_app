@@ -1,131 +1,166 @@
-import React from "react";
+import React, { Component } from 'react';
 import {
-  View,
-  StyleSheet,
-  FlatList,
-  Text
+    View,
+    StyleSheet,
+    FlatList,
+    Text,
+    Modal
 } from "react-native";
-import { Typography, Colors, Buttons, Spacing } from "../../../styles";
-import { getSectionNews } from "library/networking/Api";
-import { getHomeNews } from "library/networking/Api";
-import moment from "moment";
-import "moment/min/locales";
-import { setAppInfo, setUserInfo } from "../../../redux/actions";
-import { connect } from "react-redux";
-import Article from "library/components/Article";
-import ArticleLarge from "library/components/ArticleLarge";
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
-  Container,
-  Header,
-  Body,
-  Title,
-  Left,
-  Right,
-  Button
+    Container,
+    Header,
+    Body,
+    Title,
+    Content,
+    Right, Left,
+    Button
 } from "native-base";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { Typography, Colors, Buttons, Spacing } from "../../../styles";
+//Article 
+import Article from './ArticleMenu';
 
-class HomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      title: this.props.navigation.getParam('name'),
-      idsection: this.props.navigation.getParam('idsection'),
-      data: [],
-      refreshing: true
-    };
-    this.fetchNews = this.fetchNews.bind(this);
-  }
-  // Called after a component is mounted
+//API
+import { getSectionNews } from '../../../library/networking/Api'
+//NetInfo
+import NetInfo from '@react-native-community/netinfo';
+let fetchOverNet;
+//Data in DB
+let sectionDataDb;
+//Realm
+import Realm from 'realm';
+import ArticleMenu from './ArticleMenu';
+let realm;
 
-  componentDidMount() {
-    this.fetchNews();
-  }
+export default class SectionScreen extends Component {
+    constructor(props) {
+        super(props);
 
-  fetchNews() {
-    getSectionNews(this.state.idsection)
-      .then(data => this.setState({ data, refreshing: false }))
-      .catch(() => this.setState({ refreshing: false }));
-    
-  }
-  
-  handleRefresh() {
-    this.setState(
-      {
-        refreshing: true
-      },
-      () => this.fetchNews()
-    );
-  }
-  render() {
-    const { title } = this.state;
-    const { navigate } = this.props.navigation;
-    let that = this;
-    return (
-      <Container>
-         <Header>
-        <Left>
-            <Button transparent onPress={()=>{this.props.navigation.goBack()}}>
-              <AntDesign name="arrowleft" size={30} />
-            </Button>
-          </Left>
-          <Body>
-            <Title>
-              {title}
-            </Title>
-          </Body>
-          <Right></Right>
-        </Header>
+        this.state = {
+            id: this.props.navigation.getParam('idsection'),
+            title: this.props.navigation.getParam('name'),
+            loading: false,
+            data: [],
+            refreshing: false
+        }
+        //Databse Schema and Name
+        realm = new Realm({
+            path: 'SectionDb' + this.state.title + '.realm',
+            schema: [
+                {
+                    name: 'section_news' + this.state.title,
+                    primaryKey: 'id',
+                    properties: {
+                        id: 'int',
+                        article: 'string',
+                        author: 'string',
+                        date: 'string',
+                        headline: 'string',
+                        nophoto: 'string',
+                        photo: 'string',
+                        //photofolder:'string, optional: true',
+                        rubrique: 'string',
+                        surtitre: 'string',
+                        titre: 'string',
+                        url: 'string',
+                    },
+                },
+            ],
+        });
+        sectionDataDb = realm.objects('section_news' + this.state.title)
+        console.log('Economy Size>>', sectionDataDb.length)
+        this.fetchNews = this.fetchNews.bind(this);
 
-        <View style={styles.MainContainer}>
-          <FlatList
-            data={this.state.data}
-            renderItem={({ item }) => <Article name={item.id} article={item} navigate={navigate} />}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => {
-              if (index === 0)
-                return (
-                  <React.Fragment>
-                    <ArticleLarge
-                      article={item}
-                      navigate={navigate}
-                      isBookmarked={false}
-                    />
-                  </React.Fragment>
-                );
-              else
-                return (
-                  <Article
-                    article={item}
-                    navigate={navigate}
-                    isBookmarked={false}
-                  />
-                );
-            }}
-            refreshing={this.state.refreshing}
-            onRefresh={this.handleRefresh.bind(this)}
-          />
-        </View>
-      </Container>
-    );
-  }
+    }
+
+    componentDidMount() {
+        NetInfo.fetch()
+            .then(conn => {
+
+                fetchOverNet = conn.isConnected;
+            })
+            .then(() => {
+
+                if (fetchOverNet) this.fetchNews();
+                else {
+                    this.setState({
+                        refreshing: false,
+                        data: sectionDataDb,
+
+                    });
+                }
+            });
+    }
+    //Fetch News from API
+    fetchNews() {
+        getSectionNews(this.state.id)
+            .then(resp => {
+                realm.write(() => {
+                    realm.deleteAll();
+
+                    resp.forEach(element => {
+                        realm.create('section_news' + this.state.title, element);
+                    });
+                });
+                this.setState({ data: resp, refreshing: false });
+            })
+            .catch(e => {
+                console.log('ExceptionSection>>>', e);
+                this.setState({ refreshing: false });
+            });
+    }
+    //HandleRefresh
+    handleRefresh() {
+        this.setState(
+            {
+                refreshing: true,
+            },
+            () => {
+                if (fetchOverNet)
+                    this.fetchNews()
+                else {
+                    {
+                        alert('Internet connection required!')
+                        this.setState(
+                            {
+                                refreshing: false
+                            })
+                    }
+                }
+            },
+        );
+    }
+    render() {
+        const { navigate } = this.props.navigation
+        return (
+            <Modal animationType='slide'>
+                <Container>
+                    <Header>
+                        <Left>
+                            <Button transparent onPress={() => { this.props.navigation.goBack() }}>
+                                <Ionicons name="ios-arrow-back" size={30} style={Colors.white} />
+                            </Button>
+                        </Left>
+                        <Body><Title style={{ textTransform: 'capitalize' }}>{this.state.title}</Title></Body>
+                        <Right></Right>
+                    </Header>
+
+                    <FlatList data={this.state.data}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item, index }) => {
+                            return <ArticleMenu
+                                article={item}
+                                navigate={navigate}
+                                isBookmarked={false}
+                            />
+                        }
+
+                        }
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.handleRefresh.bind(this)} />
+
+                </Container>
+            </Modal>
+        )
+    }
 }
-
-export default HomeScreen
-
-
-const styles = StyleSheet.create({
-  button: {
-    ...Buttons.smallRounded
-  },
-  MainContainer: {
-    ...Colors.grayBackground,
-    marginBottom:80,
-  },
-  container: {
-    ...Colors.background,
-    ...Spacing.container,
-    ...Colors.whiteBackground
-  }
-});

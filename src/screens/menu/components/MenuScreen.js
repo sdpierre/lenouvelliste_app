@@ -1,117 +1,109 @@
-import React from 'react';
-import { Text, View, StyleSheet, ScrollView } from "react-native";
-import {setAppInfo} from '../../../redux/actions';
-import {connect} from 'react-redux';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import React, { Component } from 'react';
+
+import {
+    View,
+    StyleSheet,
+    FlatList,
+    Text,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 
-import { Container, Header, Left, Body, Right, Button, Icon, Title, Content } from 'native-base';
 
-class MenuScreen extends React.Component {
+import {
+    Container,
+    Header,
+    Body,
+    Title,
+    Content,
+    Right, Button
+} from "native-base";
 
-  constructor(props){
-    super(props);
-    this.state = {
-        title : "Menu",
-    }
+let items = [
+    {
+        name: 'Culture',
+        idSection: 5
+    },
+    {
+        name: 'Economie',
+        idSection: 3
+    }, {
+        name: 'National',
+        idSection: 4
+    }, {
+        name: 'société',
+        idSection: 6
+    }, {
+        name: 'sport',
+        idSection: 9
+    },
+]
 
-  } 
+export default class MenuScreen extends Component {
 
-  render() {
-    const {title} = this.state;
-    return (
-        <Container>
-        <Header>
-          <Left></Left>
-          <Body>
-            <Title>{title}</Title>
-          </Body>
-          <Right>
-           <Button transparent>
-                <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
-                </Button>
-  
-            <Button transparent onPress={()=>{this.props.navigation.navigate('Setting')}}>
-              <AntDesign name='setting' size={25} style={Colors.gray} />
-            </Button>
-          </Right>
-        </Header>
-        <Content>
-        <ScrollView style={styles.menuContainer}>
-          <Text style={styles.title} onPress={()=>{this.props.navigation.navigate("Section", {
-                      idsection: "5",
-                      name: "CULTURE",
-                    })}}> culture </Text>
-          <Text style={styles.title} onPress={()=>{this.props.navigation.navigate("Section", {
-                      idsection: "3",
-                      name: "ECONOMIE",
-                    })}}> Economie </Text>
-          <Text style={styles.title} onPress={()=>{this.props.navigation.navigate("Section", {
-                      idsection: "15",
-                      name: "EDITORIAL",
-                    })}}> éditorial </Text>
-          <Text style={styles.title} onPress={()=>{this.props.navigation.navigate("Section", {
-                      idsection: "18",
-                      name: "IDEES ET OPINIONS",
-                    })}}> idées et opinions </Text>
-          <Text style={styles.title} onPress={()=>{this.props.navigation.navigate("Section", {
-                      idsection: "4",
-                      name: "NATIONAL",
-                    })}}> national </Text>
-          <Text style={styles.title} onPress={()=>{this.props.navigation.navigate("Section", {
-                      idsection: "6",
-                      name: "SOCIETE",
-                    })}}> société </Text>
-          <Text style={styles.title} onPress={()=>{this.props.navigation.navigate("Section", {
-                      idsection: "9",
-                      name: "SPORT",
-                    })}}> sport </Text>
-          <Text style={styles.title} onPress={()=>{this.props.navigation.navigate("Section", {
-                      idsection: "19",
-                      name: "TICKET",
-                    })}}> ticket </Text>
-          {/* <Text style={styles.title}> santé </Text>
-          <Text style={styles.title}> vidéos </Text>
-          <Text style={styles.title}> photos </Text> */}
-        </ScrollView>
-        </Content>
-      </Container>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  menuContainer: {
-    paddingTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 90
-  },
-  title: {
-    marginTop: 10,
-    fontSize: 28,
-    color: "#5B6475",
-    textTransform: "uppercase",
-    marginBottom: 20,
-    fontFamily: "AkkoPro-BoldCondensed"
-  }
-});
-
-const mapStateToProps = (state) => ({
-    user: state.user || "Please Wait...",
-});
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setUserInfo: (info) => {
-            dispatch(setUserInfo(info))
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: "Menu",
+            menuData: items
         }
     }
-};
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MenuScreen);
+
+    render() {
+        return (
+            <Container>
+                <Header>
+                    <Body>
+                        <Title>{this.state.title}</Title>
+                    </Body>
+                    <Right>
+                        <Button transparent onPress={() => { this.props.navigation.navigate('Account') }}>
+                            <Ionicons name="account-outline" size={25} style={Colors.white} />
+                        </Button>
+                        <Button transparent onPress={() => { this.props.navigation.navigate('Settings') }}>
+                            <Ionicons name="settings-outline" size={25} style={Colors.white} />
+                        </Button>
+                    </Right>
+                </Header>
+                <View style={menuStyle.container}>
+                    <FlatList data={items}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item, index }) => {
+                            return <Text style={menuStyle.itemStyle} onPress={() => {
+                                {
+                                    this.props.navigation.navigate("Section",
+                                        {
+                                            idsection: items[index].idSection,
+                                            name: items[index].name,
+                                        })
+                                }
+                            }
+                            }>
+                                {items[index].name}
+                            </Text>
+                        }} />
+                </View>
+            </Container>
+        )
+    }
+
+}
+
+const menuStyle = StyleSheet.create({
+    container:
+    {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 20,
+
+    },
+    itemStyle: {
+        textTransform: 'capitalize',
+        fontFamily: 'Georgia',
+        fontWeight: 'bold',
+        fontSize: 22,
+        color: 'black',
+        marginVertical: 7,
+    }
+})
+

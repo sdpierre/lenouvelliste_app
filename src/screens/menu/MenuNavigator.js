@@ -1,34 +1,33 @@
-import React from 'react';
+
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import MenuScreen from './components/MenuScreen';
-// import LoginScreen from './components/LoginScreen';
-import SettingScreen from './components/SettingScreen';
-import { setAppInfo } from '../../redux/actions';
-import { connect } from 'react-redux';
-// import RegisterScreen from './components/RegisterScreen';
-// import ForgotpasswordScreen from './components/ForgotpasswordScreen';
-// import ProfileScreen from './components/ProfileScreen';
 import SectionScreen from './components/SectionScreen';
-import NewsScreen from '../news/newsScreen';
+import AccountScreen from './components/AccountScreen';
+import SettingsScreen from './components/SettingsScreen';
+import DetailScreen from './components/DetailScreen'
 
 const MenuStackNav = createStackNavigator({
     Menu: {
         screen: MenuScreen
     },
-    Section:{
-        screen: SectionScreen
+    Section: {
+        screen: SectionScreen,
     },
-    News: {
-        screen: NewsScreen
+    Account: {
+        screen: AccountScreen,
+    },
+    Settings: {
+        screen: SettingsScreen,
+    },
+    Detail: {
+        screen: DetailScreen,
     }
 }, {
     initialRouteName: 'Menu',
     headerMode: 'none',
-    mode: 'card'
+    mode: 'modal'
 });
 
 const MenuNavigator = createAppContainer(MenuStackNav);
-
 export default MenuNavigator;
-
