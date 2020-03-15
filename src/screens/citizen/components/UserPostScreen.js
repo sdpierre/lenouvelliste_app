@@ -12,7 +12,7 @@ export default class HelloWorldApp extends Component {
     <Header>
           <Left>
             <Button transparent onPress={()=>{this.props.navigation.goBack()}}>
-              <Ionicons name="ios-arrow-back" size={30} style={Colors.white} />
+              <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
             </Button>
           </Left>
           <Body></Body>

@@ -10,8 +10,7 @@ import Article from 'library/components/Article';
 import Mostread from '../components/Mostread';
 import CitizenTopNews from "../components/CitizenTopNews";
 import LogoTitle from 'library/components/logo';
-import Pub from "library/components/pub";
-import PubStandard from "library/components/PubStandard";
+
 
 import { Container, Header, Body, Title } from 'native-base';
 

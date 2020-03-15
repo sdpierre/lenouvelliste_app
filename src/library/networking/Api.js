@@ -28,3 +28,8 @@ export async function getBreakingNews() {
     let result = await fetch("http://lenouvelis.com/api/allcitizennews").then(response => response.json());
     return result.data;
   }
+
+  export async function getSectionNews(id) {
+    let result = await fetch("http://lenouvelis.com/api/section/"+id).then(response => response.json());
+    return result.data;
+  }

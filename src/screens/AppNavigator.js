@@ -6,7 +6,7 @@ import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
 
 import EmptyScreen from "../screens/EmptyScreen";
-import MenuNavigator from "../screens/EmptyScreen";
+import MenuNavigator from "../screens/menu/MenuNavigator";
 import SelectionScreen from "../screens/selection/SelectionNavigator";
 import BreakingNavigator from "./breaking/BreakingNavigator";
 import CitizenNavigator from "../screens/citizen/CitizenNavigator";
