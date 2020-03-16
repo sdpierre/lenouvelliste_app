@@ -5,8 +5,13 @@ import Carousel from "react-native-snap-carousel";
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 import { styles, sliderStyle, sliderWidth, itemWidth } from '../../../styles/sliderStyle';
 import { TouchableHighlight } from "react-native-gesture-handler";
+import moment from "moment";
+import 'moment/min/locales';
+import ImageOverlay from "react-native-image-overlay";
 
 let nav;
+
+let height = 300;
 
 class CitizenTop extends Component {
   constructor(props) {
@@ -20,6 +25,7 @@ class CitizenTop extends Component {
       
     };
   }
+ 
   /*
   navigateToDetail("NewsCarousel", {
           title: item.title,
@@ -33,44 +39,69 @@ class CitizenTop extends Component {
   
         })*/
         
-  _renderItem({ item, index }) {   
+  _renderItem({ item, index }) {  
+    
+    const time = moment(item.date || moment.now()).fromNow();
+    moment.locale('fr');
+
     return (
       <View>
-
         <TouchableHighlight
-          onPress={() =>{
-            nav("NewsCarousel", {
+          underlayColor="#ffffff00"
+          onPress={() => {
+            nav('NewsCarousel', {
               title: item.title,
-              body : item.body,
+              body: item.body,
               category: item.category,
               headline: item.title,
               date: item.date,
-              username : item.username,
-              media : item.media,
-              userphoto : item.userphoto,      
-      
-            })
-          }
-            
-          }
-        >
+              username: item.username,
+              media: item.media,
+              userphoto: item.userphoto,
+            });
+          }}>
           <View style={CitizenStyle.card}>
-            <Image
-              source={{ uri: item.thumb }}
-              style={{ width: 297, height: 220 }}
+              <ImageOverlay
+              source={{uri: item.thumb}}
+              height={0.7 * height} 
+              contentPosition="center">
+                {/* <View>
+                <Image
+                style={{}}
+                source={require('../../../res/images/play.png')}
             />
-            <View style={{ backgroundColor: '#191D25', padding: 30 }}>
-              <Text style={CitizenStyle.tag}>{item.category}</Text>
-              <Text style={CitizenStyle.title}>{item.title}</Text>
-              <View style={{ flex: 1, flexDirection: 'row' }}>
-                <View style={{ flex: 1 }}>
-                  <Text style={CitizenStyle.moment}>Duration <Text style={{ color: '#FFF', marginLeft: 10 }}>{item.date}</Text></Text>
+    </View> */}
+              </ImageOverlay>
+
+          
+       
+      
+        <View style={{backgroundColor:'#191D25', padding:30}}>
+          <Text style={CitizenStyle.tag}>{item.category}</Text>
+          <Text style={CitizenStyle.title}>{item.title}</Text>
+
+          <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                }}>
+
+                <View style={{backgroundColor: '',width: '20%'}}>
+                  <Text style={CitizenStyle.views}><Ionicons name="eye" size={10} /> 450</Text>
                 </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'right' }}> <Ionicons name="share" size={20} color="#fff" /></Text>
+
+                <View style={{backgroundColor: '',width: '40%'}}>
+                  <Text style={CitizenStyle.moment}>{time}</Text>
                 </View>
+
+                <View style={{backgroundColor: '',width: '40%'}}>
+                  <Text style={CitizenStyle.share}><Ionicons name="share" size={30} color="#fff" /></Text>
+                </View>
+
               </View>
-            </View>
+
+        </View>
           </View>
         </TouchableHighlight>
       </View>
@@ -98,6 +129,7 @@ export default CitizenTop;
 
 
 const CitizenStyle = StyleSheet.create({
+  
   card: {
     borderRadius: 7,
     overflow: 'hidden',
@@ -107,7 +139,7 @@ const CitizenStyle = StyleSheet.create({
   },
   content: {
     margin: 20,
-    padding: 10,
+    padding: 5,
   },
   tag: {
     color: '#ffcd00',
@@ -116,14 +148,26 @@ const CitizenStyle = StyleSheet.create({
   },
   title: {
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 18,
     color: "#fff",
     marginBottom: 20,
     fontFamily: "Georgia"
   },
   moment: {
     fontSize: 12,
+    color: '#fff',
+    fontFamily: 'Gotham-book',
+    paddingLeft:10,
+  },
+  views: {
+    fontSize: 12,
     color: '#ffcd00',
+    fontFamily: 'Gotham-book',
+  },
+  share: {
+    fontSize: 12,
+    textAlign: 'right',
+    fontFamily: 'Gotham-book',
   }
 });
 

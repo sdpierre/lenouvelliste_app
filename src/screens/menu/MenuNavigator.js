@@ -5,28 +5,28 @@ import MenuScreen from './components/MenuScreen';
 import SectionScreen from './components/SectionScreen';
 import AccountScreen from './components/AccountScreen';
 import SettingsScreen from './components/SettingsScreen';
-import DetailScreen from './components/DetailScreen'
+import NewsScreen from '../news/newsScreen';
 
 const MenuStackNav = createStackNavigator({
     Menu: {
-        screen: MenuScreen
+        screen: MenuScreen,
     },
     Section: {
         screen: SectionScreen,
+    },
+    News: {
+        screen: NewsScreen,
     },
     Account: {
         screen: AccountScreen,
     },
     Settings: {
-        screen: SettingsScreen,
-    },
-    Detail: {
-        screen: DetailScreen,
+        screen: SettingsScreen, 
     }
 }, {
     initialRouteName: 'Menu',
     headerMode: 'none',
-    mode: 'modal'
+    mode: 'card'
 });
 
 const MenuNavigator = createAppContainer(MenuStackNav);

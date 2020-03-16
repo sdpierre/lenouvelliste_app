@@ -57,7 +57,7 @@ class NewsScreen extends React.Component {
               onPress={() => {
                 this.props.navigation.goBack();
               }}>
-              <Ionicons name="close" size={30} style={Colors.white} />
+              <Ionicons name="close" size={30} style={Colors.gray} />
             </Button>
           </Left>
           <Right>

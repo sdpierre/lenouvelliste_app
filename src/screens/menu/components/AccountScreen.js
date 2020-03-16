@@ -9,14 +9,12 @@ import {
     Right, Left,
     Button
 } from "native-base";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 
 export default class AccountScreen extends Component {
     constructor(props) {
         super(props)
-
-
 
     }
 
@@ -27,7 +25,7 @@ export default class AccountScreen extends Component {
                     <Header>
                         <Left>
                             <Button transparent onPress={() => { this.props.navigation.goBack() }}>
-                                <Ionicons name="ios-arrow-back" size={30} style={Colors.white} />
+                                <MaterialCommunityIcons name="close" size={30} style={Colors.gray} />
                             </Button>
                         </Left>
                         <Body></Body>

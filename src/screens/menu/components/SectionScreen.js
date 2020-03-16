@@ -18,7 +18,7 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 //Article 
-import Article from './ArticleMenu';
+// import Article from './ArticleMenu';
 
 //API
 import { getSectionNews } from '../../../library/networking/Api'
@@ -29,7 +29,7 @@ let fetchOverNet;
 let sectionDataDb;
 //Realm
 import Realm from 'realm';
-import ArticleMenu from './ArticleMenu';
+import Article from "library/components/Article";
 let realm;
 
 export default class SectionScreen extends Component {
@@ -133,12 +133,12 @@ export default class SectionScreen extends Component {
     render() {
         const { navigate } = this.props.navigation
         return (
-            <Modal animationType='slide'>
+            
                 <Container>
                     <Header>
                         <Left>
                             <Button transparent onPress={() => { this.props.navigation.goBack() }}>
-                                <Ionicons name="ios-arrow-back" size={30} style={Colors.white} />
+                                <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
                             </Button>
                         </Left>
                         <Body><Title style={{ textTransform: 'capitalize' }}>{this.state.title}</Title></Body>
@@ -148,7 +148,7 @@ export default class SectionScreen extends Component {
                     <FlatList data={this.state.data}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item, index }) => {
-                            return <ArticleMenu
+                            return <Article
                                 article={item}
                                 navigate={navigate}
                                 isBookmarked={false}
@@ -160,7 +160,7 @@ export default class SectionScreen extends Component {
                         onRefresh={this.handleRefresh.bind(this)} />
 
                 </Container>
-            </Modal>
+            
         )
     }
 }

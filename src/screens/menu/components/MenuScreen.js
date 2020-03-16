@@ -7,37 +7,21 @@ import {
     Text,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 
-
+import { getSectionAll } from '../../../library/networking/Api'
+import LogoTitle from 'library/components/logo';
 import {
     Container,
     Header,
     Body,
     Title,
     Content,
-    Right, Button
+    Right, Button, Left
 } from "native-base";
-
-let items = [
-    {
-        name: 'Culture',
-        idSection: 5
-    },
-    {
-        name: 'Economie',
-        idSection: 3
-    }, {
-        name: 'National',
-        idSection: 4
-    }, {
-        name: 'société',
-        idSection: 6
-    }, {
-        name: 'sport',
-        idSection: 9
-    },
-]
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class MenuScreen extends Component {
 
@@ -45,65 +29,80 @@ export default class MenuScreen extends Component {
         super(props);
         this.state = {
             title: "Menu",
-            menuData: items
+            data: [],
         }
+        this.fetchNews = this.fetchNews.bind(this);
     }
+
+    componentDidMount() {
+        this.fetchNews();
+      }
+    
+      fetchNews() {
+        getSectionAll()
+          .then(data => this.setState({ data, refreshing: false }))
+          .catch(() => this.setState({ refreshing: false }));
+      }
 
     render() {
         return (
             <Container>
                 <Header>
+                    <Left>
+
+                    </Left>
                     <Body>
-                        <Title>{this.state.title}</Title>
+                    <LogoTitle />
                     </Body>
                     <Right>
                         <Button transparent onPress={() => { this.props.navigation.navigate('Account') }}>
-                            <Ionicons name="account-outline" size={25} style={Colors.white} />
+                            <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
                         </Button>
                         <Button transparent onPress={() => { this.props.navigation.navigate('Settings') }}>
-                            <Ionicons name="settings-outline" size={25} style={Colors.white} />
+                            <AntDesign name='setting' size={25} style={Colors.gray} />
                         </Button>
                     </Right>
                 </Header>
-                <View style={menuStyle.container}>
-                    <FlatList data={items}
+            
+             <Container style={styles.menuContainer}>
+                    <FlatList
+                        data={this.state.data}
                         keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item, index }) => {
-                            return <Text style={menuStyle.itemStyle} onPress={() => {
+                        renderItem={({ item }) => {
+                            return <Text style={styles.title} onPress={() => {
                                 {
                                     this.props.navigation.navigate("Section",
                                         {
-                                            idsection: items[index].idSection,
-                                            name: items[index].name,
+                                            idsection: item.idSection,
+                                            name: item.name,
                                         })
                                 }
                             }
                             }>
-                                {items[index].name}
+                                {item.name}
                             </Text>
                         }} />
-                </View>
+                </Container>
+                
             </Container>
         )
     }
 
 }
 
-const menuStyle = StyleSheet.create({
-    container:
-    {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 20,
-
+const styles = StyleSheet.create({
+    menuContainer: {
+      paddingTop: 10,
+      marginLeft: 10,
+      marginRight: 10,
+      marginBottom: 90
     },
-    itemStyle: {
-        textTransform: 'capitalize',
-        fontFamily: 'Georgia',
-        fontWeight: 'bold',
-        fontSize: 22,
-        color: 'black',
-        marginVertical: 7,
+    title: {
+      marginTop: 10,
+      fontSize: 28,
+      color: "#5B6475",
+      textTransform: "uppercase",
+      marginBottom: 20,
+      fontFamily: "AkkoPro-BoldCondensed"
     }
-})
-
+});
