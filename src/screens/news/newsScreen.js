@@ -25,7 +25,7 @@ class NewsScreen extends React.Component {
       title: this.props.navigation.getParam('title'),
       body: this.props.navigation.getParam('body'),
       date: this.props.navigation.getParam('date'),
-      category: this.props.navigation.getParam('category'),
+      surTitle: this.props.navigation.getParam('surTitle'),
       headline: this.props.navigation.getParam('headline'),
       author: this.props.navigation.getParam('author'),
       photo: this.props.navigation.getParam('photo'),
@@ -40,13 +40,14 @@ class NewsScreen extends React.Component {
     const { url } = this.state;
     const { body } = this.state;
     const { date } = this.state;
-    const { category } = this.state;
+    const { surTitle } = this.state;
     const { headline } = this.state;
     const { author } = this.state;
     const { photo } = this.state;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     // const { navigation } = this.props;
     // const title = navigation.getParam('title');
+
     return (
         <Container>
         <Header>
@@ -56,6 +57,8 @@ class NewsScreen extends React.Component {
             </Button>
           </Left>
           <Right>
+
+            
           <Share titre={title} url={url}/>
           </Right>
         </Header>
@@ -67,7 +70,7 @@ class NewsScreen extends React.Component {
 />
           <View style={Spacing.container}> 
           
-           <Text style={Typography.headline}>{category}</Text>
+           <Text style={Typography.headline}>{surTitle}</Text>
            <Text style={Typography.xlargeTitle}>{title}</Text>
 
            <Text style={styles.headline}>{headline}</Text>

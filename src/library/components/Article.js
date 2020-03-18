@@ -107,7 +107,7 @@ class Article extends React.Component {
                       photo: photo,
                       date: date,
                       author : author,
-
+                      url: url
                     })
                   }
                 >

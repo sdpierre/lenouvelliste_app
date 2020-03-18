@@ -38,6 +38,8 @@ class NewsScreen extends React.Component {
       date: this.props.navigation.getParam('date'),
       category: this.props.navigation.getParam('category'),
       url: this.props.navigation.getParam('url'),
+
+      
     };
   }
 
@@ -47,7 +49,9 @@ class NewsScreen extends React.Component {
     const {body} = this.state;
     const {date} = this.state;
     const {category} = this.state;
-    
+
+  
+
     return (
       <Container>
         <Header>
