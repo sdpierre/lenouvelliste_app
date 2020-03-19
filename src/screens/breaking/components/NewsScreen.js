@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {setAppInfo} from '../../../redux/actions';
-import {connect} from 'react-redux';
+import { setAppInfo } from '../../../redux/actions';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import 'moment/min/locales';
 import HTMLView from 'react-native-htmlview';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Typography, Colors, Buttons, Spacing} from '../../../styles';
+import { Typography, Colors, Spacing } from '../../../styles';
 import {
   Container,
   Header,
@@ -42,13 +42,14 @@ class NewsScreen extends React.Component {
   }
 
   render() {
-    const {title} = this.state;
-    const {url} = this.state;
-    const {body} = this.state;
-    const {date} = this.state;
-    const {category} = this.state;
-    
+    const { title } = this.state;
+    const { url } = this.state;
+    const { body } = this.state;
+    const { date } = this.state;
+    const { category } = this.state;
+
     return (
+
       <Container>
         <Header>
           <Left>
@@ -59,6 +60,8 @@ class NewsScreen extends React.Component {
               }}>
               <Ionicons name="close" size={30} style={Colors.gray} />
             </Button>
+            <Body></Body>
+            <Right></Right>
           </Left>
           <Right>
             <Share titre={title} url={url} />
@@ -79,6 +82,7 @@ class NewsScreen extends React.Component {
           </View>
         </Content>
       </Container>
+
     );
   }
 }

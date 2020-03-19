@@ -5,7 +5,9 @@ export const grayBackground = {
 export const whiteBackground = {
     backgroundColor: '#FFFF',
 };
-
+export const lightGrey={
+  color:'#D3D3D3'
+}
 export const gray = {
   color: '#878787',
 };

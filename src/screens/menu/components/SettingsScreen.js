@@ -1,88 +1,88 @@
 import React, { Component } from 'react';
 import { Text, Modal, StyleSheet } from 'react-native';
 import {
-    Container,
-    Header,
-    Body,
-    Title,
-    Content,
-    Right, Left,
-    Button, List, ListItem
+  Container,
+  Header,
+  Body,
+  Title,
+  Content,
+  Right, Left,
+  Button, List, ListItem
 } from "native-base";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 
 
 export default class SettingsScreen extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
 
-    }
+  }
 
-    render() {
-        return (
-            <Modal animationType='slide'>
-            <Container>
-                <Header>
-                    <Left>
-                        <Button transparent onPress={() => { this.props.navigation.goBack() }}>
-                            <MaterialCommunityIcons name="close" size={30} style={Colors.gray} />
-                        </Button>
-                    </Left>
-                    <Body></Body>
-                    <Right></Right>
-                </Header>
-                <Content>
-          <List>
+  render() {
+    return (
+      <Modal animationType='slide'>
+        <Container>
+          <Header>
+            <Left>
+              <Button transparent onPress={() => { this.props.navigation.goBack() }}>
+                <MaterialCommunityIcons name="close" size={30} style={Colors.gray} />
+              </Button>
+            </Left>
+            <Body></Body>
+            <Right></Right>
+          </Header>
+          <Content>
+            <List>
 
-            <ListItem itemDivider>
-              <Text style={styles.SectionTitle}>général</Text>
-            </ListItem>                    
-            <ListItem>
-              <Text>Alertes info</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Taille du texte</Text>
-            </ListItem>
-            <ListItem itemDivider>
-              <Text style={styles.SectionTitle}>à propos</Text>
-            </ListItem>  
-            <ListItem>
-              <Text>Noter l'application</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Nous contacter</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Mentions légales</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Conditions générales d'utilisation</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Politique de confidentialité</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Version</Text>
-            </ListItem>
-          </List>
-        </Content>
-            </Container>
-            </Modal>
-        )
-    }
+              <ListItem itemDivider>
+                <Text style={styles.SectionTitle}>général</Text>
+              </ListItem>
+              <ListItem>
+                <Text>Alertes info</Text>
+              </ListItem>
+              <ListItem>
+                <Text>Taille du texte</Text>
+              </ListItem>
+              <ListItem itemDivider>
+                <Text style={styles.SectionTitle}>à propos</Text>
+              </ListItem>
+              <ListItem>
+                <Text>Noter l'application</Text>
+              </ListItem>
+              <ListItem>
+                <Text>Nous contacter</Text>
+              </ListItem>
+              <ListItem>
+                <Text>Mentions légales</Text>
+              </ListItem>
+              <ListItem>
+                <Text>Conditions générales d'utilisation</Text>
+              </ListItem>
+              <ListItem>
+                <Text>Politique de confidentialité</Text>
+              </ListItem>
+              <ListItem>
+                <Text>Version</Text>
+              </ListItem>
+            </List>
+          </Content>
+        </Container>
+      </Modal>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
-    menuContainer: {
-      paddingTop: 10,
-      marginLeft: 10,
-      marginRight: 10,
-      marginBottom: 90
-    },
-    SectionTitle: {
-      marginTop: 10,
-      color: "#5B6475",
-      textTransform: "uppercase",
-    }
+  menuContainer: {
+    paddingTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 90
+  },
+  SectionTitle: {
+    marginTop: 10,
+    color: "#5B6475",
+    textTransform: "uppercase",
+  }
 });

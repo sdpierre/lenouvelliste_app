@@ -17,15 +17,15 @@ class CitizenTop extends Component {
   constructor(props) {
     super(props);
 
-    nav=this.props.navigate;
+    nav = this.props.navigate;
     this.state = {
       isLoading: true,
 
       entries: this.props.topNewsData,
-      
+
     };
   }
- 
+
   /*
   navigateToDetail("NewsCarousel", {
           title: item.title,
@@ -38,9 +38,9 @@ class CitizenTop extends Component {
           userphoto : item.userphoto,      
   
         })*/
-        
-  _renderItem({ item, index }) {  
-    
+
+  _renderItem({ item, index }) {
+
     const time = moment(item.date || moment.now()).fromNow();
     moment.locale('fr');
 
@@ -61,47 +61,47 @@ class CitizenTop extends Component {
             });
           }}>
           <View style={CitizenStyle.card}>
-              <ImageOverlay
-              source={{uri: item.thumb}}
-              height={0.7 * height} 
+            <ImageOverlay
+              source={{ uri: item.thumb }}
+              height={0.7 * height}
               contentPosition="center">
-                {/* <View>
+              {/* <View>
                 <Image
                 style={{}}
                 source={require('../../../res/images/play.png')}
             />
     </View> */}
-              </ImageOverlay>
+            </ImageOverlay>
 
-          
-       
-      
-        <View style={{backgroundColor:'#191D25', padding:30}}>
-          <Text style={CitizenStyle.tag}>{item.category}</Text>
-          <Text style={CitizenStyle.title}>{item.title}</Text>
 
-          <View
+
+
+            <View style={{ backgroundColor: '#191D25', padding: 30 }}>
+              <Text style={CitizenStyle.tag}>{item.category}</Text>
+              <Text style={CitizenStyle.title}>{item.title}</Text>
+
+              <View
                 style={{
                   flex: 1,
                   flexDirection: 'row',
                   flexWrap: 'wrap',
                 }}>
 
-                <View style={{backgroundColor: '',width: '20%'}}>
+                <View style={{ backgroundColor: '', width: '20%' }}>
                   <Text style={CitizenStyle.views}><Ionicons name="eye" size={10} /> 450</Text>
                 </View>
 
-                <View style={{backgroundColor: '',width: '40%'}}>
+                <View style={{ backgroundColor: '', width: '40%' }}>
                   <Text style={CitizenStyle.moment}>{time}</Text>
                 </View>
 
-                <View style={{backgroundColor: '',width: '40%'}}>
+                <View style={{ backgroundColor: '', width: '40%' }}>
                   <Text style={CitizenStyle.share}><Ionicons name="share" size={30} color="#fff" /></Text>
                 </View>
 
               </View>
 
-        </View>
+            </View>
           </View>
         </TouchableHighlight>
       </View>
@@ -129,7 +129,7 @@ export default CitizenTop;
 
 
 const CitizenStyle = StyleSheet.create({
-  
+
   card: {
     borderRadius: 7,
     overflow: 'hidden',
@@ -157,7 +157,7 @@ const CitizenStyle = StyleSheet.create({
     fontSize: 12,
     color: '#fff',
     fontFamily: 'Gotham-book',
-    paddingLeft:10,
+    paddingLeft: 10,
   },
   views: {
     fontSize: 12,
