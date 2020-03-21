@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Modal, StyleSheet, TouchableOpacity, Text, Dimensions, TextInput } from 'react-native';
+import { View, Modal, StyleSheet, TouchableOpacity, Text, Dimensions, TextInput, TouchableWithoutFeedback } from 'react-native';
 //import { CheckBox } from 'react-native-elements'
 import CheckBox from 'react-native-check-box';
 import {
@@ -26,18 +26,57 @@ export default class Register extends React.Component {
         this.state = {
             itemSelected: 'Sir',
             checked: false,
-            modalVisible:true
+            modalVisible: true,
+            username: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: ''
         }
     }
-
-    getChecked = (value) => {
-        // value = our checked value
-        alert(value)
+    handleUserName = (text) => {
+        this.setState({
+            username: text
+        })
     }
+    handleFirstName = (text) => {
+        this.setState({
+            firstName: text
+        })
+    }
+
+    handleLastName = (text) => {
+        this.setState({
+            lastName: text
+        })
+    }
+
+    handlEmail = (text) => {
+        this.setState({
+            email: text
+        })
+    }
+    handlePassword = (text) => {
+        this.setState({
+            password: text
+        })
+    }
+
     render() {
         return (
-            <Modal animationType='slide' visible={this.state.modalVisible}>
-                <Container>
+            <Modal transparent={true} animationType='fade' >
+                <TouchableWithoutFeedback >
+                    <View
+                        style={
+                            {
+                                backgroundColor: 'transparent',
+                                width: deviceWidth,
+                                height: deviceHeight * 0.03
+                            }
+                        }
+                    />
+                </TouchableWithoutFeedback>
+                <Container >
                     <Header style={{ backgroundColor: 'white' }}>
                         <Left>
                             <Button
@@ -55,81 +94,88 @@ export default class Register extends React.Component {
                             </TouchableOpacity>
                         </Right>
                     </Header>
-                    <Content style={{ flex: 1 }}>
+                    <Content style={{ flex: 1 }} >
                         <KeyboardAwareScrollView>
                             <View style={registerStyles.rootContainer}>
-                                <View>
-                                    <Text style={registerStyles.title}>Create your Le Nouvelliste account</Text>
-                                    <Text style={registerStyles.allMedia}>You can take advantage of the Nouvelliste's free services on all media</Text>
-                                    <View style={registerStyles.radioContainer}>
-                                        <View style={{ flexDirection: 'row' }}>
-                                            <Radio onPress={() => this.setState({ itemSelected: 'Sir' })}
-                                                selected={this.state.itemSelected == 'Sir'}
-                                            />
-                                            <Text style={{ marginStart: 10 }}>Sir</Text>
-                                        </View>
-                                        <View style={{ flexDirection: 'row' }}>
-
-                                            <Radio onPress={() => this.setState({ itemSelected: 'Mrs' })}
-                                                selected={this.state.itemSelected == 'Mrs'}
-                                            />
-                                            <Text style={{ marginStart: 10 }}>Mrs</Text>
-                                        </View>
-                                    </View>
-                                    <TextInput
-                                        placeholder="Username"
-                                        placeholderTextColor='#9b9b9b'
-                                        keyboardType={'default'}
-                                        style={registerStyles.input}
-                                        returnKeyType={"next"}
-                                        onSubmitEditing={() => { this.secondTextInput.focus(); }}
-                                        blurOnSubmit={false}
-                                    />
-                                    <TextInput
-                                        placeholder="First Name"
-                                        placeholderTextColor='#9b9b9b'
-                                        keyboardType={'default'}
-                                        //value={this.state.email} onChangeText={email => this.setState({ email })}
-                                        style={registerStyles.input}
-                                        returnKeyType={"next"}
-                                        onSubmitEditing={() => { this.secondTextInput.focus(); }}
-                                        blurOnSubmit={false}
-                                    />
-                                    <TextInput
-                                        placeholder="Last Name"
-                                        placeholderTextColor='#9b9b9b'
-                                        keyboardType={'default'}
-                                        //value={this.state.email} onChangeText={email => this.setState({ email })}
-                                        style={registerStyles.input}
-                                        returnKeyType={"next"}
-                                        onSubmitEditing={() => { this.secondTextInput.focus(); }}
-                                        blurOnSubmit={false}
-                                    />
-                                    <TextInput
-                                        placeholder="Email"
-                                        placeholderTextColor='#9b9b9b'
-                                        keyboardType={'email-address'}
-                                        //value={this.state.email} onChangeText={email => this.setState({ email })}
-                                        style={registerStyles.input}
-                                        returnKeyType={"next"}
-                                        onSubmitEditing={() => { this.secondTextInput.focus(); }}
-                                        blurOnSubmit={false}
-                                    />
+                                <Text style={registerStyles.title}>Create your Le Nouvelliste account</Text>
+                                <Text style={registerStyles.allMedia}>You can take advantage of the Nouvelliste's free services on all media</Text>
+                                <View style={registerStyles.radioContainer}>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <TextInput
-                                            ref={(input) => { this.secondTextInput = input; }}
-                                            secureTextEntry
-                                            placeholder="Password"
-                                            placeholderTextColor='#9b9b9b'
-                                            style={registerStyles.input}
+                                        <Radio onPress={() => this.setState({ itemSelected: 'Sir' })}
+                                            selected={this.state.itemSelected == 'Sir'}
                                         />
-                                        <Icon style={registerStyles.icon}
-                                            name='visibility-off'
-                                            size={25}
-                                            color='#D3D3D3'
-                                            onPress={this.changePwdType}
-                                        />
+                                        <Text style={{ marginStart: 10 }}>Sir</Text>
                                     </View>
+                                    <View style={{ flexDirection: 'row' }}>
+
+                                        <Radio onPress={() => this.setState({ itemSelected: 'Mrs' })}
+                                            selected={this.state.itemSelected == 'Mrs'}
+                                        />
+                                        <Text style={{ marginStart: 10 }}>Mrs</Text>
+                                    </View>
+                                </View>
+                                <TextInput
+                                    placeholder="Username"
+                                    placeholderTextColor='#9b9b9b'
+                                    keyboardType={'default'}
+                                    onChangeText={this.handleUserName}
+                                    value={this.state.username}
+                                    style={registerStyles.input}
+                                    returnKeyType={"next"}
+                                    onSubmitEditing={() => { this.firstInput.focus(); }}
+                                    blurOnSubmit={false}
+                                />
+                                <TextInput
+                                    placeholder="First Name"
+                                    placeholderTextColor='#9b9b9b'
+                                    keyboardType={'default'}
+                                    onChangeText={this.handleFirstName}
+                                    value={this.state.firstName}
+                                    style={registerStyles.input}
+                                    returnKeyType={"next"}
+                                    onSubmitEditing={() => { this.lastInput.focus(); }}
+                                    blurOnSubmit={false}
+                                    ref={(input) => { this.firstInput = input; }}
+                                />
+                                <TextInput
+                                    placeholder="Last Name"
+                                    placeholderTextColor='#9b9b9b'
+                                    keyboardType={'default'}
+                                    onChangeText={this.handleLastName}
+                                    value={this.state.lastName}
+                                    style={registerStyles.input}
+                                    returnKeyType={"next"}
+                                    onSubmitEditing={() => { this.emailInput.focus(); }}
+                                    blurOnSubmit={false}
+                                    ref={(input) => { this.lastInput = input; }}
+                                />
+                                <TextInput
+                                    placeholder="Email"
+                                    placeholderTextColor='#9b9b9b'
+                                    keyboardType={'email-address'}
+                                    onChangeText={this.handlEmail}
+                                    value={this.state.email}
+                                    style={registerStyles.input}
+                                    returnKeyType={"next"}
+                                    ref={(input) => { this.emailInput = input; }}
+                                    onSubmitEditing={() => { this.passwordInput.focus() }}
+                                    blurOnSubmit={false}
+                                />
+                              <View style={{ flexDirection: 'row'}}>
+                                    <TextInput
+                                        ref={(input) => { this.passwordInput = input; }}
+                                        secureTextEntry
+                                        placeholder="Password"
+                                        placeholderTextColor='#9b9b9b'
+                                        style={registerStyles.input}
+                                    />
+                                    <Icon style={registerStyles.icon}
+                                        name='visibility-off'
+                                        size={25}
+                                        color='#D3D3D3'
+                                        onPress={this.changePwdType}
+                                    />
+
                                 </View>
                                 <View style={registerStyles.checkContainer}>
 
@@ -181,11 +227,12 @@ export default class Register extends React.Component {
                                 </View>
 
                             </View>
-                            <View style={{ paddingHorizontal: 30, marginBottom:20 }}>
+                            <View style={{ paddingHorizontal: 30, marginBottom: 20 }}>
                                 <View style={{ backgroundColor: 'red' }}>
                                     <Button
                                         transparent
                                         onPress={() => {
+                                            this.props.navigation.goBack();
                                             this.props.navigation.navigate('RegisterDone');
                                         }}>
                                         <View style={registerStyles.buttonContainer}>
@@ -208,10 +255,11 @@ const registerStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 30
+        padding: 30,
+
     },
     already: {
-        color: 'red',
+        color: 'crimson',
         fontSize: 16,
         fontWeight: 'bold'
     },
@@ -258,5 +306,5 @@ const registerStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
 
-    },
+    }
 })

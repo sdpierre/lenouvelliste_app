@@ -1,17 +1,20 @@
 import React from 'react';
-import { View, Modal, Text, StyleSheet } from 'react-native';
+import { View, Modal, Text, StyleSheet, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import {
     Container,
     Header,
     Body,
-    Title, Button,
+    Button,
     Content,
-    Right, Left, Radio
+    Right, Left
 } from "native-base";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Typography, Colors, Spacing } from '../../../styles';
+import { Colors } from '../../../styles';
 
 
+//Dimensions
+var deviceWidth = (Dimensions.get('window').width);
+var deviceHeight = (Dimensions.get('window').height);
 export default class RegisterDone extends React.Component {
     constructor(props) {
         super(props)
@@ -19,9 +22,21 @@ export default class RegisterDone extends React.Component {
 
     render() {
         return (
-            <Modal animationType='slide' >
+            <Modal animationType='fade' transparent={true} >
+                <TouchableWithoutFeedback >
+                <View
+                    style={[
+
+                        {
+                            backgroundColor: 'transparent',
+                            width: deviceWidth,
+                            height: deviceHeight * 0.03
+                        }
+                    ]}
+                />
+            </TouchableWithoutFeedback>
                 <Container>
-                    <Header style={{ backgroundColor: 'white' }}>
+                    <Header style={{ backgroundColor: 'white', }}>
                         <Left>
                             <Button
                                 transparent
@@ -45,6 +60,7 @@ export default class RegisterDone extends React.Component {
                                     <Button
                                         transparent
                                         onPress={() => {
+                                            this.props.navigation.goBack();
                                             this.props.navigation.navigate('Home');
                                         }}>
                                         <View style={doneRegStyles.buttonContainer}>
@@ -56,7 +72,7 @@ export default class RegisterDone extends React.Component {
                         
                     </Content>
                 </Container>
-            </Modal>
+        </Modal>
         )
     }
 }

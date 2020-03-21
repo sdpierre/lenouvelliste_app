@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-import { Text, View } from "react-native";
-import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
-import { connect } from "react-redux";
 
-import EmptyScreen from "../screens/EmptyScreen";
-import SelectionScreen from "../screens/selection/SelectionNavigator";
 import BreakingNavigator from "./breaking/BreakingNavigator";
 import CitizenNavigator from "../screens/citizen/CitizenNavigator";
 import HomeNavigator from "../screens/home/HomeNavigator";
@@ -63,7 +58,7 @@ const AppNavigator = createBottomTabNavigator(
         activeTintColor: "#267DEA",
         inactiveTintColor: "gray",
         style: {
-          paddingTop: 5
+          paddingTop: 5,
         }
       }
     }

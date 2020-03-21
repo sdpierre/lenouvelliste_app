@@ -93,13 +93,14 @@ class Article extends React.Component {
                 .objects('book_news')
                 .filtered('id =' + saveArticle.id);                
     let alreadyBookmarked = bookmarkedArticle.length>0;
+    
     return (
       
       <View>
-
       <TouchableHighlight
                   onPress={() =>
                     navigate("News", {
+                      id:saveArticle.id,
                       surTitle: surtitre,
                       title: titre,
                       headline : headline,
@@ -107,7 +108,9 @@ class Article extends React.Component {
                       photo: photo,
                       date: date,
                       author : author,
-
+                      url: url,
+                      booked:this.state.isBookmarked,
+                      nophoto:nophoto                      
                     })
                   }
                 >

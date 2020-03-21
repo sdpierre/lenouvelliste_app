@@ -38,6 +38,8 @@ class NewsScreen extends React.Component {
       date: this.props.navigation.getParam('date'),
       category: this.props.navigation.getParam('category'),
       url: this.props.navigation.getParam('url'),
+
+      
     };
   }
 
@@ -72,7 +74,7 @@ class NewsScreen extends React.Component {
             <Text style={Typography.headline}>{category}</Text>
             <Text style={Typography.xlargeTitle}>{title}</Text>
             <Text style={Typography.subHead}>
-              {(time = moment(date || moment.now()).fromNow())}
+              {( moment(date || moment.now()).fromNow())}
             </Text>
             <HTMLView
               value={'<div>' + body + '</div>'}

@@ -8,9 +8,8 @@ import SettingsScreen from './components/SettingsScreen';
 import NewsScreen from '../news/newsScreen';
 import RegisterScreen from '../loginFlow/components/Register';
 import RegisterdoneScreen from '../loginFlow/components/RegisterDone';
-import HomeScreen from '../home/components/HomeScreen';
 import ForgotScreen from '../loginFlow/components/Forgot'
-
+import ForgotDoneScreen from '../loginFlow/components/ForgotDone'
 
 const MenuStackNav = createStackNavigator({
     Menu: {
@@ -34,11 +33,11 @@ const MenuStackNav = createStackNavigator({
     RegisterDone:{
         screen:RegisterdoneScreen,
     },
-    Home:{
-        screen:HomeScreen
-    },
     Forgot:{
         screen:ForgotScreen
+    },
+    ForgotDone:{
+        screen:ForgotDoneScreen
     }
 }, {
     initialRouteName: 'Menu',

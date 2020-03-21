@@ -1,18 +1,19 @@
 import React from 'react';
-import { ActivityIndicator, NativeModules, Platform, StyleSheet, Text, Modal, View, TouchableOpacity, TextInput, Image, ScrollView, ImageBackground, Dimensions, AsyncStorage, Alert } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { TouchableWithoutFeedback, ActivityIndicator, NativeModules, Platform, StyleSheet, Text, Modal, View, TouchableOpacity, TextInput, Image, ScrollView, ImageBackground, Dimensions, AsyncStorage, Alert } from 'react-native';
+
 import {
     Container,
     Header,
     Body,
-    Title, Button,
-    Content,
-    Right, Left
+    Button,
+    Right, Left,
+    Content
 } from "native-base";
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { Typography, Colors, Spacing } from '../../../styles';
+import { Colors } from '../../../styles';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 //Dimensions
@@ -29,10 +30,11 @@ export default class Login extends React.Component {
     }
     render() {
         return (
-            // <KeyboardAwareScrollView bounces={false} style={styles.container}>
-            <Modal animationType='slide'>
-                <Container>
-                    <Header style={{backgroundColor:'white'}}>
+
+
+            <Modal animationType='slide' transparent={false} marginTop={20} style={{flex:0,  justifyContent: 'flex-end', margin:0}} back>
+                <View style={{ flex: 0, height: 500, marginTop: 20 }}>
+                    <Header style={{ backgroundColor: 'white', }}>
                         <Left>
                             <Button
                                 transparent
@@ -45,69 +47,72 @@ export default class Login extends React.Component {
                         <Body></Body>
                         <Right></Right>
                     </Header>
-                    <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', padding: 35 }}>
-                        <View style={{ flexDirection: 'column', flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+                    <Content>
+                        <View style={{ flex: 0, height: 500, padding: 35 }}>
+                            <View style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
 
-                            <Text style={styles.loginText}>Login</Text>
+                                <Text style={styles.loginText}>Login</Text>
 
 
-                            <TextInput 
-                                placeholder="E-mail"
-                                placeholderTextColor='#9b9b9b'
-                                keyboardType={'email-address'}
-                                //value={this.state.email} onChangeText={email => this.setState({ email })}
-                                style={styles.input}
-                                returnKeyType={"next"}
-                                onSubmitEditing={() => { this.secondTextInput.focus(); }}
-                                blurOnSubmit={false}
-                            />
-                            <View style={{ flexDirection: 'row' }}>
                                 <TextInput
-                                    ref={(input) => { this.secondTextInput = input; }}
-                                    secureTextEntry
-                                    placeholder="........."
+                                    placeholder="E-mail"
                                     placeholderTextColor='#9b9b9b'
+                                    keyboardType={'email-address'}
+                                    //value={this.state.email} onChangeText={email => this.setState({ email })}
                                     style={styles.input}
+                                    returnKeyType={"next"}
+                                    onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                                    blurOnSubmit={false}
                                 />
-                                <Icon style={styles.icon}
-                                    name='visibility-off'
-                                    size={25}
-                                    color='#D3D3D3'
-                                    onPress={this.changePwdType}
-                                />
-                            </View>
-                            <View style={styles.loginButton}>
-                                <Button
-                                    transparent
-                                    onPress={() => {
-                                        this.props.navigation.goBack();
-                                    }}>
-                                    <View style={styles.buttonContainer}>
-                                        <Text style={{ color: 'white', fontSize: 20 }}>I connect</Text>
-                                    </View>
-                                </Button>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <TextInput
+                                        ref={(input) => { this.secondTextInput = input; }}
+                                        secureTextEntry
+                                        placeholder="Password"
+                                        placeholderTextColor='#9b9b9b'
+                                        style={styles.input}
+                                    />
+                                    <Icon style={styles.icon}
+                                        name='visibility-off'
+                                        size={25}
+                                        color='#D3D3D3'
+                                        onPress={this.changePwdType}
+                                    />
+                                </View>
+                                <View style={styles.loginButton}>
+                                    <Button
+                                        transparent
+                                        onPress={() => {
+                                            this.props.navigation.goBack();
+                                        }}>
+                                        <View style={styles.buttonContainer}>
+                                            <Text style={{ color: 'white', fontSize: 20 }}>I connect</Text>
+                                        </View>
+                                    </Button>
 
-                            </View>
+                                </View>
 
-                            <TouchableOpacity style={{ backgroundColor: 'transparent', width: '100%', marginTop: 30 }} onPress={() =>{console.log('>>>Forgot Pressed<<<'); this.props.navigation.navigate('Forgot');} }>
-                                <Text style={styles.forgot}>
-                                    Forgot your password?
+                                <TouchableOpacity style={{ backgroundColor: 'transparent', width: '100%', marginTop: 30 }} onPress={() => { console.log('>>>Forgot Pressed<<<'); this.props.navigation.navigate('Forgot'); }}>
+                                    <Text style={styles.forgot}>
+                                        Forgot your password?
                                 </Text>
-                            </TouchableOpacity>
+                                </TouchableOpacity>
 
-                            <TouchableOpacity style={{ backgroundColor: 'transparent', width: '100%', marginTop: 15 }} onPress={() => {this.props.navigation.navigate('Register')}}>
-                                <Text style={styles.noAcc} >
-                                    No account yet?
+                                <TouchableOpacity style={{ backgroundColor: 'transparent', width: '100%', marginTop: 15 }} onPress={() => { this.props.navigation.goBack(); this.props.navigation.navigate('Register'); }}>
+                                    <Text style={styles.noAcc} >
+                                        No account yet?
                             </Text>
 
-                            </TouchableOpacity>
+                                </TouchableOpacity>
 
 
+                            </View>
                         </View>
-                    </View>
-                </Container>
+                    </Content>
+                </View>
             </Modal>
-            // </KeyboardAwareScrollView>
+
+
         )
     }
 }
@@ -115,8 +120,9 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
 
     container: {
-        flex: 1,
-        backgroundColor: 'white',
+        flex: 0,
+        backgroundColor: 'transparent',
+        marginTop: 20
 
         //height:deviceHeight+64
     },
@@ -188,7 +194,7 @@ const styles = StyleSheet.create({
         height: 20
 
     },
-    noAcc:{
+    noAcc: {
         color: 'grey',
         fontSize: 12,
         backgroundColor: 'transparent',

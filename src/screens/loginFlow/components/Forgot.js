@@ -1,14 +1,13 @@
 import React from 'react';
-import { Text, View, StyleSheet, Modal, TextInput, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, Modal, TextInput, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import {
     Container,
     Header,
     Body,
-    Title, Button,
-    Content,
+    Button,
     Right, Left
 } from "native-base";
-import { Typography, Colors, Spacing } from '../../../styles';
+import { Colors } from '../../../styles';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //Dimensions
@@ -17,8 +16,20 @@ var deviceHeight = (Dimensions.get('window').height);
 
 const Forgot = (props) => {
     return (
-        <Modal animationType='slide'>
-            <Container>
+        <Modal transparent={true} animationType='fade' style={{ flex: 0, height: 350, margin: 20 }} >
+            <TouchableWithoutFeedback >
+                <View
+                    style={[
+
+                        {
+                            backgroundColor: 'transparent',
+                            width: deviceWidth,
+                            height: deviceHeight * 0.03
+                        }
+                    ]}
+                />
+            </TouchableWithoutFeedback>
+            <Container height={deviceHeight / 2}>
                 <Header style={{ backgroundColor: 'white' }}>
                     <Left>
                         <Button
@@ -34,51 +45,51 @@ const Forgot = (props) => {
                 </Header>
                 <View style={forgotStyles.rootContainer}>
                     <Text style={forgotStyles.mainText}>Forgot your Password?</Text>
-                    <Text style={forgotStyles.info}>Enter your email to receive a temporary connection linkand create a new password.</Text>
-                    <TextInput 
-                                placeholder="Email"
-                                placeholderTextColor='#9b9b9b'
-                                keyboardType={'email-address'}
-                                //value={this.state.email} onChangeText={email => this.setState({ email })}
-                                style={forgotStyles.input}
-                                returnKeyType={"next"}
-                                onSubmitEditing={() => { this.secondTextInput.focus(); }}
-                                blurOnSubmit={false}
-                            />
+                    <Text style={forgotStyles.info}>Enter your email to receive a temporary connection link and create a new password.</Text>
+                    <TextInput
+                        placeholder="Email"
+                        placeholderTextColor='#9b9b9b'
+                        keyboardType={'email-address'}
+                        style={forgotStyles.input}
+                        returnKeyType={"next"}
+                        onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                        blurOnSubmit={false}
+                    />
                     <View style={forgotStyles.loginButton}>
-                                <Button
-                                    transparent
-                                    onPress={() => {
-                                        this.props.navigation.goBack();
-                                    }}>
-                                    <View style={forgotStyles.buttonContainer}>
-                                        <Text style={{ color: 'white', fontSize: 20 }}>Send</Text>
-                                    </View>
-                                </Button>
-
+                        <Button
+                            transparent
+                            onPress={() => {
+                                props.navigation.goBack();
+                                props.navigation.navigate('ForgotDone');
+                            }}>
+                            <View style={forgotStyles.buttonContainer}>
+                                <Text style={{ color: 'white', fontSize: 20 }}>Send</Text>
                             </View>
+                        </Button>
+
+                    </View>
                 </View>
             </Container>
-            </Modal>
+        </Modal>
     )
 }
 export default Forgot;
-const forgotStyles=StyleSheet.create({
-                rootContainer:{
-                flex:1,
-        justifyContent:'flex-start',
-        padding:30
+const forgotStyles = StyleSheet.create({
+    rootContainer: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        padding: 30
     },
-    mainText:{
-        fontSize:25,
-        fontWeight:'bold',
-        color:'black',
-        marginTop:50
+    mainText: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: 'black',
+        marginTop: 50
     },
-    info:{
-        fontSize:16,
-        color:'#D3D3D3',
-        marginTop:20
+    info: {
+        fontSize: 16,
+        color: '#D3D3D3',
+        marginTop: 20
     },
     buttonContainer: {
         flex: 1,
@@ -88,8 +99,8 @@ const forgotStyles=StyleSheet.create({
     },
     loginButton: {
         backgroundColor: 'pink',
-        marginTop:20
-    },input: {
+        marginTop: 20
+    }, input: {
         width: '100%',
         height: 50,
         padding: 10,
@@ -99,7 +110,7 @@ const forgotStyles=StyleSheet.create({
         paddingLeft: 15,
         color: '#D3D3D3',
         alignSelf: 'center',
-        marginTop:30
+        marginTop: 30
 
 
 

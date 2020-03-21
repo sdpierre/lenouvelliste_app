@@ -187,7 +187,7 @@ class HomeScreen extends React.Component {
       });
 
   }
-
+ 
   handleRefresh() {
     this.setState(
       {

@@ -64,10 +64,11 @@ class Mostread extends React.Component {
   componentDidUpdate(prevProps) {
     if(!equal(this.props.mostReadData, prevProps.mostReadData)) // Check if it's a new prop
     {
+      console.log('NotEqual');
       this.setState({
         propsData : this.props.mostReadData
       })
-      console.log('NotEqual');
+      
     }else console.log('equal')
   } 
   fetchMostRead() {
