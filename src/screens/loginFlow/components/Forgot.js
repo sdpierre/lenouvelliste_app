@@ -16,20 +16,9 @@ var deviceHeight = (Dimensions.get('window').height);
 
 const Forgot = (props) => {
     return (
-        <Modal transparent={true} animationType='fade' style={{ flex: 0, height: 350, margin: 20 }} >
-            <TouchableWithoutFeedback >
-                <View
-                    style={[
-
-                        {
-                            backgroundColor: 'transparent',
-                            width: deviceWidth,
-                            height: deviceHeight * 0.03
-                        }
-                    ]}
-                />
-            </TouchableWithoutFeedback>
-            <Container height={deviceHeight / 2}>
+        <Modal transparent={true} animationType='slide' >
+         
+            <Container>
                 <Header style={{ backgroundColor: 'white' }}>
                     <Left>
                         <Button
@@ -59,7 +48,7 @@ const Forgot = (props) => {
                         <Button
                             transparent
                             onPress={() => {
-                                props.navigation.goBack();
+                                
                                 props.navigation.navigate('ForgotDone');
                             }}>
                             <View style={forgotStyles.buttonContainer}>

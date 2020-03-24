@@ -65,17 +65,7 @@ export default class Register extends React.Component {
     render() {
         return (
             <Modal transparent={true} animationType='fade' >
-                <TouchableWithoutFeedback >
-                    <View
-                        style={
-                            {
-                                backgroundColor: 'transparent',
-                                width: deviceWidth,
-                                height: deviceHeight * 0.03
-                            }
-                        }
-                    />
-                </TouchableWithoutFeedback>
+           
                 <Container >
                     <Header style={{ backgroundColor: 'white' }}>
                         <Left>

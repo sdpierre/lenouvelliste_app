@@ -33,7 +33,7 @@ export default class Login extends React.Component {
 
 
             <Modal animationType='slide' transparent={false} marginTop={20} style={{flex:0,  justifyContent: 'flex-end', margin:0}} back>
-                <View style={{ flex: 0, height: 500, marginTop: 20 }}>
+                <Container>
                     <Header style={{ backgroundColor: 'white', }}>
                         <Left>
                             <Button
@@ -98,7 +98,7 @@ export default class Login extends React.Component {
                                 </Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity style={{ backgroundColor: 'transparent', width: '100%', marginTop: 15 }} onPress={() => { this.props.navigation.goBack(); this.props.navigation.navigate('Register'); }}>
+                                <TouchableOpacity style={{ backgroundColor: 'transparent', width: '100%', marginTop: 15 }} onPress={() => { this.props.navigation.navigate('Register'); }}>
                                     <Text style={styles.noAcc} >
                                         No account yet?
                             </Text>
@@ -109,7 +109,7 @@ export default class Login extends React.Component {
                             </View>
                         </View>
                     </Content>
-                </View>
+                </Container>
             </Modal>
 
 
