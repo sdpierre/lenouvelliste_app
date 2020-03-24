@@ -16,19 +16,8 @@ var deviceHeight = (Dimensions.get('window').height);
 
 const ForgotDone = (props) => {
     return (
-        <Modal animationType='fade' transparent={true}>
-            <TouchableWithoutFeedback >
-          <View           
-            style={[
-              
-              {
-                backgroundColor:'transparent',
-                width: deviceWidth,
-                height: deviceHeight*0.03
-              }
-            ]}
-          />
-        </TouchableWithoutFeedback>
+        <Modal animationType='slide' transparent={true}>
+         
             <Container>
                 <Header style={{ backgroundColor: 'white' }}>
                     <Left>
