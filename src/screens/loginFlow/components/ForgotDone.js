@@ -16,7 +16,7 @@ var deviceHeight = (Dimensions.get('window').height);
 
 const ForgotDone = (props) => {
     return (
-        <Modal animationType='slide' transparent={true}>
+ 
          
             <Container>
                 <Header style={{ backgroundColor: 'white' }}>
@@ -36,7 +36,7 @@ const ForgotDone = (props) => {
                     <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Forgot Done Screen</Text>
                 </View>
             </Container>
-        </Modal>
+     
 
     )
 }

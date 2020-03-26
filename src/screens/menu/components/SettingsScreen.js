@@ -9,7 +9,8 @@ import {
   Right, Left,
   Button, List, ListItem
 } from "native-base";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 
 
@@ -21,12 +22,12 @@ export default class SettingsScreen extends Component {
 
   render() {
     return (
-      <Modal animationType='slide'>
+  
         <Container>
           <Header>
             <Left>
               <Button transparent onPress={() => { this.props.navigation.goBack() }}>
-                <MaterialCommunityIcons name="close" size={30} style={Colors.gray} />
+                  <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
               </Button>
             </Left>
             <Body></Body>
@@ -68,7 +69,7 @@ export default class SettingsScreen extends Component {
             </List>
           </Content>
         </Container>
-      </Modal>
+     
     )
   }
 }
