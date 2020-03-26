@@ -21,6 +21,24 @@ import {createReduxContainer} from 'react-navigation-redux-helpers';
 import {connect} from 'react-redux';
 import {store} from './src/redux/store';
 import AppNavigator from './src/screens/AppNavigator';
+//OneSignal
+import OneSignal from 'react-native-onesignal';
+//fab
+import { FloatingAction } from "react-native-floating-action";
+const actions = [
+  {
+    text: "Photo",
+    icon: require("./src/library/images/gallery.png"),
+    name: "bt_photo",
+    position: 1
+  },
+  {
+    text: "Video",
+    icon: require("./src/library/images/camera.png"),
+    name: "bt_video",
+    position: 2
+  }
+];
 
 import {
   Header,
@@ -39,13 +57,53 @@ const AppContainer = connect(mapStateToProps)(AppNav);
 
 export default class App extends Component {
 
-  
+  constructor(properties) {
+    super(properties);
+    OneSignal.init("40ff38fc-96c8-4c8b-9f7d-4f9f0936a746");
 
+    OneSignal.addEventListener('received', this.onReceived);
+    OneSignal.addEventListener('opened', this.onOpened);
+    OneSignal.addEventListener('ids', this.onIds);
+  }  
+  componentWillUnmount() {
+    OneSignal.removeEventListener('received', this.onReceived);
+    OneSignal.removeEventListener('opened', this.onOpened);
+    OneSignal.removeEventListener('ids', this.onIds);
+  }
+
+  onReceived(notification) {
+    console.log("Notification received: ", notification);
+  }
+
+  onOpened(openResult) {
+    console.log('Message: ', openResult.notification.payload.body);
+    console.log('Data: ', openResult.notification.payload.additionalData);
+    console.log('isActive: ', openResult.notification.isAppInFocus);
+    console.log('openResult: ', openResult);
+  }
+  
 render() {
   const buttons = ['Map', 'Satellite'];
   return (
     <Provider store={store}>
     <AppContainer />
+    <FloatingAction
+    actions={actions}
+    distanceToEdge={40}
+    onPressItem={name => {
+      switch (name){
+        case "bt_photo":
+          console.log('bt_photo')
+          break
+
+          case "bt_video":
+            console.log('bt_video')
+
+            break;
+
+      }
+    }}
+  />
   </Provider>
   );
  }

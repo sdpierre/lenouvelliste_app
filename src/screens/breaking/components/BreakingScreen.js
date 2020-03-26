@@ -142,7 +142,7 @@ class BreakingScreen extends React.Component {
         });
         //realm.close();
         this.setState({ data : resp, refreshing: false });
-        realm.close();
+        
 
       })
       .catch((e) => {
