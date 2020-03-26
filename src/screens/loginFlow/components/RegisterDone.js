@@ -22,7 +22,7 @@ export default class RegisterDone extends React.Component {
 
     render() {
         return (
-            <Modal animationType='fade' transparent={true} >
+      
               
                 <Container>
                     <Header style={{ backgroundColor: 'white', }}>
@@ -61,7 +61,7 @@ export default class RegisterDone extends React.Component {
                         
                     </Content>
                 </Container>
-        </Modal>
+ 
         )
     }
 }

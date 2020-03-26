@@ -16,8 +16,6 @@ var deviceHeight = (Dimensions.get('window').height);
 
 const Forgot = (props) => {
     return (
-        <Modal transparent={true} animationType='slide' >
-         
             <Container>
                 <Header style={{ backgroundColor: 'white' }}>
                     <Left>
@@ -59,7 +57,6 @@ const Forgot = (props) => {
                     </View>
                 </View>
             </Container>
-        </Modal>
     )
 }
 export default Forgot;

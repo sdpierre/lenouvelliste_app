@@ -42,7 +42,7 @@ const MenuStackNav = createStackNavigator({
 }, {
     initialRouteName: 'Menu',
     headerMode: 'none',
-    mode: 'modal'
+    mode: 'card'
 });
 
 const MenuNavigator = createAppContainer(MenuStackNav);

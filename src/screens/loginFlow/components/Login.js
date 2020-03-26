@@ -9,7 +9,8 @@ import {
     Right, Left,
     Content
 } from "native-base";
-import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import Ionicons from "react-native-vector-icons/Ionicons";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Colors } from '../../../styles';
@@ -32,7 +33,7 @@ export default class Login extends React.Component {
         return (
 
 
-            <Modal animationType='slide' transparent={false} marginTop={20} style={{flex:0,  justifyContent: 'flex-end', margin:0}} back>
+            
                 <Container>
                     <Header style={{ backgroundColor: 'white', }}>
                         <Left>
@@ -41,7 +42,7 @@ export default class Login extends React.Component {
                                 onPress={() => {
                                     this.props.navigation.goBack();
                                 }}>
-                                <Ionicons name="close" size={30} style={Colors.gray} />
+                                <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
                             </Button>
                         </Left>
                         <Body></Body>
@@ -110,8 +111,6 @@ export default class Login extends React.Component {
                         </View>
                     </Content>
                 </Container>
-            </Modal>
-
 
         )
     }
@@ -137,9 +136,6 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         color: '#D3D3D3',
         alignSelf: 'center',
-
-
-
     },
 
     loading: {

@@ -64,8 +64,6 @@ export default class Register extends React.Component {
 
     render() {
         return (
-            <Modal transparent={true} animationType='fade' >
-           
                 <Container >
                     <Header style={{ backgroundColor: 'white' }}>
                         <Left>
@@ -235,7 +233,7 @@ export default class Register extends React.Component {
                     </Content>
 
                 </Container>
-            </Modal>)
+            )
 
     }
 }
