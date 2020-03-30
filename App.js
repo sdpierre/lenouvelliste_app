@@ -21,6 +21,9 @@ import {createReduxContainer} from 'react-navigation-redux-helpers';
 import {connect} from 'react-redux';
 import {store} from './src/redux/store';
 import AppNavigator from './src/screens/AppNavigator';
+//Image Picker
+import ImagePicker from 'react-native-image-crop-picker';
+
 //OneSignal
 import OneSignal from 'react-native-onesignal';
 //fab
@@ -81,7 +84,15 @@ export default class App extends Component {
     console.log('isActive: ', openResult.notification.isAppInFocus);
     console.log('openResult: ', openResult);
   }
-  
+  openCamera() {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      mediaType: 'video',
+    }).then(image => {
+      console.log(image);
+    });
+  }
 render() {
   const buttons = ['Map', 'Satellite'];
   return (
@@ -94,11 +105,24 @@ render() {
       switch (name){
         case "bt_photo":
           console.log('bt_photo')
+          ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+          }).then(image => {
+            console.log(image);
+          });
           break
 
           case "bt_video":
-            console.log('bt_video')
-
+            console.log('Video<<<')
+            ImagePicker.openCamera({
+              width: 300,
+              height: 400,
+              mediaType: 'video',
+            }).then(image => {
+              console.log(image);
+            });
             break;
 
       }
