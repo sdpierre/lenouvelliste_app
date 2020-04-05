@@ -14,17 +14,16 @@ import { Colors } from '../../../styles';
 var deviceWidth = (Dimensions.get('window').width);
 var deviceHeight = (Dimensions.get('window').height);
 
-const ForgotDone = (props) => {
-    return (
- 
-         
+export default class ForgotDone extends React.Component{
+    render(){
+        return (
             <Container>
                 <Header style={{ backgroundColor: 'white' }}>
                     <Left>
                         <Button
                             transparent
                             onPress={() => {
-                                props.navigation.goBack();
+                                this.props.navigation.goBack();
                             }}>
                             <Ionicons name="close" size={30} style={Colors.gray} />
                         </Button>
@@ -35,9 +34,9 @@ const ForgotDone = (props) => {
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'crimson' }}>
                     <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Forgot Done Screen</Text>
                 </View>
-            </Container>
-     
+            </Container> 
 
     )
+
+    }
 }
-export default ForgotDone;

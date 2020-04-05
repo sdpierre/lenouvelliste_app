@@ -14,6 +14,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		13EB5C66D1784F66B877B7B2 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = FD67F037A1C34BABBB995A2D /* Gotham-Book.otf */; };
+		18551DFF24349B1F00ED71EF /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18551DFE24349B1F00ED71EF /* OneSignal.framework */; };
 		1967BEEB7201403A860E135E /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96E0A56A7527460885605902 /* Roboto_medium.ttf */; };
 		1BBDDEBFE13FBBECD0FF3896 /* libPods-lenouvelliste_app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5EB6B02F92E000FA63369A /* libPods-lenouvelliste_app.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* lenouvelliste_appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* lenouvelliste_appTests.m */; };
@@ -64,6 +65,8 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = lenouvelliste_app/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = lenouvelliste_app/main.m; sourceTree = "<group>"; };
 		16FA2858D5F14C0CB6D94634 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/native-base/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		18551DFE24349B1F00ED71EF /* OneSignal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OneSignal.framework; sourceTree = "<group>"; };
+		18F61AC02434A5DE00CE30B1 /* lenouvelliste_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = lenouvelliste_app.entitlements; path = lenouvelliste_app/lenouvelliste_app.entitlements; sourceTree = "<group>"; };
 		1F75545337A24C148DD7A857 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		20C29DA6A2D44231A9E1C694 /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		271B7066542E4630A11FAE96 /* AkkoPro-BoldCondensed.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AkkoPro-BoldCondensed.ttf"; path = "../src/res/fonts/AkkoPro-BoldCondensed.ttf"; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BBDDEBFE13FBBECD0FF3896 /* libPods-lenouvelliste_app.a in Frameworks */,
+				18551DFF24349B1F00ED71EF /* OneSignal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +173,7 @@
 		13B07FAE1A68108700A75B9A /* lenouvelliste_app */ = {
 			isa = PBXGroup;
 			children = (
+				18F61AC02434A5DE00CE30B1 /* lenouvelliste_app.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -183,6 +188,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18551DFE24349B1F00ED71EF /* OneSignal.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				CA5EB6B02F92E000FA63369A /* libPods-lenouvelliste_app.a */,
@@ -464,6 +470,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-lenouvelliste_app/Pods-lenouvelliste_app-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -480,9 +487,11 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_ROOT}/RSKImageCropper/RSKImageCropper/RSKImageCropperStrings.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -499,6 +508,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RSKImageCropperStrings.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -657,10 +667,14 @@
 			baseConfigurationReference = 375DB79EED7D6A43E18D623F /* Pods-lenouvelliste_app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = lenouvelliste_app/lenouvelliste_app.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../librairies/GoogleMobileAdsSdkiOS-7.56.0\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../../librairies/GoogleMobileAdsSdkiOS-7.56.0\"",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -713,9 +727,13 @@
 			baseConfigurationReference = 0E8AFC419AEA062069F9992B /* Pods-lenouvelliste_app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = lenouvelliste_app/lenouvelliste_app.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../librairies/GoogleMobileAdsSdkiOS-7.56.0\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../../librairies/GoogleMobileAdsSdkiOS-7.56.0\"",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",

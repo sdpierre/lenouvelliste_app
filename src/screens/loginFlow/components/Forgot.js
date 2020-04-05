@@ -9,20 +9,108 @@ import {
 } from "native-base";
 import { Colors } from '../../../styles';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
+import ValidationComponent from 'react-native-form-validator';
+import axios from 'axios';
+import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 //Dimensions
 var deviceWidth = (Dimensions.get('window').width);
 var deviceHeight = (Dimensions.get('window').height);
 
-const Forgot = (props) => {
-    return (
+export default class Forgot extends ValidationComponent{
+    constructor(props) {
+        super(props)
+
+        this.state ={
+            email:'',
+            password:''        
+        }
+    }
+
+
+    handlEmail = (text) => {
+        this.setState({
+            email: text
+        })
+    }
+
+    forgotPassword = () =>{
+
+        this.validate({
+          email:{required:true}
+        })
+
+        if (this.getErrorMessages()){
+            alert(LeneovellisteConstants.kEmailEmpty)
+
+        }else{
+
+            this.validate({
+                email:{email:true}
+            })
+
+            if(this.getErrorMessages()){
+                alert(LeneovellisteConstants.kEmailInvalid)
+
+            }else{
+
+                var forgotPWParams = {
+                    'email': this.state.email
+                }
+
+                  console.log(forgotPWParams);
+
+                  this.forgotPasswordAPICall(forgotPWParams);
+
+            }
+
+        }
+    }
+
+
+    forgotPasswordAPICall(params) {
+        
+        axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kFORGOTPW_API, params)
+    
+          .then(response => {
+    
+             console.log("Forgot PW Response",response.data);
+            let msg = response.data.message;
+            if (response.data.status == true) {
+    
+            alert(msg);
+        
+            props.navigation.navigate('ForgotDone');
+    
+            } else {
+    
+              console.log("Forgot PW error",msg)
+              alert(msg);
+             
+            }
+    
+          })
+          .catch(function (error) {
+    
+            // console.log(error);
+            alert(error)
+            console.log('In case of undefined')
+    
+          });
+    
+      }
+
+
+    render(){
+        return (
             <Container>
                 <Header style={{ backgroundColor: 'white' }}>
                     <Left>
                         <Button
                             transparent
                             onPress={() => {
-                                props.navigation.goBack();
+                                this.props.navigation.goBack();
                             }}>
                             <Ionicons name="close" size={30} style={Colors.gray} />
                         </Button>
@@ -32,34 +120,33 @@ const Forgot = (props) => {
                 </Header>
                 <View style={forgotStyles.rootContainer}>
                     <Text style={forgotStyles.mainText}>Forgot your Password?</Text>
-                    <Text style={forgotStyles.info}>Enter your email to receive a temporary connection link and create a new password.</Text>
+                    <Text style={forgotStyles.info}>Enter your email to receive OTP and create a new password.</Text>
                     <TextInput
                         placeholder="Email"
                         placeholderTextColor='#9b9b9b'
                         keyboardType={'email-address'}
                         style={forgotStyles.input}
-                        returnKeyType={"next"}
-                        onSubmitEditing={() => { this.secondTextInput.focus(); }}
-                        blurOnSubmit={false}
+                        onChangeText={this.handlEmail}
+                        value={this.state.email}                                    
+                        autoCapitalize = 'none'
                     />
                     <View style={forgotStyles.loginButton}>
-                        <Button
+                        <TouchableOpacity
                             transparent
-                            onPress={() => {
-                                
-                                props.navigation.navigate('ForgotDone');
-                            }}>
+                            onPress={this.forgotPassword}>
                             <View style={forgotStyles.buttonContainer}>
                                 <Text style={{ color: 'white', fontSize: 20 }}>Send</Text>
                             </View>
-                        </Button>
-
+                        </TouchableOpacity>
+    
                     </View>
                 </View>
             </Container>
-    )
-}
-export default Forgot;
+    
+    )    
+    }
+}  
+
 const forgotStyles = StyleSheet.create({
     rootContainer: {
         flex: 1,
@@ -80,13 +167,16 @@ const forgotStyles = StyleSheet.create({
     buttonContainer: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
 
     },
     loginButton: {
-        backgroundColor: 'pink',
-        marginTop: 20
-    }, input: {
+        backgroundColor: 'red',
+        marginTop: 20,
+        height:50,
+        alignItems:'center'
+    }, 
+    input: {
         width: '100%',
         height: 50,
         padding: 10,
@@ -94,11 +184,9 @@ const forgotStyles = StyleSheet.create({
         borderColor: '#D3D3D3',
         marginBottom: 20,
         paddingLeft: 15,
-        color: '#D3D3D3',
+        // color: '#D3D3D3',
+        color:'#000',
         alignSelf: 'center',
         marginTop: 30
-
-
-
     },
 })

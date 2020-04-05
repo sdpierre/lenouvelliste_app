@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Modal, StyleSheet, TouchableOpacity, Text, Dimensions, TextInput, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Dimensions, TextInput,ScrollView ,AsyncStorage,FlatList,Image,List} from 'react-native';
+import Modal from 'react-native-modal';
 //import { CheckBox } from 'react-native-elements'
 import CheckBox from 'react-native-check-box';
 import {
@@ -13,43 +14,60 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import ValidationComponent from 'react-native-form-validator';
 import { Typography, Colors, Spacing } from '../../../styles';
+import axios from 'axios';
+import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
 
 //Dimensions
 var deviceWidth = (Dimensions.get('window').width);
 var deviceHeight = (Dimensions.get('window').height);
 
-export default class Register extends React.Component {
+export default class Register extends ValidationComponent{
     constructor(props) {
         super(props)
         this.state = {
-            itemSelected: 'Sir',
-            checked: false,
-            modalVisible: true,
-            username: '',
-            firstName: '',
-            lastName: '',
+            genderSelected: 'F', //M or F
+            checked1: false,
+            checked2: false,
+            checked3: false,
+            isCountryModalVisible: false,
+            userName: '',
+           // firstName: '',
+           // lastName: '',
+            fullName:'',
             email: '',
-            password: ''
+            password: '',
+            countryName:'',
+            town:'',
+            arrCountryList: [],
+            selectedCountryItem:null,
+            isPasswordSecured:true
+
         }
     }
     handleUserName = (text) => {
         this.setState({
-            username: text
+            userName: text
         })
     }
-    handleFirstName = (text) => {
+    
+    handleFullName = (text) => {
         this.setState({
-            firstName: text
+            fullName: text
         })
     }
+    // handleFirstName = (text) => {
+    //     this.setState({
+    //         firstName: text
+    //     })
+    // }
 
-    handleLastName = (text) => {
-        this.setState({
-            lastName: text
-        })
-    }
+    // handleLastName = (text) => {
+    //     this.setState({
+    //         lastName: text
+    //     })
+    // }
 
     handlEmail = (text) => {
         this.setState({
@@ -62,6 +80,291 @@ export default class Register extends React.Component {
         })
     }
 
+    handleCountry = (text) => {
+        this.setState({
+            countryName: text
+        })
+    }
+
+    handleTown = (text) => {
+        this.setState({
+            town: text
+        })
+    }
+
+    // register = () =>{
+    //     // Call ValidationComponent validate method
+    //     this.validate({
+    //       firstName: {minlength:2, maxlength:20, required: true},
+    //       lastName: {minlength:2, maxlength:20, required: true},
+    //       userName: {minlength:2, maxlength:20, required: true},
+    //       email: {required: true,email: true, maxlength:50},
+    //       password: {required:true,secureTextEntry:true,minlength:6,maxlength:15}
+    //       //number: {numbers: true},
+    //       //date: {date: 'YYYY-MM-DD'}
+    //     });
+    //   }
+
+    componentDidMount(){
+
+    this.getAllCountriesListAPICall()
+
+    }
+
+    register = () =>{
+
+        this.validate({
+    
+            userName: {required:true/*minlength:2, maxlength:20*/}
+    
+        })
+    
+        if (this.getErrorMessages()) {
+    
+          alert(LeneovellisteConstants.kUserNameEmpty)
+        }
+        else {
+    
+          this.validate({
+    
+            fullName: {required:true /*minlength:2, maxlength:20*/}
+    
+          })
+    
+          if (this.getErrorMessages()) {
+    
+            alert(LeneovellisteConstants.kFullNameEmpty)
+    
+          }
+          else {
+    
+            // this.validate({
+    
+            //  lastName: {required: true /*minlength:2, maxlength:20*/}
+            // })
+    
+            // if (this.getErrorMessages()) {
+    
+            //     alert(LeneovellisteConstants.kLastNameEmpty)
+    
+            // } else {
+    
+              this.validate({
+    
+                email: {required: true/*,email: true, maxlength:50*/}
+    
+              })
+    
+              if (this.getErrorMessages()) {
+    
+                alert(LeneovellisteConstants.kEmailEmpty)
+              }
+              else {
+    
+                this.validate({
+    
+                  email: { email: true }
+    
+                })
+    
+                if (this.getErrorMessages()) {
+    
+                    alert(LeneovellisteConstants.kEmailInvalid)
+                }
+                else {
+    
+                  this.validate({
+    
+                    password: { required: true }
+                  })
+    
+    
+                  if (this.getErrorMessages()) {
+    
+                    alert(LeneovellisteConstants.kPasswordEmpty)
+                  }
+                  else {
+    
+                    this.validate({
+    
+                      password: { minlength: 5 }
+                    })
+    
+                    if (this.getErrorMessages()) {
+    
+                      alert(LeneovellisteConstants.kPasswordMinLength)
+                    }
+                    else {
+    
+                         this.validate({
+                             countryName: {required:true}
+                         }) 
+                         
+                         
+                         if (this.getErrorMessages()){
+                             alert(LeneovellisteConstants.kCountryEmpty)
+                         }
+                        
+                         else{
+                             this.validate({
+
+                                 town:{required:true}
+                             })
+
+                             if (this.getErrorMessages()){
+
+                                alert(LeneovellisteConstants.kCountryEmpty)
+
+                             }else{
+
+                             //   let fullName = this.state.firstName + this.state.lastName
+                                var registrationParams = {
+                                    'name': this.state.fullName,
+                                    'username': this.state.userName,
+                                    'email': this.state.email,
+                                    'password': this.state.password,
+                                    'country': this.state.selectedCountryItem,
+                                    'town': this.state.town,
+                                    'gender': this.state.genderSelected
+                                  }
+                
+                                  console.log(registrationParams);
+                
+                                  this.registrationAPICall(registrationParams);
+                
+                
+                             }
+                         }
+
+                    }
+    
+                  }
+    
+                }
+    
+    
+              }
+    
+           // }
+          }
+    
+        }
+    
+      }
+    
+    
+    
+      registrationAPICall(params) {
+    
+        var dicRegistration= {};
+
+        axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kREGISTRATION_API, params)
+    
+          .then(response => {
+    
+                 console.log("Registration response",response.data);
+    
+            //  console.log("email", this.state.email);
+    
+             let msg = response.data.message;
+    
+            if (response.data.status == true) {
+    
+                dicRegistration = response.data.user_details;
+    
+                AsyncStorage.setItem('registeredUserDetails', JSON.stringify(dicRegistration));              
+      
+                this.props.navigation.goBack();
+                this.props.navigation.navigate('RegisterDone');
+  
+            } else {
+    
+              alert(msg)
+              console.log("Registration error",msg)
+              
+            }
+    
+          })
+          .catch(function (error) {
+    
+            console.log(error);
+    
+          });
+    
+      }
+
+      getAllCountriesListAPICall() {
+
+        console.log(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kGETCOUNTRYLIST_API)
+
+        axios.get(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kGETCOUNTRYLIST_API)
+
+            .then(response => {
+
+              //  let msg = response.data.message;
+
+                console.log(response.data);
+                if (response.data.status == true) {
+
+                    this.setState({
+
+                        arrCountryList: response.data.countries
+                       //arrJobLists: response.data.success.jobLists,
+    
+                    })
+    
+                    console.log("Array of countries",this.state.arrCountryList)
+
+                }else{
+
+                    alert("Unable to get country list")
+                }
+
+            })
+            .catch(function (error) {
+
+                console.log(error);
+
+            });
+
+            
+    }
+
+    openCountryModal = () =>{
+          this.setState({
+              isCountryModalVisible:true
+          })
+      }
+
+    closeCountryModal = () =>{
+        this.setState({
+        isCountryModalVisible:false
+        })
+    }
+
+    renderItem = ({ item }) => {
+        console.log("Getting called")
+
+        return (
+            <TouchableOpacity onPress={() => this._choosen(item)}>
+                  <View style={registerStyles.flatview}>
+            <Text style={registerStyles.countryName}>{item.country_name}</Text>
+            {/* <Text style={registerStyles.CountryCode}>Hi</Text> */}
+          </View>
+          </TouchableOpacity>
+        );
+    }
+
+    _choosen(selectedItem) {
+        this.setState({ 
+            selectedCountryItem:selectedItem.id, 
+            countryName:selectedItem.country_name
+        });
+        this.closeCountryModal()
+
+
+      }
+      
     render() {
         return (
                 <Container >
@@ -84,22 +387,26 @@ export default class Register extends React.Component {
                     </Header>
                     <Content style={{ flex: 1 }} >
                         <KeyboardAwareScrollView>
+                            <ScrollView>
                             <View style={registerStyles.rootContainer}>
                                 <Text style={registerStyles.title}>Create your Le Nouvelliste account</Text>
                                 <Text style={registerStyles.allMedia}>You can take advantage of the Nouvelliste's free services on all media</Text>
                                 <View style={registerStyles.radioContainer}>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <Radio onPress={() => this.setState({ itemSelected: 'Sir' })}
-                                            selected={this.state.itemSelected == 'Sir'}
+                                        <TouchableOpacity onPress={() => this.setState({ genderSelected: 'M' })} style={{flexDirection:'row'}}>
+                                        <Radio 
+                                            selected={this.state.genderSelected == 'M'}
                                         />
-                                        <Text style={{ marginStart: 10 }}>Sir</Text>
+                                        <Text style={{ marginStart: 10 }}>Male</Text>
+                                        </TouchableOpacity>
                                     </View>
                                     <View style={{ flexDirection: 'row' }}>
-
-                                        <Radio onPress={() => this.setState({ itemSelected: 'Mrs' })}
-                                            selected={this.state.itemSelected == 'Mrs'}
+                                    <TouchableOpacity onPress={() => this.setState({ genderSelected: 'F' })} style={{flexDirection:'row'}}>
+                                        <Radio 
+                                            selected={this.state.genderSelected == 'F'}
                                         />
-                                        <Text style={{ marginStart: 10 }}>Mrs</Text>
+                                        <Text style={{ marginStart: 10 }}>Female</Text>
+                                    </TouchableOpacity>
                                     </View>
                                 </View>
                                 <TextInput
@@ -107,13 +414,26 @@ export default class Register extends React.Component {
                                     placeholderTextColor='#9b9b9b'
                                     keyboardType={'default'}
                                     onChangeText={this.handleUserName}
-                                    value={this.state.username}
+                                    value={this.state.userName}
                                     style={registerStyles.input}
                                     returnKeyType={"next"}
                                     onSubmitEditing={() => { this.firstInput.focus(); }}
                                     blurOnSubmit={false}
                                 />
-                                <TextInput
+                                  <TextInput
+                                    placeholder="Name"
+                                    placeholderTextColor='#9b9b9b'
+                                    keyboardType={'default'}
+                                    onChangeText={this.handleFullName}
+                                    value={this.state.fullName}
+                                    style={registerStyles.input}
+                                    returnKeyType={"next"}
+                                    onSubmitEditing={() => { this.lastInput.focus(); }}
+                                    blurOnSubmit={false}
+                                    ref={(input) => { this.firstInput = input; }}
+                                />
+
+                                {/* <TextInput
                                     placeholder="First Name"
                                     placeholderTextColor='#9b9b9b'
                                     keyboardType={'default'}
@@ -124,8 +444,8 @@ export default class Register extends React.Component {
                                     onSubmitEditing={() => { this.lastInput.focus(); }}
                                     blurOnSubmit={false}
                                     ref={(input) => { this.firstInput = input; }}
-                                />
-                                <TextInput
+                                /> */}
+                                {/* <TextInput
                                     placeholder="Last Name"
                                     placeholderTextColor='#9b9b9b'
                                     keyboardType={'default'}
@@ -136,7 +456,7 @@ export default class Register extends React.Component {
                                     onSubmitEditing={() => { this.emailInput.focus(); }}
                                     blurOnSubmit={false}
                                     ref={(input) => { this.lastInput = input; }}
-                                />
+                                /> */}
                                 <TextInput
                                     placeholder="Email"
                                     placeholderTextColor='#9b9b9b'
@@ -148,33 +468,87 @@ export default class Register extends React.Component {
                                     ref={(input) => { this.emailInput = input; }}
                                     onSubmitEditing={() => { this.passwordInput.focus() }}
                                     blurOnSubmit={false}
+                                    autoCapitalize = 'none'
                                 />
-                              <View style={{ flexDirection: 'row'}}>
+                              <View style={{ flexDirection: 'row', alignSelf:'center',width: deviceWidth - 70}}>
                                     <TextInput
                                         ref={(input) => { this.passwordInput = input; }}
-                                        secureTextEntry
+                                        secureTextEntry = {this.state.isPasswordSecured}
                                         placeholder="Password"
                                         placeholderTextColor='#9b9b9b'
                                         style={registerStyles.input}
+                                        onChangeText={this.handlePassword}
+                                        value={this.state.password}
+                                        returnKeyType={"next"}
+                                        onSubmitEditing={() => { this.lastInput.focus(); }}
+                                        blurOnSubmit={false}
+                                        ref={(input) => { this.firstInput = input; }}
+    
                                     />
                                     <Icon style={registerStyles.icon}
-                                        name='visibility-off'
+                                        name= {this.state.isPasswordSecured?'visibility-off':'visibility'}
                                         size={25}
                                         color='#D3D3D3'
-                                        onPress={this.changePwdType}
+                                        onPress={()=>{
+                                            this.setState({
+                                              isPasswordSecured:!this.state.isPasswordSecured
+                                            })
+                                        }}
                                     />
-
                                 </View>
-                                <View style={registerStyles.checkContainer}>
 
+                                <View>
+                                {/* <TouchableOpacity onPress={()=>this.openCountryModal()}> */}
+                                <TextInput
+                                    placeholder="Country"
+                                    placeholderTextColor='#9b9b9b'
+                                    keyboardType={'default'}
+                                    onChangeText={this.handleCountry}
+                                    value={this.state.countryName}
+                                    style={registerStyles.input}
+                                    returnKeyType={"next"}
+                                    onSubmitEditing={() => { this.lastInput.focus(); }}
+                                    blurOnSubmit={false}
+                                    ref={(input) => { this.firstInput = input; }}
+                                    onTouchStart = {()=>this.openCountryModal()}
+                                />
+                                {/* </TouchableOpacity> */}
+                                <Modal isVisible={this.state.isCountryModalVisible} style={{backgroundColor:'white',maxHeight:Dimensions.get('window').height -100, top:50, bottom:50}} onBackdropPress={()=>this.closeCountryModal()} animationIn="slideInUp" animationOut="slideOutDown" swipeDirection="right">
+                                <View style={{ flex:1}}>      
+                                 {/* <Text>Will show country list here</Text> */}
+<TouchableOpacity onPress={()=>this.closeCountryModal()} style={{bottom:20}}> 
+<Image source={require('../../../library/images/close.png')} style={{left:20,top:20,height:40,width:30}}/>
+</TouchableOpacity>
+
+<FlatList
+          data={this.state.arrCountryList}
+          showsVerticalScrollIndicator={false}
+          renderItem={this.renderItem}
+        keyExtractor={(item, index) => `item-${index}`}
+        />
+
+         </View>
+        </Modal>
+        </View>
+
+                                <TextInput
+                                    placeholder="Town"
+                                    placeholderTextColor='#9b9b9b'
+                                    keyboardType={'default'}
+                                    onChangeText={this.handleTown}
+                                    value={this.state.town}
+                                    style={registerStyles.input}
+                                />
+ 
+                                <View style={registerStyles.checkContainer}>
                                     <CheckBox
                                         left
                                         style={{ flex: 1 }}
                                         title='Click Here'
-                                        isChecked={this.state.checked}
+                                        isChecked={this.state.checked1}
                                         onClick={() => {
                                             this.setState({
-                                                checked: !this.state.checked
+                                                checked1: !this.state.checked1
                                             })
                                         }}
                                         rightText='I accept the general terms of use'
@@ -186,10 +560,10 @@ export default class Register extends React.Component {
                                         left
                                         style={{ flex: 1 }}
                                         title='Click Here'
-                                        isChecked={this.state.checked}
+                                        isChecked={this.state.checked2}
                                         onClick={() => {
                                             this.setState({
-                                                checked: !this.state.checked
+                                                checked2: !this.state.checked2
                                             })
                                         }}
                                         rightText='I agree to receive the Nouvelliste offers'
@@ -203,10 +577,10 @@ export default class Register extends React.Component {
                                         left
                                         style={{ flex: 1 }}
                                         title='Click Here'
-                                        isChecked={this.state.checked}
+                                        isChecked={this.state.checked3}
                                         onClick={() => {
                                             this.setState({
-                                                checked: !this.state.checked
+                                                checked3: !this.state.checked3
                                             })
                                         }}
                                         rightText='I agree to receive offers from our partners'
@@ -217,19 +591,22 @@ export default class Register extends React.Component {
                             </View>
                             <View style={{ paddingHorizontal: 30, marginBottom: 20 }}>
                                 <View style={{ backgroundColor: 'red' }}>
-                                    <Button
+                                    <TouchableOpacity
                                         transparent
-                                        onPress={() => {
-                                            this.props.navigation.goBack();
-                                            this.props.navigation.navigate('RegisterDone');
-                                        }}>
+                                        onPress={this.register
+                                        //     () => {
+                                            // this.props.navigation.goBack();
+                                            // this.props.navigation.navigate('RegisterDone');
+                                        // }
+                                        }>
                                         <View style={registerStyles.buttonContainer}>
                                             <Text style={{ color: 'white', fontSize: 20 }}>I'm registering</Text>
                                         </View>
-                                    </Button>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
-                        </KeyboardAwareScrollView>
+                        </ScrollView>
+                    </KeyboardAwareScrollView>
                     </Content>
 
                 </Container>
@@ -248,7 +625,7 @@ const registerStyles = StyleSheet.create({
     },
     already: {
         color: 'crimson',
-        fontSize: 16,
+        fontSize: 12,
         fontWeight: 'bold'
     },
     title: {
@@ -277,22 +654,41 @@ const registerStyles = StyleSheet.create({
         borderColor: '#D3D3D3',
         marginBottom: 20,
         paddingLeft: 15,
-        color: '#D3D3D3',
+       // color: '#D3D3D3',
+        color:'#000',
         alignSelf: 'center',
     },
     icon: {
-        position: 'relative',
-        top: 15,
-        right: 30
-    }, checkContainer: {
+        top: 8,
+        right: 30,
+    }, 
+    checkContainer: {
         flexDirection: 'row',
         alignItems: 'flex-start',
         alignSelf: 'flex-start',
         width: '100%',
-    }, buttonContainer: {
+    }, 
+    buttonContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        height:50
 
-    }
+        
+    },
+
+    flatview: {
+        justifyContent: 'center',
+        paddingTop: 30,
+        borderRadius: 2,
+        left:20
+      },
+      countryName: {
+        fontFamily: 'Verdana',
+        fontSize: 18,
+      },
+      countryCode: {
+        color: 'red',
+      }
+    
 })

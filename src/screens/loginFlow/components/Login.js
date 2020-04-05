@@ -1,5 +1,8 @@
 import React from 'react';
 import { TouchableWithoutFeedback, ActivityIndicator, NativeModules, Platform, StyleSheet, Text, Modal, View, TouchableOpacity, TextInput, Image, ScrollView, ImageBackground, Dimensions, AsyncStorage, Alert } from 'react-native';
+import ValidationComponent from 'react-native-form-validator';
+import axios from 'axios';
+import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
 
 import {
     Container,
@@ -16,7 +19,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Colors } from '../../../styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-
 //Dimensions
 var deviceWidth = (Dimensions.get('window').width);
 var deviceHeight = (Dimensions.get('window').height);
@@ -25,15 +27,121 @@ var deviceHeight = (Dimensions.get('window').height);
 var buttonHeight = Platform.OS == 'android' ? 50 : 55
 var elementSpacing = Platform.OS == 'android' ? 12 : 19
 
-export default class Login extends React.Component {
+export default class Login extends ValidationComponent {
     constructor(props) {
         super(props)
+
+        this.state ={
+            email:'',
+            password:'',
+            isPasswordSecured:true        }
     }
+
+
+    handlEmail = (text) => {
+        this.setState({
+            email: text
+        })
+    }
+    handlePassword = (text) => {
+        this.setState({
+            password: text
+        })
+    }
+
+    login = () =>{
+
+        this.validate({
+          email:{required:true}
+        })
+
+        if (this.getErrorMessages()){
+            alert(LeneovellisteConstants.kEmailEmpty)
+
+        }else{
+
+            this.validate({
+                email:{email:true}
+            })
+
+            if(this.getErrorMessages()){
+                alert(LeneovellisteConstants.kEmailInvalid)
+
+            }else{
+                
+                this.validate({
+                    password:{required:true}
+                })
+
+                if (this.getErrorMessages()){
+                    alert(LeneovellisteConstants.kPasswordEmpty)
+
+                }else{
+                    this.validate({
+    
+                        password: { minlength: 5 }
+                      })
+      
+                      if (this.getErrorMessages()) {
+      
+                        alert(LeneovellisteConstants.kPasswordMinLength)
+                      }else{
+                        var loginParams = {
+                            'username': this.state.email,
+                            'password': this.state.password,
+                          }
+        
+                          console.log(loginParams);
+        
+                          this.loginAPICall(loginParams);
+        
+
+                      }
+                }
+            }
+
+        }
+    }
+
+
+    loginAPICall(params) {
+    
+        var dicLogin = {};
+    
+        axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kLOGIN_API, params)
+    
+          .then(response => {
+    
+             console.log("Login Response",response.data);
+            let msg = response.data.message;
+            if (response.data.status == "true") {
+    
+              dicLogin = response.data.user_detail;
+    
+              AsyncStorage.setItem('loggedInUserDetails', JSON.stringify(dicLogin));              
+    
+              this.props.navigation.goBack();
+    
+            } else {
+    
+              console.log("Login error",msg)
+              alert(msg);
+             
+            }
+    
+          })
+          .catch(function (error) {
+    
+            // console.log(error);
+            alert(error)
+            console.log('In case of undefined')
+    
+          });
+    
+      }
+
     render() {
         return (
-
-
-            
                 <Container>
                     <Header style={{ backgroundColor: 'white', }}>
                         <Left>
@@ -56,32 +164,41 @@ export default class Login extends React.Component {
 
 
                                 <TextInput
-                                    placeholder="E-mail"
+                                    placeholder="Email"
                                     placeholderTextColor='#9b9b9b'
                                     keyboardType={'email-address'}
-                                    //value={this.state.email} onChangeText={email => this.setState({ email })}
+                                    onChangeText={this.handlEmail}
+                                    value={this.state.email}                                    
                                     style={styles.input}
                                     returnKeyType={"next"}
                                     onSubmitEditing={() => { this.secondTextInput.focus(); }}
                                     blurOnSubmit={false}
+                                    autoCapitalize = 'none'
                                 />
                                 <View style={{ flexDirection: 'row' }}>
                                     <TextInput
                                         ref={(input) => { this.secondTextInput = input; }}
-                                        secureTextEntry
+                                        secureTextEntry = {this.state.isPasswordSecured}
                                         placeholder="Password"
                                         placeholderTextColor='#9b9b9b'
+                                        onChangeText={this.handlePassword}
+                                        value={this.state.password}
                                         style={styles.input}
+                                        
                                     />
                                     <Icon style={styles.icon}
-                                        name='visibility-off'
+                                        name= {this.state.isPasswordSecured?'visibility-off':'visibility'}
                                         size={25}
                                         color='#D3D3D3'
-                                        onPress={this.changePwdType}
+                                        onPress={()=>{
+                                            this.setState({
+                                              isPasswordSecured:!this.state.isPasswordSecured
+                                            })
+                                        }}
                                     />
                                 </View>
                                 <View style={styles.loginButton}>
-                                    <Button
+                                    <TouchableOpacity
                                         transparent
                                         onPress={() => {
                                             this.props.navigation.goBack();
@@ -89,7 +206,7 @@ export default class Login extends React.Component {
                                         <View style={styles.buttonContainer}>
                                             <Text style={{ color: 'white', fontSize: 20 }}>I connect</Text>
                                         </View>
-                                    </Button>
+                                    </TouchableOpacity>
 
                                 </View>
 
@@ -134,7 +251,8 @@ const styles = StyleSheet.create({
         borderColor: '#D3D3D3',
         marginBottom: 20,
         paddingLeft: 15,
-        color: '#D3D3D3',
+       // color: '#D3D3D3',
+       color:'#000',
         alignSelf: 'center',
     },
 
@@ -167,7 +285,9 @@ const styles = StyleSheet.create({
         //marginLeft:35
     },
     loginButton: {
-        backgroundColor: 'pink',
+        backgroundColor: 'red',
+        height:50,
+        alignItems:'center'
     },
     buttonContainer: {
         flex: 1,
