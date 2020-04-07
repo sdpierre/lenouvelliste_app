@@ -18,6 +18,8 @@ import "moment/min/locales";
 
 // Import getNews function from news.js
 import { getCitizenNews } from "library/networking/Api";
+import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
+
 //Realm
 import Realm from 'realm';
 let realm;
@@ -210,6 +212,7 @@ class CitizenScreen extends React.Component {
           refreshing={this.state.refreshing}
           onRefresh={this.handleRefresh.bind(this)}
         />
+         <CitizenFloatingAction/>
       </View>
     </View>
     );

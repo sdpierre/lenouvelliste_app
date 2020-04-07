@@ -1,0 +1,125 @@
+import React from 'react';
+import { Text, View, StyleSheet, Modal, TextInput, Dimensions,TouchableOpacity,Image } from 'react-native';
+import {
+    Container,
+    Header,
+    Left,
+    Body,
+    Right,
+    Button,
+    Icon,
+    Title,
+    Content
+  } from "native-base";  
+import { Colors } from '../../styles';
+import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
+import ValidationComponent from 'react-native-form-validator';
+import axios from 'axios';
+import * as LeneovellisteConstants from '../../utils/LenouvellisteConstants'
+
+//Dimensions
+var deviceWidth = (Dimensions.get('window').width);
+var deviceHeight = (Dimensions.get('window').height);
+
+export default class Forgot extends ValidationComponent{
+    constructor(props) {
+        super(props)
+
+        this.state ={
+        }
+    }
+
+    render(){
+        return(
+            <Container>
+                <Header style={{ backgroundColor: 'white' }}>
+                    <Left>
+                        <Button
+                            transparent
+                            onPress={() => {
+                                this.props.navigation.goBack();
+                            }}>
+                            <Ionicons name="close" size={30} style={Colors.gray} />
+                        </Button>
+                    </Left>
+                    <Body>
+                    <Title>USER PROFILE</Title>
+                    </Body>
+                    <Right></Right>
+                </Header>
+                <View style={profileStyles.containerView}>
+
+                  <View style={profileStyles.profileBlueBg}>
+                  </View>
+
+                  <View style={{height:120, width:140, backgroundColor:'white', alignSelf:'center'/*,justifyContent:'flex-start'*/,top:-70,alignItems:'center',borderRadius:10}}>
+                       <Image source={require('../../library/images/profile.png')} style={{height:120,width:120}}/> 
+                  </View>
+
+                  <View style={{alignItems:'center',height:100,top: -40}}> 
+                       <Text style ={{color:'#0089d0',fontSize:22,fontWeight:'bold',fontFamily:'AkkoPro-BoldCondensed'}}>USER NAME</Text>
+                       <Text style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}>Neena Mishra</Text>
+                  </View>
+
+                  <View style = {{backgroundColor:'lightgray',height:1,top:-60, marginLeft:20,marginRight:20}}></View>
+
+                  <View style={{flex:0.1,flexDirection:'row', top:-40,marginRight:20,marginLeft:20}}>
+                 
+                  <View style={{flexDirection:'column',width:'25%',justifyContent:'center',alignItems:'center'}}> 
+                       <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Video</Text>
+                       <Text style ={{color:'#008BCA',fontSize:22,fontFamily:'Gotham-book'}}>54</Text>
+                  </View>
+
+                  <View style = {{backgroundColor:'lightgray',height:50, width:2, marginLeft:20, marginRight:20,alignSelf:'center'}}></View>
+
+                  <View style={{flexDirection:'column',width:'25%',justifyContent:'center',alignItems:'center'}}> 
+                       <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Video</Text>
+                       <Text style ={{color:'#008BCA',fontSize:22,fontFamily:'Gotham-book'}}>54</Text>
+                  </View>
+
+                  <View style = {{backgroundColor:'lightgray',height:50, width:2, marginLeft:20, marginRight:20,alignSelf:'center'}}></View>
+
+                  <View style={{flexDirection:'column',width:'25%',justifyContent:'center',alignItems:'center'}}> 
+                       <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Video</Text>
+                       <Text style ={{color:'#008BCA',fontSize:22,fontFamily:'Gotham-book'}}>54</Text>
+                  </View>
+
+                  </View>
+
+                  <View style = {{backgroundColor:'lightgray',height:1,top:-20, marginLeft:20,marginRight:20}}></View>
+
+                  <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:10}}> 
+                       <Text style ={{color:'lightgray',fontSize:14,fontFamily:'Gotham-book'}}>Field Name</Text>
+                       <Text style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}>Neena Mishra</Text>
+                  </View>
+
+                  <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:10}}> 
+                       <Text style ={{color:'lightgray',fontSize:14,fontFamily:'Gotham-book'}}>Field Name</Text>
+                       <Text style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}>Neena Mishra</Text>
+                  </View>
+
+                  <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:10}}> 
+                       <Text style ={{color:'lightgray',fontSize:14,fontFamily:'Gotham-book'}}>Field Name</Text>
+                       <Text style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}>Neena Mishra</Text>
+                  </View>
+
+                </View>
+            </Container>
+
+        );
+    }
+}
+
+const profileStyles = StyleSheet.create({
+    containerView:{
+      flex:1,
+      justifyContent:'flex-start',
+      backgroundColor:'#ECECEC'
+    },
+    profileBlueBg:{
+        backgroundColor:'#0089d0',
+        flex:0.3,
+        height:300,
+         // justifyContent:'flex-start'
+    }
+})

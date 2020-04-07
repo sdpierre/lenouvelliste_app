@@ -11,6 +11,7 @@ import {
 import { Typography, Colors, Buttons, Spacing, Margins } from "../../../styles";
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
 import Article from "library/components/Article";
+import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
 
 import {
   Container,
@@ -37,7 +38,6 @@ class SelectionScreen extends React.Component {
 
     dataRender=realm.objects('book_news');
 
-  
     //console.log('SelectionSize>>', bookmarkData.length);
     this.state = {
       title : "Selection",
@@ -116,6 +116,7 @@ class SelectionScreen extends React.Component {
   </Text>
 </View>
 </Content>
+<CitizenFloatingAction/>
 </Container>
       );
     } 

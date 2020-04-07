@@ -21,27 +21,25 @@ import {createReduxContainer} from 'react-navigation-redux-helpers';
 import {connect} from 'react-redux';
 import {store} from './src/redux/store';
 import AppNavigator from './src/screens/AppNavigator';
-//Image Picker
-import ImagePicker from 'react-native-image-crop-picker';
 
 //OneSignal
 import OneSignal from 'react-native-onesignal';
 //fab
-import { FloatingAction } from "react-native-floating-action";
-const actions = [
-  {
-    text: "Photo",
-    icon: require("./src/library/images/gallery.png"),
-    name: "bt_photo",
-    position: 1
-  },
-  {
-    text: "Video",
-    icon: require("./src/library/images/camera.png"),
-    name: "bt_video",
-    position: 2
-  }
-];
+// import { FloatingAction } from "react-native-floating-action";
+// const actions = [
+//   {
+//     text: "Photo",
+//     icon: require("./src/library/images/gallery.png"),
+//     name: "bt_photo",
+//     position: 1
+//   },
+//   {
+//     text: "Video",
+//     icon: require("./src/library/images/camera.png"),
+//     name: "bt_video",
+//     position: 2
+//   }
+// ];
 
 import {
   Header,
@@ -50,6 +48,8 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import UserProfile from './src/screens/profile/UserProfile';
 
 const AppNav = createReduxContainer(AppNavigator);
 const mapStateToProps = state => ({
@@ -98,7 +98,8 @@ render() {
   return (
     <Provider store={store}>
     <AppContainer />
-    <FloatingAction
+    {/* <UserProfile/> */}
+    {/* <FloatingAction
     actions={actions}
     distanceToEdge={40}
     onPressItem={name => {
@@ -127,7 +128,7 @@ render() {
 
       }
     }}
-  />
+  /> */}
   </Provider>
   );
  }

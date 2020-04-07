@@ -10,7 +10,7 @@ import Article from 'library/components/Article';
 import Mostread from '../components/Mostread';
 import CitizenTopNews from "../components/CitizenTopNews";
 import LogoTitle from 'library/components/logo';
-
+import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
 
 import { Container, Header, Body, Title } from 'native-base';
 
@@ -303,6 +303,7 @@ class HomeScreen extends React.Component {
             refreshing={this.state.refreshing}
             onRefresh={this.handleRefresh.bind(this)}
           />
+          <CitizenFloatingAction/>
         </View>
       </Container>
     );

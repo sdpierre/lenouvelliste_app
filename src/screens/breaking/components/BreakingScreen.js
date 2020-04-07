@@ -15,6 +15,7 @@ import "moment/min/locales";
 import { Typography, Colors, Buttons, Spacing, Margins } from "../../../styles";
 
 import { getBreakingNews } from "library/networking/Api";
+import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
 
 import {
   Container,
@@ -115,10 +116,7 @@ class BreakingScreen extends React.Component {
       }catch(e){
         console.log('BreakingDBError>>', e);
       }
-     
-      
-     
-     
+    
     }
     
 
@@ -219,6 +217,7 @@ class BreakingScreen extends React.Component {
             refreshing={this.state.refreshing}
             onRefresh={this.handleRefresh.bind(this)}
           />
+           <CitizenFloatingAction/>
         </View>
       </Container>
     );

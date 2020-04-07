@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Modal, TextInput, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, StyleSheet, Modal, TextInput, Dimensions,TouchableOpacity,Alert } from 'react-native';
 import {
     Container,
     Header,
@@ -12,7 +12,6 @@ import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 //Dimensions
 var deviceWidth = (Dimensions.get('window').width);
@@ -68,7 +67,6 @@ export default class Forgot extends ValidationComponent{
         }
     }
 
-
     forgotPasswordAPICall(params) {
         
         axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kFORGOTPW_API, params)
@@ -79,9 +77,23 @@ export default class Forgot extends ValidationComponent{
             let msg = response.data.message;
             if (response.data.status == true) {
     
-            alert(msg);
-        
-            props.navigation.navigate('ForgotDone');
+            // alert(msg);
+
+
+            Alert.alert(
+                'Message',
+                 msg,
+                [
+                  {text: 'OK', onPress:()=>{
+                      
+                    this.props.navigation.navigate('ForgotPWOTP',{
+                        email:this.state.email
+                    });
+                }
+                 },
+                ],
+                { cancelable: false }
+              )
     
             } else {
     
@@ -100,7 +112,6 @@ export default class Forgot extends ValidationComponent{
           });
     
       }
-
 
     render(){
         return (

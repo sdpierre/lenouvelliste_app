@@ -41,6 +41,11 @@ export const kAddressEmpty = "Please enter address.";
 export const kPasswordEmpty = "Please enter password.";
 export const kPasswordMinLength = "Password must contain at least 6 characters.";
 export const kPasswordMaxLength = "Password should contain maximum 12 characters.";
+export const kPasswordsNotMatched = "Passwords doesn't match."
+
+//OTP
+export const kOTPEmpty = "Please enter OTP."
+export const kOTPSent = "OTP sent successfully."
 
 //Phone No.(For future)
 export const kPhoneNoEmpty = "Please enter phone no.";

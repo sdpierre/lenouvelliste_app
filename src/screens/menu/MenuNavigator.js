@@ -9,6 +9,8 @@ import NewsScreen from '../news/newsScreen';
 import RegisterScreen from '../loginFlow/components/Register';
 import RegisterdoneScreen from '../loginFlow/components/RegisterDone';
 import ForgotScreen from '../loginFlow/components/Forgot'
+import ForgotPWOTPScreen from '../loginFlow/components/ForgotPWOTP'
+import ResetPasswordScreen from '../loginFlow/components/ResetPW'
 import ForgotDoneScreen from '../loginFlow/components/ForgotDone'
 
 const MenuStackNav = createStackNavigator({
@@ -35,6 +37,12 @@ const MenuStackNav = createStackNavigator({
     },
     Forgot:{
         screen:ForgotScreen
+    },
+    ForgotPWOTP:{
+        screen:ForgotPWOTPScreen
+    },
+    ResetPassword:{
+        screen:ResetPasswordScreen
     },
     ForgotDone:{
         screen:ForgotDoneScreen
