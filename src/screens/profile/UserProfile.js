@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Modal, TextInput, Dimensions,TouchableOpacity,Image } from 'react-native';
+import { Text, View, StyleSheet, Modal, TextInput, Dimensions,TouchableOpacity,Image,ScrollView } from 'react-native';
 import {
     Container,
     Header,
@@ -47,37 +47,37 @@ export default class Forgot extends ValidationComponent{
                     </Body>
                     <Right></Right>
                 </Header>
+                <ScrollView style={{backgroundColor:'#ECECEC'}}>
                 <View style={profileStyles.containerView}>
 
                   <View style={profileStyles.profileBlueBg}>
-                  </View>
-
-                  <View style={{height:120, width:140, backgroundColor:'white', alignSelf:'center'/*,justifyContent:'flex-start'*/,top:-70,alignItems:'center',borderRadius:10}}>
+                  <View style={{height:120, width:140, backgroundColor:'white', alignSelf:'center'/*,justifyContent:'flex-start'*/,top:40,alignItems:'center',borderRadius:10}}>
                        <Image source={require('../../library/images/profile.png')} style={{height:120,width:120}}/> 
                   </View>
+                  </View>
 
-                  <View style={{alignItems:'center',height:100,top: -40}}> 
+                  <View style={{alignItems:'center',height:50,marginTop:70}}> 
                        <Text style ={{color:'#0089d0',fontSize:22,fontWeight:'bold',fontFamily:'AkkoPro-BoldCondensed'}}>USER NAME</Text>
                        <Text style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}>Neena Mishra</Text>
                   </View>
 
-                  <View style = {{backgroundColor:'lightgray',height:1,top:-60, marginLeft:20,marginRight:20}}></View>
+                  <View style = {{backgroundColor:'lightgray',height:1,marginTop:20, marginLeft:20,marginRight:20}}></View>
 
-                  <View style={{flex:0.1,flexDirection:'row', top:-40,marginRight:20,marginLeft:20}}>
+                  <View style={{height:50,flexDirection:'row', top:10,marginRight:20,marginLeft:20}}>
                  
                   <View style={{flexDirection:'column',width:'25%',justifyContent:'center',alignItems:'center'}}> 
                        <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Video</Text>
                        <Text style ={{color:'#008BCA',fontSize:22,fontFamily:'Gotham-book'}}>54</Text>
                   </View>
 
-                  <View style = {{backgroundColor:'lightgray',height:50, width:2, marginLeft:20, marginRight:20,alignSelf:'center'}}></View>
+                  <View style = {{backgroundColor:'lightgray',height:40, width:2, marginLeft:20, marginRight:20,alignSelf:'center'}}></View>
 
                   <View style={{flexDirection:'column',width:'25%',justifyContent:'center',alignItems:'center'}}> 
                        <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Video</Text>
                        <Text style ={{color:'#008BCA',fontSize:22,fontFamily:'Gotham-book'}}>54</Text>
                   </View>
 
-                  <View style = {{backgroundColor:'lightgray',height:50, width:2, marginLeft:20, marginRight:20,alignSelf:'center'}}></View>
+                  <View style = {{backgroundColor:'lightgray',height:40, width:2, marginLeft:20, marginRight:20,alignSelf:'center'}}></View>
 
                   <View style={{flexDirection:'column',width:'25%',justifyContent:'center',alignItems:'center'}}> 
                        <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Video</Text>
@@ -86,9 +86,9 @@ export default class Forgot extends ValidationComponent{
 
                   </View>
 
-                  <View style = {{backgroundColor:'lightgray',height:1,top:-20, marginLeft:20,marginRight:20}}></View>
+                  <View style = {{backgroundColor:'lightgray',height:1,top:10, marginLeft:20,marginRight:20}}></View>
 
-                  <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:10}}> 
+                  <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:20}}> 
                        <Text style ={{color:'lightgray',fontSize:14,fontFamily:'Gotham-book'}}>Field Name</Text>
                        <Text style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}>Neena Mishra</Text>
                   </View>
@@ -102,8 +102,19 @@ export default class Forgot extends ValidationComponent{
                        <Text style ={{color:'lightgray',fontSize:14,fontFamily:'Gotham-book'}}>Field Name</Text>
                        <Text style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}>Neena Mishra</Text>
                   </View>
+
+                 <View style={{height:50,flexDirection:'row', top:20,marginRight:20,marginLeft:20}}>
+                 <View style={{height:50,width:'45%',justifyContent:'center',alignItems:'center',backgroundColor:'#fff',marginRight:20}}> 
+                      <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Edit Profile</Text>
+                 </View>
+
+                 <View style={{height:50,width:'45%',justifyContent:'center',alignItems:'center',backgroundColor:'#0089d0'}}> 
+                      <Text style ={{color: "#fff",fontSize:16,fontFamily:'Gotham-book'}}>Save Changes</Text>
+                 </View>
+                 </View>
 
                 </View>
+                </ScrollView>
             </Container>
 
         );
@@ -118,8 +129,7 @@ const profileStyles = StyleSheet.create({
     },
     profileBlueBg:{
         backgroundColor:'#0089d0',
-        flex:0.3,
-        height:300,
+        height:100,
          // justifyContent:'flex-start'
     }
 })

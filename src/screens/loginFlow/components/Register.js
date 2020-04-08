@@ -274,8 +274,14 @@ export default class Register extends ValidationComponent{
     
                 AsyncStorage.setItem('registeredUserDetails', JSON.stringify(dicRegistration));              
       
-                this.props.navigation.goBack();
-                this.props.navigation.navigate('RegisterDone');
+                var loginParams = {
+                    'username': this.state.email,
+                    'password': this.state.password,
+                  }
+
+                  console.log(loginParams);
+
+                  this.loginAPICall(loginParams);
   
             } else {
     
@@ -292,6 +298,44 @@ export default class Register extends ValidationComponent{
           });
     
       }
+
+      loginAPICall(params) {
+    
+        var dicLogin = {};
+    
+        axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kLOGIN_API, params)
+    
+          .then(response => {
+    
+             console.log("Login Response",response.data);
+            let msg = response.data.message;
+            if (response.data.status == true) {
+    
+              dicLogin = response.data.user_detail;
+    
+              AsyncStorage.setItem('loggedInUserDetails', JSON.stringify(dicLogin));              
+    
+              this.props.navigation.goBack();
+              this.props.navigation.navigate('RegisterDone');
+  
+            } else {
+    
+              console.log("Login error",msg)
+              alert(msg);
+             
+            }
+    
+          })
+          .catch(function (error) {
+    
+            // console.log(error);
+            alert(error)
+            console.log('In case of undefined')
+    
+          });
+    
+      }
+
 
       getAllCountriesListAPICall() {
 
@@ -343,12 +387,10 @@ export default class Register extends ValidationComponent{
     }
 
     renderItem = ({ item }) => {
-        console.log("Getting called")
-
         return (
             <TouchableOpacity onPress={() => this._choosen(item)}>
                   <View style={registerStyles.flatview}>
-            <Text style={registerStyles.countryName}>{item.country_name}</Text>
+            <Text style={registerStyles.countryName} key={item.country_name}>{item.country_name}</Text>
             {/* <Text style={registerStyles.CountryCode}>Hi</Text> */}
           </View>
           </TouchableOpacity>
@@ -361,8 +403,6 @@ export default class Register extends ValidationComponent{
             countryName:selectedItem.country_name
         });
         this.closeCountryModal()
-
-
       }
       
     render() {
@@ -417,10 +457,11 @@ export default class Register extends ValidationComponent{
                                     value={this.state.userName}
                                     style={registerStyles.input}
                                     returnKeyType={"next"}
-                                    onSubmitEditing={() => { this.firstInput.focus(); }}
+                                    onSubmitEditing={() => { this.nameInput.focus(); }}
                                     blurOnSubmit={false}
                                 />
                                   <TextInput
+                                    ref={(input) => { this.nameInput = input; }}
                                     placeholder="Name"
                                     placeholderTextColor='#9b9b9b'
                                     keyboardType={'default'}
@@ -428,9 +469,8 @@ export default class Register extends ValidationComponent{
                                     value={this.state.fullName}
                                     style={registerStyles.input}
                                     returnKeyType={"next"}
-                                    onSubmitEditing={() => { this.lastInput.focus(); }}
+                                    onSubmitEditing={() => { this.emailInput.focus(); }}
                                     blurOnSubmit={false}
-                                    ref={(input) => { this.firstInput = input; }}
                                 />
 
                                 {/* <TextInput
@@ -479,11 +519,9 @@ export default class Register extends ValidationComponent{
                                         style={registerStyles.input}
                                         onChangeText={this.handlePassword}
                                         value={this.state.password}
-                                        returnKeyType={"next"}
-                                        onSubmitEditing={() => { this.lastInput.focus(); }}
-                                        blurOnSubmit={false}
-                                        ref={(input) => { this.firstInput = input; }}
-    
+                                        // returnKeyType={"done"}
+                                       // onSubmitEditing={() => { this.countryInput.focus(); }}
+                                        blurOnSubmit={false}    
                                     />
                                     <Icon style={registerStyles.icon}
                                         name= {this.state.isPasswordSecured?'visibility-off':'visibility'}
@@ -502,15 +540,16 @@ export default class Register extends ValidationComponent{
                                 <TextInput
                                     placeholder="Country"
                                     placeholderTextColor='#9b9b9b'
-                                    keyboardType={'default'}
+                                    // keyboardType={'default'}
                                     onChangeText={this.handleCountry}
                                     value={this.state.countryName}
                                     style={registerStyles.input}
-                                    returnKeyType={"next"}
-                                    onSubmitEditing={() => { this.lastInput.focus(); }}
-                                    blurOnSubmit={false}
-                                    ref={(input) => { this.firstInput = input; }}
+                                    // returnKeyType={"next"}
+                                    // onSubmitEditing={() => { this.townInput.focus(); }}
+                                    // blurOnSubmit={false}
+                                   //  ref={(input) => { this.countryInput = input; }}
                                     onTouchStart = {()=>this.openCountryModal()}
+                                    editable = {false}
                                 />
                                 {/* </TouchableOpacity> */}
                                 <Modal isVisible={this.state.isCountryModalVisible} style={{backgroundColor:'white',maxHeight:Dimensions.get('window').height -100, top:50, bottom:50}} onBackdropPress={()=>this.closeCountryModal()} animationIn="slideInUp" animationOut="slideOutDown" swipeDirection="right">
@@ -521,10 +560,16 @@ export default class Register extends ValidationComponent{
 </TouchableOpacity>
 
 <FlatList
+          style={{marginBottom:10}}
           data={this.state.arrCountryList}
-          showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={true}
           renderItem={this.renderItem}
-        keyExtractor={(item, index) => `item-${index}`}
+          initialNumToRender = {10}
+        //   maxToRenderPerBatch = {2}
+        //   windowSize={5}
+          removeClippedSubviews = {true}
+          //keyExtractor={(item, index) => `item-${index}`}
+          keyExtractor={(item) => item.id}
         />
 
          </View>
@@ -538,6 +583,8 @@ export default class Register extends ValidationComponent{
                                     onChangeText={this.handleTown}
                                     value={this.state.town}
                                     style={registerStyles.input}
+                                    // ref={(input) => { this.townInput = input; }}
+                                    returnKeyType='done'
                                 />
  
                                 <View style={registerStyles.checkContainer}>

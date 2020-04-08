@@ -357,16 +357,18 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 22BFZL9Q9J;
+						DevelopmentTeam = AVH4YFL439;
+						ProvisioningStyle = Manual;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 22BFZL9Q9J;
+						DevelopmentTeam = AVH4YFL439;
+						ProvisioningStyle = Manual;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 22BFZL9Q9J;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = AVH4YFL439;
+						ProvisioningStyle = Manual;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
 				};
@@ -612,7 +614,8 @@
 			baseConfigurationReference = 699D2BE1D3A561D49531FBD2 /* Pods-lenouvelliste_appTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 22BFZL9Q9J;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = AVH4YFL439;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -632,6 +635,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lenouvelliste_app.app/lenouvelliste_app";
 			};
 			name = Debug;
@@ -641,8 +646,9 @@
 			baseConfigurationReference = F95DF9BE01D41CEE61BC575B /* Pods-lenouvelliste_appTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 22BFZL9Q9J;
+				DEVELOPMENT_TEAM = AVH4YFL439;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/..",
@@ -658,6 +664,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lenouvelliste_app.app/lenouvelliste_app";
 			};
 			name = Release;
@@ -668,9 +676,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = lenouvelliste_app/lenouvelliste_app.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nikhil Jain (72R882LN8W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nikhil Jain (72R882LN8W)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 22BFZL9Q9J;
+				DEVELOPMENT_TEAM = AVH4YFL439;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../librairies/GoogleMobileAdsSdkiOS-7.56.0\"",
 					"$(PROJECT_DIR)",
@@ -716,8 +727,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.TheStockSnipers;
 				PRODUCT_NAME = lenouvelliste_app;
+				PROVISIONING_PROFILE_SPECIFIER = StockSnipersDevPro7Feb2020;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -728,8 +740,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = lenouvelliste_app/lenouvelliste_app.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nikhil Jain (72R882LN8W)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 22BFZL9Q9J;
+				DEVELOPMENT_TEAM = AVH4YFL439;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../librairies/GoogleMobileAdsSdkiOS-7.56.0\"",
 					"$(PROJECT_DIR)",
@@ -775,8 +789,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.TheStockSnipers;
 				PRODUCT_NAME = lenouvelliste_app;
+				PROVISIONING_PROFILE_SPECIFIER = StockSnipersDevPro7Feb2020;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -789,8 +804,9 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 22BFZL9Q9J;
+				DEVELOPMENT_TEAM = AVH4YFL439;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -807,6 +823,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.lenouvelliste_app-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lenouvelliste_app-tvOS.app/lenouvelliste_app-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
@@ -821,9 +838,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 22BFZL9Q9J;
+				DEVELOPMENT_TEAM = AVH4YFL439;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -839,6 +857,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.lenouvelliste_app-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lenouvelliste_app-tvOS.app/lenouvelliste_app-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
@@ -872,8 +891,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nikhil Jain (72R882LN8W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nikhil Jain (72R882LN8W)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = AVH4YFL439;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "/Users/lenouvellistepsd/Downloads/GoogleMobileAdsSdkiOS-7.56.0";
@@ -895,6 +916,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = StockSnipersDevPro7Feb2020;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -926,8 +948,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nikhil Jain (72R882LN8W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nikhil Jain (72R882LN8W)";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = AVH4YFL439;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "/Users/lenouvellistepsd/Downloads/GoogleMobileAdsSdkiOS-7.56.0";
@@ -941,6 +965,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE_SPECIFIER = StockSnipersDevPro7Feb2020;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

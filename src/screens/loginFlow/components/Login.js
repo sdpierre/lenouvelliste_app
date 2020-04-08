@@ -114,7 +114,7 @@ export default class Login extends ValidationComponent {
     
              console.log("Login Response",response.data);
             let msg = response.data.message;
-            if (response.data.status == "true") {
+            if (response.data.status == true) {
     
               dicLogin = response.data.user_detail;
     

@@ -36,8 +36,7 @@ export default class RegisterDone extends React.Component {
                             </Button>
                         </Left>
                         <Body></Body>
-                        <Right>
-                            
+                         <Right>
                         </Right>
                     </Header>
                     <Content>
@@ -50,10 +49,10 @@ export default class RegisterDone extends React.Component {
                                         transparent
                                         onPress={() => {
                                             this.props.navigation.goBack();
-                                            this.props.navigation.navigate('Home');
+                                            this.props.navigation.navigate('Menu');
                                         }}>
                                         <View style={doneRegStyles.buttonContainer}>
-                                            <Text style={{ color: 'white', fontSize: 20 }}>Back to Home Screen</Text>
+                                            <Text style={{ color: 'white', fontSize: 20 }}>Explore Lenouvelliste</Text>
                                         </View>
                                     </Button>
                                 </View>
