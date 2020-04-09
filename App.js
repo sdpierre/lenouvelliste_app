@@ -62,8 +62,8 @@ export default class App extends Component {
 
   constructor(properties) {
     super(properties);
-    OneSignal.init("40ff38fc-96c8-4c8b-9f7d-4f9f0936a746");
-
+    OneSignal.init("40ff38fc-96c8-4c8b-9f7d-4f9f0936a746"); //Android App ID
+    OneSignal.init("3728d7a9-c5b3-4c83-a88d-a085f6765274"); //iOS App ID
     OneSignal.addEventListener('received', this.onReceived);
     OneSignal.addEventListener('opened', this.onOpened);
     OneSignal.addEventListener('ids', this.onIds);

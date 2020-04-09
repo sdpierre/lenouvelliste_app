@@ -12,7 +12,7 @@ import {
     Content
   } from "native-base";  
 import { Colors } from '../../styles';
-import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from "react-native-vector-icons/Ionicons";
 import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../utils/LenouvellisteConstants'
@@ -39,7 +39,7 @@ export default class Forgot extends ValidationComponent{
                             onPress={() => {
                                 this.props.navigation.goBack();
                             }}>
-                            <Ionicons name="close" size={30} style={Colors.gray} />
+                            <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
                         </Button>
                     </Left>
                     <Body>

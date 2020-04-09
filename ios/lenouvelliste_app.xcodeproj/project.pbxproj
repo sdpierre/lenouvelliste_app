@@ -37,6 +37,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		182897ED243E05390052BEF0 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83D90B922416D13000E8CD4E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -80,6 +90,7 @@
 		699D2BE1D3A561D49531FBD2 /* Pods-lenouvelliste_appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lenouvelliste_appTests.debug.xcconfig"; path = "Target Support Files/Pods-lenouvelliste_appTests/Pods-lenouvelliste_appTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6E0C6341B7DD48ECB6A8575A /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../src/res/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		6F5358597C1B4F93AE5B9D9A /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		75235DF5E903E1C59D7450AC /* Pods-lenouvelliste_app-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lenouvelliste_app-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-lenouvelliste_app-OneSignalNotificationServiceExtension/Pods-lenouvelliste_app-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		76E65D9B5D9A48E395A35CDB /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		84859A0C20064FCFA7C1D118 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		8FADD2FE4F2449C784E8F399 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -95,7 +106,9 @@
 		B698E6E1D8C84192B9EAE4C3 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		B831DB5321A06038A999EB4D /* libPods-lenouvelliste_appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lenouvelliste_appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C04E6D41869A4CE58AB94198 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		C268F05E8A1E2820915FF705 /* libPods-lenouvelliste_app-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lenouvelliste_app-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C290F15EC32E446BB110851F /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		C5144EFFFD32A08CB0E1B1D8 /* Pods-lenouvelliste_app-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lenouvelliste_app-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-lenouvelliste_app-OneSignalNotificationServiceExtension/Pods-lenouvelliste_app-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		CA5EB6B02F92E000FA63369A /* libPods-lenouvelliste_app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lenouvelliste_app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CACC9D12AC3B4FA681AC7F67 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		D49B077D7CD841AAB163E979 /* AkkoPro-Condensed.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AkkoPro-Condensed.ttf"; path = "../src/res/fonts/AkkoPro-Condensed.ttf"; sourceTree = "<group>"; };
@@ -166,6 +179,8 @@
 				F95DF9BE01D41CEE61BC575B /* Pods-lenouvelliste_appTests.release.xcconfig */,
 				375DB79EED7D6A43E18D623F /* Pods-lenouvelliste_app.debug.xcconfig */,
 				0E8AFC419AEA062069F9992B /* Pods-lenouvelliste_app.release.xcconfig */,
+				C5144EFFFD32A08CB0E1B1D8 /* Pods-lenouvelliste_app-OneSignalNotificationServiceExtension.debug.xcconfig */,
+				75235DF5E903E1C59D7450AC /* Pods-lenouvelliste_app-OneSignalNotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -193,6 +208,7 @@
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				CA5EB6B02F92E000FA63369A /* libPods-lenouvelliste_app.a */,
 				B831DB5321A06038A999EB4D /* libPods-lenouvelliste_appTests.a */,
+				C268F05E8A1E2820915FF705 /* libPods-lenouvelliste_app-OneSignalNotificationServiceExtension.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -319,6 +335,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				2851E6092373494CF8310429 /* [CP] Copy Pods Resources */,
 				83D90B922416D13000E8CD4E /* Embed Frameworks */,
+				182897ED243E05390052BEF0 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -357,17 +374,17 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = AVH4YFL439;
+						DevelopmentTeam = 22BFZL9Q9J;
 						ProvisioningStyle = Manual;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = AVH4YFL439;
+						DevelopmentTeam = 22BFZL9Q9J;
 						ProvisioningStyle = Manual;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = AVH4YFL439;
+						DevelopmentTeam = 22BFZL9Q9J;
 						ProvisioningStyle = Manual;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -615,7 +632,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = AVH4YFL439;
+				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -648,7 +665,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = AVH4YFL439;
+				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/..",
@@ -676,12 +693,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = lenouvelliste_app/lenouvelliste_app.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nikhil Jain (72R882LN8W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nikhil Jain (72R882LN8W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = AVH4YFL439;
+				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../librairies/GoogleMobileAdsSdkiOS-7.56.0\"",
 					"$(PROJECT_DIR)",
@@ -727,9 +744,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.TheStockSnipers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.Lenouvelliste;
 				PRODUCT_NAME = lenouvelliste_app;
-				PROVISIONING_PROFILE_SPECIFIER = StockSnipersDevPro7Feb2020;
+				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDev09April2020;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -740,10 +757,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = lenouvelliste_app/lenouvelliste_app.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nikhil Jain (72R882LN8W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = AVH4YFL439;
+				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../librairies/GoogleMobileAdsSdkiOS-7.56.0\"",
 					"$(PROJECT_DIR)",
@@ -789,9 +807,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.TheStockSnipers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.Lenouvelliste;
 				PRODUCT_NAME = lenouvelliste_app;
-				PROVISIONING_PROFILE_SPECIFIER = StockSnipersDevPro7Feb2020;
+				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDev09April2020;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -806,7 +824,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = AVH4YFL439;
+				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -841,7 +859,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AVH4YFL439;
+				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -891,10 +909,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nikhil Jain (72R882LN8W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nikhil Jain (72R882LN8W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = AVH4YFL439;
+				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "/Users/lenouvellistepsd/Downloads/GoogleMobileAdsSdkiOS-7.56.0";
@@ -916,7 +934,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE_SPECIFIER = StockSnipersDevPro7Feb2020;
+				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDev09April2020;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -948,10 +966,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nikhil Jain (72R882LN8W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nikhil Jain (72R882LN8W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = AVH4YFL439;
+				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "/Users/lenouvellistepsd/Downloads/GoogleMobileAdsSdkiOS-7.56.0";
@@ -965,7 +983,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE_SPECIFIER = StockSnipersDevPro7Feb2020;
+				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDev09April2020;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

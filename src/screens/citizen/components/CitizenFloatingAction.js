@@ -4,7 +4,7 @@ import { FloatingAction } from "react-native-floating-action";
 //Image Picker
 import ImagePicker from 'react-native-image-crop-picker';
 
-class CitizenFloatingAction extends PureComponent {
+class CitizenFloatingAction extends React.Component {
   static navigationOptions = {
     title: "Right position"
   };
@@ -26,7 +26,7 @@ class CitizenFloatingAction extends PureComponent {
       ];
     
       return (
-      <SafeAreaView style={styles.container}>
+    //  <SafeAreaView style={styles.container}>
         <View style={styles.container}>
           <FloatingAction
             actions={actions}
@@ -62,7 +62,7 @@ class CitizenFloatingAction extends PureComponent {
               }}          
           />
         </View>
-     </SafeAreaView>
+   //  </SafeAreaView>
     );
   }
 }

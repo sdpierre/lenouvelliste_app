@@ -1,14 +1,16 @@
 import React from 'react';
-import { Text, View, StyleSheet, Modal, TextInput, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, StyleSheet, Modal, TextInput, Dimensions, TouchableWithoutFeedback,TouchableOpacity,Alert} from 'react-native';
 import {
     Container,
     Header,
     Body,
-    Button,
-    Right, Left
+    Title, Button,
+    Content,
+    Right, Left, Radio
 } from "native-base";
 import { Colors } from '../../../styles';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
@@ -79,7 +81,7 @@ export default class ForgotPWOTP extends ValidationComponent{
 
             if (this.getErrorMessages()){
 
-                alert(LeneovellisteConstants.kPasswordEmpty)
+                alert(LeneovellisteConstants.kPasswordNewEmpty)
 
             }else{
 
@@ -98,7 +100,7 @@ export default class ForgotPWOTP extends ValidationComponent{
                     })
 
                     if (this.getErrorMessages()){
-                        alert(LeneovellisteConstants.kPasswordEmpty)
+                        alert(LeneovellisteConstants.kPasswordConfirmEmpty)
                     }else{
 
                         this.validate({
@@ -150,8 +152,9 @@ export default class ForgotPWOTP extends ValidationComponent{
                      msg,
                     [
                       {text: 'OK', onPress:()=>{
-                          
-                        this.props.navigation.navigate('ForgotDone');
+                         
+                        this.props.navigation.goBack();
+                        this.props.navigation.navigate('Account');
                     }
                      },
                     ],
@@ -195,10 +198,10 @@ export default class ForgotPWOTP extends ValidationComponent{
                     <View style={{ flexDirection: 'row', alignSelf:'center',width: deviceWidth - 70}}>
                                     <TextInput
                                         ref={(input) => { this.passwordInput = input; }}
-                                        secureTextEntry = {this.state.isPasswordSecured}
+                                        secureTextEntry = {this.state.isOldPWSecured}
                                         placeholder="Old Password"
                                         placeholderTextColor='#9b9b9b'
-                                        style={registerStyles.input}
+                                        style={forgotStyles.input}
                                         onChangeText={this.handleOldPassword}
                                         value={this.state.oldPassword}
                                         returnKeyType={"next"}
@@ -207,8 +210,8 @@ export default class ForgotPWOTP extends ValidationComponent{
                                         ref={(input) => { this.firstInput = input; }}
     
                                     />
-                                    <Icon style={registerStyles.icon}
-                                        name= {this.state.isPasswordSecured?'visibility-off':'visibility'}
+                                    <Icon style={forgotStyles.icon}
+                                        name= {this.state.isOldPWSecured?'visibility-off':'visibility'}
                                         size={25}
                                         color='#D3D3D3'
                                         onPress={()=>{
@@ -221,18 +224,18 @@ export default class ForgotPWOTP extends ValidationComponent{
                     <View style={{ flexDirection: 'row', alignSelf:'center',width: deviceWidth - 70}}>
                                     <TextInput
                                         ref={(input) => { this.passwordInput = input; }}
-                                        secureTextEntry = {this.state.isPasswordSecured}
+                                        secureTextEntry = {this.state.isNewPWSecured}
                                         placeholder="New Password"
                                         placeholderTextColor='#9b9b9b'
-                                        style={registerStyles.input}
+                                        style={forgotStyles.input}
                                         onChangeText={this.handleNewPassword}
                                         value={this.state.newPassword}
                                         returnKeyType={"next"}
                                         onSubmitEditing={() => { this.lastInput.focus(); }}
                                         blurOnSubmit={false}    
                                     />
-                                    <Icon style={registerStyles.icon}
-                                        name= {this.state.isPasswordSecured?'visibility-off':'visibility'}
+                                    <Icon style={forgotStyles.icon}
+                                        name= {this.state.isNewPWSecured?'visibility-off':'visibility'}
                                         size={25}
                                         color='#D3D3D3'
                                         onPress={()=>{
@@ -246,15 +249,15 @@ export default class ForgotPWOTP extends ValidationComponent{
                     <View style={{ flexDirection: 'row', alignSelf:'center',width: deviceWidth - 70}}>
                                     <TextInput
                                         ref={(input) => { this.passwordInput = input; }}
-                                        secureTextEntry = {this.state.isPasswordSecured}
+                                        secureTextEntry = {this.state.isConfirmPWSecured}
                                         placeholder="Confirm Password"
                                         placeholderTextColor='#9b9b9b'
-                                        style={registerStyles.input}
+                                        style={forgotStyles.input}
                                         onChangeText={this.handleConfirmPassword}
                                         value={this.state.confirmPassword}    
                                     />
-                                    <Icon style={registerStyles.icon}
-                                        name= {this.state.isPasswordSecured?'visibility-off':'visibility'}
+                                    <Icon style={forgotStyles.icon}
+                                        name= {this.state.isConfirmPWSecured?'visibility-off':'visibility'}
                                         size={25}
                                         color='#D3D3D3'
                                         onPress={()=>{
@@ -298,7 +301,8 @@ export default class ForgotPWOTP extends ValidationComponent{
         info: {
             fontSize: 16,
             color: '#D3D3D3',
-            marginTop: 20
+            marginTop: 20,
+            marginBottom:10
         },
         buttonContainer: {
             flex: 1,
@@ -313,16 +317,18 @@ export default class ForgotPWOTP extends ValidationComponent{
             alignItems:'center'
         }, 
         input: {
-            width: '100%',
-            height: 50,
+            width: deviceWidth - 70,
             padding: 10,
             borderWidth: 1.8,
             borderColor: '#D3D3D3',
             marginBottom: 20,
             paddingLeft: 15,
-            // color: '#D3D3D3',
+           // color: '#D3D3D3',
             color:'#000',
             alignSelf: 'center',
-            marginTop: 30
         },
-    })
+        icon: {
+            top: 8,
+            right: 30,
+        }, 
+        })
