@@ -39,6 +39,9 @@ export const kAddressEmpty = "Please enter address.";
 
 //Password
 export const kPasswordEmpty = "Please enter password.";
+export const kPasswordNewEmpty = "Please enter new password.";
+export const kPasswordConfirmEmpty = "Please enter confirm password.";
+
 export const kPasswordMinLength = "Password must contain at least 6 characters.";
 export const kPasswordMaxLength = "Password should contain maximum 12 characters.";
 export const kPasswordsNotMatched = "Passwords doesn't match."

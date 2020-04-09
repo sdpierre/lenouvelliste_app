@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Modal, TextInput, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, StyleSheet, Modal, TextInput, Dimensions, TouchableWithoutFeedback,Alert } from 'react-native';
 import {
     Container,
     Header,
@@ -86,7 +86,9 @@ export default class ForgotPWOTP extends ValidationComponent{
                     [
                       {text: 'OK', onPress:()=>{
                           
-                        this.props.navigation.navigate('ResetPassword');
+                        this.props.navigation.navigate('ResetPassword',{
+                            email:this.state.email
+                        });
                     }
                      },
                     ],

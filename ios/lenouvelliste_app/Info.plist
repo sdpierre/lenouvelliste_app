@@ -87,5 +87,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Lenouvelliste would like to access your photos</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Lenouvelliste would like to access your camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Lenouvelliste would like to access your microphones</string>
 </dict>
 </plist>
