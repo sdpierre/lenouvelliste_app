@@ -5,6 +5,7 @@ import {
     StyleSheet,
     FlatList,
     Text,
+    AsyncStorage
 } from "react-native";
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -47,6 +48,7 @@ export default class MenuScreen extends Component {
         this.state = {
             title: "Menu",
             data: [],
+            isLoggedInUser:false
         }
 
         sectionListDb = realm.objects('section_list');
@@ -70,6 +72,24 @@ export default class MenuScreen extends Component {
                     });
                 }
             });
+
+            AsyncStorage.getItem("loggedInUserDetails").then((value) => {
+                if (value != null) {
+                    var dicLoginData = JSON.parse(value);
+                    console.log('userInfo====>', dicLoginData)
+    
+                    this.setState({
+                        isLoggedInUser: true
+                    });
+       
+                }else{
+                    this.setState({
+                        isLoggedInUser:false
+                    });
+                }
+            }).done(
+            );
+    
 
     }
 
@@ -98,7 +118,7 @@ export default class MenuScreen extends Component {
                         <LogoTitle />
                     </Body>
                     <Right>
-                        <Button transparent onPress={() => { this.props.navigation.navigate('Account') }}>
+                        <Button transparent onPress={this.state.isLoggedInUser?() => { this.props.navigation.navigate('UserProfile')}:()=>this.props.navigation.navigate('Account')}>
                             <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
                         </Button>
                         <Button transparent onPress={() => { this.props.navigation.navigate('Settings') }}>

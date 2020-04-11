@@ -36,6 +36,12 @@ target 'lenouvelliste_app' do
 
   pod 'RealmJS', :path => '../node_modules/realm'
 
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
+#  pod 'GoogleMaps'
+#
+#  pod 'Google-Maps-iOS-Utils'
+
   target 'lenouvelliste_appTests' do
     inherit! :search_paths
     # Pods for testing
