@@ -12,7 +12,7 @@ import ForgotScreen from '../loginFlow/components/Forgot'
 import ForgotPWOTPScreen from '../loginFlow/components/ForgotPWOTP'
 import ResetPasswordScreen from '../loginFlow/components/ResetPW'
 import ForgotDoneScreen from '../loginFlow/components/ForgotDone'
-
+import UserProfileScreen from '../profile/UserProfileScreen' 
 const MenuStackNav = createStackNavigator({
     Menu: {
         screen: MenuScreen,
@@ -28,6 +28,9 @@ const MenuStackNav = createStackNavigator({
     },
     Settings: {
         screen: SettingsScreen, 
+    },
+    UserProfile: {
+        screen: UserProfileScreen, 
     },
     Register:{
         screen:RegisterScreen,

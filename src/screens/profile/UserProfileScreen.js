@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Modal, TextInput, Dimensions,TouchableOpacity,Image,ScrollView } from 'react-native';
+import { Text, View, StyleSheet, Modal, TextInput, Dimensions,TouchableOpacity,Image,ScrollView,AsyncStorage } from 'react-native';
 import {
     Container,
     Header,
@@ -7,13 +7,16 @@ import {
     Body,
     Right,
     Button,
-    Icon,
     Title,
     Content
   } from "native-base";  
 import { Colors } from '../../styles';
 import Ionicons from "react-native-vector-icons/Ionicons";
+// import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import ValidationComponent from 'react-native-form-validator';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../utils/LenouvellisteConstants'
 
@@ -27,6 +30,12 @@ export default class Forgot extends ValidationComponent{
 
         this.state ={
         }
+    }
+
+    logout = () =>{
+
+        AsyncStorage.removeItem('loggedInUserDetails');
+        this.props.navigation.navigate('Account')
     }
 
     render(){
@@ -45,7 +54,11 @@ export default class Forgot extends ValidationComponent{
                     <Body>
                     <Title>USER PROFILE</Title>
                     </Body>
-                    <Right></Right>
+                    <Right>
+                         <Button transparent onPress={this.logout}>
+                         <MaterialCommunityIcons name="logout" size={30} style={Colors.gray} /> 
+                        </Button> 
+                    </Right>
                 </Header>
                 <ScrollView style={{backgroundColor:'#ECECEC'}}>
                 <View style={profileStyles.containerView}>

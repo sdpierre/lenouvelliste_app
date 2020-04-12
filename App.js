@@ -49,7 +49,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import UserProfile from './src/screens/profile/UserProfile';
 
 const AppNav = createReduxContainer(AppNavigator);
 const mapStateToProps = state => ({

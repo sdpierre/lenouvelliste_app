@@ -119,9 +119,10 @@ export default class Login extends ValidationComponent {
               dicLogin = response.data.user_detail;
     
               AsyncStorage.setItem('loggedInUserDetails', JSON.stringify(dicLogin));              
-    
-              this.props.navigation.goBack();
-    
+               console.log("Login Success",dicLogin)
+            //   this.props.navigation.goBack();
+            this.props.navigation.navigate('Menu');
+
             } else {
     
               console.log("Login error",msg)
@@ -145,13 +146,13 @@ export default class Login extends ValidationComponent {
                 <Container>
                     <Header style={{ backgroundColor: 'white', }}>
                         <Left>
-                            <Button
+                            {/* <Button
                                 transparent
                                 onPress={() => {
                                     this.props.navigation.goBack();
                                 }}>
-                                <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
-                            </Button>
+                                // <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
+                            </Button> */}
                         </Left>
                         <Body></Body>
                         <Right></Right>
@@ -200,9 +201,11 @@ export default class Login extends ValidationComponent {
                                 <View style={styles.loginButton}>
                                     <TouchableOpacity
                                         transparent
-                                        onPress={() => {
-                                            this.props.navigation.goBack();
-                                        }}>
+                                        onPress={this.login
+                                        //     () => {
+                                        //     this.props.navigation.goBack();
+                                        // }
+                                        }>
                                         <View style={styles.buttonContainer}>
                                             <Text style={{ color: 'white', fontSize: 20 }}>I connect</Text>
                                         </View>

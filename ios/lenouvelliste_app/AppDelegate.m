@@ -10,6 +10,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+//#import <GoogleMaps/GoogleMaps.h>
 
 @implementation AppDelegate
 
@@ -21,6 +22,7 @@
                                             initialProperties:nil];
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  //[GMSServices provideAPIKey:@"AIzaSyDY1ID5jRdIV29u-mHdO7Uym3YEvxu_GBI"];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
