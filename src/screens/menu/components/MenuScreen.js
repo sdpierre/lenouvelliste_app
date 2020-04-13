@@ -118,7 +118,7 @@ export default class MenuScreen extends Component {
                         <LogoTitle />
                     </Body>
                     <Right>
-                        <Button transparent onPress={this.state.isLoggedInUser?() => { this.props.navigation.navigate('UserProfile')}:()=>this.props.navigation.navigate('Account')}>
+                        <Button transparent onPress={this.state.isLoggedInUser?() => { this.props.navigation.navigate('Account')}:()=>this.props.navigation.navigate('UserProfile')}>
                             <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
                         </Button>
                         <Button transparent onPress={() => { this.props.navigation.navigate('Settings') }}>

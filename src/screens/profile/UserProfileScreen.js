@@ -35,7 +35,7 @@ export default class Forgot extends ValidationComponent{
     logout = () =>{
 
         AsyncStorage.removeItem('loggedInUserDetails');
-        this.props.navigation.navigate('Account')
+        this.props.navigation.navigate('Menu')
     }
 
     render(){
