@@ -73,3 +73,90 @@ const AppNavigator = createBottomTabNavigator(
   // });
 
   export default AppNavigator;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // const ProfileStack = createStackNavigator({
+  //   ScreenName: { screen: ScreenA },
+  //   ..another screen
+  // })
+  
+  // const caringAdviceStack = createStackNavigator({
+  //   CaringAdvice: { screen: CaringAdvice },
+  //   ..another screen
+  // })
+  
+  // const FoodListStack = createStackNavigator({
+  //   FoodList: { screen: FoodList }
+  // })
+  
+  // const MenuStack = createStackNavigator({
+  //   Menu: { screen: DrawerContent },
+  //   About: { screen: About },
+  //   CaringAdvice: {screen: caringAdviceStack}
+  // })
+  
+  // const MainTabs = createBottomTabNavigator({
+  //   DrawerTab: { screen: MenuStack },
+  //   FoodList: { screen: FoodListStack },
+  //   Profile: { screen: ProfileStack }
+  // }, {
+  //   headerMode: 'none',
+  //   navigationOptions: {
+  //     headerStyle: styles.header,
+  //     headerTitleStyle: styles.headerTitle,
+  //     drawerLabel: 'Application',
+  //     drawerIcon: ({ focused }) => (
+  //       <Icon name='dashboard' color={Colors.primary} />
+  //     )
+  //   },
+  //   tabBarOptions: {
+  //     activeTintColor: Colors.darkPrimary,
+  //     inactiveTintColor: Colors.tabbarInactive,
+  //     allowFontScaling: true,
+  //     showLabel: false,
+  //     showIcon: true,
+  //     style: styles.tabBackground,
+  //     tabStyle: styles.tab,
+  //     labelStyle: styles.tabLabel,
+  //     indicatorStyle: styles.tabIndicator,
+  //     upperCaseLabel: false
+  //   },
+  //   tabBarPosition: 'bottom',
+  //   swipeEnabled: true,
+  //   animationEnabled: true,
+  //   lazy: true
+  // })
+  
+  // const PrimaryNav = createStackNavigator({
+  //   MainTabs: { screen: MainTabs },
+  //   UpgradeScreen: { screen: UpgradeScreen }
+  // }, {
+  //   headerMode: 'none',
+  //   initialRouteName: 'MainTabs',
+  //   defaultNavigationOptions: {
+  //     headerStyle: styles.header,
+  //     headerTitleStyle: styles.headerTitle,
+  //     headerTintColor: Colors.snow
+  //   }
+  // })
+  
+  // export default createAppContainer(PrimaryNav)
+  
