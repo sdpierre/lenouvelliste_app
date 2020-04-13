@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withNavigation } from "react-navigation";
 
 import {
     View,
@@ -28,7 +29,7 @@ let realm;
 import NetInfo from '@react-native-community/netinfo';
 let fetchOverNet;
 let sectionListDb = [];
-export default class MenuScreen extends Component {
+class MenuScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -51,12 +52,87 @@ export default class MenuScreen extends Component {
             isLoggedInUser:false
         }
 
+        console.log("IsLoggedInUser",this.state.isLoggedInUser)
         sectionListDb = realm.objects('section_list');
 
         this.fetchNews = this.fetchNews.bind(this);
     }
 
     componentDidMount() {
+        
+        AsyncStorage.getItem("loggedInUserDetails").then((value) => {
+            if (value != null) {
+                var dicLoginData = JSON.parse(value);
+                console.log('userInfo====>', dicLoginData)
+
+                this.setState({
+                    isLoggedInUser: true
+                });
+   
+            }else{
+                this.setState({
+                    isLoggedInUser:false
+                });
+            }
+        }).done(
+        );
+
+        // const { navigation } = this.props;
+        // this.focusListener = navigation.addListener("didFocus", () => {
+            //  console.debug('didFocus', payload);
+
+          // The screen is focused
+          // Call any action
+        // });
+    
+        // const didFocusSubscription = this.props.navigation.addListener(
+        //     'didFocus',
+        //     payload => {
+            //   console.debug('didFocus', payload);
+            //   AsyncStorage.getItem("loggedInUserDetails").then((value) => {
+            //     if (value != null) {
+            //         var dicLoginData = JSON.parse(value);
+            //         console.log('userInfo====>', dicLoginData)
+    
+            //         this.setState({
+            //             isLoggedInUser: true
+            //         });
+       
+            //     }else{
+            //         this.setState({
+            //             isLoggedInUser:false
+            //         });
+            //     }
+            // }).done(
+            // );
+
+        //     }
+        //   );
+
+        // this.didFocusListener = this.props.navigation.addListener(
+        //     'didFocus',
+        //     () => { console.log('did focus') 
+        //     AsyncStorage.getItem("loggedInUserDetails").then((value) => {
+        //         if (value != null) {
+        //             var dicLoginData = JSON.parse(value);
+        //             console.log('userInfo====>', dicLoginData)
+    
+        //             this.setState({
+        //                 isLoggedInUser: true
+        //             });
+       
+        //         }else{
+        //             this.setState({
+        //                 isLoggedInUser:false
+        //             });
+        //         }
+        //     }).done(
+        //     );
+    
+        
+        // },
+        //   );
+      
         NetInfo.fetch()
             .then(conn => {
 
@@ -71,27 +147,17 @@ export default class MenuScreen extends Component {
                         data: sectionListDb,
                     });
                 }
-            });
-
-            AsyncStorage.getItem("loggedInUserDetails").then((value) => {
-                if (value != null) {
-                    var dicLoginData = JSON.parse(value);
-                    console.log('userInfo====>', dicLoginData)
-    
-                    this.setState({
-                        isLoggedInUser: true
-                    });
-       
-                }else{
-                    this.setState({
-                        isLoggedInUser:false
-                    });
-                }
-            }).done(
-            );
-    
+            });   
+              
 
     }
+
+
+    componentWillUnmount() {
+        // this.didFocusListener.remove();
+        // this.focusListener.remove();
+
+    }    
 
     fetchNews() {
         getSectionAll()
@@ -169,3 +235,5 @@ const styles = StyleSheet.create({
         fontFamily: "AkkoPro-BoldCondensed"
     }
 });
+
+export default withNavigation(MenuScreen);

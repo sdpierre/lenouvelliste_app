@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Modal, TextInput, Dimensions,TouchableOpacity,Image,ScrollView,AsyncStorage } from 'react-native';
+import { Text, View, StyleSheet, Modal, TextInput, Dimensions,TouchableOpacity,Image,ScrollView,AsyncStorage,Alert } from 'react-native';
 import {
     Container,
     Header,
@@ -34,8 +34,21 @@ export default class Forgot extends ValidationComponent{
 
     logout = () =>{
 
-        AsyncStorage.removeItem('loggedInUserDetails');
-        this.props.navigation.navigate('Account')
+        Alert.alert(
+            'Message',
+             'Are you sure you want to logout?',
+            [
+              {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+              {text: 'OK', onPress:()=>{
+                  
+                AsyncStorage.removeItem('loggedInUserDetails');
+                this.props.navigation.navigate('Account')
+                }
+             },
+            ],
+            { cancelable: false }
+          )
+
     }
 
     render(){
