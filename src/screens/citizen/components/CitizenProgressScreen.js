@@ -71,7 +71,7 @@ export default class CitizenProgressScreen extends Component {
                                         }
                                         }>
                                         <View style={styles.buttonContainer}>
-                                            <Text style={{ color: 'white', fontSize: 20 }}>SAVE FOR LATER</Text>
+                                            <Text style={{ color: 'white', fontSize: 20 }}>DONE</Text>
                                         </View>
                                     </TouchableOpacity>
 

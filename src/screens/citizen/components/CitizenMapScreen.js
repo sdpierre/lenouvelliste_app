@@ -27,10 +27,20 @@ export default class CitizenMapScreen extends Component {
         longitude: LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
-      }
+      },
+      imageData:''
     };
   }
   componentDidMount() {
+
+    const { navigation } = this.props;
+    const strImageData = navigation.getParam('imageData'); 
+    console.log(strImageData) 
+    this.setState({
+      imageData:strImageData
+    })
+
+   // console.log("Image Data Map",this.state.imageData);
     // navigator.geolocation.getCurrentPosition(
     //   position => {
     //     this.setState({
@@ -61,7 +71,9 @@ export default class CitizenMapScreen extends Component {
 
   goToSaveCitizen = ()=>{
 
-    this.props.navigation.navigate('CitizenProgressScreen')
+    this.props.navigation.navigate('CitizenSaveScreen',{
+      imageData:this.state.imageData
+    })
 
   }
   componentWillUnmount() {

@@ -51,8 +51,10 @@ class CitizenFloatingAction extends Component {
                       mediaType:'photo'
                     }).then(image => {
 
-                      console.log("Image",image);
-                      navigate('CitizenMapScreen')
+                      console.log("Image",image.data);
+                      navigate('CitizenMapScreen',{
+                        imageData:image.data
+                    });
 
                     });
                     break;

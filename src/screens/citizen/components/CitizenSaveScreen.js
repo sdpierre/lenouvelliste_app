@@ -16,7 +16,7 @@ import {
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Colors } from '../../../styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -33,9 +33,27 @@ export default class CitizenSaveScreen extends Component {
     constructor(props) {
         super(props)
 
-        this.state ={ }
+        this.state ={ 
+            title:'',
+            description:'',
+            imagePath:'',
+            imageUri:'',
+            imageData:''
+        }
     }
 
+    componentDidMount(){
+        const { navigation } = this.props;
+        const strImageData = navigation.getParam('imageData'); 
+        console.log(strImageData) 
+        this.setState({
+          imageData:strImageData
+        })
+    
+       // console.log("Image Data",this.state.imageData)
+    
+
+    }
 
     goToCitizenProgress = ()=>{
 
@@ -43,6 +61,22 @@ export default class CitizenSaveScreen extends Component {
 
     }
 
+    addMoreImages = () =>{
+      
+
+    }
+
+    handlTitle = (text) => {
+        this.setState({
+            title: text
+        })
+    }
+
+    handleDescription = (text) => {
+        this.setState({
+            description: text
+        })
+    }
 
     render() {
         return (
@@ -66,28 +100,66 @@ export default class CitizenSaveScreen extends Component {
                         <View style={{ flex: 1, height: 500, padding: 35 }}>
                             <View style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
 
-                                <Text style={styles.citizenSaveText}>SAVE</Text>
+                    <View style ={{flexDirection:'row',marginBottom:10}}>
+                    {/* <Image source={require('../../../library/images/profile.png')} style={{height:120,width:120}}/>  */}
+                    <Image source={{uri: `data:image/png;base64,${this.state.imageData}`}} style={{height:100,width:100}}/>
 
-                                {/* <View style={styles.nextButton}>
-                                    <TouchableOpacity
-                                        transparent
-                                        onPress={this.goToCitizenProgress}>
-                                        <View style={styles.buttonContainer}>
-                                            <Text style={{ color: 'white', fontSize: 20 }}>SAVE FOR LATER</Text>
-                                        </View>
-                                    </TouchableOpacity>
+                     <TouchableOpacity
+                          transparent
+                          onPress={this.addMoreImages} style={{marginLeft:10}}>
+                     <AntDesign name="pluscircleo" size={30} style={Colors.gray} /> 
+                     </TouchableOpacity>
+                    </View>
 
-                                </View> */}
-                      <View style={styles.nextButton}>
+
+                    <View style ={{flexDirection:'column',marginBottom:10}}>
+                     <Text style ={{color:'lightgray',fontSize:16,fontFamily:'Gotham-book'}}>Title</Text>
+                    <TextInput
+                                    placeholder="Title"
+                                    placeholderTextColor='#9b9b9b'
+                                    keyboardType={'default'}
+                                    onChangeText={this.handlTitle}
+                                    value={this.state.title}
+                                    style={styles.input}
+                                    returnKeyType='next'
+                    />
+                    </View>
+
+                    <View style ={{flexDirection:'column'}}>
+                     <Text style ={{color:'lightgray',fontSize:16,fontFamily:'Gotham-book'}}>Description</Text>
+                    <TextInput
+                                    placeholder="Description"
+                                    placeholderTextColor='#9b9b9b'
+                                    keyboardType={'default'}
+                                    onChangeText={this.handleDescription}
+                                    value={this.state.description}
+                                    style={styles.input}
+                                    returnKeyType='done'
+                                    autoCapitalize = 'none'
+
+                    />
+                    </View>
+
+                     <View style={styles.nextButton}>
                       <TouchableOpacity
                           transparent
                           onPress={this.goToCitizenProgress}>
                           <View style={styles.buttonContainer}>
-                              <Text style={{ color: 'white', fontSize: 20 }}>NEXT</Text>
+                              <Text style={{ color: 'white', fontSize: 20 }}>SEND</Text>
                           </View>
                       </TouchableOpacity>
+                    </View>
 
-                  </View>
+
+                    <View style={styles.nextButton}>
+                    <TouchableOpacity
+                          transparent
+                          onPress={this.goToCitizenProgress}>
+                          <View style={styles.buttonContainer}>
+                              <Text style={{ color: 'white', fontSize: 20 }}>SAVE FOR LATER</Text>
+                          </View>
+                    </TouchableOpacity>
+                    </View>
 
                             </View>
                         </View>
@@ -143,7 +215,8 @@ const styles = StyleSheet.create({
     nextButton: {
         backgroundColor: '#0089d0',
         height:50,
-        alignItems:'center'
+        alignItems:'center',
+        marginTop:20
     },
     buttonContainer: {
         flex: 1,
