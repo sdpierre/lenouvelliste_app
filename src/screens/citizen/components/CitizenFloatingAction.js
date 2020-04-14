@@ -46,7 +46,9 @@ class CitizenFloatingAction extends Component {
                     ImagePicker.openCamera({
                       width: 300,
                       height: 400,
-                      cropping: true,
+                      // cropping: true,
+                      includeBase64:true,
+                      mediaType:'photo'
                     }).then(image => {
 
                       console.log("Image",image);

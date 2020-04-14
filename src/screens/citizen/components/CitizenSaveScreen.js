@@ -66,9 +66,9 @@ export default class CitizenSaveScreen extends Component {
                         <View style={{ flex: 1, height: 500, padding: 35 }}>
                             <View style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
 
-                                {/* <Text style={styles.citizenSaveText}>SAVE</Text> */}
+                                <Text style={styles.citizenSaveText}>SAVE</Text>
 
-                                <View style={styles.nextButton}>
+                                {/* <View style={styles.nextButton}>
                                     <TouchableOpacity
                                         transparent
                                         onPress={this.goToCitizenProgress}>
@@ -77,9 +77,17 @@ export default class CitizenSaveScreen extends Component {
                                         </View>
                                     </TouchableOpacity>
 
-                                </View>
+                                </View> */}
+                      <View style={styles.nextButton}>
+                      <TouchableOpacity
+                          transparent
+                          onPress={this.goToCitizenProgress}>
+                          <View style={styles.buttonContainer}>
+                              <Text style={{ color: 'white', fontSize: 20 }}>NEXT</Text>
+                          </View>
+                      </TouchableOpacity>
 
-
+                  </View>
 
                             </View>
                         </View>
