@@ -6,16 +6,30 @@ import { connect } from 'react-redux';
 import HomeScreen from './components/HomeScreen';
 import NewsScreen from '../news/newsScreen';
 import CitizenNewsScreen from '../citizen/components/NewsScreen'
-
+import CitizenMapScreen from '../citizen/components/CitizenMapScreen';
+import CitizenSaveScreen from '../citizen/components/CitizenSaveScreen';
+import CitizenProgressScreen from '../citizen/components/CitizenProgressScreen';
+// import CitizenFloatingAction from '../citizen/components/CitizenFloatingAction';
 const HomeStackNav = createStackNavigator({
     Home: {
         screen: HomeScreen
     },
     News: {
         screen: NewsScreen
-    },NewsCarousel: {
+    },
+    NewsCarousel: {
         screen: CitizenNewsScreen
-    }   
+    },
+    CitizenMapScreen: {
+        screen: CitizenMapScreen
+    },
+    CitizenSaveScreen: {
+        screen: CitizenSaveScreen
+    },
+    CitizenProgressScreen: {
+        screen: CitizenProgressScreen
+    },
+  
 }, {
     initialRouteName: 'Home',
     headerMode: 'none',

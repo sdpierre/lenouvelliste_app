@@ -13,6 +13,10 @@ import ForgotPWOTPScreen from '../loginFlow/components/ForgotPWOTP'
 import ResetPasswordScreen from '../loginFlow/components/ResetPW'
 import ForgotDoneScreen from '../loginFlow/components/ForgotDone'
 import UserProfileScreen from '../profile/UserProfileScreen' 
+import CitizenMapScreen from '../citizen/components/CitizenMapScreen';
+import CitizenSaveScreen from '../citizen/components/CitizenSaveScreen';
+import CitizenProgressScreen from '../citizen/components/CitizenProgressScreen';
+
 const MenuStackNav = createStackNavigator({
     Menu: {
         screen: MenuScreen,
@@ -49,7 +53,16 @@ const MenuStackNav = createStackNavigator({
     },
     ForgotDone:{
         screen:ForgotDoneScreen
-    }
+    },
+    CitizenMapScreen: {
+        screen: CitizenMapScreen
+    },
+    CitizenSaveScreen: {
+        screen: CitizenSaveScreen
+    },
+    CitizenProgressScreen: {
+        screen: CitizenProgressScreen
+    },
 }, {
     initialRouteName: 'Menu',
     headerMode: 'none',

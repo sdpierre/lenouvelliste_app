@@ -5,6 +5,10 @@ import { setAppInfo } from '../../redux/actions';
 import { connect } from 'react-redux';
 import SelectionScreen from './components/SelectionScreen';
 import NewsScreen from '../news/newsScreen';
+import CitizenMapScreen from '../citizen/components/CitizenMapScreen';
+import CitizenSaveScreen from '../citizen/components/CitizenSaveScreen';
+import CitizenProgressScreen from '../citizen/components/CitizenProgressScreen';
+
 
 const SelectionStackNav = createStackNavigator({
     Selection: {
@@ -12,7 +16,18 @@ const SelectionStackNav = createStackNavigator({
     },
     News: {
         screen: NewsScreen
-    }
+    },
+    CitizenMapScreen: {
+        screen: CitizenMapScreen
+    },
+    CitizenSaveScreen: {
+        screen: CitizenSaveScreen
+    },
+    CitizenProgressScreen: {
+        screen: CitizenProgressScreen
+    },
+
+    
 }, {
     initialRouteName: 'Selection',
     headerMode: 'none',

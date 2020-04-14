@@ -120,8 +120,10 @@ export default class Login extends ValidationComponent {
     
               AsyncStorage.setItem('loggedInUserDetails', JSON.stringify(dicLogin));              
                console.log("Login Success",dicLogin)
-            //   this.props.navigation.goBack();
-            this.props.navigation.navigate('Menu');
+               this.props.navigation.goBack();
+            this.props.navigation.navigate('Menu',{
+                userInfo:dicLogin
+            });
 
             } else {
     

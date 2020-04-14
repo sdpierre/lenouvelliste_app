@@ -5,6 +5,9 @@ import { setAppInfo } from '../../redux/actions';
 import { connect } from 'react-redux';
 import BreakingScreen from './components/BreakingScreen';
 import NewsScreen from './components/NewsScreen';
+import CitizenMapScreen from '../citizen/components/CitizenMapScreen';
+import CitizenSaveScreen from '../citizen/components/CitizenSaveScreen';
+import CitizenProgressScreen from '../citizen/components/CitizenProgressScreen';
 
 const BreakingStackNav = createStackNavigator({
     Breaking: {
@@ -12,7 +15,17 @@ const BreakingStackNav = createStackNavigator({
     },
     News: {
         screen: NewsScreen
-    }
+    },
+    CitizenMapScreen: {
+        screen: CitizenMapScreen
+    },
+    CitizenSaveScreen: {
+        screen: CitizenSaveScreen
+    },
+    CitizenProgressScreen: {
+        screen: CitizenProgressScreen
+    },
+
 }, {
     initialRouteName: 'Breaking',
     headerMode: 'none',

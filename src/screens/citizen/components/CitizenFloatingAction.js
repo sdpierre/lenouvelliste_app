@@ -1,10 +1,14 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { View, SafeAreaView, StyleSheet, Alert } from "react-native";
 import { FloatingAction } from "react-native-floating-action";
 //Image Picker
 import ImagePicker from 'react-native-image-crop-picker';
+import { withNavigation } from 'react-navigation';
 
-class CitizenFloatingAction extends React.Component {
+class CitizenFloatingAction extends Component {
+  constructor(props){
+    super(props)
+  }
   static navigationOptions = {
     title: "Right position"
   };
@@ -24,7 +28,8 @@ class CitizenFloatingAction extends React.Component {
           position: 2
         }
       ];
-    
+      const { navigate } = this.props.navigation;
+
       return (
     //  <SafeAreaView style={styles.container}>
         <View style={styles.container}>
@@ -43,7 +48,10 @@ class CitizenFloatingAction extends React.Component {
                       height: 400,
                       cropping: true,
                     }).then(image => {
-                      console.log(image);
+
+                      console.log("Image",image);
+                      navigate('CitizenMapScreen')
+
                     });
                     break;
           
@@ -54,7 +62,10 @@ class CitizenFloatingAction extends React.Component {
                         height: 400,
                         mediaType: 'video',
                       }).then(image => {
-                        console.log(image);
+
+                        console.log("Video",image);
+                        navigate('CitizenMapScreen')
+
                       });
                       break;
           
@@ -74,4 +85,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CitizenFloatingAction;
+export default withNavigation(CitizenFloatingAction);

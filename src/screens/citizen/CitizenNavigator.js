@@ -6,6 +6,10 @@ import { connect } from 'react-redux';
 import CitizenScreen from './components/CitizenScreen';
 import NewsScreen from './components/NewsScreen';
 import UserPost from './components/UserPostScreen';
+import CitizenMapScreen from '../citizen/components/CitizenMapScreen';
+import CitizenSaveScreen from '../citizen/components/CitizenSaveScreen';
+import CitizenProgressScreen from '../citizen/components/CitizenProgressScreen';
+
 
 const CitizenStackNav = createStackNavigator({
     Citizen: {
@@ -17,6 +21,16 @@ const CitizenStackNav = createStackNavigator({
     Profil: {
         screen: UserPost
     },
+    CitizenMapScreen: {
+        screen: CitizenMapScreen
+    },
+    CitizenSaveScreen: {
+        screen: CitizenSaveScreen
+    },
+    CitizenProgressScreen: {
+        screen: CitizenProgressScreen
+    },
+
 }, {
     initialRouteName: 'Citizen',
     headerMode: 'none',

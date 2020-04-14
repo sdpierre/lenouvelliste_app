@@ -29,18 +29,11 @@ var buttonHeight = Platform.OS == 'android' ? 50 : 55
 var elementSpacing = Platform.OS == 'android' ? 12 : 19
 
 
-export default class CitizenSaveScreen extends Component {
+export default class CitizenProgressScreen extends Component {
     constructor(props) {
         super(props)
 
         this.state ={ }
-    }
-
-
-    goToCitizenProgress = ()=>{
-
-        this.props.navigation.navigate('CitizenProgressScreen')
-
     }
 
 
@@ -58,20 +51,25 @@ export default class CitizenSaveScreen extends Component {
                             </Button> */}
                         </Left>
                         <Body>
-                        <Title>Save Details</Title>
+                        <Title>Progress</Title>
                         </Body>
                         <Right></Right>
                     </Header>
                     <Content>
-                        <View style={{ flex: 1, height: 500, padding: 35 }}>
+                        <View style={{ flex: 0, height: 500, padding: 35 }}>
                             <View style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
 
-                                {/* <Text style={styles.citizenSaveText}>SAVE</Text> */}
+                                <Text style={styles.citizenSaveText}>Progress coming soon</Text>
 
                                 <View style={styles.nextButton}>
                                     <TouchableOpacity
                                         transparent
-                                        onPress={this.goToCitizenProgress}>
+                                        onPress={() =>{
+                                            this.props.navigation.goBack()
+                                            this.props.navigation.navigate('Home')
+
+                                        }
+                                        }>
                                         <View style={styles.buttonContainer}>
                                             <Text style={{ color: 'white', fontSize: 20 }}>SAVE FOR LATER</Text>
                                         </View>
@@ -97,19 +95,6 @@ const styles = StyleSheet.create({
         width: '100%',
     
         //height:deviceHeight+64
-    },
-
-    input: {
-        width: deviceWidth - 70,
-        height: 50,
-        padding: 10,
-        borderWidth: 1.8,
-        borderColor: '#D3D3D3',
-        marginBottom: 20,
-        paddingLeft: 15,
-       // color: '#D3D3D3',
-       color:'#000',
-        alignSelf: 'center',
     },
 
     loading: {

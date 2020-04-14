@@ -49,89 +49,82 @@ class MenuScreen extends Component {
         this.state = {
             title: "Menu",
             data: [],
-            isLoggedInUser:false
+            isLoggedin: false,
         }
 
-        console.log("IsLoggedInUser",this.state.isLoggedInUser)
+      //  console.log("IsLoggedInUser",this.state.isLoggedInUser)
         sectionListDb = realm.objects('section_list');
 
         this.fetchNews = this.fetchNews.bind(this);
+
+        // this._onFocusListener = this._onFocusListener.bind(this);
     }
 
     componentDidMount() {
         
-        AsyncStorage.getItem("loggedInUserDetails").then((value) => {
-            if (value != null) {
-                var dicLoginData = JSON.parse(value);
-                console.log('userInfo====>', dicLoginData)
-
-                this.setState({
-                    isLoggedInUser: true
-                });
-   
-            }else{
-                this.setState({
-                    isLoggedInUser:false
-                });
-            }
-        }).done(
-        );
-
-        // const { navigation } = this.props;
-        // this.focusListener = navigation.addListener("didFocus", () => {
-            //  console.debug('didFocus', payload);
-
-          // The screen is focused
-          // Call any action
-        // });
+        const { navigation } = this.props;
+        // const dicLogin = navigation.getParam('userInfo'); 
+        // console.log(dicLogin) 
+        // let isLoggedin = false;
+        // if(dicLogin){
+        //   isLoggedin = true;
+        // }
+        // this.setState({isLoggedin});
     
-        // const didFocusSubscription = this.props.navigation.addListener(
-        //     'didFocus',
-        //     payload => {
-            //   console.debug('didFocus', payload);
-            //   AsyncStorage.getItem("loggedInUserDetails").then((value) => {
-            //     if (value != null) {
-            //         var dicLoginData = JSON.parse(value);
-            //         console.log('userInfo====>', dicLoginData)
-    
-            //         this.setState({
-            //             isLoggedInUser: true
-            //         });
-       
-            //     }else{
-            //         this.setState({
-            //             isLoggedInUser:false
-            //         });
-            //     }
-            // }).done(
-            // );
-
-        //     }
-        //   );
-
-        // this.didFocusListener = this.props.navigation.addListener(
-        //     'didFocus',
-        //     () => { console.log('did focus') 
-        //     AsyncStorage.getItem("loggedInUserDetails").then((value) => {
-        //         if (value != null) {
-        //             var dicLoginData = JSON.parse(value);
-        //             console.log('userInfo====>', dicLoginData)
-    
-        //             this.setState({
-        //                 isLoggedInUser: true
-        //             });
-       
-        //         }else{
-        //             this.setState({
-        //                 isLoggedInUser:false
-        //             });
-        //         }
-        //     }).done(
-        //     );
-    
+     console.log("Component did mount called")
         
-        // },
-        //   );
+     this.focusListener = navigation.addListener("didFocus", () => {
+        // The screen is focused
+        // Call any action
+
+        console.debug('didFocus', payload);
+        AsyncStorage.getItem("loggedInUserDetails").then((value) => {
+          if (value != null) {
+              var dicLoginData = JSON.parse(value);
+              console.log('userInfo====>', dicLoginData)
+
+              this.setState({
+                isLoggedin: true
+              });
+              console.log("In right condition",this.state.isLoggedin)
+          }else{
+              this.setState({
+                isLoggedin:false
+              });
+              console.log("In else condition",this.state.isLoggedin)
+
+          }
+      }).done(
+      );
+
+      });
+  
+//      this.focusListener = navigation.addListener("didFocus", () => {
+    //     console.debug('didFocus', payload);
+    //     AsyncStorage.getItem("loggedInUserDetails").then((value) => {
+    //       if (value != null) {
+    //           var dicLoginData = JSON.parse(value);
+    //           console.log('userInfo====>', dicLoginData)
+
+    //           this.setState({
+    //             isLoggedin: true
+    //           });
+    //           console.log("In right condition",this.state.isLoggedin)
+    //       }else{
+    //           this.setState({
+    //             isLoggedin:false
+    //           });
+    //           console.log("In else condition",this.state.isLoggedin)
+
+    //       }
+    //   }).done(
+    //   );
+
+//   });
+  
+
+        // this._onFocusListener = this.props.navigation.addListener('didFocus',(payload) =>{
+        // });
       
         NetInfo.fetch()
             .then(conn => {
@@ -156,7 +149,7 @@ class MenuScreen extends Component {
     componentWillUnmount() {
         // this.didFocusListener.remove();
         // this.focusListener.remove();
-
+       this.focusListener.remove();
     }    
 
     fetchNews() {
@@ -184,9 +177,17 @@ class MenuScreen extends Component {
                         <LogoTitle />
                     </Body>
                     <Right>
-                        <Button transparent onPress={this.state.isLoggedInUser?() => { this.props.navigation.navigate('UserProfile')}:()=>this.props.navigation.navigate('Account')}>
+                    {
+                this.state.isLoggedin?<Button transparent onPress={()=>{this.props.navigation.navigate('Profile')}}>
+                <FontAwesome color="#d00" name='user-circle-o' size={25} />
+                </Button>
+                :<Button transparent onPress={()=>{this.props.navigation.navigate('Account')}}>
+                <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
+                </Button>
+            }
+                        {/* <Button transparent onPress={this.state.isLoggedInUser?() => { this.props.navigation.navigate('UserProfile')}:()=>this.props.navigation.navigate('Account')}>
                             <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
-                        </Button>
+                        </Button> */}
                         <Button transparent onPress={() => { this.props.navigation.navigate('Settings') }}>
                             <AntDesign name='setting' size={25} style={Colors.gray} />
                         </Button>
