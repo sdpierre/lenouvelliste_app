@@ -1,9 +1,9 @@
 <script src="http://localhost:8097"></script>
 import React from 'react';
-import { View, Linking, TouchableHighlight, StyleSheet, TouchableOpacity, Text, Image, Alert} from 'react-native';
+import { View, Linking, TouchableHighlight, StyleSheet, TouchableOpacity, Text, Vibration, Image, Alert} from 'react-native';
 import moment from "moment";
-import 'moment/min/locales';
-import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
+import 'moment/min/moment-with-locales';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Row } from 'native-base';
 import {setAppInfo, setUserInfo} from '../../redux/actions';
 import {connect} from 'react-redux';
@@ -121,15 +121,20 @@ class Article extends React.Component {
                       <Text style={styles.articleTitle}>{titre}</Text>                
         
                       <View style={{flex: 1, flexDirection: 'row'}}>
-                        <View style={{width: 150}}> 
-                        <Text style={styles.articleTag}>{rubrique}    {time}</Text>
+                        <View style={{width: 150}}>
+                        <Text style={styles.articleTag}>{rubrique} . {time}</Text>
                         </View>
 
                         <View style={{marginRight: 10}}>
                     
-                        <TouchableOpacity onPress={()=>this.onBookmarkClicked(saveArticle)}>
-                        <Text style={{}}>
-                          <Ionicons name={alreadyBookmarked?'bookmark':"bookmark-outline"} size={20} color={alreadyBookmarked?'red':"#454f63"} />
+                        {/* <TouchableOpacity onPress={()=>this.onBookmarkClicked(saveArticle)}> */}
+                        <TouchableOpacity onPress={() => {
+                            this.onBookmarkClicked(saveArticle)
+                            Vibration.vibrate()
+                        }}>
+
+                        <Text>
+                          <MaterialCommunityIcons name={alreadyBookmarked?'bookmark':"bookmark-outline"} size={25} color={alreadyBookmarked?'red':"#808080"} />
                         </Text>
                       </TouchableOpacity>
                       
@@ -245,11 +250,12 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingBottom: 10,
     flexDirection: 'row',
-    backgroundColor: '#FFF',
-    marginBottom: 5,
+    backgroundColor: '#FFFF',
+    marginBottom: 8,
   },
   articleTitle: {
     fontSize: 16,
+    fontWeight: 'bold',
     width: 230,
     fontFamily: 'Georgia',
     marginBottom: 7,
@@ -264,7 +270,9 @@ const styles = StyleSheet.create({
   articleTag: {
     fontSize: 10,
     width: 200,
+    color: '#393939',
     fontFamily: 'Gotham-book',
+    marginTop: 10,
   },
   articleBody: {
     fontSize: 30,

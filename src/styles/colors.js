@@ -9,7 +9,7 @@ export const lightGrey={
   color:'#D3D3D3'
 }
 export const gray = {
-  color: '#878787',
+  color: '#808080',
 };
   
   export const rounded = {

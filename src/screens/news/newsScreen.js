@@ -10,7 +10,7 @@ import HTMLView from 'react-native-htmlview';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Octicons from "react-native-vector-icons/Octicons";
 import FitImage from 'react-native-fit-image';
 import Share from "library/components/Share";
 
@@ -38,7 +38,6 @@ class NewsScreen extends React.Component {
       id: this.props.navigation.getParam('id'),
       nophoto:'https://images.lenouvelliste.com/noimageandroid.jpg'
     }
-
   }
 
   render() {
@@ -67,16 +66,29 @@ class NewsScreen extends React.Component {
         <Header>
           <Left>
             <Button transparent onPress={() => { this.props.navigation.goBack() }}>
-              <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
+            <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} />
             </Button>
           </Left>
+
           <Right>
-            <View style={{ paddingHorizontal: 20 }}>
+            
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}> 
+
+              <View style={{marginRight: 20}}>
+              <Octicons name="text-size" size={25} style={Colors.gray} />
+              </View>
+
+              <View style={{ marginRight: 20}}>
               <TouchableOpacity onPress={() => { console.log('>>>ViewClicked<<<'); this.onBookmarkClicked(id) }}>
-                <IoniconsMaterial name={booked ? 'bookmark' : "bookmark-outline"} size={30} color={booked ? 'red' : "#454f63"} />
+                <MaterialCommunityIcons name={booked ? 'bookmark' : "bookmark-outline"} size={25} color={booked ? 'red' : "#808080"} />
               </TouchableOpacity>
-            </View>
-            <Share titre={title} url={url} />
+              </View>
+
+              <View style={{marginRight: 5}}>
+              <Share titre={title} url={url} />
+              </View>
+            
+              </View>
           </Right>
         </Header>
         <Content>

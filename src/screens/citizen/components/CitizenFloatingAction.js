@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, SafeAreaView, StyleSheet, Alert } from "react-native";
 import { FloatingAction } from "react-native-floating-action";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //Image Picker
 import ImagePicker from 'react-native-image-crop-picker';
 import { withNavigation } from 'react-navigation';
@@ -17,13 +18,13 @@ class CitizenFloatingAction extends Component {
     const actions = [
         {
           text: "Photo",
-          icon: require("../../../../src/library/images/gallery.png"),//./src/library/images/gallery.png
+          icon: <FontAwesome color="#FFF" name="camera" size={18} />,
           name: "bt_photo",
           position: 1
         },
         {
           text: "Video",
-          icon: require("../../../../src/library/images/camera.png"),//./src/library/images/camera.png
+          icon: <FontAwesome color="#FFF" name="video-camera" size={18} />,
           name: "bt_video",
           position: 2
         }
@@ -32,7 +33,7 @@ class CitizenFloatingAction extends Component {
 
       return (
     //  <SafeAreaView style={styles.container}>
-        <View style={styles.container}>
+        
           <FloatingAction
             actions={actions}
             position="right"
@@ -76,7 +77,7 @@ class CitizenFloatingAction extends Component {
                 }
               }}          
           />
-        </View>
+       
    //  </SafeAreaView>
     );
   }
