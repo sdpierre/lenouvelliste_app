@@ -1,18 +1,19 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Dimensions, TextInput,ScrollView ,AsyncStorage,FlatList,Image,List} from 'react-native';
 import Modal from 'react-native-modal';
-//import { CheckBox } from 'react-native-elements'
+import { Button } from 'react-native-elements'
 import CheckBox from 'react-native-check-box';
 import {
     Container,
     Header,
     Body,
-    Title, Button,
+    Title,
     Content,
-    Right, Left, Radio
+    Right, Left, Radio, 
 } from "native-base";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ValidationComponent from 'react-native-form-validator';
 import { Typography, Colors, Spacing } from '../../../styles';
@@ -27,7 +28,7 @@ export default class Register extends ValidationComponent{
     constructor(props) {
         super(props)
         this.state = {
-            genderSelected: 'F', //M or F
+            genderSelected: 'M', //M or F
             checked1: false,
             checked2: false,
             checked3: false,
@@ -410,18 +411,16 @@ export default class Register extends ValidationComponent{
                 <Container >
                     <Header style={{ backgroundColor: 'white' }}>
                         <Left>
-                            <Button
-                                transparent
-                                onPress={() => {
+                            
+                                <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => {
                                     this.props.navigation.goBack();
-                                }}>
-                                <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
-                            </Button>
+                                }}/>
+                           
                         </Left>
                         <Body></Body>
                         <Right>
                             <TouchableOpacity onPress={() => { this.props.navigation.navigate('Account') }}>
-                                <Title style={registerStyles.already}>Already registered?</Title>
+                                <Title style={registerStyles.already}>Already registered ?</Title>
                             </TouchableOpacity>
                         </Right>
                     </Header>
@@ -440,6 +439,7 @@ export default class Register extends ValidationComponent{
                                         <Text style={{ marginStart: 10 }}>Male</Text>
                                         </TouchableOpacity>
                                     </View>
+
                                     <View style={{ flexDirection: 'row' }}>
                                     <TouchableOpacity onPress={() => this.setState({ genderSelected: 'F' })} style={{flexDirection:'row'}}>
                                         <Radio 
@@ -552,11 +552,14 @@ export default class Register extends ValidationComponent{
                                     editable = {false}
                                 />
                                 {/* </TouchableOpacity> */}
-                                <Modal isVisible={this.state.isCountryModalVisible} style={{backgroundColor:'white',maxHeight:Dimensions.get('window').height -100, top:50, bottom:50}} onBackdropPress={()=>this.closeCountryModal()} animationIn="slideInUp" animationOut="slideOutDown" swipeDirection="right">
+                                <Modal isVisible={this.state.isCountryModalVisible} style={{backgroundColor:'white',maxHeight:Dimensions.get('window').height -200, top:50, bottom:50}} onBackdropPress={()=>this.closeCountryModal()} animationIn="slideInUp" animationOut="slideOutDown" swipeDirection="right">
                                 <View style={{ flex:1}}>      
                                  {/* <Text>Will show country list here</Text> */}
 <TouchableOpacity onPress={()=>this.closeCountryModal()} style={{bottom:20}}> 
-<Image source={require('../../../library/images/close.png')} style={{left:20,top:20,height:40,width:30}}/>
+
+<MaterialCommunityIcons name="window-close" size={30} style={[Colors.gray,{ left:20,top:30}]}/>
+
+
 </TouchableOpacity>
 
 <FlatList
@@ -586,11 +589,11 @@ export default class Register extends ValidationComponent{
                                     // ref={(input) => { this.townInput = input; }}
                                     returnKeyType='done'
                                 />
- 
-                                <View style={registerStyles.checkContainer}>
+                            <View style={{marginTop:20}}>
+                            <View style={registerStyles.checkContainer}>
                                     <CheckBox
                                         left
-                                        style={{ flex: 1 }}
+                                        style={registerStyles.checkbox}
                                         title='Click Here'
                                         isChecked={this.state.checked1}
                                         onClick={() => {
@@ -598,14 +601,18 @@ export default class Register extends ValidationComponent{
                                                 checked1: !this.state.checked1
                                             })
                                         }}
-                                        rightText='I accept the general terms of use'
+                                        rightText="J'accepte les conditions générales d'utilisation."
+                                        rightTextStyle={{fontFamily: "Gotham-book", fontSize:12}}
+                                        checkBoxColor='#D3D3D3'
+                                        checkedCheckBoxColor='#de6c72'
                                     />
                                 </View>
                                 <View style={registerStyles.checkContainer}>
-
+                                    
+                                    
                                     <CheckBox
                                         left
-                                        style={{ flex: 1 }}
+                                        style={registerStyles.checkbox}
                                         title='Click Here'
                                         isChecked={this.state.checked2}
                                         onClick={() => {
@@ -613,7 +620,10 @@ export default class Register extends ValidationComponent{
                                                 checked2: !this.state.checked2
                                             })
                                         }}
-                                        rightText='I agree to receive the Nouvelliste offers'
+                                        rightText="J'accepte de recevoir les offres du Nouvelliste"
+                                        rightTextStyle={{fontFamily: "Gotham-book", fontSize:12}}
+                                        checkBoxColor='#D3D3D3'
+                                        checkedCheckBoxColor='#de6c72'
 
                                     />
                                 </View>
@@ -622,7 +632,7 @@ export default class Register extends ValidationComponent{
 
                                     <CheckBox
                                         left
-                                        style={{ flex: 1 }}
+                                        style={registerStyles.checkbox}
                                         title='Click Here'
                                         isChecked={this.state.checked3}
                                         onClick={() => {
@@ -630,13 +640,33 @@ export default class Register extends ValidationComponent{
                                                 checked3: !this.state.checked3
                                             })
                                         }}
-                                        rightText='I agree to receive offers from our partners'
-
+                                        rightText="J'accepte de recevoir les offres de nos partenaires."
+                                        rightTextStyle={{fontFamily: "Gotham-book", fontSize:12}}
+                                        checkBoxColor='#D3D3D3'
+                                        checkedCheckBoxColor='#de6c72'
                                     />
                                 </View>
 
                             </View>
-                            <View style={{ paddingHorizontal: 30, marginBottom: 20 }}>
+                            
+
+                            <Button
+                            title="I'm registering"
+                            buttonStyle={{backgroundColor:'red', marginTop:20}}
+                            onPress={this.register
+                                //     () => {
+                                    // this.props.navigation.goBack();
+                                    // this.props.navigation.navigate('RegisterDone');
+                                // }
+                                }
+                            />
+
+                       
+                            </View>
+                            
+                          
+
+                            {/* <View style={{ paddingHorizontal: 30, marginBottom: 20 }}>
                                 <View style={{ backgroundColor: 'red' }}>
                                     <TouchableOpacity
                                         transparent
@@ -651,7 +681,7 @@ export default class Register extends ValidationComponent{
                                         </View>
                                     </TouchableOpacity>
                                 </View>
-                            </View>
+                            </View> */}
                         </ScrollView>
                     </KeyboardAwareScrollView>
                     </Content>
@@ -665,8 +695,8 @@ export default class Register extends ValidationComponent{
 const registerStyles = StyleSheet.create({
     rootContainer: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'left',
         padding: 30,
 
     },
@@ -697,13 +727,20 @@ const registerStyles = StyleSheet.create({
     input: {
         width: deviceWidth - 70,
         padding: 10,
+        height:45,
         borderWidth: 1.8,
+        borderRadius:5,
         borderColor: '#D3D3D3',
-        marginBottom: 20,
+        marginBottom: 10,
         paddingLeft: 15,
        // color: '#D3D3D3',
         color:'#000',
         alignSelf: 'center',
+    },
+    checkbox: {
+        flex:1,
+        marginBottom:10,
+        paddingLeft:5
     },
     icon: {
         top: 8,
@@ -719,8 +756,7 @@ const registerStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        height:50
-
+        height:40,
         
     },
 
@@ -731,8 +767,8 @@ const registerStyles = StyleSheet.create({
         left:20
       },
       countryName: {
-        fontFamily: 'Verdana',
-        fontSize: 18,
+        fontFamily: "Gotham-book",
+        fontSize: 16,
       },
       countryCode: {
         color: 'red',

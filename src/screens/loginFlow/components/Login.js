@@ -8,13 +8,18 @@ import {
     Container,
     Header,
     Body,
-    Button,
+    
     Right, Left,
     Content
 } from "native-base";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Button } from 'react-native-elements'
+import { Input } from 'react-native-elements';
+
+import { Form, Item, Label } from 'native-base';
 
 import { Colors } from '../../../styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -148,13 +153,11 @@ export default class Login extends ValidationComponent {
                 <Container>
                     <Header style={{ backgroundColor: 'white', }}>
                         <Left>
-                            {/* <Button
-                                transparent
-                                onPress={() => {
+                            
+                                <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => {
                                     this.props.navigation.goBack();
-                                }}>
-                                // <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
-                            </Button> */}
+                                }}/>
+                            
                         </Left>
                         <Body></Body>
                         <Right></Right>
@@ -163,11 +166,10 @@ export default class Login extends ValidationComponent {
                         <View style={{ flex: 0, height: 500, padding: 35 }}>
                             <View style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
 
-                                <Text style={styles.loginText}>Login</Text>
-
+                                <Text style={styles.loginText}>Connectez-vous</Text>
 
                                 <TextInput
-                                    placeholder="Email"
+                                    placeholder="E-mail, username"
                                     placeholderTextColor='#9b9b9b'
                                     keyboardType={'email-address'}
                                     onChangeText={this.handlEmail}
@@ -200,30 +202,28 @@ export default class Login extends ValidationComponent {
                                         }}
                                     />
                                 </View>
-                                <View style={styles.loginButton}>
-                                    <TouchableOpacity
-                                        transparent
-                                        onPress={this.login
-                                        //     () => {
-                                        //     this.props.navigation.goBack();
-                                        // }
-                                        }>
-                                        <View style={styles.buttonContainer}>
-                                            <Text style={{ color: 'white', fontSize: 20 }}>I connect</Text>
-                                        </View>
-                                    </TouchableOpacity>
 
-                                </View>
+                                <Button
+                            title="Je me connecte"
+                            buttonStyle={{backgroundColor:'red', marginTop:20}}
+                            onPress={this.login
+                                //     () => {
+                                //     this.props.navigation.goBack();
+                                // }
+                                }
+                            />
+
+
 
                                 <TouchableOpacity style={{ backgroundColor: 'transparent', width: '100%', marginTop: 30 }} onPress={() => { console.log('>>>Forgot Pressed<<<'); this.props.navigation.navigate('Forgot'); }}>
                                     <Text style={styles.forgot}>
-                                        Forgot your password?
+                                        Forgot your password ?
                                 </Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity style={{ backgroundColor: 'transparent', width: '100%', marginTop: 15 }} onPress={() => { this.props.navigation.navigate('Register'); }}>
                                     <Text style={styles.noAcc} >
-                                        No account yet?
+                                        No account yet ?
                             </Text>
 
                                 </TouchableOpacity>
@@ -250,14 +250,15 @@ const styles = StyleSheet.create({
 
     input: {
         width: deviceWidth - 70,
-        height: 50,
+        height: 45,
         padding: 10,
         borderWidth: 1.8,
         borderColor: '#D3D3D3',
         marginBottom: 20,
+        borderRadius:5,
         paddingLeft: 15,
-       // color: '#D3D3D3',
-       color:'#000',
+        // color: '#D3D3D3',
+        color:'#000',
         alignSelf: 'center',
     },
 
@@ -287,11 +288,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black',
         marginBottom: 10,
+        fontFamily: "Montserrat-SemiBold",
         //marginLeft:35
     },
     loginButton: {
         backgroundColor: 'red',
         height:50,
+        borderRadius:5,
         alignItems:'center'
     },
     buttonContainer: {

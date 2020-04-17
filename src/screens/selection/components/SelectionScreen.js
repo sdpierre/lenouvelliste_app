@@ -74,7 +74,7 @@ class SelectionScreen extends React.Component {
 
     if(data){
       return (
-        <Container>
+        <Container style={Colors.grayBackground}>
 <Header>
           <Body>
             <Title>{title}</Title>
@@ -94,6 +94,7 @@ class SelectionScreen extends React.Component {
     }
   />
 </View>
+<CitizenFloatingAction/>
 </Container>
         );
     }else{
