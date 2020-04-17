@@ -71,7 +71,6 @@ class NewsScreen extends React.Component {
           </Left>
 
           <Right>
-            
             <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}> 
 
               <View style={{marginRight: 20}}>
