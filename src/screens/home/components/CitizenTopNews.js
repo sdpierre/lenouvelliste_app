@@ -84,19 +84,17 @@ class CitizenTop extends Component {
                 style={{
                   flex: 1,
                   flexDirection: 'row',
-                  flexWrap: 'wrap',
+                 
                 }}>
 
-                <View style={{ backgroundColor: '', width: '20%' }}>
+                {/* <View style={{ backgroundColor: '', width: '20%' }}>
                   <Text style={CitizenStyle.views}><Ionicons name="eye" size={10} /> 450</Text>
+                </View> */}
+
+                <View style={{ width: '50%' }}><Text style={CitizenStyle.moment}>{time}</Text>
                 </View>
 
-                <View style={{ backgroundColor: '', width: '40%' }}>
-                  <Text style={CitizenStyle.moment}>{time}</Text>
-                </View>
-
-                <View style={{ backgroundColor: '', width: '40%' }}>
-                  <Text style={CitizenStyle.share}><Ionicons name="share" size={30} color="#fff" /></Text>
+                <View style={{ width: '50%' }}><Text style={CitizenStyle.share}><Ionicons name="share" size={30} color="#fff" /></Text>
                 </View>
 
               </View>
@@ -157,7 +155,6 @@ const CitizenStyle = StyleSheet.create({
     fontSize: 12,
     color: '#fff',
     fontFamily: 'Gotham-book',
-    paddingLeft: 10,
   },
   views: {
     fontSize: 12,
