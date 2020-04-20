@@ -8,12 +8,11 @@ import {
     Container,
     Header,
     Body,
-    Button,
     Right, Left,
     Content,
     Title
 } from "native-base";
-
+import { Button } from 'react-native-elements';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -92,7 +91,7 @@ export default class CitizenSaveScreen extends Component {
                             </Button> */}
                         </Left>
                         <Body>
-                        <Title>Save Details</Title>
+                        <Title>Plus de détails</Title>
                         </Body>
                         <Right></Right>
                     </Header>
@@ -134,32 +133,29 @@ export default class CitizenSaveScreen extends Component {
                                     onChangeText={this.handleDescription}
                                     value={this.state.description}
                                     style={styles.input}
+                                    multiline={true}
+                                    numberOfLines={4}
                                     returnKeyType='done'
                                     autoCapitalize = 'none'
-
                     />
+
                     </View>
 
-                     <View style={styles.nextButton}>
-                      <TouchableOpacity
-                          transparent
-                          onPress={this.goToCitizenProgress}>
-                          <View style={styles.buttonContainer}>
-                              <Text style={{ color: 'white', fontSize: 20 }}>SEND</Text>
-                          </View>
-                      </TouchableOpacity>
-                    </View>
+                   
 
+                    <Button
+                            title="SEND"
+                            buttonStyle={{backgroundColor:'red', marginTop:20}}
+                            onPress={this.goToCitizenProgress}
+                            />
+                    
+                    <Button
+                            title="SAVE FOR LATER"
+                            buttonStyle={{backgroundColor:'red', marginTop:20}}
+                            onPress={this.goToCitizenProgress}
+                            />
 
-                    <View style={styles.nextButton}>
-                    <TouchableOpacity
-                          transparent
-                          onPress={this.goToCitizenProgress}>
-                          <View style={styles.buttonContainer}>
-                              <Text style={{ color: 'white', fontSize: 20 }}>SAVE FOR LATER</Text>
-                          </View>
-                    </TouchableOpacity>
-                    </View>
+                   
 
                             </View>
                         </View>
@@ -229,5 +225,9 @@ const styles = StyleSheet.create({
         top: 15,
         right: 5
     },
+    textArea: {
+        height: 150,
+        justifyContent: "flex-start"
+      }
 
 });

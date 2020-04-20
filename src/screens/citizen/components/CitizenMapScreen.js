@@ -8,20 +8,27 @@ import { Platform,
   FlatList,
   ScrollView,
   TouchableHighlight,Dimensions,TouchableOpacity} from 'react-native';
+  import Geolocation from 'react-native-geolocation-service';
 //import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 // import RetroMapStyles from './MapStyles/RetroMapStyles.json';
+
+import MapView, {Marker} from 'react-native-maps';
+
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE = 0;
 const LONGITUDE = 0;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-import { Container, Header, Left, Body, Right, Button, Icon, Title, Content } from 'native-base';
+import { Container, Header, Left, Body, Right, Icon, Title, Content } from 'native-base';
+import { Button,ButtonGroup } from 'react-native-elements';
 
 export default class CitizenMapScreen extends Component {
   constructor() {
     super();
     this.state = {
+      mapTypeIndex: 0,
+      latlng: {latitude: 18.533333, longitude: -72.333336},
       region: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
@@ -30,9 +37,11 @@ export default class CitizenMapScreen extends Component {
       },
       imageData:''
     };
+    this.chooseMapType = this.chooseMapType.bind(this);
   }
-  componentDidMount() {
 
+  
+  componentDidMount() {
     const { navigation } = this.props;
     const strImageData = navigation.getParam('imageData'); 
     console.log(strImageData) 
@@ -67,7 +76,22 @@ export default class CitizenMapScreen extends Component {
     //     });
     //   }
     // );
+
+    this.wathcId = Geolocation.getCurrentPosition(position => {
+      const {latitude, longitude} = position.coords;
+      const newCoordinate = {
+        latitude,
+        longitude,
+      };
+      this.setState({latlng: newCoordinate});
+    });
+
+    console.log(this.state.latlng)
   }
+
+  chooseMapType = index => {
+    this.setState({mapTypeIndex: index});
+  };
 
   goToSaveCitizen = ()=>{
 
@@ -80,6 +104,9 @@ export default class CitizenMapScreen extends Component {
     //navigator.geolocation.clearWatch(this.watchID);
   }
   render() {
+    
+    
+    const buttons = ['Map', 'Satellite'];
     return (
       <Container>
       <Header style={{ backgroundColor: 'white', }}>
@@ -89,51 +116,61 @@ export default class CitizenMapScreen extends Component {
                   onPress={() => {
                       this.props.navigation.goBack();
                   }}>
-                  // <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
+                  <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
               </Button> */}
           </Left>
           <Body>
-          <Title>MAP</Title>
+          <Title>Où ?</Title>
           </Body>
           <Right></Right>
       </Header>
-      <Content>
-          <View style={{ flex: 1, height: 500, padding: 35 }}>
+  <Content>
+      <View
+              style={{
+                justifyContent: 'center',
+                marginBottom: 10,
+                height: '10%',
+              }}>
+              <ButtonGroup
+                onPress={this.chooseMapType}
+                selectedIndex={this.state.mapTypeIndex}
+                buttons={buttons}
+                containerStype={{height: 10}}
+              />
+            </View>
+      
+      <View style={{ height:400}}>
+
+              <MapView
+                style={{flex: 1, height: '100%'}}
+                region={this.state.latlng}
+                followsUserLocation={true}
+                showsUserLocation={true}
+                mapType={
+                  this.state.mapTypeIndex === 0 ? 'standard' : 'satellite'
+                }>
+
+                <Marker
+                  draggable
+                  followsUserLocation={true}
+                  coordinate={this.state.latlng}
+                  onDragEnd={e =>
+                    this.setState({latlng: e.nativeEvent.coordinate})
+                  }
+                />
+              </MapView>
+        </View>
+
+          <View style={{ flex: 1, padding: 35 }}>
               <View style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
 
-                  <Text style={styles.citizenSaveText}>MAP is coming soon</Text>
-
-                  {/* <MapView */}
-       {/* // provider={ PROVIDER_GOOGLE }
-        style={ styles.container }
-        // customMapStyle={ RetroMapStyles }
-       // showsUserLocation={ true }
-       // region={ this.state.region }
-        //onRegionChange={ region => this.setState({region}) }
-        //onRegionChangeComplete={ region => this.setState({region}) }
-      > */}
-        {/* <MapView.Marker
-          coordinate={ this.state.region }
-        /> */}
-      {/* </MapView> */}
-
-
-                  <View style={styles.nextButton}>
-                      <TouchableOpacity
-                          transparent
-                          onPress={this.goToSaveCitizen}>
-                          <View style={styles.buttonContainer}>
-                              <Text style={{ color: 'white', fontSize: 20 }}>NEXT</Text>
-                          </View>
-                      </TouchableOpacity>
-
-                  </View>
-
-
-
+                        <Button
+                            title="I confirm"
+                            buttonStyle={{backgroundColor:'red', marginTop:20}}
+                            onPress={this.goToSaveCitizen}/>
               </View>
           </View>
-      </Content>
+          </Content>
   </Container>
     );
   }

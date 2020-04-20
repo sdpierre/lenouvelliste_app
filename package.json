@@ -25,6 +25,7 @@
     "react-native-fit-image": "^1.5.5",
     "react-native-floating-action": "^1.20.0",
     "react-native-form-validator": "^0.3.2",
+    "react-native-geolocation-service": "^4.0.0",
     "react-native-gesture-handler": "^1.6.0",
     "react-native-htmlview": "^0.15.0",
     "react-native-image-crop-picker": "^0.28.0",
