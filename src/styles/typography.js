@@ -23,10 +23,11 @@ export const smallTitle = {
   };
 
   export const xlargeTitle = {
-    fontSize: 27,
+    fontSize: 30,
     fontFamily: 'Georgia',
     marginTop: 5,
     marginBottom: 5,
+    fontWeight: 'bold',
     color: '#282929',
   };
 
@@ -38,7 +39,7 @@ export const smallTitle = {
     },
     p: {
       fontSize: fontSize,
-      lineHeight: 27,
+      lineHeight: 30,
       fontFamily: 'Georgia',
       marginBottom: 10
     },
@@ -50,6 +51,7 @@ export const smallTitle = {
       fontSize: fontSize,
     },
   };
+
   export const bodyWhite ={ 
     color: '#FFF',
     fontSize: 16,
@@ -92,4 +94,3 @@ export const smallTitle = {
     letterSpacing: 0.64,
     color: '#FFF'
   };
-

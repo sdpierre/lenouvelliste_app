@@ -37,7 +37,7 @@ class MyCarousel extends Component {
       <View>
        <TouchableOpacity>
                         <Text style={{}}>
-                          <Ionicons name="bookmark-outline" size={20} color="#454f63" />
+                          <Ionicons name="bookmark-outline" size={25} color="#393939" />
                         </Text>
                       </TouchableOpacity>
                       </View>

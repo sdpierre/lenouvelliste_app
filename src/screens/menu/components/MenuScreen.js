@@ -15,6 +15,7 @@ import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 import Realm from 'realm';
 import { getSectionAll } from '../../../library/networking/Api'
 import LogoTitle from 'library/components/logo';
+import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
 import {
     Container,
     Header,
@@ -213,7 +214,7 @@ class MenuScreen extends Component {
                             </Text>
                         }} />
                 </Container>
-
+                <CitizenFloatingAction/>
             </Container>
         )
     }
