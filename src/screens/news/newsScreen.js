@@ -36,6 +36,7 @@ class NewsScreen extends React.Component {
       url: this.props.navigation.getParam('url'),
       booked: this.props.navigation.getParam('booked'),
       id: this.props.navigation.getParam('id'),
+      premium: this.props.navigation.getParam('premium'),
       nophoto:'https://images.lenouvelliste.com/noimageandroid.jpg'
     }
   }
@@ -52,7 +53,8 @@ class NewsScreen extends React.Component {
     const { photo } = this.state;
     let { booked } = this.state;
     const { id } = this.state;
-    console.log('NewsAlreadyBooked>> ', booked);
+    const { premium } = this.state;
+    //console.log('NewsAlreadyBooked>> ', booked);
     var obj = realm
     .objects('book_news')
     .filtered('id =' + id);
@@ -78,7 +80,9 @@ class NewsScreen extends React.Component {
               </View>
 
               <View style={{ marginRight: 20}}>
-              <TouchableOpacity onPress={() => { console.log('>>>ViewClicked<<<'); this.onBookmarkClicked(id) }}>
+              <TouchableOpacity onPress={() => { 
+                // console.log('>>>ViewClicked<<<'); 
+                this.onBookmarkClicked(id) }}>
                 <MaterialCommunityIcons name={booked ? 'bookmark' : "bookmark-outline"} size={25} color={booked ? 'red' : "#808080"} />
               </TouchableOpacity>
               </View>
@@ -112,11 +116,33 @@ class NewsScreen extends React.Component {
               addLineBreaks={false}
               stylesheet={Typography.body}
             />
+            {this.renderConditionalAbonne(premium)}
+            
           </View>
         </Content>
       </Container>
     );
   }
+
+  renderConditionalAbonne(premium) {
+    //console.log(premium);
+  if(premium === 'FALSE') {
+   return ; 
+  }else {
+   return  <View style={{borderTopColor:'#0089D0', borderTopWidth:5, backgroundColor:Colors.gray}}>
+   <Text> La suite de cet article est reservée aux abonnés</Text>
+
+   <Text> Gratuit pour l'instant </Text>
+   <Text> 0.00 </Text>
+   <Text> Gratuit pour l'instant </Text>
+
+   <Text> Déjà abonné </Text>
+   <Text> inclus dans l'abonnement </Text>
+   <Text> Tous les articles en illimite sur le web </Text>
+ </View>; 
+  }
+  
+ }
 
   onBookmarkClicked = (id) => {
     var obj = realm
@@ -125,8 +151,7 @@ class NewsScreen extends React.Component {
     realm.write(() => {
       //realm.deleteAll();
 
-     
-
+    
       if (obj.length > 0) {
         /*if(this.state.isSelection){
           alert('You can remove article from Home Tab by pressing on Bookmark icon.')

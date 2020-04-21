@@ -78,7 +78,7 @@ class Article extends React.Component {
       author,
       id,
       url,
-      abonne,
+      premium,
       isBookmarked,
     } = this.props.article;
 
@@ -95,7 +95,7 @@ class Article extends React.Component {
       .objects('book_news')
       .filtered('id =' + saveArticle.id);
     let alreadyBookmarked = bookmarkedArticle.length > 0;
-    
+
     return (
       
       <View>
@@ -111,7 +111,7 @@ class Article extends React.Component {
               date: date,
               author: author,
               url: url,
-              abonne: abonne,
+              premium: premium,
               booked: this.state.isBookmarked,
               nophoto: nophoto,
             })
@@ -119,7 +119,7 @@ class Article extends React.Component {
           <View style={styles.container}>
             <View style={{backgroundColor: '#FFFF', marginBottom:10}}>
               
-              {this.renderConditionalAbonne()}
+              {this.renderConditionalAbonne(premium)}
               
                   
               <View style={styles.articleContainer}>
@@ -178,8 +178,9 @@ class Article extends React.Component {
     );
   }
 
-  renderConditionalAbonne() {
-   if(this.props.article.abonne === 'FALSE') {
+  renderConditionalAbonne(premium) {
+     console.log(premium);
+   if(premium === 'FALSE') {
     return ; 
    }else {
     return  <View style={styles.trapezoid}><Text
@@ -189,12 +190,7 @@ class Article extends React.Component {
       fontSize: 13,
       paddingLeft: 4,
       fontFamily: 'AkkoPro-BoldCondensed',
-    }}>
-    {' '}
-    Abonné{' '}
-
-    
-  </Text></View>; 
+    }}>Abonné</Text></View>; 
    }
    
   }
