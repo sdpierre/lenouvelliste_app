@@ -13,9 +13,12 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Octicons from "react-native-vector-icons/Octicons";
 import FitImage from 'react-native-fit-image';
 import Share from "library/components/Share";
+import { Button } from 'react-native-elements'
+
+
 
 import { Typography, Colors, Buttons, Spacing } from "../../styles";
-import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, ListItem, List } from 'native-base';
+import { Container, Header, Left, Body, Right, Icon, Title, Content, ListItem, List } from 'native-base';
 import IoniconsMaterial from "react-native-vector-icons/MaterialCommunityIcons";
 //realm
 let realm;
@@ -36,6 +39,7 @@ class NewsScreen extends React.Component {
       url: this.props.navigation.getParam('url'),
       booked: this.props.navigation.getParam('booked'),
       id: this.props.navigation.getParam('id'),
+      premium: this.props.navigation.getParam('premium'),
       nophoto:'https://images.lenouvelliste.com/noimageandroid.jpg'
     }
   }
@@ -52,7 +56,8 @@ class NewsScreen extends React.Component {
     const { photo } = this.state;
     let { booked } = this.state;
     const { id } = this.state;
-    console.log('NewsAlreadyBooked>> ', booked);
+    const { premium } = this.state;
+    //console.log('NewsAlreadyBooked>> ', booked);
     var obj = realm
     .objects('book_news')
     .filtered('id =' + id);
@@ -65,20 +70,22 @@ class NewsScreen extends React.Component {
       <Container>
         <Header>
           <Left>
-            <Button transparent onPress={() => { this.props.navigation.goBack() }}>
-            <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} />
-            </Button>
+            
+            <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
+         
           </Left>
 
           <Right>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}> 
 
-              <View style={{marginRight: 20}}>
+              {/* <View style={{marginRight: 20}}>
               <Octicons name="text-size" size={25} style={Colors.gray} />
-              </View>
+              </View> */}
 
               <View style={{ marginRight: 20}}>
-              <TouchableOpacity onPress={() => { console.log('>>>ViewClicked<<<'); this.onBookmarkClicked(id) }}>
+              <TouchableOpacity onPress={() => { 
+                // console.log('>>>ViewClicked<<<'); 
+                this.onBookmarkClicked(id) }}>
                 <MaterialCommunityIcons name={booked ? 'bookmark' : "bookmark-outline"} size={25} color={booked ? 'red' : "#808080"} />
               </TouchableOpacity>
               </View>
@@ -96,7 +103,7 @@ class NewsScreen extends React.Component {
             source={{ uri: photo || nophoto }}
             style={Spacing.fitImage}
           />
-          <View style={Spacing.container}>
+          <View style={styles.container}>
 
             <Text style={Typography.headline}>{surTitle}</Text>
             <Text style={Typography.xlargeTitle}>{title}</Text>
@@ -112,11 +119,51 @@ class NewsScreen extends React.Component {
               addLineBreaks={false}
               stylesheet={Typography.body}
             />
+            {this.renderConditionalAbonne(premium)}
+            
           </View>
         </Content>
       </Container>
     );
   }
+
+  renderConditionalAbonne(premium) {
+    //console.log(premium);
+  if(premium === 'FALSE') {
+   return ; 
+  }else {
+   return (
+     <View
+       style={{
+         borderTopColor: '#0089D0',
+         borderTopWidth: 5,
+         backgroundColor: '#F3F5F8',
+         justifyContent: 'center',
+         flex: 1,
+         padding: 30,
+         marginTop:30
+       }}>
+       <Text style={styles.titre_premium}> La suite de cet article est reservée aux abonnés</Text>
+
+       <Text style={styles.caption_premium}> Gratuit pour l'instant </Text>
+       <Text style={styles.prix_premium}> 0.00 </Text>
+       <Text style={styles.caption_premium}> sans engagement </Text>
+
+       <Button
+          title="J'en profite"
+          buttonStyle={styles.button_premium}
+        />
+
+       <Text style={styles.login_premium} onPress={() =>{this.props.navigation.navigate('login')}}> Déjà abonné </Text>
+       <View style={{borderTopColor: '#C0C0C0',
+         borderTopWidth: 1, marginTop:20}}></View>
+       <Text style={styles.inclus_premium}> inclus dans l'abonnement </Text>
+       <Text style={styles.desc_premium}> Tous les articles en illimite sur le web </Text>
+     </View>
+   ); 
+  }
+  
+ }
 
   onBookmarkClicked = (id) => {
     var obj = realm
@@ -125,8 +172,7 @@ class NewsScreen extends React.Component {
     realm.write(() => {
       //realm.deleteAll();
 
-     
-
+    
       if (obj.length > 0) {
         /*if(this.state.isSelection){
           alert('You can remove article from Home Tab by pressing on Bookmark icon.')
@@ -193,8 +239,59 @@ const styles = StyleSheet.create({
     ...Typography.mediumTitle,
     fontStyle: 'italic',
   },
+  container: {
+    ...Spacing.container,
+    backgroundColor: '#FFF',
+  },
   author: {
     ...Typography.mediumTitle,
     fontWeight: 'bold',
   },
+  titre_premium: { 
+    fontSize: 20,
+    fontFamily: "AkkoPro-BoldCondensed",
+    color:'#000',
+    textAlign:'center',
+    marginBottom:30
+  },
+  caption_premium: {
+    textTransform: 'uppercase',
+    color:'#C0C0C0',
+    fontSize: 10,
+    textAlign:'center',
+    fontFamily: 'Gotham-book',
+  },
+  prix_premium: {
+    fontSize: 90,
+    fontFamily: "AkkoPro-Condensed",
+    color:'#000',
+    height:90,
+    textAlign:'center',
+  },
+  button_premium: {
+    marginTop:30
+  },
+  login_premium: {
+    fontSize:14,
+    textAlign:'center',
+    marginTop:20
+    
+  },
+  inclus_premium: {
+    fontSize:16,
+    fontFamily: "AkkoPro-Condensed",
+    textTransform: 'uppercase',
+    borderTopColor: '#0089D0',
+    borderTopWidth: 5,
+    marginBottom:10,
+    marginTop:10
+
+
+  },
+  desc_premium: {
+    fontFamily: 'Gotham-book',
+    fontSize:12,
+    textAlign: 'left'
+  }
+
 });

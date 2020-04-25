@@ -5,6 +5,7 @@ import { setAppInfo } from '../../redux/actions';
 import { connect } from 'react-redux';
 import HomeScreen from './components/HomeScreen';
 import NewsScreen from '../news/newsScreen';
+import LoginScreen from '../loginFlow/components/Login';
 import CitizenNewsScreen from '../citizen/components/NewsScreen'
 import CitizenMapScreen from '../citizen/components/CitizenMapScreen';
 import CitizenSaveScreen from '../citizen/components/CitizenSaveScreen';
