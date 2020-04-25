@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -7,8 +8,8 @@ import LoginNavigator from "./loginFlow/LoginNavigator"
 import BreakingNavigator from "./breaking/BreakingNavigator";
 import CitizenNavigator from "../screens/citizen/CitizenNavigator";
 import HomeNavigator from "../screens/home/HomeNavigator";
-import SelectionNavigator from './selection/SelectionNavigator'
-import MenuNavigator from './menu/MenuNavigator'
+import SelectionNavigator from './selection/SelectionNavigator';
+import MenuNavigator from './menu/MenuNavigator';
 
 const getScreenRegisteredFunctions = navState => {
   // When we use stack navigators. 
@@ -25,7 +26,7 @@ const getScreenRegisteredFunctions = navState => {
 }
 
 
-const AppNavigator = createBottomTabNavigator(
+const bottomTabNavigator = createBottomTabNavigator(
 
     {
       Home: HomeNavigator,
@@ -71,25 +72,42 @@ const AppNavigator = createBottomTabNavigator(
   //   Login: LoginNavigator,
   //   Home: BottomTabNavigator
   // });
+  // export default AppNavigator;
 
-  export default AppNavigator;
+  const AppNavigator = createStackNavigator(
+    {
+      login: {
+        screen: LoginNavigator
+      },
+      // Breaking: {
+      //   screen: BreakingNavigator
+      // },
+      // Citizen: {
+      //   screen: CitizenNavigator
+      // },
+      // Home: {
+      //   screen: HomeNavigator
+      // },
+      // Selection: {
+      //   screen: SelectionNavigator
+      // },
+      // Menu: {
+      //   screen: MenuNavigator
+      // },
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      tabs: {
+        screen: bottomTabNavigator
+      }
+    },
+    {
+      initialRouteName: "login",
+      headerMode: "none"
+    }
+  );
+  
+  const AppContainer = createAppContainer(AppNavigator);
+  export default AppContainer;
 
 
 

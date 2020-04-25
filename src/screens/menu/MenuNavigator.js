@@ -16,6 +16,7 @@ import UserProfileScreen from '../profile/UserProfileScreen'
 import CitizenMapScreen from '../citizen/components/CitizenMapScreen';
 import CitizenSaveScreen from '../citizen/components/CitizenSaveScreen';
 import CitizenProgressScreen from '../citizen/components/CitizenProgressScreen';
+import ChangePasswordScreen from '../profile/ChangePasswordScreen';
 
 const MenuStackNav = createStackNavigator({
     Menu: {
@@ -35,6 +36,9 @@ const MenuStackNav = createStackNavigator({
     },
     UserProfile: {
         screen: UserProfileScreen, 
+    },
+    ChangePassword:{
+       screen: ChangePasswordScreen,
     },
     Register:{
         screen:RegisterScreen,

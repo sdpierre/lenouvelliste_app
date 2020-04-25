@@ -14,6 +14,12 @@
  export const kRESENDOTP_API = "resend-otp";
  export const kRESETPW_API = "reset-password";
 
+ export const kGETPROFILE_API = "get-profile";
+ export const kUPDATEPROFILE_API = "update-profile";
+ export const kUPDATEPROFILEIMAGE_API = "update-image";
+ export const kCHANGEPASSWORD_API = "change-password";
+
+
 //Color Constants
 
 export const kPurpleColor = "#6173E1";
@@ -33,7 +39,7 @@ export const kEmailInvalid = "Please enter valid email.";
 
 //Country
 export const kCountryEmpty = "Please select country";
-
+export const kTownEmpty = "Please select town.";
 //Address
 export const kAddressEmpty = "Please enter address.";
 
@@ -54,5 +60,4 @@ export const kOTPSent = "OTP sent successfully."
 export const kPhoneNoEmpty = "Please enter phone no.";
 export const kPhoneNoLength = "Phone no. should contain 10 digits.";
 
-
-
+export const kSomethingWrong = "Something went wrong. Please try again later."

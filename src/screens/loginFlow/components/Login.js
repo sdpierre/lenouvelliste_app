@@ -3,6 +3,9 @@ import { TouchableWithoutFeedback, ActivityIndicator, NativeModules, Platform, S
 import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
+import {setUserInfo} from '../../../redux/actions';
+import {connect} from 'react-redux';
+
 
 import {
     Container,
@@ -32,7 +35,7 @@ var deviceHeight = (Dimensions.get('window').height);
 var buttonHeight = Platform.OS == 'android' ? 50 : 55
 var elementSpacing = Platform.OS == 'android' ? 12 : 19
 
-export default class Login extends ValidationComponent {
+class Login extends ValidationComponent {
     constructor(props) {
         super(props)
 
@@ -111,7 +114,7 @@ export default class Login extends ValidationComponent {
 
     loginAPICall(params) {
     
-        var dicLogin = {};
+        var user = {};
     
         axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kLOGIN_API, params)
     
@@ -121,13 +124,14 @@ export default class Login extends ValidationComponent {
             let msg = response.data.message;
             if (response.data.status == true) {
     
-              dicLogin = response.data.user_detail;
+              user = response.data.user_detail;
     
-              AsyncStorage.setItem('loggedInUserDetails', JSON.stringify(dicLogin));              
-               console.log("Login Success",dicLogin)
+              AsyncStorage.setItem('loggedInUserDetails', JSON.stringify(user));              
+               console.log("Login Success",user)
+               this.props.setUserInfo(user);
                this.props.navigation.goBack();
             this.props.navigation.navigate('Menu',{
-                userInfo:dicLogin
+                userInfo:user
             });
 
             } else {
@@ -154,10 +158,10 @@ export default class Login extends ValidationComponent {
                     <Header style={{ backgroundColor: 'white', }}>
                         <Left>
                             
-                                <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => {
+                                {/* <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => {
                                     this.props.navigation.goBack();
                                 }}/>
-                            
+                             */}
                         </Left>
                         <Body></Body>
                         <Right></Right>
@@ -237,6 +241,23 @@ export default class Login extends ValidationComponent {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    user: state.user || "Please Wait...",
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUserInfo: (info) => {
+            dispatch(setUserInfo(info))
+        }
+    }
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Login);
 
 const styles = StyleSheet.create({
 

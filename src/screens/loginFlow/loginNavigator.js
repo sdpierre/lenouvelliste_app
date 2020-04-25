@@ -33,7 +33,7 @@ const LoginStackNav = createStackNavigator({
         screen:ForgotDoneScreen
     }
 }, {
-    initialRouteName: 'Login',
+    initialRouteName: 'Account',
     headerMode: 'none',
     mode: 'card'
 });

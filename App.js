@@ -22,7 +22,10 @@ import {createReduxContainer} from 'react-navigation-redux-helpers';
 import {connect} from 'react-redux';
 import {store} from './src/redux/store';
 import AppNavigator from './src/screens/AppNavigator';
-// import CitizenSaveScreen from './src/screens/citizen/components/CitizenSaveScreen'
+// import CitizenSaveScreen from './src/screens/citizen/components/CitizenSaveScreen';
+import UserProfile from './src/screens/profile/UserProfileScreen'
+import ChangePassword from './src/screens/profile/ChangePasswordScreen'
+
 //OneSignal
 import OneSignal from 'react-native-onesignal';
 
@@ -109,6 +112,7 @@ render() {
     <Provider store={store}>
     <AppContainer />
     {/* <CitizenSaveScreen/> */}
+    {/* <ChangePassword/> */}
     {/* <UserProfile/> */}
     {/* <FloatingAction
     actions={actions}

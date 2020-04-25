@@ -30,6 +30,7 @@
     "react-native-htmlview": "^0.15.0",
     "react-native-image-crop-picker": "^0.28.0",
     "react-native-image-overlay": "^0.1.2",
+    "react-native-image-picker": "^2.3.1",
     "react-native-image-placeholder": "^1.0.14",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-maps": "^0.27.1",

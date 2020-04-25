@@ -214,7 +214,7 @@ export default class Register extends ValidationComponent{
 
                              if (this.getErrorMessages()){
 
-                                alert(LeneovellisteConstants.kCountryEmpty)
+                                alert(LeneovellisteConstants.kTownEmpty)
 
                              }else{
 
@@ -252,8 +252,6 @@ export default class Register extends ValidationComponent{
         }
     
       }
-    
-    
     
       registrationAPICall(params) {
     

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withNavigation } from "react-navigation";
+import {setAppInfo} from '../../../redux/actions';
+import {connect} from 'react-redux';
 
 import {
     View,
@@ -61,72 +63,8 @@ class MenuScreen extends Component {
         // this._onFocusListener = this._onFocusListener.bind(this);
     }
 
-    componentDidMount() {
-        
-        const { navigation } = this.props;
-        // const dicLogin = navigation.getParam('userInfo'); 
-        // console.log(dicLogin) 
-        // let isLoggedin = false;
-        // if(dicLogin){
-        //   isLoggedin = true;
-        // }
-        // this.setState({isLoggedin});
-    
-     console.log("Component did mount called")
-        
-     this.focusListener = navigation.addListener("didFocus", () => {
-        // The screen is focused
-        // Call any action
-
-        console.debug('didFocus', payload);
-        AsyncStorage.getItem("loggedInUserDetails").then((value) => {
-          if (value != null) {
-              var dicLoginData = JSON.parse(value);
-              console.log('userInfo====>', dicLoginData)
-
-              this.setState({
-                isLoggedin: true
-              });
-              console.log("In right condition",this.state.isLoggedin)
-          }else{
-              this.setState({
-                isLoggedin:false
-              });
-              console.log("In else condition",this.state.isLoggedin)
-
-          }
-      }).done(
-      );
-
-      });
-  
-//      this.focusListener = navigation.addListener("didFocus", () => {
-    //     console.debug('didFocus', payload);
-    //     AsyncStorage.getItem("loggedInUserDetails").then((value) => {
-    //       if (value != null) {
-    //           var dicLoginData = JSON.parse(value);
-    //           console.log('userInfo====>', dicLoginData)
-
-    //           this.setState({
-    //             isLoggedin: true
-    //           });
-    //           console.log("In right condition",this.state.isLoggedin)
-    //       }else{
-    //           this.setState({
-    //             isLoggedin:false
-    //           });
-    //           console.log("In else condition",this.state.isLoggedin)
-
-    //       }
-    //   }).done(
-    //   );
-
-//   });
-  
-
-        // this._onFocusListener = this.props.navigation.addListener('didFocus',(payload) =>{
-        // });
-      
+    componentDidMount = () => {
+              
         NetInfo.fetch()
             .then(conn => {
 
@@ -143,15 +81,18 @@ class MenuScreen extends Component {
                 }
             });   
               
-
     }
-
-
-    componentWillUnmount() {
-        // this.didFocusListener.remove();
-        // this.focusListener.remove();
-       this.focusListener.remove();
-    }    
+  
+     componentWillReceiveProps(nextProps){
+        let authUser = nextProps.user.userInfo;
+        // let refreshToken = nextProps.navigation.getParam("refreshToken");
+        console.log('authUser------', authUser);
+        let isLoggedin = false;
+        if(authUser){
+          isLoggedin = true;
+        }
+        this.setState({isLoggedin});
+      }
 
     fetchNews() {
         getSectionAll()
@@ -170,6 +111,8 @@ class MenuScreen extends Component {
     }
 
     render() {
+        let isLoggedin = this.props.user.userInfo?true: false;
+        console.log('userInfo', this.props.user.userInfo);    
         return (
             <Container>
                 <Header>
@@ -179,7 +122,7 @@ class MenuScreen extends Component {
                     </Body>
                     <Right>
                     {
-                this.state.isLoggedin?<Button transparent onPress={()=>{this.props.navigation.navigate('Profile')}}>
+                isLoggedin?<Button transparent onPress={()=>{this.props.navigation.navigate('UserProfile')}}>
                 <FontAwesome color="#d00" name='user-circle-o' size={25} />
                 </Button>
                 :<Button transparent onPress={()=>{this.props.navigation.navigate('Account')}}>
@@ -238,4 +181,19 @@ const styles = StyleSheet.create({
     }
 });
 
-export default withNavigation(MenuScreen);
+const mapStateToProps = (state) => ({
+    user: state.user || "Please Wait...",
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUserInfo: (info) => {
+            dispatch(setUserInfo(info))
+        }
+    }
+};
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MenuScreen);
+// export default withNavigation(MenuScreen);
