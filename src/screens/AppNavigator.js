@@ -3,8 +3,7 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
-
-import LoginNavigator from "./loginFlow/LoginNavigator"
+import LoginNavigator from "./loginFlow/loginNavigator";
 import BreakingNavigator from "./breaking/BreakingNavigator";
 import CitizenNavigator from "../screens/citizen/CitizenNavigator";
 import HomeNavigator from "../screens/home/HomeNavigator";
@@ -25,8 +24,7 @@ const getScreenRegisteredFunctions = navState => {
   }
 }
 
-
-const bottomTabNavigator = createBottomTabNavigator(
+const AppNavigator = createBottomTabNavigator(
 
     {
       Home: HomeNavigator,
@@ -74,37 +72,37 @@ const bottomTabNavigator = createBottomTabNavigator(
   // });
   // export default AppNavigator;
 
-  const AppNavigator = createStackNavigator(
-    {
-      login: {
-        screen: LoginNavigator
-      },
-      // Breaking: {
-      //   screen: BreakingNavigator
-      // },
-      // Citizen: {
-      //   screen: CitizenNavigator
-      // },
-      // Home: {
-      //   screen: HomeNavigator
-      // },
-      // Selection: {
-      //   screen: SelectionNavigator
-      // },
-      // Menu: {
-      //   screen: MenuNavigator
-      // },
+  // const AppNavigator = createStackNavigator(
+  //   {
+  //     login: {
+  //       screen: LoginNavigator
+  //     },
+  //     Breaking: {
+  //       screen: BreakingNavigator
+  //     },
+  //     Citizen: {
+  //       screen: CitizenNavigator
+  //     },
+  //     Home: {
+  //       screen: HomeNavigator
+  //     },
+  //     Selection: {
+  //       screen: SelectionNavigator
+  //     },
+  //     Menu: {
+  //       screen: MenuNavigator
+  //     },
 
 
-      tabs: {
-        screen: bottomTabNavigator
-      }
-    },
-    {
-      initialRouteName: "login",
-      headerMode: "none"
-    }
-  );
+  //     tabs: {
+  //       screen: bottomTabNavigator
+  //     }
+  //   },
+  //   {
+  //     initialRouteName: "Home",
+  //     headerMode: "none"
+  //   }
+  // );
   
   const AppContainer = createAppContainer(AppNavigator);
   export default AppContainer;

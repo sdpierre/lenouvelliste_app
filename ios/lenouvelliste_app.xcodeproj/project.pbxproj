@@ -696,7 +696,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -766,7 +766,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Max Chauvet (F9F9RV2RY8)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../librairies/GoogleMobileAdsSdkiOS-7.56.0\"",

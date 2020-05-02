@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>GADApplicationIdentifier
 &lt;string&gt;ca-app-pub-3940256099942544~1458002511&lt;/string&gt;</key>
 	<string>ca-app-pub-3940256099942544~1458002511</string>
@@ -40,8 +40,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Lenouvelliste would like to access your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Lenouvelliste would like to access your microphones</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Lenouvelliste would like to access your photos</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -87,11 +93,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Lenouvelliste would like to access your photos</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Lenouvelliste would like to access your camera</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Lenouvelliste would like to access your microphones</string>
 </dict>
 </plist>
