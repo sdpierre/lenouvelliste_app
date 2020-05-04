@@ -58,6 +58,7 @@ class CitizenTop extends Component {
               username: item.username,
               media: item.media,
               userphoto: item.userphoto,
+              type: item.type,
             });
           }}>
           <View style={CitizenStyle.card}>

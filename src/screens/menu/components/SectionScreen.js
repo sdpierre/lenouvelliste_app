@@ -63,7 +63,6 @@ export default class SectionScreen extends Component {
                         surtitre: 'string',
                         titre: 'string',
                         url: 'string',
-                        premium:'string'
                     },
                 },
             ],

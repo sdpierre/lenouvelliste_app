@@ -43,7 +43,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Lenouvelliste would like to access your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Lenouvelliste would like to access your microphones</string>
 	<key>NSPhotoLibraryUsageDescription</key>

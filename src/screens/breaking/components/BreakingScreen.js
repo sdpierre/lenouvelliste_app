@@ -182,7 +182,7 @@ class BreakingScreen extends React.Component {
             <Title>{title}</Title>
           </Body>
         </Header>
-
+        
         <View style={styles.MainContainer}>
           <FlatList
             data={this.state.data}
@@ -217,8 +217,9 @@ class BreakingScreen extends React.Component {
             refreshing={this.state.refreshing}
             onRefresh={this.handleRefresh.bind(this)}
           />
-           <CitizenFloatingAction/>
+           
         </View>
+        <CitizenFloatingAction/>
       </Container>
     );
   }
@@ -243,6 +244,6 @@ export default connect(
 const styles = StyleSheet.create({
   MainContainer: {
     ...Colors.whiteBackground,
-    marginBottom:80,
+    marginBottom:50,
   },
 });

@@ -11,6 +11,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FitImage from 'react-native-fit-image';
+import Video from 'react-native-video';
 
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, ListItem, List} from 'native-base';
@@ -27,10 +28,13 @@ class CitizenNewsScreen extends React.Component {
       username: this.props.navigation.getParam('username'),
       media: this.props.navigation.getParam('media'),
       userphoto: this.props.navigation.getParam('userphoto'),
+      type: this.props.navigation.getParam('type'),
+      duration: 0,
     }
 
   } 
 
+  onLoad = data => this.setState({ duration: data.duration, isLoading: false });
 
   render() {
     const { title } = this.state;
@@ -41,9 +45,13 @@ class CitizenNewsScreen extends React.Component {
     const { username } = this.state;
     const { media } = this.state;
     const { userphoto } = this.state;
+    const { type } = this.state;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     // const { navigation } = this.props;
     // const title = navigation.getParam('title');
+
+   
+
     return (
       <View style={{flex: 1}}>
         <Header>
@@ -56,6 +64,25 @@ class CitizenNewsScreen extends React.Component {
           <Right></Right>
         </Header>
         <Content>
+        
+        <View style={{height:300, width:'100%'}}> 
+        <Video 
+          source={{uri: media }}
+          resizeMode="cover"
+          controls="true"
+          repeat="true"
+
+
+       ref={(ref) => {
+         this.player = ref
+       }}
+       onBuffer={this.onBuffer}
+       onError={this.videoError}
+       onLoad={this.onLoad}
+       style={styles.backgroundVideo} />
+      </View>
+
+      
 
         <FitImage
           source={{ uri: media || nophoto }}
@@ -71,6 +98,7 @@ class CitizenNewsScreen extends React.Component {
            
            <View style={{ marginTop: 10, flex: 1, flexDirection: "row", marginBottom: 20 }}>
            <View>
+
                     <Image
                       style={{
                         width: 40,
@@ -168,7 +196,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 5,
     color: "#282929"
-  }
+  },
+  backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 });
 
 const mapStateToProps = (state) => ({

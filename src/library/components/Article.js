@@ -49,10 +49,12 @@ class Article extends React.Component {
             author: 'string',
             id: 'int',
             url: 'string',
+            premium: 'string'
           },
         },
       ],
     });
+    
 
     dbData = realm.objects('book_news');
 

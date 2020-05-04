@@ -116,7 +116,7 @@ class MenuScreen extends Component {
         return (
             <Container>
                 <Header>
-
+<Left></Left>
                     <Body>
                         <LogoTitle />
                     </Body>
