@@ -20,6 +20,9 @@ import { Button } from 'react-native-elements'
 import { Typography, Colors, Buttons, Spacing } from "../../styles";
 import { Container, Header, Left, Body, Right, Icon, Title, Content, ListItem, List } from 'native-base';
 import IoniconsMaterial from "react-native-vector-icons/MaterialCommunityIcons";
+
+import Realm from 'realm';
+
 //realm
 let realm;
 class NewsScreen extends React.Component {
@@ -27,7 +30,6 @@ class NewsScreen extends React.Component {
   constructor(props) {
     super(props);
     realm = new Realm({ path: 'BookmarkDb.realm' });
-
     this.state = {
       title: this.props.navigation.getParam('title'),
       body: this.props.navigation.getParam('body'),
@@ -39,7 +41,7 @@ class NewsScreen extends React.Component {
       url: this.props.navigation.getParam('url'),
       booked: this.props.navigation.getParam('booked'),
       id: this.props.navigation.getParam('id'),
-      premium: this.props.navigation.getParam('premium'),
+      // premium: this.props.navigation.getParam('premium'),
       nophoto:'https://images.lenouvelliste.com/noimageandroid.jpg'
     }
   }
@@ -65,6 +67,14 @@ class NewsScreen extends React.Component {
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     // const { navigation } = this.props;
     // const title = navigation.getParam('title');
+    console.log('Photo',this.state.photo)
+    console.log('Photo',this.state.nophoto)
+
+    if (photo == null){
+      this.state.photo = ""
+    }
+
+    console.log('Photo',this.state.photo)
 
     return (
       <Container>

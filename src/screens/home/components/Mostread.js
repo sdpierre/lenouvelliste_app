@@ -113,6 +113,7 @@ class Mostread extends React.Component {
                       date: item.date,
                       author : item.author,
                       url : item.url,
+                      id: item.id
                     })
                   }
                 >
