@@ -41,7 +41,7 @@ class NewsScreen extends React.Component {
       url: this.props.navigation.getParam('url'),
       booked: this.props.navigation.getParam('booked'),
       id: this.props.navigation.getParam('id'),
-      // premium: this.props.navigation.getParam('premium'),
+      premium: this.props.navigation.getParam('premium'),
       nophoto:'https://images.lenouvelliste.com/noimageandroid.jpg'
     }
   }
@@ -67,14 +67,14 @@ class NewsScreen extends React.Component {
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     // const { navigation } = this.props;
     // const title = navigation.getParam('title');
-    console.log('Photo',this.state.photo)
-    console.log('Photo',this.state.nophoto)
+    // console.log('Photo',this.state.photo)
+    // console.log('Photo',this.state.nophoto)
 
     if (photo == null){
       this.state.photo = ""
     }
 
-    console.log('Photo',this.state.photo)
+    // console.log('Photo',this.state.photo)
 
     return (
       <Container>
@@ -129,6 +129,7 @@ class NewsScreen extends React.Component {
               addLineBreaks={false}
               stylesheet={Typography.body}
             />
+
             {this.renderConditionalAbonne(premium)}
             
           </View>
@@ -138,8 +139,9 @@ class NewsScreen extends React.Component {
   }
 
   renderConditionalAbonne(premium) {
-    //console.log(premium);
+    console.log(premium);
   if(premium === 'FALSE') {
+
    return ; 
   }else {
    return (
