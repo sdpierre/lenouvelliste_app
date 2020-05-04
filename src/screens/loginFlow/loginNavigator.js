@@ -13,6 +13,9 @@ const LoginStackNav = createStackNavigator({
     
     Account: {
         screen: LoginScreen,
+        // navigationOptions: ({ navigation }) => ({
+        //     tabBarVisible: navigation.state.index < 1,
+        // }),      
     },
     Register:{
         screen:RegisterScreen,

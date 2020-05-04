@@ -180,6 +180,7 @@ class HomeScreen extends React.Component {
           });
         });
         this.setState({ mostReadData: data, refreshing: false })
+
       })
       .catch((e) => {
         console.log('MostReadError>>', e)
