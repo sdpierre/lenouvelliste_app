@@ -75,7 +75,8 @@ class ArticleMenu extends React.Component {
       author,
       id,
       url,
-      isBookmarked
+      isBookmarked,
+      premium
     } = this.props.article;
 
     const saveArticle = this.props.article;
@@ -108,6 +109,7 @@ class ArticleMenu extends React.Component {
                       photo: photo,
                       date: date,
                       author : author,
+                      premium : premium
 
                     })}
                   }

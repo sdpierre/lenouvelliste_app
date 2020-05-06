@@ -40,7 +40,7 @@ class SelectionScreen extends React.Component {
 
     //console.log('SelectionSize>>', bookmarkData.length);
     this.state = {
-      title : "SELECTION",
+      title : "Favoris",
       bookmarkData:dataRender
   }
   

@@ -12,7 +12,7 @@ import CitizenTopNews from "../components/CitizenTopNews";
 import LogoTitle from 'library/components/logo';
 import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
 
-import { Container, Header, Body, Title } from 'native-base';
+import { Container, Header, Body, Title, Content } from 'native-base';
 
 //Realm
 import Realm from 'realm';
@@ -227,12 +227,10 @@ class HomeScreen extends React.Component {
       <Container>
         <Header>
           <Body>
-
             <LogoTitle />
-
           </Body>
         </Header>
-
+    
         <View style={styles.MainContainer}>
           <FlatList
             data={this.state.data}
@@ -254,7 +252,7 @@ class HomeScreen extends React.Component {
                 return (
                   <React.Fragment>
                     <Text style={styles.sectionTitle}> les plus lus </Text>
-                    <Mostread mostread={item} navigate={navigate} mostReadData={this.state.mostReadData} />
+                    <Mostread mostread={item} navigate={navigate} mostReadData={this.state.mostReadData} isBookmarked={false} />
                     <Article
                       article={item}
                       navigate={navigate}
@@ -304,8 +302,11 @@ class HomeScreen extends React.Component {
             refreshing={this.state.refreshing}
             onRefresh={this.handleRefresh.bind(this)}
           />
-          <CitizenFloatingAction/>
+          
         </View>
+        
+    
+        <CitizenFloatingAction/>
       </Container>
     );
   }
@@ -319,7 +320,8 @@ const styles = StyleSheet.create({
   },
   MainContainer: {
     ...Colors.grayBackground,
-    marginBottom: 80,
+  paddingBottom:50
+    
   },
   container: {
     ...Colors.background,
