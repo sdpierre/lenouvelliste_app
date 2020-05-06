@@ -19,6 +19,8 @@ import ValidationComponent from 'react-native-form-validator';
 import { Typography, Colors, Spacing } from '../../../styles';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
 
 //Dimensions
 var deviceWidth = (Dimensions.get('window').width);
@@ -32,7 +34,7 @@ export default class Register extends ValidationComponent{
             checked1: false,
             checked2: false,
             checked3: false,
-            isCountryModalVisible: false,
+            // isCountryModalVisible: false,
             userName: '',
            // firstName: '',
            // lastName: '',
@@ -224,7 +226,7 @@ export default class Register extends ValidationComponent{
                                     'username': this.state.userName,
                                     'email': this.state.email,
                                     'password': this.state.password,
-                                    'country': this.state.selectedCountryItem,
+                                    'country': 1,//this.state.selectedCountryItem,
                                     'town': this.state.town,
                                     'gender': this.state.genderSelected
                                   }
@@ -423,8 +425,8 @@ export default class Register extends ValidationComponent{
                         </Right>
                     </Header>
                     <Content style={{ flex: 1 }} >
-                        <KeyboardAwareScrollView>
-                            <ScrollView>
+                        {/* <KeyboardAwareScrollView> */}
+                            <ScrollView keyboardShouldPersistTaps="handled">
                             <View style={registerStyles.rootContainer}>
                                 <Text style={registerStyles.title}>Create your Le Nouvelliste account</Text>
                                 <Text style={registerStyles.allMedia}>You can take advantage of the Nouvelliste's free services on all media</Text>
@@ -533,51 +535,7 @@ export default class Register extends ValidationComponent{
                                     />
                                 </View>
 
-                                <View>
-                                {/* <TouchableOpacity onPress={()=>this.openCountryModal()}> */}
-                                <TextInput
-                                    placeholder="Country"
-                                    placeholderTextColor='#9b9b9b'
-                                    // keyboardType={'default'}
-                                    onChangeText={this.handleCountry}
-                                    value={this.state.countryName}
-                                    style={registerStyles.input}
-                                    // returnKeyType={"next"}
-                                    // onSubmitEditing={() => { this.townInput.focus(); }}
-                                    // blurOnSubmit={false}
-                                   //  ref={(input) => { this.countryInput = input; }}
-                                    onTouchStart = {()=>this.openCountryModal()}
-                                    editable = {false}
-                                />
-                                {/* </TouchableOpacity> */}
-                                <Modal isVisible={this.state.isCountryModalVisible} style={{backgroundColor:'white',maxHeight:Dimensions.get('window').height -200, top:50, bottom:50}} onBackdropPress={()=>this.closeCountryModal()} animationIn="slideInUp" animationOut="slideOutDown" swipeDirection="right">
-                                <View style={{ flex:1}}>      
-                                 {/* <Text>Will show country list here</Text> */}
-<TouchableOpacity onPress={()=>this.closeCountryModal()} style={{bottom:20}}> 
-
-<MaterialCommunityIcons name="window-close" size={30} style={[Colors.gray,{ left:20,top:30}]}/>
-
-
-</TouchableOpacity>
-
-<FlatList
-          style={{marginBottom:10}}
-          data={this.state.arrCountryList}
-          showsVerticalScrollIndicator={true}
-          renderItem={this.renderItem}
-          initialNumToRender = {10}
-        //   maxToRenderPerBatch = {2}
-        //   windowSize={5}
-          removeClippedSubviews = {true}
-          //keyExtractor={(item, index) => `item-${index}`}
-          keyExtractor={(item) => item.id}
-        />
-
-         </View>
-        </Modal>
-        </View>
-
-                                <TextInput
+                                {/* <TextInput
                                     placeholder="Town"
                                     placeholderTextColor='#9b9b9b'
                                     keyboardType={'default'}
@@ -586,7 +544,84 @@ export default class Register extends ValidationComponent{
                                     style={registerStyles.input}
                                     // ref={(input) => { this.townInput = input; }}
                                     returnKeyType='done'
-                                />
+                                /> */}
+                                <GooglePlacesAutocomplete
+      placeholder='City'
+      minLength={2} // minimum length of text to search
+      autoFocus={false}
+      returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+      keyboardAppearance={'light'} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
+      listViewDisplayed='auto'    // true/false/undefined
+      fetchDetails={true}
+      renderDescription={row => row.description} // custom description render
+      onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+        // console.log('-------',data, details);
+        // console.log('-------details',details);
+        // console.log('-------address',details.formatted_address);
+         this.setState({
+          town: details.formatted_address,
+          countryName:details.formatted_address
+         })
+
+      }}
+
+      getDefaultValue={() => ''}
+
+      query={{
+        // available options: https://developers.google.com/places/web-service/autocomplete
+        key: 'AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk',
+        language: 'en', // language of the results
+        types: '(cities)' // default: 'geocode'
+      }}
+  
+      // currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+      // currentLocationLabel="Current location"
+      nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+      GoogleReverseGeocodingQuery={{
+        // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+      }}
+      GooglePlacesSearchQuery={{
+        // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+        rankby: 'distance',
+        type: 'cafe'
+      }}
+      
+      GooglePlacesDetailsQuery={{
+        // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
+        fields: 'formatted_address',
+      }}
+
+      filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+    //   predefinedPlaces={[homePlace, workPlace]}
+
+      debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
+
+  //  placeholder='City'
+    // minLength={2}
+  //  autoFocus={false}
+  // returnKeyType={'default'}
+  //  fetchDetails={true}
+   styles={registerStyles.input}
+
+//   styles={{
+//     textInputContainer: {
+//       backgroundColor: 'rgba(0,0,0,0)',
+//       borderTopWidth: 0,
+//       borderBottomWidth:0
+//     },
+//     textInput: {
+//       marginLeft: 0,
+//       marginRight: 0,
+//       height: 38,
+//       color: '#5d5d5d',
+//       fontSize: 16
+//     },
+//     predefinedPlacesDescription: {
+//       color: '#1faadb'
+//     },
+//   }}
+//   currentLocation={false}
+/>
                             <View style={{marginTop:20}}>
                             <View style={registerStyles.checkContainer}>
                                     <CheckBox
@@ -681,7 +716,7 @@ export default class Register extends ValidationComponent{
                                 </View>
                             </View> */}
                         </ScrollView>
-                    </KeyboardAwareScrollView>
+                    {/* </KeyboardAwareScrollView> */}
                     </Content>
 
                 </Container>
