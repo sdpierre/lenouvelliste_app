@@ -16,8 +16,10 @@ import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 
 export default class SettingsScreen extends Component {
   constructor(props) {
-    super(props)
-
+    super(props);
+    this.state = {
+      title: 'Réglages',
+  }
   }
 
   render() {
@@ -30,7 +32,7 @@ export default class SettingsScreen extends Component {
                   <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
               </Button>
             </Left>
-            <Body></Body>
+            <Body><Title> {this.state.title}</Title></Body>
             <Right></Right>
           </Header>
           <Content>

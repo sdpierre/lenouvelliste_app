@@ -68,9 +68,9 @@ class CitizenNewsScreen extends React.Component {
         <View style={{height:300, width:'100%'}}> 
         <Video 
           source={{uri: media }}
-          resizeMode="cover"
-          controls="true"
-          repeat="true"
+          resizeMode={'cover'}
+          controls={true}
+          repeat={true}
 
 
        ref={(ref) => {

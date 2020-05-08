@@ -6,7 +6,8 @@ import {
   FlatList,
   Modal,
   TouchableHighlight,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from "react-native";
 import { setAppInfo } from "../../../redux/actions";
 import { connect } from "react-redux";
@@ -16,7 +17,7 @@ import { Typography, Colors, Buttons, Spacing, Margins } from "../../../styles";
 
 import { getBreakingNews } from "library/networking/Api";
 import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
-
+import ImageLoad from 'react-native-image-placeholder';
 import {
   Container,
   Header,
@@ -64,7 +65,7 @@ class BreakingScreen extends React.Component {
       this.state = {
         data: [],
         refreshing: true,
-        title: 'Breaking',
+        title: 'À la minute',
         isNetAvailable:false
 
       };
@@ -207,8 +208,11 @@ class BreakingScreen extends React.Component {
                     </Text>
                   </View>
 
-                  <View>
+              <View style={{flex: 2, flexDirection: 'row'}}>
+                <View style={{width: '100%'}}>
                     <Text style={Typography.largeTitle}>{item.title}</Text>
+                </View>
+
                   </View>
                 </View>
               </TouchableHighlight>
