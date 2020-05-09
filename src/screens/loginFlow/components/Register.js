@@ -634,7 +634,7 @@ export default class Register extends ValidationComponent{
                                                 checked1: !this.state.checked1
                                             })
                                         }}
-                                        rightText="J'accepte les conditions générales d'utilisation."
+                                        rightText="I accept the general terms of use."
                                         rightTextStyle={{fontFamily: "Gotham-book", fontSize:12}}
                                         checkBoxColor='#D3D3D3'
                                         checkedCheckBoxColor='#de6c72'
@@ -653,7 +653,7 @@ export default class Register extends ValidationComponent{
                                                 checked2: !this.state.checked2
                                             })
                                         }}
-                                        rightText="J'accepte de recevoir les offres du Nouvelliste"
+                                        rightText="I agree to receive the Nouvelliste offers."
                                         rightTextStyle={{fontFamily: "Gotham-book", fontSize:12}}
                                         checkBoxColor='#D3D3D3'
                                         checkedCheckBoxColor='#de6c72'
@@ -673,7 +673,7 @@ export default class Register extends ValidationComponent{
                                                 checked3: !this.state.checked3
                                             })
                                         }}
-                                        rightText="J'accepte de recevoir les offres de nos partenaires."
+                                        rightText="I agree to receive offers from our partners."
                                         rightTextStyle={{fontFamily: "Gotham-book", fontSize:12}}
                                         checkBoxColor='#D3D3D3'
                                         checkedCheckBoxColor='#de6c72'
