@@ -49,7 +49,6 @@ class Article extends React.Component {
             author: 'string',
             id: 'int',
             url: 'string',
-            premium: 'string'
           },
         },
       ],
@@ -80,7 +79,6 @@ class Article extends React.Component {
       author,
       id,
       url,
-      premium,
       isBookmarked,
     } = this.props.article;
 
@@ -113,17 +111,12 @@ class Article extends React.Component {
               date: date,
               author: author,
               url: url,
-              premium: premium,
               booked: this.state.isBookmarked,
               nophoto: nophoto,
             })
           }>
           <View style={styles.container}>
             <View style={{backgroundColor: '#FFFF', marginBottom:10}}>
-              
-              {this.renderConditionalAbonne(premium)}
-              
-                  
               <View style={styles.articleContainer}>
                 <View>
                   <Text style={styles.articleSurtitle}>{surtitre}</Text>
@@ -179,24 +172,6 @@ class Article extends React.Component {
       </View>
     );
   }
-
-  renderConditionalAbonne(premium) {
-     console.log(premium);
-   if(premium === 'FALSE') {
-    return ; 
-   }else {
-    return  <View style={styles.trapezoid}><Text
-    style={{
-      color: '#000',
-      position: 'absolute',
-      fontSize: 13,
-      paddingLeft: 4,
-      fontFamily: 'AkkoPro-BoldCondensed',
-    }}>Abonné</Text></View>; 
-   }
-   
-  }
-
   onBookmarkClicked = article => {
     realm.write(() => {
       //realm.deleteAll();

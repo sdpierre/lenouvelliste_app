@@ -47,12 +47,10 @@ class CitizenNewsScreen extends React.Component {
     const { userphoto } = this.state;
     const { type } = this.state;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
-    // const { navigation } = this.props;
-    // const title = navigation.getParam('title');
-
-   
+    const { navigate } = this.props;
 
     return (
+      
       <View style={{flex: 1}}>
         <Header>
           <Left>
@@ -94,9 +92,8 @@ class CitizenNewsScreen extends React.Component {
            <Text style={styles.CitizennewsLocationStyle}>Location Goes Here</Text>
            <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
 
-           <Text style={Typography.mediumTitle}>{headline}</Text>
-           
-           <View style={{ marginTop: 10, flex: 1, flexDirection: "row", marginBottom: 20 }}>
+          
+           <View style={{ marginTop: 10, flex: 1, flexDirection: "row" }}>
            <View>
 
                     <Image
@@ -112,7 +109,8 @@ class CitizenNewsScreen extends React.Component {
                     />
                   </View>
                   <View style={{ padding: 5 }}>
-                    <Text style={styles.CitizennewsUsernameStyle}>
+                    <Text style={styles.CitizennewsUsernameStyle}
+          >
                       {username}
                     </Text>
                     <Text style={styles.CitizennewsMomentStyle}>
@@ -121,7 +119,7 @@ class CitizenNewsScreen extends React.Component {
                   </View>
                   </View>
 
-                  <View style={{height: 50, alignItems: 'center', paddingTop:20, marginBottom: 30}}>
+                  <View style={{ alignItems: 'center'}}>
    
       </View>
           <Text style={Typography.bodyWhite}>{body}</Text>

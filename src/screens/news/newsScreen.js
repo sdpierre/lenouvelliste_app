@@ -41,7 +41,6 @@ class NewsScreen extends React.Component {
       url: this.props.navigation.getParam('url'),
       booked: this.props.navigation.getParam('booked'),
       id: this.props.navigation.getParam('id'),
-      premium: this.props.navigation.getParam('premium'),
       nophoto:'https://images.lenouvelliste.com/noimageandroid.jpg'
     }
   }
@@ -58,7 +57,6 @@ class NewsScreen extends React.Component {
     const { photo } = this.state;
     let { booked } = this.state;
     const { id } = this.state;
-    const { premium } = this.state;
     //console.log('NewsAlreadyBooked>> ', booked);
     var obj = realm
     .objects('book_news')
@@ -129,53 +127,12 @@ class NewsScreen extends React.Component {
               addLineBreaks={false}
               stylesheet={Typography.body}
             />
-
-            {this.renderConditionalAbonne(premium)}
             
           </View>
         </Content>
       </Container>
     );
   }
-
-  renderConditionalAbonne(premium) {
-    console.log(premium);
-  if(premium === 'FALSE') {
-
-   return ; 
-  }else {
-   return (
-     <View
-       style={{
-         borderTopColor: '#0089D0',
-         borderTopWidth: 5,
-         backgroundColor: '#F3F5F8',
-         justifyContent: 'center',
-         flex: 1,
-         padding: 30,
-         marginTop:30
-       }}>
-       <Text style={styles.titre_premium}> La suite de cet article est reservée aux abonnés</Text>
-
-       <Text style={styles.caption_premium}> Gratuit pour l'instant </Text>
-       <Text style={styles.prix_premium}> 0.00 </Text>
-       <Text style={styles.caption_premium}> sans engagement </Text>
-
-       <Button
-          title="J'en profite"
-          buttonStyle={styles.button_premium}
-        />
-
-       <Text style={styles.login_premium} onPress={() =>{this.props.navigation.navigate('login')}}> Déjà abonné </Text>
-       <View style={{borderTopColor: '#C0C0C0',
-         borderTopWidth: 1, marginTop:20}}></View>
-       <Text style={styles.inclus_premium}> inclus dans l'abonnement </Text>
-       <Text style={styles.desc_premium}> Tous les articles en illimite sur le web </Text>
-     </View>
-   ); 
-  }
-  
- }
 
   onBookmarkClicked = (id) => {
     var obj = realm

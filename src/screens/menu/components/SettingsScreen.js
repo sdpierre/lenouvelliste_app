@@ -44,9 +44,6 @@ export default class SettingsScreen extends Component {
               <ListItem>
                 <Text>Alertes info</Text>
               </ListItem>
-              <ListItem>
-                <Text>Taille du texte</Text>
-              </ListItem>
               <ListItem itemDivider>
                 <Text style={styles.SectionTitle}>à propos</Text>
               </ListItem>
