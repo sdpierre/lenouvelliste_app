@@ -88,8 +88,8 @@ class CitizenNewsScreen extends React.Component {
         />
           <View style={styles.CitizennewsMainContainer}> 
            
-           <Text style={styles.CitizennewsCategoryStyle}>Port-au-Prince</Text>
-           <Text style={styles.CitizennewsLocationStyle}>Location Goes Here</Text>
+           <Text style={styles.CitizennewsCategoryStyle}>Address</Text>
+           <Text style={styles.CitizennewsLocationStyle}>Location Goes Here, click to see on map</Text>
            <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
 
           
