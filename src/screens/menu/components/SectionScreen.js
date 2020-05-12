@@ -41,7 +41,7 @@ export default class SectionScreen extends Component {
             title: this.props.navigation.getParam('name'),
             loading: false,
             data: [],
-            refreshing: false
+            refreshing: true
         }
         //Databse Schema and Name
         realm = new Realm({

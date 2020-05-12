@@ -22,14 +22,17 @@ import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants';
 import {setUserInfo} from '../../../redux/actions';
 import {connect} from 'react-redux';
-
+import {
+  TextField,
+  FilledTextField,
+  OutlinedTextField,
+} from 'react-native-material-textfield';
 import {Container, Header, Body, Right, Left, Content} from 'native-base';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Button} from 'react-native-elements';
-import {Input} from 'react-native-elements';
+import {Button, Input} from 'react-native-elements';
 
 import {Form, Item, Label} from 'native-base';
 import LogoTitle from 'library/components/logo';
@@ -51,10 +54,12 @@ class Login extends ValidationComponent {
       email: '',
       password: '',
       isPasswordSecured: true,     
-      userId:''
+      userId:'',
+      ActivityIndicator:false
     };
   }
 
+  
   componentDidMount(){
    console.log('Login component mount')
     AsyncStorage.getItem("loggedInUserDetails").then((value) => {
@@ -133,12 +138,14 @@ class Login extends ValidationComponent {
             console.log(loginParams);
 
             this.loginAPICall(loginParams);
+           
           }
         }
       }
     }
   };
 
+  
   loginAPICall(params) {
     var user = {};
 
@@ -182,33 +189,51 @@ class Login extends ValidationComponent {
       });
   }
 
+
+
   render() {
+
+    const iconpass = () => (
+      <Icon
+      style={styles.icon}
+      name={
+        this.state.isPasswordSecured
+          ? 'visibility-off'
+          : 'visibility'
+      }
+      size={25}
+      color="#D3D3D3"
+      onPress={() => {
+        this.setState({
+          isPasswordSecured: !this.state.isPasswordSecured,
+        });
+      }}
+    />
+      );
+
     return (
       <Container>
-        <Header style={{backgroundColor: 'white'}}>
-          
-            {/* <Left>
-                <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }}/>
-            </Left> */}
-          
-        </Header>
-        <Content>
-          <View style={{flex: 0, padding: 35}}>
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignContent: 'center',
-              }}>
-              <Text style={styles.loginText}>Connectez-vous</Text>
+      <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+        <Image
+          style={styles.logo}
+          source={{
+            uri: 'https://images.lenouvelliste.com/app/logo.png',
+         }}
+        />
 
-              <TextInput
-                placeholder="E-mail, username"
+      {/* <Text style={styles.loginText}>Connectez-vous</Text> */}
+      
+      <View style={{width:300}}>
+     
+            <View>
+              <TextField
+                label="E-mail, nom d'utilisateur"
+                tintColor="#0082c5"
                 placeholderTextColor="#9b9b9b"
                 keyboardType={'email-address'}
                 onChangeText={this.handlEmail}
                 value={this.state.email}
-                style={styles.input}
+                // style={styles.input}
                 returnKeyType={'next'}
                 onSubmitEditing={() => {
                   this.secondTextInput.focus();
@@ -216,36 +241,25 @@ class Login extends ValidationComponent {
                 blurOnSubmit={false}
                 autoCapitalize="none"
               />
-              <View style={{flexDirection: 'row'}}>
-                <TextInput
-                  ref={input => {
-                    this.secondTextInput = input;
-                  }}
-                  secureTextEntry={this.state.isPasswordSecured}
-                  placeholder="Password"
-                  placeholderTextColor="#9b9b9b"
-                  onChangeText={this.handlePassword}
-                  value={this.state.password}
-                  style={styles.input}
-                />
-                <Icon
-                  style={styles.icon}
-                  name={
-                    this.state.isPasswordSecured
-                      ? 'visibility-off'
-                      : 'visibility'
-                  }
-                  size={25}
-                  color="#D3D3D3"
-                  onPress={() => {
-                    this.setState({
-                      isPasswordSecured: !this.state.isPasswordSecured,
-                    });
-                  }}
-                />
-              </View>
 
-              <Button title="Je me connecte" onPress={this.login} />
+              <TextField
+                label="Mot de passe"
+                tintColor="#0082c5"
+                renderRightAccessory={iconpass}
+                ref={input => {
+                  this.secondTextInput = input;
+                }}
+                 secureTextEntry={this.state.isPasswordSecured}
+                // secureTextEntry={true}
+                placeholderTextColor="#9b9b9b"
+                onChangeText={this.handlePassword}
+                value={this.state.password}
+              />
+            
+              <Button style={{marginTop:40}} title="Je me connecte" onPress={this.login} />
+              <Button type="outline" style={{marginTop:20}} title="S'inscrire" onPress={this.login} onPress={() => {
+                  this.props.navigation.navigate('Register');
+                }} />
 
               <TouchableOpacity
                 style={{
@@ -257,23 +271,13 @@ class Login extends ValidationComponent {
                   console.log('>>>Forgot Pressed<<<');
                   this.props.navigation.navigate('Forgot');
                 }}>
-                <Text style={styles.forgot}>Forgot your password ?</Text>
-              </TouchableOpacity>
+                  
+                <Text style={styles.forgot}> Mot de passe oublié ?</Text>
+              </TouchableOpacity> 
 
-              <TouchableOpacity
-                style={{
-                  backgroundColor: 'transparent',
-                  width: '100%',
-                  marginTop: 15,
-                }}
-                onPress={() => {
-                  this.props.navigation.navigate('Register');
-                }}>
-                <Text style={styles.noAcc}>No account yet ?</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Content>
+      </View>
+      </View>
+      </View>
       </Container>
     );
   }
@@ -299,12 +303,19 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 0,
-    backgroundColor: 'transparent',
+    backgroundColor: '#fff',
     marginTop: 20,
-
+    justifyContent: 'center',
+    alignItems: 'center',
     //height:deviceHeight+64
   },
-
+  logo: {
+    height:80,
+    width:280,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:30
+  },
   input: {
     width: deviceWidth - 70,
     height: 45,
@@ -345,32 +356,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     marginBottom: 10,
-    fontFamily: 'Montserrat-SemiBold',
-    //marginLeft:35
-  },
-  loginButton: {
-    backgroundColor: 'red',
-    height: 50,
-    borderRadius: 5,
-    alignItems: 'center',
+    // fontFamily: 'gotham-book',
   },
   buttonContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  icon: {
-    position: 'absolute',
-    top: 15,
-    right: 5,
-  },
+
   forgot: {
     color: 'black',
-    fontSize: 12,
+    fontSize: 13,
     backgroundColor: 'transparent',
-    padding: 0,
     textAlign: 'center',
-    height: 20,
+    fontFamily: 'gotham-book',
   },
   noAcc: {
     color: 'grey',

@@ -824,7 +824,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lenouvellistecompany.lenouvelliste;
 				PRODUCT_NAME = lenouvelliste_app;
-				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDistributionPro;
+				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDevelopmentPro;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
-import LoginNavigator from './loginFlow/LoginNavigator';
+import LoginNavigator from './loginFlow/loginNavigator';
 import BreakingNavigator from "./breaking/BreakingNavigator";
 import CitizenNavigator from "../screens/citizen/CitizenNavigator";
 import HomeNavigator from "../screens/home/HomeNavigator";
 import SelectionNavigator from './selection/SelectionNavigator'
-import MenuNavigator from './menu/MenuNavigator'
+import MenuNavigator from './menu/MenuNavigator';
 
 const getScreenRegisteredFunctions = navState => {
   // When we use stack navigators. 
@@ -22,7 +22,6 @@ const getScreenRegisteredFunctions = navState => {
     return params;
   }
 }
-
 
 const bottomTabNavigator = createBottomTabNavigator(
 

@@ -6,7 +6,6 @@ import {
     Left,
     Body,
     Right,
-    Button,
     Title,
     Content
   } from "native-base";  
@@ -20,6 +19,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import ValidationComponent from 'react-native-form-validator';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ImagePicker from 'react-native-image-picker';
+import {Button, Input} from 'react-native-elements';
 
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../utils/LenouvellisteConstants';
@@ -516,7 +516,7 @@ _choosen(selectedItem) {
     render(){
         return(
             <Container>
-                <Header style={{ backgroundColor: 'white' }}>
+                <Header>
                     <Left>
                         <Button
                             transparent
@@ -527,7 +527,7 @@ _choosen(selectedItem) {
                         </Button>
                     </Left>
                     <Body>
-                    <Title>USER PROFILE</Title>
+                   
                     </Body>
                     <Right>
                          <Button transparent onPress={this.logout}>
@@ -535,6 +535,8 @@ _choosen(selectedItem) {
                         </Button> 
                     </Right>
                 </Header>
+
+                <Content> 
                 <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor:'#ECECEC'}}>
                 <View style={profileStyles.containerView}>
 
@@ -746,25 +748,25 @@ _choosen(selectedItem) {
 //   }}
 //   currentLocation={false}
 />
+
+    <Text> {this.state.town}</Text>
                   </View>
                  <View style={{height:50,flexDirection:'row', top:20,marginRight:20,marginLeft:20,marginBottom:40}}>
-                 <TouchableOpacity style={{height:50,width:'45%',justifyContent:'center',alignItems:'center',backgroundColor:'#fff',marginRight:20}}>
-                      <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Edit Profile</Text>
-                  </TouchableOpacity>
-                
-                 <TouchableOpacity onPress={this.updateProfile} style={{height:50,width:'45%',justifyContent:'center',alignItems:'center',backgroundColor:'#0089d0'}}>
-                   <Text style ={{color: "#fff",fontSize:16,fontFamily:'Gotham-book'}}>Save Changes</Text>
-                 </TouchableOpacity>
+      
+                 <Button title="Save Changes" onPress={this.updateProfile} />
+
+
                  </View>
 
                  <TouchableOpacity onPress= {()=>{
                    this.props.navigation.navigate('ChangePassword')
-                 }}style={{height:50,width:'85%',justifyContent:'center',alignItems:'center',backgroundColor:'#0089d0',marginLeft:20,marginRight:20}}>
-                      <Text style ={{color: "#fff",fontSize:16,fontFamily:'Gotham-book',fontWeight:'bold'}}>Change Password</Text>
+                 }}>
+                      <Text style ={{fontSize:16,fontFamily:'Gotham-book',fontWeight:'bold'}}>Change Password</Text>
                 </TouchableOpacity>
 
                 </View>
                 </ScrollView>
+                </Content>
             </Container>
 
         );
@@ -788,10 +790,13 @@ export default connect(
 )(UserProfileScreen);
 
 const profileStyles = StyleSheet.create({
+    container: {
+      backgroundColor:'#FFF'
+    },
     containerView:{
       flex:1,
       justifyContent:'flex-start',
-      backgroundColor:'#ECECEC'
+      backgroundColor:'#FFF'
     },
     profileBlueBg:{
         backgroundColor:'#0089d0',
