@@ -121,14 +121,20 @@ class MenuScreen extends Component {
                         <LogoTitle />
                     </Body>
                     <Right>
-                    {
-                isLoggedin?<Button transparent onPress={()=>{this.props.navigation.navigate('UserProfile')}}>
+
+                    <Button transparent onPress={()=>{this.props.navigation.navigate('UserProfile')}}>
+                <FontAwesome color="#d00" name='user-circle-o' size={25} />
+                </Button>
+
+                    {/* {
+                isLoggedin?
+                <Button transparent onPress={()=>{this.props.navigation.navigate('UserProfile')}}>
                 <FontAwesome color="#d00" name='user-circle-o' size={25} />
                 </Button>
                 :<Button transparent onPress={()=>{this.props.navigation.navigate('Account')}}>
                 <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
                 </Button>
-            }
+            } */}
                         {/* <Button transparent onPress={this.state.isLoggedInUser?() => { this.props.navigation.navigate('UserProfile')}:()=>this.props.navigation.navigate('Account')}>
                             <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
                         </Button> */}

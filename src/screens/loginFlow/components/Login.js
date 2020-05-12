@@ -50,8 +50,39 @@ class Login extends ValidationComponent {
     this.state = {
       email: '',
       password: '',
-      isPasswordSecured: true,
+      isPasswordSecured: true,     
+      userId:''
     };
+  }
+
+  componentDidMount(){
+   console.log('Login component mount')
+    AsyncStorage.getItem("loggedInUserDetails").then((value) => {
+      if (value != null) {
+          var dicLoginData = JSON.parse(value);
+          console.log('userInfo====>', dicLoginData)
+
+          this.setState({
+              userId:dicLoginData.id
+          });
+          
+          if (this.state.userId != ''){
+
+            this.props.navigation.navigate('Home')
+          }else{
+            
+          }
+         console.log("Login right condition",this.state.userId)
+
+      }else{
+
+          console.log("Login else condition",this.state.userId)
+
+      }
+  }).done(
+  );
+
+
   }
 
   handlEmail = text => {
@@ -156,9 +187,9 @@ class Login extends ValidationComponent {
       <Container>
         <Header style={{backgroundColor: 'white'}}>
           
-            <Left>
+            {/* <Left>
                 <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }}/>
-            </Left>
+            </Left> */}
           
         </Header>
         <Content>

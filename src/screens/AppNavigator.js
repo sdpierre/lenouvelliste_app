@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
+import LoginNavigator from './loginFlow/LoginNavigator';
 import BreakingNavigator from "./breaking/BreakingNavigator";
 import CitizenNavigator from "../screens/citizen/CitizenNavigator";
 import HomeNavigator from "../screens/home/HomeNavigator";
@@ -23,7 +24,7 @@ const getScreenRegisteredFunctions = navState => {
 }
 
 
-const AppNavigator = createBottomTabNavigator(
+const bottomTabNavigator = createBottomTabNavigator(
 
     {
       Home: HomeNavigator,
@@ -65,5 +66,22 @@ const AppNavigator = createBottomTabNavigator(
     }
   );
 
+  const AppNavigator = createStackNavigator(
+    {
+      login: {
+        screen: LoginNavigator,
+      },
+      tabs: {
+        screen: bottomTabNavigator,
+      },
+    },
+    {
+      initialRouteName: 'login',
+      headerMode: 'none',
+    },
+  );
+  
   export default AppNavigator;
+
+
 

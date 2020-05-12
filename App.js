@@ -23,10 +23,7 @@ import {createReduxContainer} from 'react-navigation-redux-helpers';
 import {connect} from 'react-redux';
 import {store} from './src/redux/store';
 import AppNavigator from './src/screens/AppNavigator';
-import AuthNavigator from './src/screens/AuthNavigator';
 // import CitizenSaveScreen from './src/screens/citizen/components/CitizenSaveScreen';
-import UserProfile from './src/screens/profile/UserProfileScreen';
-import ChangePassword from './src/screens/profile/ChangePasswordScreen';
 
 //OneSignal
 import OneSignal from 'react-native-onesignal';
@@ -44,10 +41,6 @@ const mapStateToProps = state => ({
   state: state.nav,
 });
 const AppContainer = connect(mapStateToProps)(AppNav);
-
-const AuthNav = createReduxContainer(AuthNavigator);
-const AuthContainer = connect(mapStateToProps)(AuthNav);
-
 
 export default class App extends Component {
   constructor(properties) {
@@ -97,29 +90,9 @@ export default class App extends Component {
   }
   render() {
     const buttons = ['Map', 'Satellite'];
-    AsyncStorage.getItem("loggedInUserDetails").then((value) => {
-      if (value != null) {
-          var dicLoginData = JSON.parse(value);
-          console.log('userInfo====>', dicLoginData)
-
-          this.setState({
-              userId:dicLoginData.id
-          });
-         console.log("In right condition",this.state.userId)
-      }else{
-
-          console.log("In else condition",this.state.userId)
-
-      }
-  }).done(
-  );
-
     return (
       <Provider store={store}>
-        {this.state.userId?
-        <AppContainer />:
-        <AuthContainer/>}
-        {/* <AppContainer/> */}
+         <AppContainer/>
       </Provider>
     );
   }

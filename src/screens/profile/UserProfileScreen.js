@@ -22,7 +22,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ImagePicker from 'react-native-image-picker';
 
 import axios from 'axios';
-import * as LeneovellisteConstants from '../../utils/LenouvellisteConstants'
+import * as LeneovellisteConstants from '../../utils/LenouvellisteConstants';
+import { NavigationActions, StackActions } from 'react-navigation';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
 
 //Dimensions
 var deviceWidth = (Dimensions.get('window').width);
@@ -103,6 +106,8 @@ class UserProfileScreen extends ValidationComponent{
                     })
     
                     console.log("Get Profile",dicGetProfile)
+                    console.log("Town",this.state.town)
+
                     this.getAllCountriesListAPICall()
 
 
@@ -194,7 +199,7 @@ class UserProfileScreen extends ValidationComponent{
                                     'username': this.state.userName,
                                     'name': this.state.fullName,
                                     'email': this.state.email,
-                                    'country': this.state.selectedCountryItem,
+                                    'country': 1,//this.state.selectedCountryItem,
                                     'town': this.state.town,
                                     'user_id':this.state.userId
                                   }
@@ -465,19 +470,27 @@ _choosen(selectedItem) {
             [
               {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
               {text: 'OK', onPress:async()=>{
-                  
-                AsyncStorage.removeItem('loggedInUserDetails');
+                
+                  this.removeItemValue('loggedInUserDetails')
+                // AsyncStorage.removeItem('loggedInUserDetails');
                 let user = this.props.appInfo;
                 await AsyncStorage.clear();
                 this.props.setUserInfo(null);
-                const resetAction = NavigationActions.reset({
+                const resetAction = StackActions.reset({
                   index: 0,
-                  actions: [
-                    NavigationActions.navigate({routeName: 'Account'})
-                  ],
-                  key: null
-                })
-                dispatch(resetAction)          
+                key: null,
+                  actions: [NavigationActions.navigate({ routeName: 'login' })],
+                });
+                this.props.navigation.dispatch(resetAction);
+           
+                // const resetAction = NavigationActions.reset({
+                //   index: 0,
+                //   actions: [
+                //     NavigationActions.navigate({routeName: 'Account'})
+                //   ],
+                //   key: null
+                // })
+                // dispatch(resetAction)          
                 // this.props.navigation.navigate('Account')
                 }
              },
@@ -486,6 +499,19 @@ _choosen(selectedItem) {
           )
 
     }
+
+    async removeItemValue(key) {
+      try {
+          await AsyncStorage.removeItem(key);
+          console.log('Removed')
+          return true;
+      }
+      catch(exception) {
+        console.log('Removed',exception)
+          return false;
+      }
+  }
+  
 
     render(){
         return(
@@ -509,7 +535,7 @@ _choosen(selectedItem) {
                         </Button> 
                     </Right>
                 </Header>
-                <ScrollView style={{backgroundColor:'#ECECEC'}}>
+                <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor:'#ECECEC'}}>
                 <View style={profileStyles.containerView}>
 
                 <View style={profileStyles.profileBlueBg}>
@@ -608,8 +634,7 @@ _choosen(selectedItem) {
 
                   </View>
 
- <View>
-                  <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:10}}> 
+                  {/* <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:10}}> 
                        <Text style ={{color:'lightgray',fontSize:14,fontFamily:'Gotham-book'}}>Country</Text>
                        <TextInput
                                     // placeholder="Country"
@@ -624,38 +649,12 @@ _choosen(selectedItem) {
                                      onTouchStart = {()=>this.openCountryModal()}
                                     editable = {false}
                                 />
-                               <Modal isVisible={this.state.isCountryModalVisible} style={{backgroundColor:'white',maxHeight:Dimensions.get('window').height -200, top:50, bottom:50}} onBackdropPress={()=>this.closeCountryModal()} animationIn="slideInUp" animationOut="slideOutDown" swipeDirection="right">
-                                <View style={{ flex:1}}>      
-                                 {/* <Text>Will show country list here</Text>  */}
- <TouchableOpacity onPress={()=>this.closeCountryModal()} style={{bottom:20}}> 
 
-<MaterialCommunityIcons name="window-close" size={30} style={[Colors.gray,{ left:20,top:30}]}/>
-
-
-</TouchableOpacity>
-
-<FlatList
-          style={{marginBottom:10}}
-          data={this.state.arrCountryList}
-          showsVerticalScrollIndicator={true}
-          renderItem={this.renderItem}
-          initialNumToRender = {10}
-        //   maxToRenderPerBatch = {2}
-        //   windowSize={5}
-          removeClippedSubviews = {true}
-          //keyExtractor={(item, index) => `item-${index}`}
-          keyExtractor={(item) => item.id}
-        />
-
-         </View>
-        </Modal>
-
-                  </View>
-                 </View>
+                  </View> */}
 
                   <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:10}}> 
                        <Text style ={{color:'lightgray',fontSize:14,fontFamily:'Gotham-book'}}>Town</Text>
-                       <TextInput
+                       {/* <TextInput
                                     // placeholder="Town"
                                     // placeholderTextColor='#9b9b9b'
                                     keyboardType={'default'}
@@ -664,10 +663,90 @@ _choosen(selectedItem) {
                                     style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}
                                     // ref={(input) => { this.townInput = input; }}
                                     returnKeyType='done'
-                                />
+                                /> */}
+                                                                <GooglePlacesAutocomplete
+      placeholder='City'
+      minLength={2} // minimum length of text to search
+      autoFocus={false}
+      getDefaultValue={()=>this.state.town}
+      returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+      keyboardAppearance={'light'} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
+      listViewDisplayed='auto'    // true/false/undefined
+      fetchDetails={true}
+      renderDescription={(row) => row.description} // custom description render
+      ref={(instance) => { this.locationRef = instance }}
+      onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+        // console.log('-------',data, details);
+        // console.log('-------details',details);
+        // console.log('-------address',details.formatted_address);
+         this.setState({
+          town: details.formatted_address,
+          countryName:details.formatted_address
+         })
 
+      }}
+      onChangeText={ (data, details = null) => {
+        this.setState({
+        town: details.formatted_address,
+        countryName:details.formatted_address
+       })
+      }}  
+      query={{
+        // available options: https://developers.google.com/places/web-service/autocomplete
+        key: 'AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk',
+        language: 'en', // language of the results
+        types: '(cities)' // default: 'geocode'
+      }}
+  
+      // currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+      // currentLocationLabel="Current location"
+      nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+      GoogleReverseGeocodingQuery={{
+        // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+      }}
+      GooglePlacesSearchQuery={{
+        // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+        rankby: 'distance',
+        type: 'cafe'
+      }}
+      
+      GooglePlacesDetailsQuery={{
+        // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
+        fields: 'formatted_address',
+      }}
+
+      filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+    //   predefinedPlaces={[homePlace, workPlace]}
+
+      debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
+
+  //  placeholder='City'
+    // minLength={2}
+  //  autoFocus={false}
+  // returnKeyType={'default'}
+  //  fetchDetails={true}
+   styles ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}
+
+//   styles={{
+//     textInputContainer: {
+//       backgroundColor: 'rgba(0,0,0,0)',
+//       borderTopWidth: 0,
+//       borderBottomWidth:0
+//     },
+//     textInput: {
+//       marginLeft: 0,
+//       marginRight: 0,
+//       height: 38,
+//       color: '#5d5d5d',
+//       fontSize: 16
+//     },
+//     predefinedPlacesDescription: {
+//       color: '#1faadb'
+//     },
+//   }}
+//   currentLocation={false}
+/>
                   </View>
-
                  <View style={{height:50,flexDirection:'row', top:20,marginRight:20,marginLeft:20,marginBottom:40}}>
                  <TouchableOpacity style={{height:50,width:'45%',justifyContent:'center',alignItems:'center',backgroundColor:'#fff',marginRight:20}}>
                       <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Edit Profile</Text>
