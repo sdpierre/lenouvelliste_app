@@ -470,8 +470,15 @@ _choosen(selectedItem) {
                 let user = this.props.appInfo;
                 await AsyncStorage.clear();
                 this.props.setUserInfo(null);
-        
-                this.props.navigation.navigate('Account')
+                const resetAction = NavigationActions.reset({
+                  index: 0,
+                  actions: [
+                    NavigationActions.navigate({routeName: 'Account'})
+                  ],
+                  key: null
+                })
+                dispatch(resetAction)          
+                // this.props.navigation.navigate('Account')
                 }
              },
             ],

@@ -199,11 +199,6 @@ PODS:
     - React (< 1.0.0, >= 0.13.0)
   - react-native-safe-area-context (0.7.3):
     - React
-  - react-native-video (4.4.5):
-    - React
-    - react-native-video/Video (= 4.4.5)
-  - react-native-video/Video (4.4.5):
-    - React
   - React-RCTActionSheet (0.61.4):
     - React-Core/RCTActionSheetHeaders (= 0.61.4)
   - React-RCTAnimation (0.61.4):
@@ -287,7 +282,6 @@ DEPENDENCIES:
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
-  - react-native-video (from `../node_modules/react-native-video`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -356,8 +350,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-onesignal"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
-  react-native-video:
-    :path: "../node_modules/react-native-video"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -419,7 +411,6 @@ SPEC CHECKSUMS:
   react-native-netinfo: 4f7469b001be001975d1566fb757fb04e3905bec
   react-native-onesignal: b77c201ba78bee36fd5e7725c6eb80a1180d351a
   react-native-safe-area-context: 8260e5157617df4b72865f44006797f895b2ada7
-  react-native-video: aa527b0acb37f94c4491e70df0274cb26979405d
   React-RCTActionSheet: 7369b7c85f99b6299491333affd9f01f5a130c22
   React-RCTAnimation: d07be15b2bd1d06d89417eb0343f98ffd2b099a7
   React-RCTBlob: 8e0b23d95c9baa98f6b0e127e07666aaafd96c34
@@ -442,4 +433,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 03fa5ee1881d40d458ab77679c49ba5cb8c6aa1a
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

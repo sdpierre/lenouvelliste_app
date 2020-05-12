@@ -15,6 +15,7 @@ import {
   Text,
   StatusBar,
   Platform,
+  AsyncStorage
 } from 'react-native';
 
 import {Provider} from 'react-redux';
@@ -22,6 +23,7 @@ import {createReduxContainer} from 'react-navigation-redux-helpers';
 import {connect} from 'react-redux';
 import {store} from './src/redux/store';
 import AppNavigator from './src/screens/AppNavigator';
+import AuthNavigator from './src/screens/AuthNavigator';
 // import CitizenSaveScreen from './src/screens/citizen/components/CitizenSaveScreen';
 import UserProfile from './src/screens/profile/UserProfileScreen';
 import ChangePassword from './src/screens/profile/ChangePasswordScreen';
@@ -43,9 +45,17 @@ const mapStateToProps = state => ({
 });
 const AppContainer = connect(mapStateToProps)(AppNav);
 
+const AuthNav = createReduxContainer(AuthNavigator);
+const AuthContainer = connect(mapStateToProps)(AuthNav);
+
+
 export default class App extends Component {
   constructor(properties) {
     super(properties);
+
+     this.state=({
+      userId:''
+     })
 
     if (Platform.OS == 'ios') {
       console.log('In ios');
@@ -65,6 +75,7 @@ export default class App extends Component {
     OneSignal.removeEventListener('ids', this.onIds);
   }
 
+  
   onReceived(notification) {
     console.log('Notification received: ', notification);
   }
@@ -86,9 +97,29 @@ export default class App extends Component {
   }
   render() {
     const buttons = ['Map', 'Satellite'];
+    AsyncStorage.getItem("loggedInUserDetails").then((value) => {
+      if (value != null) {
+          var dicLoginData = JSON.parse(value);
+          console.log('userInfo====>', dicLoginData)
+
+          this.setState({
+              userId:dicLoginData.id
+          });
+         console.log("In right condition",this.state.userId)
+      }else{
+
+          console.log("In else condition",this.state.userId)
+
+      }
+  }).done(
+  );
+
     return (
       <Provider store={store}>
-        <AppContainer />
+        {this.state.userId?
+        <AppContainer />:
+        <AuthContainer/>}
+        {/* <AppContainer/> */}
       </Provider>
     );
   }

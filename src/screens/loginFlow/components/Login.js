@@ -130,6 +130,15 @@ class Login extends ValidationComponent {
           this.props.navigation.navigate('Menu', {
             userInfo: user,
           });
+          // const resetAction = NavigationActions.reset({
+          //   index: 0,
+          //   actions: [
+          //     NavigationActions.navigate({routeName: 'Home'})
+          //   ],
+          //   key: null
+          // })
+          // dispatch(resetAction)
+    
         } else {
           console.log('Login error', msg);
           alert(msg);
