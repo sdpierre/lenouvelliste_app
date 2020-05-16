@@ -11,7 +11,10 @@ export const lightGrey={
 export const gray = {
   color: '#808080',
 };
-  
+export const yellow = {
+  color: '#ffcd00',
+};
+
   export const rounded = {
     borderRadius: 50
   };

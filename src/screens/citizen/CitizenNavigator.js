@@ -7,6 +7,7 @@ import CitizenScreen from './components/CitizenScreen';
 import NewsScreen from './components/NewsScreen';
 import UserPost from './components/UserPostScreen';
 import CitizenMapScreen from '../citizen/components/CitizenMapScreen';
+import CitizenNewsMapScreen from '../citizen/components/CitizenNewsMapScreen';
 import CitizenSaveScreen from '../citizen/components/CitizenSaveScreen';
 import CitizenProgressScreen from '../citizen/components/CitizenProgressScreen';
 
@@ -17,6 +18,9 @@ const CitizenStackNav = createStackNavigator({
     },
     News: {
         screen: NewsScreen
+    },  
+    NewsMap: {
+        screen: CitizenNewsMapScreen
     },    
     Profil: {
         screen: UserPost
