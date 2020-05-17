@@ -53,7 +53,7 @@ class CitizenFloatingAction extends Component {
                     }).then(image => {
 
                       // console.log("Image",image.data);
-                      navigate('CitizenMapScreen',{
+                      navigate('CitizenSaveScreen',{
                         imageData:image.data
                     });
 
@@ -66,10 +66,10 @@ class CitizenFloatingAction extends Component {
                         width: 300,
                         height: 400,
                         mediaType: 'video',
-                      }).then(image => {
+                      }).then(video => {
 
-                        // console.log("Video",image);
-                        navigate('CitizenMapScreen')
+                         console.log("Video",video);
+                        navigate('CitizenSaveScreen')
 
                       });
                       break;

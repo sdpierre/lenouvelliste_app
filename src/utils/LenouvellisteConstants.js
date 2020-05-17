@@ -19,6 +19,8 @@
  export const kUPDATEPROFILEIMAGE_API = "update-image";
  export const kCHANGEPASSWORD_API = "change-password";
 
+ export const kCITIZENPOST_API = "news-post";
+
 
 //Color Constants
 
@@ -60,4 +62,8 @@ export const kOTPSent = "OTP sent successfully."
 export const kPhoneNoEmpty = "Please enter phone no.";
 export const kPhoneNoLength = "Phone no. should contain 10 digits.";
 
+export const kCitizenPostTitle = "Please add title for post."
+export const kCitizenPostDescription = "Please add title for post."
+
 export const kSomethingWrong = "Something went wrong. Please try again later."
+
