@@ -1,15 +1,13 @@
 import React from 'react';
-import { Text, View, StyleSheet,TextInput, Dimensions,TouchableOpacity,Image,ScrollView,AsyncStorage,Alert,FlatList} from 'react-native';
+import { Text, View, StyleSheet, Dimensions,TouchableOpacity,ScrollView,AsyncStorage,Alert,FlatList, ImageBackground} from 'react-native';
 import {
     Container,
     Header,
     Left,
     Body,
     Right,
-    Title,
-    Content
   } from "native-base";  
-import { Colors } from '../../styles';
+import { Colors,Typography } from '../../styles';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Modal from 'react-native-modal';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -20,12 +18,14 @@ import ValidationComponent from 'react-native-form-validator';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ImagePicker from 'react-native-image-picker';
 import {Button, Input} from 'react-native-elements';
-
+import TextInput from 'react-native-material-textinput'
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../utils/LenouvellisteConstants';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Bar';
 
 //Dimensions
 var deviceWidth = (Dimensions.get('window').width);
@@ -34,6 +34,8 @@ var deviceHeight = (Dimensions.get('window').height);
 class UserProfileScreen extends ValidationComponent{
     constructor(props) {
         super(props)
+
+      
 
         this.state ={
             dicGetProfile:{},
@@ -514,261 +516,174 @@ _choosen(selectedItem) {
   
 
     render(){
-        return(
-            <Container>
-                <Header>
-                    <Left>
-                        <Button
-                            transparent
-                            onPress={() => {
-                                this.props.navigation.goBack();
-                            }}>
-                            <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
-                        </Button>
-                    </Left>
-                    <Body>
-                   
-                    </Body>
-                    <Right>
-                         <Button transparent onPress={this.logout}>
-                         <MaterialCommunityIcons name="logout" size={30} style={Colors.gray} /> 
-                        </Button> 
-                    </Right>
+
+      const username = this.state.userName;
+        return (
+          <Container>
+            <ScrollView>
+            <KeyboardAwareScrollView
+      resetScrollToCoords={{ x: 0, y: 0 }}
+
+      scrollEnabled={true}
+    >
+              <ImageBackground
+                source={require('../../res/images/bg.png')}
+                style={profileStyles.image}>
+                <Header
+                  style={profileStyles.header}>
+                  <Left>
+                    <Ionicons
+                      name="ios-arrow-back"
+                      size={30}
+                      style={Colors.white}
+                      onPress={() => {
+                        this.props.navigation.goBack();
+                      }}
+                    />
+                  </Left>
+                  <Body />
+                  <Right>
+                    <MaterialCommunityIcons
+                      name="logout"
+                      size={30}
+                      style={Colors.white}
+                      onPress={this.logout}
+                    />
+                  </Right>
                 </Header>
-
-                <Content> 
-                <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor:'#ECECEC'}}>
-                <View style={profileStyles.containerView}>
-
-                <View style={profileStyles.profileBlueBg}>
-
-                <TouchableOpacity onPress={this.chooseAvatar.bind(this)}>
-                  <View style={{height:130, width:130, backgroundColor:'white', alignSelf:'center',justifyContent:'center',top:40,alignItems:'center',borderRadius:10}}>
-                    {this.state.isImageUploaded?<Image 
-                       source={{
-                        // uri: this.state.avatarPath,
-                        uri: 'data:image/jpeg;base64,' + this.state.avatarPath.data,
-
-                      }}
-                       /*source={require('../../library/images/profile.png')}*/ style={{height:120,width:120}}/>:<Image source={{
-                        uri:this.state.profilePictureURL,
-
-                      }}
-                       /*source={require('../../library/images/profile.png')}*/ style={{height:120,width:120,resizeMode : 'stretch'}}/>
-}
-                  </View>
-                </TouchableOpacity>
-
+                <View style={{justifyContent: 'center',  alignItems: 'center'}}>
+                  <TouchableOpacity
+                    onPress={this.chooseAvatar.bind(this)}>
+                    <View
+                      style={{
+                        height: 130,
+                        width: 130,
+                        backgroundColor: 'white',
+                        justifyContent: 'center',
+                        // top: 40,
+                        marginTop: 40,
+                        alignItems: 'center',
+                        borderRadius: 100,
+                        overflow: 'hidden',
+                        borderColor: '#fff',
+                        borderWidth: 4,
+                      }}>
+                      {this.state.isImageUploaded ? (
+                        <Image
+                          source={{
+                            // uri: this.state.avatarPath,
+                            uri:
+                              'data:image/jpeg;base64,' +
+                              this.state.avatarPath.data,
+                          }}
+                          /*source={require('../../library/images/profile.png')}*/ style={{
+                            height: 200,
+                            width: 200,
+                          }}
+                        />
+                      ) : (
+                        <Image
+                          source={{
+                            uri: this.state.profilePictureURL,
+                          }}
+                          indicator={ProgressBar.Pie} 
+                          indicatorProps={{
+                            size: 80,
+                            borderWidth: 0,
+                            color: '#0082C0',
+                            unfilledColor: 'rgba(200, 200, 200, 0.2)'
+                          }}
+                          style={{
+                            height: 200,
+                            width: 200,
+                            resizeMode: 'contain',
+                            
+                          }}
+                        />
+                      )}
+                    </View>
+                  </TouchableOpacity>
+                  <Text style={profileStyles.username}>
+                    {' '}
+                    {this.state.userName}{' '}
+                  </Text>
+                  <Text style={profileStyles.location}>
+                  <MaterialCommunityIcons
+                      name="map-marker"
+                      size={15}
+                      style={Colors.yellow}
+                    />{this.state.town}
+                  </Text>
                 </View>
-                  
-                 <View style={{alignItems:'center',height:50,marginTop:80}}> 
-                       <Text style ={{color:'#0089d0',fontSize:22,fontWeight:'bold',fontFamily:'AkkoPro-BoldCondensed'}}>USER NAME</Text>
-                       {/* <TextInput style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}>Neena Mishra</TextInput> */}
-                       <TextInput
-                                    // placeholder="Username"
-                                    // placeholderTextColor='#9b9b9b'
-                                    keyboardType={'default'}
-                                    onChangeText={this.handleUserName}
-                                    value={this.state.userName}
-                                    style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}                                    
-                                    returnKeyType={"next"}
-                                    onSubmitEditing={() => { this.nameInput.focus(); }}
-                                    blurOnSubmit={false}
-                                />
+              </ImageBackground>
 
-                  </View>
+              <View style={{padding: 30}}>
+                <Text style={Typography.sectionTitleBlack}>
+                  Mon compte
+                </Text>
 
-                  <View style = {{backgroundColor:'lightgray',height:1,marginTop:20, marginLeft:20,marginRight:20}}></View>
+                <TextInput
+                  label="Pseudo"
+                  tintColor="#0082c5"
+                  placeholderTextColor="#9b9b9b"
+                  keyboardType={'default'}
+                  onChangeText={this.handleUserName}
+                  value={this.state.userName}
+                  returnKeyType={''}
+                  blurOnSubmit={false}
+                />
 
-                  <View style={{height:50,flexDirection:'row', top:10,marginRight:20,marginLeft:20}}>
-                 
-                  <View style={{flexDirection:'column',width:'25%',justifyContent:'center',alignItems:'center'}}> 
-                       <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Video</Text>
-                       <Text style ={{color:'#008BCA',fontSize:22,fontFamily:'Gotham-book'}}>54</Text>
-                  </View>
+                <TextInput
+                  label="Nom complet"
+                  ref={this.nameInput}
+                  keyboardType={'default'}
+                  onChangeText={this.handleFullName}
+                  value={this.state.fullName}
+                  returnKeyType={'next'}
+                  blurOnSubmit={false}
+                />
 
-                  <View style = {{backgroundColor:'lightgray',height:40, width:2, marginLeft:20, marginRight:20,alignSelf:'center'}}></View>
+                <TextInput
+                  keyboardType={'email-address'}
+                  onChangeText={this.handlEmail}
+                  label="E-mail"
+                  value={this.state.email}
+                  returnKeyType={'next'}
+                  autoCapitalize="none"
+                />
 
-                  <View style={{flexDirection:'column',width:'25%',justifyContent:'center',alignItems:'center'}}> 
-                       <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Video</Text>
-                       <Text style ={{color:'#008BCA',fontSize:22,fontFamily:'Gotham-book'}}>54</Text>
-                  </View>
+                <TextInput
+                  keyboardType={'default'}
+                  label="Location"
+                  value={this.state.town}
+                  returnKeyType={'done'}
+                  autoCapitalize="none"
+                  editable={false}
+                />
 
-                  <View style = {{backgroundColor:'lightgray',height:40, width:2, marginLeft:20, marginRight:20,alignSelf:'center'}}></View>
+                <Button
+                  style={{marginTop: 20}}
+                  title="Valider"
+                  onPress={this.updateProfile}
+                />
 
-                  <View style={{flexDirection:'column',width:'25%',justifyContent:'center',alignItems:'center'}}> 
-                       <Text style ={{color: "#4b4b4b",fontSize:16,fontFamily:'Gotham-book'}}>Video</Text>
-                       <Text style ={{color:'#008BCA',fontSize:22,fontFamily:'Gotham-book'}}>54</Text>
-                  </View>
-
-                  </View>
-
-                  <View style = {{backgroundColor:'lightgray',height:1,top:10, marginLeft:20,marginRight:20}}></View>
-
-                  <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:20}}> 
-                       <Text style ={{color:'lightgray',fontSize:14,fontFamily:'Gotham-book'}}>Name</Text>
-                       {/* <TextInput style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}>Neena Mishra</TextInput> */}
-                       <TextInput
-                                    ref={(input) => { this.nameInput = input; }}
-                                    // placeholder="Name"
-                                    // placeholderTextColor='#9b9b9b'
-                                    keyboardType={'default'}
-                                    onChangeText={this.handleFullName}
-                                    value={this.state.fullName}
-                                    style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}                                    
-                                    returnKeyType={"next"}
-                                    onSubmitEditing={() => { this.emailInput.focus(); }}
-                                    blurOnSubmit={false}
-                                />
-
-                  </View>
-
-                  <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:20}}> 
-                       <Text style ={{color:'lightgray',fontSize:14,fontFamily:'Gotham-book'}}>Email</Text>
-                       <TextInput
-                                    keyboardType={'email-address'}
-                                    onChangeText={this.handlEmail}
-                                    value={this.state.email}
-                                    style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}                                    returnKeyType={"next"}
-                                    ref={(input) => { this.emailInput = input; }}
-                                    autoCapitalize = 'none'
-                                />
-
-                  </View>
-
-                  {/* <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:10}}> 
-                       <Text style ={{color:'lightgray',fontSize:14,fontFamily:'Gotham-book'}}>Country</Text>
-                       <TextInput
-                                    // placeholder="Country"
-                                    // placeholderTextColor='#9b9b9b'
-                                    // keyboardType={'default'}
-                                    onChangeText={this.handleCountry}
-                                    value={this.state.countryName}
-                                    style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}                                    // returnKeyType={"next"}
-                                    // onSubmitEditing={() => { this.townInput.focus(); }}
-                                    // blurOnSubmit={false}
-                                   //  ref={(input) => { this.countryInput = input; }}
-                                     onTouchStart = {()=>this.openCountryModal()}
-                                    editable = {false}
-                                />
-
-                  </View> */}
-
-                  <View style={{flexDirection:'column',marginLeft:20,marginRight:20,marginBottom:10,marginTop:10}}> 
-                       <Text style ={{color:'lightgray',fontSize:14,fontFamily:'Gotham-book'}}>Town</Text>
-                       {/* <TextInput
-                                    // placeholder="Town"
-                                    // placeholderTextColor='#9b9b9b'
-                                    keyboardType={'default'}
-                                    onChangeText={this.handleTown}
-                                    value={this.state.town}
-                                    style ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}
-                                    // ref={(input) => { this.townInput = input; }}
-                                    returnKeyType='done'
-                                /> */}
-                                                                <GooglePlacesAutocomplete
-      placeholder='City'
-      minLength={2} // minimum length of text to search
-      autoFocus={false}
-      getDefaultValue={()=>this.state.town}
-      returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-      keyboardAppearance={'light'} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
-      listViewDisplayed='auto'    // true/false/undefined
-      fetchDetails={true}
-      renderDescription={(row) => row.description} // custom description render
-      ref={(instance) => { this.locationRef = instance }}
-      onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-        // console.log('-------',data, details);
-        // console.log('-------details',details);
-        // console.log('-------address',details.formatted_address);
-         this.setState({
-          town: details.formatted_address,
-          countryName:details.formatted_address
-         })
-
-      }}
-      onChangeText={ (data, details = null) => {
-        this.setState({
-        town: details.formatted_address,
-        countryName:details.formatted_address
-       })
-      }}  
-      query={{
-        // available options: https://developers.google.com/places/web-service/autocomplete
-        key: 'AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk',
-        language: 'en', // language of the results
-        types: '(cities)' // default: 'geocode'
-      }}
-  
-      // currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-      // currentLocationLabel="Current location"
-      nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-      GoogleReverseGeocodingQuery={{
-        // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-      }}
-      GooglePlacesSearchQuery={{
-        // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-        rankby: 'distance',
-        type: 'cafe'
-      }}
-      
-      GooglePlacesDetailsQuery={{
-        // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-        fields: 'formatted_address',
-      }}
-
-      filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-    //   predefinedPlaces={[homePlace, workPlace]}
-
-      debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
-
-  //  placeholder='City'
-    // minLength={2}
-  //  autoFocus={false}
-  // returnKeyType={'default'}
-  //  fetchDetails={true}
-   styles ={{color: "#4b4b4b",fontSize:18,fontFamily:'Gotham-book'}}
-
-//   styles={{
-//     textInputContainer: {
-//       backgroundColor: 'rgba(0,0,0,0)',
-//       borderTopWidth: 0,
-//       borderBottomWidth:0
-//     },
-//     textInput: {
-//       marginLeft: 0,
-//       marginRight: 0,
-//       height: 38,
-//       color: '#5d5d5d',
-//       fontSize: 16
-//     },
-//     predefinedPlacesDescription: {
-//       color: '#1faadb'
-//     },
-//   }}
-//   currentLocation={false}
-/>
-
-    <Text> {this.state.town}</Text>
-                  </View>
-                 <View style={{height:50,flexDirection:'row', top:20,marginRight:20,marginLeft:20,marginBottom:40}}>
-      
-                 <Button title="Save Changes" onPress={this.updateProfile} />
-
-
-                 </View>
-
-                 <TouchableOpacity onPress= {()=>{
-                   this.props.navigation.navigate('ChangePassword')
-                 }}>
-                      <Text style ={{fontSize:16,fontFamily:'Gotham-book',fontWeight:'bold'}}>Change Password</Text>
-                </TouchableOpacity>
-
+                <View>
+                  <Text style={Typography.sectionTitleBlack}>
+                    Mes identifiants
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.navigation.navigate('ChangePassword');
+                    }}>
+                    <Text>
+                      Modifier mon mot de passe
+                    </Text>
+                  </TouchableOpacity>
                 </View>
-                </ScrollView>
-                </Content>
-            </Container>
-
+              </View>
+              </KeyboardAwareScrollView>
+              </ScrollView>
+          </Container>
         );
     }
 }
@@ -789,9 +704,52 @@ export default connect(
   mapDispatchToProps
 )(UserProfileScreen);
 
+const image = { src: "../res/" };
+
 const profileStyles = StyleSheet.create({
     container: {
       backgroundColor:'#FFF'
+    },
+    header:{
+      paddingLeft:15,
+      paddingRight:15,
+      backgroundColor: 'transparent',
+      borderBottomColor:'transparent',
+      shadowColor: 'transparent',
+      shadowRadius: 0,
+      shadowOffset: {
+          height: 0,
+      }
+    },
+    username: {
+      fontFamily: "Montserrat-SemiBold",
+      fontSize: 25,
+      color:"#FFF",
+      textAlign:"center",
+      marginTop:10
+    },
+    location: {
+      fontSize: 14,
+      ...Colors.yellow,
+      textAlign:"center",
+      marginTop:5,
+      fontWeight:"bold"
+    },
+    sectionTitle: {
+      textTransform: 'uppercase',
+      fontFamily: 'AkkoPro-BoldCondensed',
+      paddingBottom: 10,
+      paddingTop: 10,
+      fontSize: 16,
+      letterSpacing: 0.64,
+      color: '#2E2E2D',
+    },
+    image: {
+      // justifyContent:"center",
+      // alignItems:"center",
+      height:350,
+      resizeMode: "cover",
+      justifyContent: "center"
     },
     containerView:{
       flex:1,

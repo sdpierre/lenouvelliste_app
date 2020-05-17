@@ -228,12 +228,11 @@ class Login extends ValidationComponent {
             <View>
               <TextField
                 label="E-mail, nom d'utilisateur"
-                tintColor="#0082c5"
+                tintColor="#0082C6"
                 placeholderTextColor="#9b9b9b"
                 keyboardType={'email-address'}
                 onChangeText={this.handlEmail}
                 value={this.state.email}
-                // style={styles.input}
                 returnKeyType={'next'}
                 onSubmitEditing={() => {
                   this.secondTextInput.focus();
@@ -244,7 +243,7 @@ class Login extends ValidationComponent {
 
               <TextField
                 label="Mot de passe"
-                tintColor="#0082c5"
+                tintColor="#0082C6"
                 renderRightAccessory={iconpass}
                 ref={input => {
                   this.secondTextInput = input;
@@ -272,7 +271,7 @@ class Login extends ValidationComponent {
                   this.props.navigation.navigate('Forgot');
                 }}>
                   
-                <Text style={styles.forgot}> Mot de passe oublié ?</Text>
+                <Text style={styles.forgot}> Mot de passe oublié ? </Text>
               </TouchableOpacity> 
 
       </View>
@@ -363,7 +362,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   forgot: {
     color: 'black',
     fontSize: 13,

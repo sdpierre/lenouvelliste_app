@@ -59,6 +59,8 @@ class CitizenTop extends Component {
               media: item.media,
               userphoto: item.userphoto,
               type: item.type,
+              long: item.long,
+              lat: item.lat,
             });
           }}>
           <View style={CitizenStyle.card}>
@@ -108,9 +110,10 @@ class CitizenTop extends Component {
   }
   render() {
     return (
-      <View style={{ paddingBottom: 10, }}>
-        <Text style={Typography.sectionTitleBlack}>Citizen news</Text>
-
+      <View style={{ paddingBottom: 10}}>
+        <View  style={{ paddingLeft: 30}}> 
+        <Text style={Typography.sectionTitleBlack}>Newspaw</Text>
+        </View>
         <Carousel
           ref={c => {
             this._carousel = c;

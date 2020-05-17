@@ -1,18 +1,20 @@
 import React from 'react';
-import { Text, View, StyleSheet, Modal, TextInput, Dimensions, TouchableWithoutFeedback,Alert } from 'react-native';
+import { Text, View, StyleSheet, Modal, Dimensions, TouchableWithoutFeedback,Alert } from 'react-native';
 import {
     Container,
     Header,
     Body,
-    Button,
     Right, Left
 } from "native-base";
 import { Colors } from '../../../styles';
-import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import TextInput from 'react-native-material-textinput'
+import {Button} from 'react-native-elements'
+import OTPInputView from '@twotalltotems/react-native-otp-input'
 
 var deviceWidth = (Dimensions.get('window').width);
 var deviceHeight = (Dimensions.get('window').height);
@@ -161,12 +163,20 @@ export default class ForgotPWOTP extends ValidationComponent{
             <Container>
                 <Header style={{ backgroundColor: 'white' }}>
                     <Left>
-                        <Button
-                            transparent
+                    <Button
+                        type="clear"
+                        icon={
+                            <MaterialCommunityIcons
+                            name="arrow-left"
+                            type="clear"
+                            size={30}
+                            color="gray"
+                            />
+                        }
+                            
                             onPress={() => {
                                 this.props.navigation.goBack();
                             }}>
-                            <Ionicons name="close" size={30} style={Colors.gray} />
                         </Button>
                     </Left>
                     <Body></Body>
@@ -175,33 +185,50 @@ export default class ForgotPWOTP extends ValidationComponent{
 
                 <View style={forgotStyles.rootContainer}>
 
-                    <Text style={forgotStyles.info}>Enter OTP to reset your password.</Text>
+                    <Text style={forgotStyles.info}>Entrez OTP pour réinitialiser votre mot de passe.</Text>
+                    
+                    <View style={{flexDirection:'column', flex:0, justifyContent:"center", alignItems:"center"}}>
+                    <OTPInputView 
+                    style={{width: '80%', height: 100}}
+                    autoFocusOnLoad
+                    pinCount={6}
+                    value={this.state.OTP} 
+                    onCodeChanged = {code => { this.handleOTP}}
+                    codeInputFieldStyle={forgotStyles.underlineStyleBase}
+                    codeInputHighlightStyle={forgotStyles.underlineStyleHighLighted}
+                    onCodeFilled = {(code => {
+                        console.log(`Code is ${code}, you are good to go!`)
+                    })}
+                    />
+                    </View>
+
                     <TextInput
-                        placeholder="Enter OTP"
-                        placeholderTextColor='#9b9b9b'
-                        style={forgotStyles.input}
+                        label="Entrez le OTP"
+                        tintColor="#0082c5"
                         onChangeText={this.handleOTP}
                         value={this.state.OTP}                                    
                     />
 
-                 <View style={{flexDirection:'row'}}>
-                     <Text style={{ color: 'gray', fontSize: 16, fontWeight:'bold'}}>Didn't receive OTP?</Text>
+                <Button
+                  style={{marginTop: 20}}
+                  title="Vérifiez"
+                  onPress={this.verifyOTP}
+                />      
+                 <View style={{flexDirection:'column', flex:0, justifyContent:"center", alignItems:"center"}}>
+  
+                     <View style={{marginTop:20}}> 
+                        <Text style={{fontFamily: 'gotham-book'}}>Vous n'avez pas reçu le code</Text>
+                     </View>
+                     <View style={{marginTop:10}}> 
                      <TouchableOpacity
                             transparent
                             onPress={this.resendOTP}>
-                    <Text style={{ color: 'blue', fontSize: 16, fontWeight:'bold',textDecorationLine:'underline' }}>Resend OTP</Text>
+                    <Text style={{ color: '#0082c5', fontFamily: 'Montserrat-SemiBold'}}>Renvoyer le code</Text>
                     </TouchableOpacity>
+                    </View>
                  </View>
     
-                 <View style={forgotStyles.loginButton}>
-                        <TouchableOpacity
-                            transparent
-                            onPress={this.verifyOTP}>
-                            <View style={forgotStyles.buttonContainer}>
-                                <Text style={{ color: 'white', fontSize: 20 }}>Verify OTP</Text>
-                            </View>
-                        </TouchableOpacity>
-                </View>
+                
 
                 </View>
             </Container>
@@ -227,29 +254,23 @@ export default class ForgotPWOTP extends ValidationComponent{
             color: '#D3D3D3',
             marginTop: 20
         },
-        buttonContainer: {
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center'
-    
-        },
-        loginButton: {
-            backgroundColor: 'red',
-            height:50,
-            marginTop:20,
-            alignItems:'center',
-        }, 
-        input: {
-            width: '100%',
-            height: 50,
-            padding: 10,
-            borderWidth: 1.8,
-            borderColor: '#D3D3D3',
-            marginBottom: 20,
-            paddingLeft: 15,
-            // color: '#D3D3D3',
-            color:'#000',
-            alignSelf: 'center',
-            marginTop: 30
-        },
+        borderStyleBase: {
+            width: 30,
+            height: 45
+          },
+        
+          borderStyleHighLighted: {
+            borderColor: "#0082c5",
+          },
+        
+          underlineStyleBase: {
+            width: 30,
+            height: 45,
+            borderWidth: 0,
+            borderBottomWidth: 1,
+          },
+        
+          underlineStyleHighLighted: {
+            borderColor: "#03DAC6",
+          },
     })

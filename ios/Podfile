@@ -42,6 +42,8 @@ target 'lenouvelliste_app' do
 #
 #  pod 'Google-Maps-iOS-Utils'
 
+  # pod 'react-native-admob', :path => '../node_modules/react-native-admob'
+
   target 'lenouvelliste_appTests' do
     inherit! :search_paths
     # Pods for testing

@@ -26,10 +26,21 @@ const getScreenRegisteredFunctions = navState => {
 const bottomTabNavigator = createBottomTabNavigator(
 
     {
-      Home: HomeNavigator,
-      Breaking: BreakingNavigator,
-      Citizen: CitizenNavigator,
-      Selection: SelectionNavigator,
+      Home:  {
+        screen: HomeNavigator,
+        navigationOptions: {
+          title: "Aujourd'hui",
+        },
+      },
+      
+      Breaking: {
+        screen: BreakingNavigator,
+        navigationOptions: {
+          title: "À la minute",
+        },
+      },
+      Newspaw: CitizenNavigator,
+      Favoris: SelectionNavigator,
       Menu: MenuNavigator,
     },
     {
@@ -43,9 +54,9 @@ const bottomTabNavigator = createBottomTabNavigator(
             iconName = `home${focused ? "" : "-outline"}`;
           } else if (routeName === "Breaking") {
             iconName = `bell${focused ? "" : "-outline"}`;
-          } else if (routeName === "Citizen") {
+          } else if (routeName === "Newspaw") {
             iconName = `comment${focused ? "" : "-outline"}`;
-          } else if (routeName === "Selection") {
+          } else if (routeName === "Favoris") {
             iconName = `bookmark${focused ? "" : "-outline"}`;
           } else if (routeName === "Menu") {
             iconName = `menu${focused ? "" : ""}`;
@@ -60,6 +71,7 @@ const bottomTabNavigator = createBottomTabNavigator(
         inactiveTintColor: "gray",
         style: {
           paddingTop: 5,
+          paddingBottom:5
         }
       }
     }

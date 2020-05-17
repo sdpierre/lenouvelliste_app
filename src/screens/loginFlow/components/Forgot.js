@@ -1,17 +1,18 @@
 import React from 'react';
-import { Text, View, StyleSheet, Modal, TextInput, Dimensions,TouchableOpacity,Alert } from 'react-native';
+import { Text, View, StyleSheet, Modal, Dimensions,TouchableOpacity,Alert } from 'react-native';
 import {
     Container,
     Header,
     Body,
-    Button,
     Right, Left
 } from "native-base";
 import { Colors } from '../../../styles';
-import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
+import TextInput from 'react-native-material-textinput'
+import {Button, Input} from 'react-native-elements'
 
 //Dimensions
 var deviceWidth = (Dimensions.get('window').width);
@@ -118,39 +119,42 @@ export default class Forgot extends ValidationComponent{
             <Container>
                 <Header style={{ backgroundColor: 'white' }}>
                     <Left>
-                        <Button
-                            transparent
+                    <Button
+                        type="clear"
+                        icon={
+                            <MaterialCommunityIcons
+                            name="arrow-left"
+                            type="clear"
+                            size={30}
+                            color="gray"
+                            />
+                        }
+                            
                             onPress={() => {
                                 this.props.navigation.goBack();
                             }}>
-                            <Ionicons name="close" size={30} style={Colors.gray} />
                         </Button>
                     </Left>
                     <Body></Body>
                     <Right></Right>
                 </Header>
                 <View style={forgotStyles.rootContainer}>
-                    <Text style={forgotStyles.mainText}>Forgot your Password?</Text>
-                    <Text style={forgotStyles.info}>Enter your email to receive OTP and create a new password.</Text>
+                    <Text style={forgotStyles.mainText}>Vous avez oublié votre mot de passe?</Text>
+                    <Text style={forgotStyles.info}>Entrez votre e-mail pour recevoir OTP et créez un nouveau mot de passe.</Text>
                     <TextInput
-                        placeholder="Email"
-                        placeholderTextColor='#9b9b9b'
+                        label="E-mail"
+                        tintColor="#0082c5"
                         keyboardType={'email-address'}
-                        style={forgotStyles.input}
                         onChangeText={this.handlEmail}
                         value={this.state.email}                                    
                         autoCapitalize = 'none'
                     />
-                    <View style={forgotStyles.loginButton}>
-                        <TouchableOpacity
-                            transparent
-                            onPress={this.forgotPassword}>
-                            <View style={forgotStyles.buttonContainer}>
-                                <Text style={{ color: 'white', fontSize: 20 }}>Send</Text>
-                            </View>
-                        </TouchableOpacity>
-    
-                    </View>
+
+                <Button
+                  style={{marginTop: 20}}
+                  title="Envoyer"
+                  onPress={this.forgotPassword}
+                />
                 </View>
             </Container>
     

@@ -76,9 +76,8 @@ export const smallTitle = {
   export const sectionTitleBlack = {
     textTransform: 'uppercase',
     fontFamily: "AkkoPro-BoldCondensed",
-    paddingLeft: 18,
-    paddingBottom: 10,
-    paddingTop: 10,
+    paddingBottom: 20,
+    paddingTop: 20,
     fontSize: 16,
     letterSpacing: 0.64,
     color: '#2E2E2D'
@@ -87,9 +86,8 @@ export const smallTitle = {
   export const sectionTitleWhite = {
     textTransform: 'uppercase',
     fontFamily: "AkkoPro-BoldCondensed",
-    paddingLeft: 18,
-    paddingBottom: 10,
-    paddingTop: 10,
+    paddingBottom: 20,
+    paddingTop: 20,
     fontSize: 16,
     letterSpacing: 0.64,
     color: '#FFF'

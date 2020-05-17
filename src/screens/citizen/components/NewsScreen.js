@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, TouchableHighlight,TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Image, Dimensions,TouchableHighlight,TouchableOpacity, Modal, Linking } from 'react-native';
 
 import {setAppInfo} from '../../../redux/actions';
 import {connect} from 'react-redux';
@@ -12,14 +12,29 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FitImage from 'react-native-fit-image';
 import Video from 'react-native-video';
+import MapView, {Marker} from 'react-native-maps';
 
-import { Typography, Colors, Buttons, Spacing } from "../../../styles";
-import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, ListItem, List} from 'native-base';
+import { Typography, Colors, Spacing } from "../../../styles";
+import { Container, Header, Left, Body, Right, Icon, Title, Content, ListItem, List} from 'native-base';
+import { Button} from 'react-native-elements'
+let { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE = 0;
+const LONGITUDE = 0;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 class CitizenNewsScreen extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
+      latlng: {latitude: 18.533333, longitude: -72.333336},
+      region: {
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      },
       title: this.props.navigation.getParam('title'),
       body: this.props.navigation.getParam('body'),
       date: this.props.navigation.getParam('date'),
@@ -29,13 +44,83 @@ class CitizenNewsScreen extends React.Component {
       media: this.props.navigation.getParam('media'),
       userphoto: this.props.navigation.getParam('userphoto'),
       type: this.props.navigation.getParam('type'),
+      long: this.props.navigation.getParam('long'),
+      lat: this.props.navigation.getParam('lat'),
       duration: 0,
+      isVisible: false
     }
 
   } 
 
+  // hide show modal
+  displayModal(show){
+    this.setState({isVisible: show})
+  }
+
   onLoad = data => this.setState({ duration: data.duration, isLoading: false });
 
+  goToCitizenNewsMapScreen = ()=>{
+
+    this.props.navigation.navigate('NewsMap')
+
+  }
+
+  
+  _renderModalContent = (markers)=>{
+
+    console.log(markers);
+return (
+ 
+    <View>
+      <MapView
+        region={{
+          latitude: 18.533333,
+          longitude: -72.333336,
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA,
+        }}
+        ref="map"
+        loadingEnabled
+        style={{width: '100%', height: '100%'}}
+        annotations={markers}
+        zoomEnabled={true}
+        minZoomLevel={15}>
+        <Marker
+          coordinate={{latitude: 18.533333, longitude: -72.333336}}
+          image={require('../../../res/images/pin.png')}
+        />
+      </MapView>
+    
+      <View
+        style={{
+            position: 'absolute',//use absolute position to show button on top of the map
+            top: '60%', //for center align
+            alignSelf: 'center', //for align to right
+        }}
+    >
+    <Button
+      icon={
+        <MaterialCommunityIcons
+          name="close"
+          size={15}
+          color="white"
+        />
+      }
+      style={{marginTop:40}}
+      onPress={() => {
+        this.setState({isVisible: !this.state.isVisible});
+      }}
+    />
+    </View>
+    
+    </View>
+
+  
+
+);
+  }
+ 
+ 
   render() {
     const { title } = this.state;
     const { body } = this.state;
@@ -46,29 +131,72 @@ class CitizenNewsScreen extends React.Component {
     const { media } = this.state;
     const { userphoto } = this.state;
     const { type } = this.state;
+    const { long } = this.state;
+    const { lat } = this.state;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     const { navigate } = this.props;
+    var markers = [
+      {
+        latitude: 45.65,
+        longitude: -78.90,
+        title: 'Foo Place',
+        subtitle: '1234 Foo Drive'
+      }
+    ];
+
+   
 
     return (
       
       <View style={{flex: 1}}>
         <Header>
           <Left>
-            <Button transparent onPress={()=>{this.props.navigation.goBack()}}>
+            <Button type="clear" onPress={()=>{this.props.navigation.goBack()}}>
               <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
             </Button>
           </Left>
           <Body></Body>
           <Right></Right>
         </Header>
+
+        <Modal
+            animationType = {"slide"}
+            style={styles.modal}
+            presentationStyle="formSheet"
+            transparent={true}
+            visible={this.state.isVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has now been closed.');
+            }}>
+              
+
+              <View
+          style={{
+             backgroundColor:'transparent',
+             flex:1,
+             justifyContent:'flex-end'
+                 }}>
+          <View
+               style={{
+                   backgroundColor:'white',
+                   height:'40%'
+                 }}>
+              {this._renderModalContent(markers)}
+          </View>
+    </View>
+
+          </Modal>
+          
         <Content>
+
+        
         
         <View style={{height:300, width:'100%'}}> 
         <Video 
           source={{uri: media }}
           resizeMode={'cover'}
           controls={true}
-          repeat={true}
+          repeat={false}
 
 
        ref={(ref) => {
@@ -80,7 +208,6 @@ class CitizenNewsScreen extends React.Component {
        style={styles.backgroundVideo} />
       </View>
 
-      
 
         <FitImage
           source={{ uri: media || nophoto }}
@@ -89,7 +216,11 @@ class CitizenNewsScreen extends React.Component {
           <View style={styles.CitizennewsMainContainer}> 
            
            <Text style={styles.CitizennewsCategoryStyle}>Address</Text>
-           <Text style={styles.CitizennewsLocationStyle}>Location Goes Here, click to see on map</Text>
+           <TouchableOpacity
+                    onPress={() => {
+                      this.displayModal(true);
+                    }}>
+           <Text style={styles.CitizennewsLocationStyle}>Location Goes Here, click to see on map</Text></TouchableOpacity>
            <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
 
           
@@ -109,8 +240,7 @@ class CitizenNewsScreen extends React.Component {
                     />
                   </View>
                   <View style={{ padding: 5 }}>
-                    <Text style={styles.CitizennewsUsernameStyle}
-          >
+                    <Text style={styles.CitizennewsUsernameStyle}>
                       {username}
                     </Text>
                     <Text style={styles.CitizennewsMomentStyle}>
@@ -202,6 +332,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 80,
+    padding:40
+  }
 });
 
 const mapStateToProps = (state) => ({
