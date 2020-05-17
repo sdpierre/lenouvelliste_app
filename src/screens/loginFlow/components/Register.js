@@ -11,6 +11,12 @@ import {
     Content,
     Right, Left, Radio, 
 } from "native-base";
+import {
+    TextField,
+    FilledTextField,
+    OutlinedTextField,
+  } from 'react-native-material-textfield';
+  
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -317,7 +323,9 @@ export default class Register extends ValidationComponent{
               AsyncStorage.setItem('loggedInUserDetails', JSON.stringify(dicLogin));              
     
               this.props.navigation.goBack();
-              this.props.navigation.navigate('RegisterDone');
+              this.props.navigation.navigate('RegisterDone',{
+                  username:this.state.userName
+              });
   
             } else {
     
@@ -407,6 +415,19 @@ export default class Register extends ValidationComponent{
       }
       
     render() {
+        const iconpass = () => (
+            <Icon
+            name= {this.state.isPasswordSecured?'visibility-off':'visibility'}
+            size={25}
+            color='#D3D3D3'
+            onPress={()=>{
+                this.setState({
+                  isPasswordSecured:!this.state.isPasswordSecured
+                })
+            }}
+/>
+            );
+      
         return (
                 <Container >
                     <Header style={{ backgroundColor: 'white' }}>
@@ -449,81 +470,65 @@ export default class Register extends ValidationComponent{
                                     </TouchableOpacity>
                                     </View>
                                 </View>
-                                <TextInput
-                                    placeholder="Username"
-                                    placeholderTextColor='#9b9b9b'
-                                    keyboardType={'default'}
-                                    onChangeText={this.handleUserName}
-                                    value={this.state.userName}
-                                    style={registerStyles.input}
-                                    returnKeyType={"next"}
-                                    onSubmitEditing={() => { this.nameInput.focus(); }}
-                                    blurOnSubmit={false}
-                                />
-                                  <TextInput
-                                    ref={(input) => { this.nameInput = input; }}
-                                    placeholder="Name"
-                                    placeholderTextColor='#9b9b9b'
-                                    keyboardType={'default'}
-                                    onChangeText={this.handleFullName}
-                                    value={this.state.fullName}
-                                    style={registerStyles.input}
-                                    returnKeyType={"next"}
-                                    onSubmitEditing={() => { this.emailInput.focus(); }}
-                                    blurOnSubmit={false}
-                                />
 
-                                {/* <TextInput
-                                    placeholder="First Name"
-                                    placeholderTextColor='#9b9b9b'
-                                    keyboardType={'default'}
-                                    onChangeText={this.handleFirstName}
-                                    value={this.state.firstName}
-                                    style={registerStyles.input}
-                                    returnKeyType={"next"}
-                                    onSubmitEditing={() => { this.lastInput.focus(); }}
-                                    blurOnSubmit={false}
-                                    ref={(input) => { this.firstInput = input; }}
-                                /> */}
-                                {/* <TextInput
-                                    placeholder="Last Name"
-                                    placeholderTextColor='#9b9b9b'
-                                    keyboardType={'default'}
-                                    onChangeText={this.handleLastName}
-                                    value={this.state.lastName}
-                                    style={registerStyles.input}
-                                    returnKeyType={"next"}
-                                    onSubmitEditing={() => { this.emailInput.focus(); }}
-                                    blurOnSubmit={false}
-                                    ref={(input) => { this.lastInput = input; }}
-                                /> */}
-                                <TextInput
-                                    placeholder="Email"
-                                    placeholderTextColor='#9b9b9b'
-                                    keyboardType={'email-address'}
-                                    onChangeText={this.handlEmail}
-                                    value={this.state.email}
-                                    style={registerStyles.input}
-                                    returnKeyType={"next"}
-                                    ref={(input) => { this.emailInput = input; }}
-                                    onSubmitEditing={() => { this.passwordInput.focus() }}
-                                    blurOnSubmit={false}
-                                    autoCapitalize = 'none'
-                                />
-                              <View style={{ flexDirection: 'row', alignSelf:'center',width: deviceWidth - 70}}>
-                                    <TextInput
-                                        ref={(input) => { this.passwordInput = input; }}
-                                        secureTextEntry = {this.state.isPasswordSecured}
-                                        placeholder="Password"
-                                        placeholderTextColor='#9b9b9b'
-                                        style={registerStyles.input}
-                                        onChangeText={this.handlePassword}
-                                        value={this.state.password}
-                                        // returnKeyType={"done"}
-                                       // onSubmitEditing={() => { this.countryInput.focus(); }}
-                                        blurOnSubmit={false}    
-                                    />
-                                    <Icon style={registerStyles.icon}
+                                <TextField
+                label="Username"
+                tintColor="#0082c5"
+                placeholderTextColor="#9b9b9b"
+                keyboardType={'default'}
+                onChangeText={this.handleUserName}
+                value={this.state.userName}
+                // style={styles.input}
+                returnKeyType={'next'}
+                onSubmitEditing={() => { this.nameInput.focus(); }}
+                blurOnSubmit={false}
+              />
+
+<TextField
+                ref={(input) => { this.nameInput = input; }}
+                label="Name"
+                tintColor="#0082c5"
+                placeholderTextColor="#9b9b9b"
+                keyboardType={'default'}
+                onChangeText={this.handleFullName}
+                value={this.state.fullName}
+                // style={styles.input}
+                returnKeyType={'next'}
+                onSubmitEditing={() => { this.emailInput.focus(); }}
+                blurOnSubmit={false}
+              />
+
+<TextField
+                ref={(input) => { this.emailInput = input; }}
+                label="Email"
+                tintColor="#0082c5"
+                placeholderTextColor="#9b9b9b"
+                keyboardType={'default'}
+                onChangeText={this.handlEmail}
+                value={this.state.email}
+                // style={styles.input}
+                returnKeyType={'next'}
+                onSubmitEditing={() => { this.passwordInput.focus() }}
+                blurOnSubmit={false}
+                autoCapitalize = 'none'
+/>
+
+{/* <View style={{ flexDirection: 'row', alignSelf:'center',width: deviceWidth - 70}}> */}
+<TextField
+                ref={(input) => { this.passwordInput = input; }}
+                secureTextEntry = {this.state.isPasswordSecured}
+                label="Password"
+                tintColor="#0082c5"
+                placeholderTextColor="#9b9b9b"
+                renderRightAccessory={iconpass}
+                keyboardType={'default'}
+                onChangeText={this.handlePassword}
+                returnKeyType={'next'}
+                value={this.state.password}
+                // onSubmitEditing={() => { this.addressInput.focus() }}
+                blurOnSubmit={false}
+              />
+                                    {/* <Icon style={registerStyles.icon}
                                         name= {this.state.isPasswordSecured?'visibility-off':'visibility'}
                                         size={25}
                                         color='#D3D3D3'
@@ -532,20 +537,12 @@ export default class Register extends ValidationComponent{
                                               isPasswordSecured:!this.state.isPasswordSecured
                                             })
                                         }}
-                                    />
-                                </View>
+                                    /> */}
+                                {/* </View> */}
 
-                                {/* <TextInput
-                                    placeholder="Town"
-                                    placeholderTextColor='#9b9b9b'
-                                    keyboardType={'default'}
-                                    onChangeText={this.handleTown}
-                                    value={this.state.town}
-                                    style={registerStyles.input}
-                                    // ref={(input) => { this.townInput = input; }}
-                                    returnKeyType='done'
-                                /> */}
                                 <GooglePlacesAutocomplete
+                                                // ref={(input) => { this.addressInput = input; }}
+
       placeholder='City'
       minLength={2} // minimum length of text to search
       autoFocus={false}
@@ -555,9 +552,6 @@ export default class Register extends ValidationComponent{
       fetchDetails={true}
       renderDescription={row => row.description} // custom description render
       onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-        // console.log('-------',data, details);
-        // console.log('-------details',details);
-        // console.log('-------address',details.formatted_address);
          this.setState({
           town: details.formatted_address,
           countryName:details.formatted_address

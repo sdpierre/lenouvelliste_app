@@ -18,7 +18,21 @@ var deviceHeight = (Dimensions.get('window').height);
 export default class RegisterDone extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            userName:''
+        }
     }
+
+    componentDidMount(){
+
+        const { navigation } = this.props;
+        const strUserName = navigation.getParam('username', ''); 
+        console.log(strUserName) 
+        this.setState({
+            userName:strUserName
+        })
+     }
+
 
     render() {
         return (
@@ -42,7 +56,7 @@ export default class RegisterDone extends React.Component {
                     <Content>
                         <View style={doneRegStyles.rootContainer}>
                             <Text style={doneRegStyles.welcomeText}>Welcome</Text>
-                            <Text style={doneRegStyles.welcomeText}>Stanley Dany</Text>
+                            <Text style={doneRegStyles.welcomeText}>{this.state.userName}</Text>
                             <Text style={doneRegStyles.email}>A confirmation email has been sent to you.</Text>
                             <View style={{ backgroundColor: 'red', marginTop:30 }}>
                                     <Button
