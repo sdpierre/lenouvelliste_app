@@ -19,6 +19,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
 //Article 
 // import Article from './ArticleMenu';
+import AnimatedLoader from 'react-native-animated-loader';
 
 //API
 import { getSectionNews } from '../../../library/networking/Api'
@@ -41,7 +42,9 @@ export default class SectionScreen extends Component {
             title: this.props.navigation.getParam('name'),
             loading: false,
             data: [],
-            refreshing: true
+            refreshing: true,
+            visible: false
+
         }
         //Databse Schema and Name
         realm = new Realm({
@@ -74,6 +77,10 @@ export default class SectionScreen extends Component {
     }
 
     componentDidMount() {
+        this.setState({ 
+            visible: !this.state.visible,
+          });
+    
         NetInfo.fetch()
             .then(conn => {
 
@@ -86,6 +93,7 @@ export default class SectionScreen extends Component {
                     this.setState({
                         refreshing: false,
                         data: sectionDataDb,
+                        visible:false
 
                     });
                 }
@@ -102,7 +110,7 @@ export default class SectionScreen extends Component {
                         realm.create('section_news' + this.state.title, element);
                     });
                 });
-                this.setState({ data: resp, refreshing: false });
+                this.setState({ data: resp, refreshing: false,visible:false });
             })
             .catch(e => {
                 console.log('ExceptionSection>>>', e);
@@ -132,6 +140,8 @@ export default class SectionScreen extends Component {
     }
     render() {
         const { navigate } = this.props.navigation
+        const { visible } = this.state;
+
         return (
             
                 <Container>
@@ -159,8 +169,26 @@ export default class SectionScreen extends Component {
                         refreshing={this.state.refreshing}
                         onRefresh={this.handleRefresh.bind(this)} />
 
+                                <AnimatedLoader
+        visible={visible}
+        overlayColor="rgba(255,255,255,0.75)"
+        source={require("../../../utils/loader.json")}
+        animationStyle={styles.lottie}
+        speed={1}
+      />
+
+
                 </Container>
             
         )
     }
 }
+
+
+const styles = StyleSheet.create({
+    lottie: {
+      width: 100,
+      height: 100
+    }
+  });
+  

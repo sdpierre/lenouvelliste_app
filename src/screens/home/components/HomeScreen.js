@@ -13,6 +13,7 @@ import LogoTitle from 'library/components/logo';
 import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
 
 import { Container, Header, Body, Title, Content } from 'native-base';
+import AnimatedLoader from "react-native-animated-loader";
 
 //Realm
 import Realm from 'realm';
@@ -102,7 +103,8 @@ class HomeScreen extends React.Component {
       data: [],
       refreshing: true,
       dataCorousel: [],
-      mostReadData: []
+      mostReadData: [],
+      visible: false
 
     };
     homeDataDb = realm.objects('home_news');
@@ -115,6 +117,12 @@ class HomeScreen extends React.Component {
   }
   // Called after a component is mounted
   componentDidMount() {
+    // setInterval(() => {
+      this.setState({
+        visible: !this.state.visible
+      });
+    // }, 1000);
+
     
     NetInfo.fetch()
       .then(conn => {
@@ -129,7 +137,8 @@ class HomeScreen extends React.Component {
             refreshing: false,
             data: homeDataDb,
             dataCorousel: corouselDataDb,
-            mostReadData: mostReadDataDb
+            mostReadData: mostReadDataDb,
+            visible:false
           });
         }
       });
@@ -147,7 +156,7 @@ class HomeScreen extends React.Component {
             realm.create('home_news', element);
           });
         });
-        this.setState({ data: resp, refreshing: false });
+        this.setState({ data: resp, refreshing: false,visible:false });
       })
       .catch(e => {
         console.log('ExceptionHOME>>>', e);
@@ -222,6 +231,7 @@ class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation;
     let that = this;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
+    const { visible } = this.state;
 
     return (
       <Container>
@@ -232,6 +242,7 @@ class HomeScreen extends React.Component {
         </Header>
     
         <View style={styles.MainContainer}>
+
           <FlatList
             data={this.state.data}
             //renderItem={({ item }) =><Text>{item.titre}</Text>}
@@ -307,6 +318,14 @@ class HomeScreen extends React.Component {
         
     
         <CitizenFloatingAction/>
+        <AnimatedLoader
+        visible={visible}
+        overlayColor="rgba(255,255,255,0.75)"
+        source={require("../../../utils/loader.json")}
+        animationStyle={styles.lottie}
+        speed={1}
+      />
+
       </Container>
     );
   }
@@ -338,4 +357,8 @@ const styles = StyleSheet.create({
     letterSpacing: 0.64,
     color: '#2E2E2D',
   },
+  lottie: {
+    width: 100,
+    height: 100
+  }
 });

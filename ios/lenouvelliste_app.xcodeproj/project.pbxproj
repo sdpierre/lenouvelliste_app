@@ -15,6 +15,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		13EB5C66D1784F66B877B7B2 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = FD67F037A1C34BABBB995A2D /* Gotham-Book.otf */; };
 		18551DFF24349B1F00ED71EF /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18551DFE24349B1F00ED71EF /* OneSignal.framework */; };
+		18D3CF0B2473CD3B007FD4EE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3CF0A2473CD3B007FD4EE /* File.swift */; };
 		1967BEEB7201403A860E135E /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96E0A56A7527460885605902 /* Roboto_medium.ttf */; };
 		2DCD954D1E0B4F2C00145EB5 /* lenouvelliste_appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* lenouvelliste_appTests.m */; };
 		329C4F252A484386B279F790 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CACC9D12AC3B4FA681AC7F67 /* rubicon-icon-font.ttf */; };
@@ -76,6 +77,8 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = lenouvelliste_app/main.m; sourceTree = "<group>"; };
 		16FA2858D5F14C0CB6D94634 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/native-base/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		18551DFE24349B1F00ED71EF /* OneSignal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OneSignal.framework; sourceTree = "<group>"; };
+		18D3CF092473CD3A007FD4EE /* lenouvelliste_app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lenouvelliste_app-Bridging-Header.h"; sourceTree = "<group>"; };
+		18D3CF0A2473CD3B007FD4EE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		18F61AC02434A5DE00CE30B1 /* lenouvelliste_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = lenouvelliste_app.entitlements; path = lenouvelliste_app/lenouvelliste_app.entitlements; sourceTree = "<group>"; };
 		1F75545337A24C148DD7A857 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		20C29DA6A2D44231A9E1C694 /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
@@ -271,6 +274,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				18D3CF0A2473CD3B007FD4EE /* File.swift */,
 				13B07FAE1A68108700A75B9A /* lenouvelliste_app */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* lenouvelliste_appTests */,
@@ -279,6 +283,7 @@
 				136C09644DF19889A4AD4F06 /* Pods */,
 				385429059F044F3C9E05247E /* Resources */,
 				836617BE2426496100192684 /* Recovered References */,
+				18D3CF092473CD3A007FD4EE /* lenouvelliste_app-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -374,6 +379,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 22BFZL9Q9J;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Manual;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
@@ -585,6 +591,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				18D3CF0B2473CD3B007FD4EE /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -624,6 +631,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DF835D15F4CBEF484FAB5B95 /* Pods-lenouvelliste_appTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
@@ -660,6 +668,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5212A1C93D5847E17163543B /* Pods-lenouvelliste_appTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -696,6 +705,7 @@
 			baseConfigurationReference = 2444F12DB40B868FBECC2C90 /* Pods-lenouvelliste_app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = lenouvelliste_app/lenouvelliste_app.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: Jean-Max Chauvet (F9F9RV2RY8)";
@@ -760,6 +770,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lenouvellistecompany.lenouvelliste;
 				PRODUCT_NAME = lenouvelliste_app;
 				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDevelopmentPro;
+				SWIFT_OBJC_BRIDGING_HEADER = "lenouvelliste_app-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -770,6 +783,7 @@
 			baseConfigurationReference = 891BD55C65AA044E897DAD2C /* Pods-lenouvelliste_app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = lenouvelliste_app/lenouvelliste_app.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Le Nouvelliste (22BFZL9Q9J)";
@@ -833,6 +847,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lenouvellistecompany.lenouvelliste;
 				PRODUCT_NAME = lenouvelliste_app;
 				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDistributionPro;
+				SWIFT_OBJC_BRIDGING_HEADER = "lenouvelliste_app-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

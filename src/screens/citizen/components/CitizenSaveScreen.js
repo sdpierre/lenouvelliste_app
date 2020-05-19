@@ -42,7 +42,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
         this.state ={ 
             title:'',
             description:'',
-            imageData:'',
+            imageData:{},
             arrPhotos:[],
             videoData:'',
             showAddButton:true,
@@ -71,11 +71,11 @@ export default class CitizenSaveScreen extends ValidationComponent {
         );
 
         const { navigation } = this.props;
-        const strImageData = navigation.getParam('imageData'); 
+        const imageData = navigation.getParam('imageData'); 
         this.setState({
-          imageData:strImageData
+          imageData:imageData
         })
-        this.state.arrPhotos.push(strImageData)
+        this.state.arrPhotos.push(imageData)
         // this.getArrayOfImages();
 
     }
@@ -121,12 +121,12 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
               var citizenPostParams = {
                   'user_id': this.state.userId  ,
-                  'category_id': '1',
+                  'category_id': 1,
                   'title': this.state.title,
                   'description': this.state.description,
                   'lat': '27.2038',
                   'long': '77.5011',
-                  'image':this.state.arrPhotos,
+                //   'image':this.state.arrPhotos,
                   'video':''
 
               }
@@ -144,43 +144,111 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
     apiCallToSendCitizenPost=(params)=>{    
 
-            axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kCITIZENPOST_API, params)
-    
-          .then(response => {
-    
-             console.log("Citizen Post Response",response.data);
-            let msg = response.data.message;
-            if (response.data.status == true) {
 
-            Alert.alert(
-                'Message',
-                 msg,
-                [
-                  {text: 'OK', onPress:()=>{
+        const formData = new FormData()
+        // formData.append('user_id',this.state.userId)
+        // formData.append('category_id',1)
+        // formData.append('title',this.state.title)
+        // formData.append('description',this.state.description)
+        // formData.append('lat','27.2038')
+        // formData.append('long','77.5011')
+        // formData.append('video','')
+        formData.append('image', this.state.arrPhotos)
 
-                    this.goToCitizenProgress()
+
+        // this.state.arrPhotos.forEach((element, i) => {
+        //     const newFile = {
+        //         // uri: element.path, type: 'image/jpg',name:element.path.split("/").pop()
+        //         file:element
+        //     }
+        // });
+
+        console.log("data", formData);
+
+        const config = {
+            method: 'post',
+            url: LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kCITIZENPOST_API,
+            data:formData,
+            params,
+            headers: {'Content-Type': 'multipart/form-data' }
+
+        }
+
+        axios(config)
+
+            .then(response => {
+
+                console.log("Citizen Post Response",response.data);
+
+                let msg = response.data.message;
+
+                if (response.data.status == true) {
+
+                    Alert.alert(
+                        'Message',
+                         msg,
+                        [
+                          {text: 'OK', onPress:()=>{
+        
+                            this.goToCitizenProgress()
+                              
+                        }
+                         },
+                        ],
+                        { cancelable: false }
+                      )
                       
-                }
-                 },
-                ],
-                { cancelable: false }
-              )
+
+                } else {
+
+                    console.log("Citizen post error",msg)
+                    alert(msg);
+                      }
+
+            })
+            .catch(function (error) {
+
+                console.log(error);
+                alert(error.response)
+                console.log('In case of undefined')
     
-            } else {
+            });
+
+
+        //     axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kCITIZENPOST_API, params)
     
-              console.log("Forgot PW error",msg)
-              alert(msg);
+        //   .then(response => {
+    
+            //  console.log("Citizen Post Response",response);
+        //     let msg = response.data.message;
+        //     if (response.data.status == true) {
+
+        //     Alert.alert(
+        //         'Message',
+        //          msg,
+        //         [
+        //           {text: 'OK', onPress:()=>{
+
+        //             this.goToCitizenProgress()
+                      
+        //         }
+        //          },
+        //         ],
+        //         { cancelable: false }
+        //       )
+    
+        //     } else {
+    
+        //       console.log("Citizen post error",msg)
+        //       alert(msg);
              
-            }
+        //     }
     
-          })
-          .catch(function (error) {
+        //   })
+        //   .catch(function (error) {
     
-            // console.log(error);
-            alert(error.response)
-            console.log('In case of undefined')
     
-          });
+        //   });
     
 
     }
@@ -203,7 +271,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
             // var arrImages =[];
             // arrImages.push(image.data)
-            this.state.arrPhotos.push(image.data)
+            this.state.arrPhotos.push(image)
 
             console.log("Image",this.state.arrPhotos.length);
             if (this.state.arrPhotos.length >= 5){
@@ -251,7 +319,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
         return (
             <TouchableOpacity onPress={() => this._choosen(item)}>
             <View style={styles.flatview}>
-            <Image source={{uri: `data:image/png;base64,${item}`}} style={{height:100,width:100}}/>
+            <Image source={{uri:item.path}} style={{height:100,width:100}}/>
           </View>
           </TouchableOpacity>
         );

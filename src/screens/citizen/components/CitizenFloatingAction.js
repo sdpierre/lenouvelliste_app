@@ -52,9 +52,9 @@ class CitizenFloatingAction extends Component {
                       mediaType:'photo'
                     }).then(image => {
 
-                      // console.log("Image",image.data);
+                      console.log("Image",image);
                       navigate('CitizenSaveScreen',{
-                        imageData:image.data
+                        imageData:image
                     });
 
                     });
