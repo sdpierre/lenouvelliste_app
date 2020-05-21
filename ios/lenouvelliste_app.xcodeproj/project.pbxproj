@@ -769,7 +769,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lenouvellistecompany.lenouvelliste;
 				PRODUCT_NAME = lenouvelliste_app;
-				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDevelopmentPro;
+				PROVISIONING_PROFILE_SPECIFIER = Lenouvellistenewdevstanley;
 				SWIFT_OBJC_BRIDGING_HEADER = "lenouvelliste_app-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -786,8 +786,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = lenouvelliste_app/lenouvelliste_app.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Le Nouvelliste (22BFZL9Q9J)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Le Nouvelliste (22BFZL9Q9J)";
+				CODE_SIGN_IDENTITY = "Apple Development: Jean-Max Chauvet (F9F9RV2RY8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Jean-Max Chauvet (F9F9RV2RY8)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
@@ -846,7 +846,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lenouvellistecompany.lenouvelliste;
 				PRODUCT_NAME = lenouvelliste_app;
-				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDistributionPro;
+				PROVISIONING_PROFILE_SPECIFIER = Lenouvellistenewdevstanley;
 				SWIFT_OBJC_BRIDGING_HEADER = "lenouvelliste_app-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
