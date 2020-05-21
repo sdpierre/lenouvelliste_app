@@ -47,7 +47,7 @@ export default class Register extends ValidationComponent{
             fullName:'',
             email: '',
             password: '',
-            countryName:'',
+            // countryName:'',
             town:'',
             arrCountryList: [],
             selectedCountryItem:null,
@@ -89,11 +89,11 @@ export default class Register extends ValidationComponent{
         })
     }
 
-    handleCountry = (text) => {
-        this.setState({
-            countryName: text
-        })
-    }
+    // handleCountry = (text) => {
+    //     this.setState({
+    //         countryName: text
+    //     })
+    // }
 
     handleTown = (text) => {
         this.setState({
@@ -116,7 +116,7 @@ export default class Register extends ValidationComponent{
 
     componentDidMount(){
 
-    this.getAllCountriesListAPICall()
+    // this.getAllCountriesListAPICall()
 
     }
 
@@ -205,16 +205,16 @@ export default class Register extends ValidationComponent{
                     }
                     else {
     
-                         this.validate({
-                             countryName: {required:true}
-                         }) 
+                        //  this.validate({
+                        //      countryName: {required:true}
+                        //  }) 
                          
                          
-                         if (this.getErrorMessages()){
-                             alert(LeneovellisteConstants.kCountryEmpty)
-                         }
+                        //  if (this.getErrorMessages()){
+                        //      alert(LeneovellisteConstants.kCountryEmpty)
+                        //  }
                         
-                         else{
+                        //  else{
                              this.validate({
 
                                  town:{required:true}
@@ -232,7 +232,7 @@ export default class Register extends ValidationComponent{
                                     'username': this.state.userName,
                                     'email': this.state.email,
                                     'password': this.state.password,
-                                    'country': 1,//this.state.selectedCountryItem,
+                                    // 'country': 1,//this.state.selectedCountryItem,
                                     'town': this.state.town,
                                     'gender': this.state.genderSelected
                                   }
@@ -243,7 +243,7 @@ export default class Register extends ValidationComponent{
                 
                 
                              }
-                         }
+                        //  }
 
                     }
     
@@ -261,7 +261,7 @@ export default class Register extends ValidationComponent{
     
       }
     
-      registrationAPICall(params) {
+      registrationAPICall=(params) =>{
     
         var dicRegistration= {};
 
@@ -278,17 +278,16 @@ export default class Register extends ValidationComponent{
             if (response.data.status == true) {
     
                 dicRegistration = response.data.user_details;
-    
+                console.log('---->',dicRegistration)
+                
                 AsyncStorage.setItem('registeredUserDetails', JSON.stringify(dicRegistration));              
       
-                var loginParams = {
-                    'username': this.state.email,
-                    'password': this.state.password,
-                  }
+                  this.props.navigation.navigate('RegisterDone',{
+                      username:this.state.userName,
+                      email:this.state.email,
+                      password:this.state.password
+                    });
 
-                  console.log(loginParams);
-
-                  this.loginAPICall(loginParams);
   
             } else {
     
@@ -301,45 +300,6 @@ export default class Register extends ValidationComponent{
           .catch(function (error) {
     
             console.log(error);
-    
-          });
-    
-      }
-
-      loginAPICall(params) {
-    
-        var dicLogin = {};
-    
-        axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kLOGIN_API, params)
-    
-          .then(response => {
-    
-             console.log("Login Response",response.data);
-            let msg = response.data.message;
-            if (response.data.status == true) {
-    
-              dicLogin = response.data.user_detail;
-    
-              AsyncStorage.setItem('loggedInUserDetails', JSON.stringify(dicLogin));              
-    
-              this.props.navigation.goBack();
-              this.props.navigation.navigate('RegisterDone',{
-                  username:this.state.userName
-              });
-  
-            } else {
-    
-              console.log("Login error",msg)
-              alert(msg);
-             
-            }
-    
-          })
-          .catch(function (error) {
-    
-            // console.log(error);
-            alert(error)
-            console.log('In case of undefined')
     
           });
     
@@ -383,36 +343,36 @@ export default class Register extends ValidationComponent{
             
     }
 
-    openCountryModal = () =>{
-          this.setState({
-              isCountryModalVisible:true
-          })
-      }
+    // openCountryModal = () =>{
+    //       this.setState({
+    //           isCountryModalVisible:true
+    //       })
+    //   }
 
-    closeCountryModal = () =>{
-        this.setState({
-        isCountryModalVisible:false
-        })
-    }
+    // closeCountryModal = () =>{
+    //     this.setState({
+    //     isCountryModalVisible:false
+    //     })
+    // }
 
-    renderItem = ({ item }) => {
-        return (
-            <TouchableOpacity onPress={() => this._choosen(item)}>
-                  <View style={registerStyles.flatview}>
-            <Text style={registerStyles.countryName} key={item.country_name}>{item.country_name}</Text>
-            {/* <Text style={registerStyles.CountryCode}>Hi</Text> */}
-          </View>
-          </TouchableOpacity>
-        );
-    }
+    // renderItem = ({ item }) => {
+    //     return (
+    //         <TouchableOpacity onPress={() => this._choosen(item)}>
+    //               <View style={registerStyles.flatview}>
+    //         <Text style={registerStyles.countryName} key={item.country_name}>{item.country_name}</Text>
+    //         {/* <Text style={registerStyles.CountryCode}>Hi</Text> */}
+    //       </View>
+    //       </TouchableOpacity>
+    //     );
+    // }
 
-    _choosen(selectedItem) {
-        this.setState({ 
-            selectedCountryItem:selectedItem.id, 
-            countryName:selectedItem.country_name
-        });
-        this.closeCountryModal()
-      }
+    // _choosen(selectedItem) {
+    //     this.setState({ 
+    //         selectedCountryItem:selectedItem.id, 
+    //         countryName:selectedItem.country_name
+    //     });
+    //     this.closeCountryModal()
+    //   }
       
     render() {
         const iconpass = () => (
@@ -554,7 +514,7 @@ export default class Register extends ValidationComponent{
       onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
          this.setState({
           town: details.formatted_address,
-          countryName:details.formatted_address
+        //   countryName:details.formatted_address
          })
 
       }}

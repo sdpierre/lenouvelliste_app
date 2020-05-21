@@ -33,6 +33,7 @@ var deviceHeight = (Dimensions.get('window').height);
 
 var buttonHeight = Platform.OS == 'android' ? 50 : 55
 var elementSpacing = Platform.OS == 'android' ? 12 : 19
+var imageData = {};
 
 
 export default class CitizenSaveScreen extends ValidationComponent {
@@ -42,7 +43,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
         this.state ={ 
             title:'',
             description:'',
-            imageData:{},
+            // imageData:{},
             arrPhotos:[],
             videoData:'',
             showAddButton:true,
@@ -71,10 +72,10 @@ export default class CitizenSaveScreen extends ValidationComponent {
         );
 
         const { navigation } = this.props;
-        const imageData = navigation.getParam('imageData'); 
-        this.setState({
-          imageData:imageData
-        })
+        imageData = navigation.getParam('imageData'); 
+
+        console.log('received image imagedata',imageData);
+
         this.state.arrPhotos.push(imageData)
         // this.getArrayOfImages();
 
@@ -144,33 +145,28 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
     apiCallToSendCitizenPost=(params)=>{    
 
-
         const formData = new FormData()
-        // formData.append('user_id',this.state.userId)
-        // formData.append('category_id',1)
-        // formData.append('title',this.state.title)
-        // formData.append('description',this.state.description)
-        // formData.append('lat','27.2038')
-        // formData.append('long','77.5011')
-        // formData.append('video','')
-        formData.append('image', this.state.arrPhotos)
 
+         this.state.arrPhotos.forEach((element, i) => {
+            const newFile = {
+                uri:element.path,type:element.mime, name:element.path.split("/").pop()
+            }
+            formData.append('image[]',newFile)
 
-        // this.state.arrPhotos.forEach((element, i) => {
-        //     const newFile = {
-        //         // uri: element.path, type: 'image/jpg',name:element.path.split("/").pop()
-        //         file:element
-        //     }
-        // });
+         });
 
         console.log("data", formData);
+        
 
         const config = {
             method: 'post',
             url: LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kCITIZENPOST_API,
             data:formData,
             params,
-            headers: {'Content-Type': 'multipart/form-data' }
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'multipart/form-data'
+            }
 
         }
 
@@ -332,7 +328,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
     
 
     render() {
-        console.log('array of photos in render',this.state.arrPhotos)
+        // console.log('array of photos in render',this.state.arrPhotos)
         return (
                 <Container>
                     <Header style={{ backgroundColor: 'white', }}>

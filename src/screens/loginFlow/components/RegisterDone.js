@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Modal, Text, StyleSheet, TouchableWithoutFeedback, Dimensions} from 'react-native';
+import { View, Modal, Text, StyleSheet, TouchableWithoutFeedback, Dimensions,Alert,AsyncStorage} from 'react-native';
 import {
     Container,
     Header,
@@ -27,6 +27,7 @@ export default class RegisterDone extends ValidationComponent {
         this.state = {
             userName:'',
             email:'',
+            password:'',
             OTP:'',
 
         }
@@ -36,11 +37,14 @@ export default class RegisterDone extends ValidationComponent {
 
         const { navigation } = this.props;
         const strEmail = navigation.getParam('email', ''); 
+        const strPassword = navigation.getParam('password', ''); 
         const strUserName = navigation.getParam('username', ''); 
         console.log(strUserName) 
         this.setState({
             userName:strUserName,
-            email:strEmail
+            email:strEmail,
+            password:strPassword
+
         })
      }
 
@@ -50,7 +54,7 @@ export default class RegisterDone extends ValidationComponent {
         })
     }
 
-    verifyOTP = () =>{
+    verifyAccount = () =>{
 
         this.validate({
 
@@ -63,25 +67,25 @@ export default class RegisterDone extends ValidationComponent {
 
         }else{
 
-            var verifyOTPParams = {
+            var verifyAccountParams = {
                 'email': this.state.email,
                 'otp': this.state.OTP,
               }
 
-              console.log(verifyOTPParams);
+              console.log(verifyAccountParams);
 
-              this.verifyOTPAPICall(verifyOTPParams);
+              this.verifyAccountAPICall(verifyAccountParams);
 
         }
     }
 
-    verifyOTPAPICall(params) {
+    verifyAccountAPICall(params) {
 
-        axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kVERIFYOTP_API, params)
+        axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kVERIFYACCOUNT_API, params)
     
           .then(response => {
     
-             console.log("Verify OTP response",response.data);
+             console.log("Verify account response",response.data);
         
              let msg = response.data.message;
     
@@ -92,9 +96,16 @@ export default class RegisterDone extends ValidationComponent {
                      msg,
                     [
                       {text: 'OK', onPress:()=>{
+
+                        var loginParams = {
+                            'username': this.state.email,
+                            'password': this.state.password,
+                          }
+        
+
+                        this.loginAPICall(loginParams);
+
                           
-                        this.props.navigation.goBack();
-                        this.props.navigation.navigate('Menu');
                       }
                      },
                     ],
@@ -104,7 +115,7 @@ export default class RegisterDone extends ValidationComponent {
             } else {
     
               alert(msg)
-              console.log("Verify OTP error",msg)
+              console.log("Verify account error",msg)
               
             }
     
@@ -117,12 +128,51 @@ export default class RegisterDone extends ValidationComponent {
     
       }
 
+      loginAPICall(params) {
+    
+        var dicLogin = {};
+    
+        axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kLOGIN_API, params)
+    
+          .then(response => {
+    
+             console.log("Login Response",response.data);
+            let msg = response.data.message;
+            if (response.data.status == true) {
+    
+              dicLogin = response.data.user_detail;
+    
+              AsyncStorage.setItem('loggedInUserDetails', JSON.stringify(dicLogin));              
+     
+              this.props.navigation.goBack();
+              this.props.navigation.navigate('Menu');
+
+                
+  
+            } else {
+    
+              console.log("Login error",msg)
+              alert(msg);
+             
+            }
+    
+          })
+          .catch(function (error) {
+    
+            // console.log(error);
+            alert(error)
+            console.log('In case of undefined')
+    
+          });
+    
+      }
 
       resendOTP = () =>{
 
             var resendOTPParams = {
                 'email': this.state.email,
                 'otp': this.state.OTP,
+                'type':'account'
               }
 
               console.log(resendOTPParams);
@@ -206,7 +256,7 @@ export default class RegisterDone extends ValidationComponent {
                 <Button
                   style={{marginTop: 20}}
                   title="Vérifiez"
-                  onPress={this.verifyOTP}
+                  onPress={this.verifyAccount}
                 /> 
                                  <View style={{flexDirection:'column', flex:0, justifyContent:"center", alignItems:"center"}}>
   

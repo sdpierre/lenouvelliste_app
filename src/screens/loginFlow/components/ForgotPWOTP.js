@@ -119,6 +119,8 @@ export default class ForgotPWOTP extends ValidationComponent{
             var resendOTPParams = {
                 'email': this.state.email,
                 'otp': this.state.OTP,
+                'type':'forgot'
+
               }
 
               console.log(resendOTPParams);

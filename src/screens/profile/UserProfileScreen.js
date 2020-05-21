@@ -43,10 +43,10 @@ class UserProfileScreen extends ValidationComponent{
             userName: '',
             fullName:'',
             email: '',
-            countryName:'',
+            // countryName:'',
             town:'',
             arrCountryList: [],
-            selectedCountryItem:null,
+            // selectedCountryItem:null,
             userId:'',
             avatarPath:'',
             isImageUploaded: false,
@@ -100,8 +100,8 @@ class UserProfileScreen extends ValidationComponent{
                         userName: dicGetProfile.data.username,
                         fullName: dicGetProfile.data.name,
                         email:dicGetProfile.data.email,
-                        countryName: dicGetProfile.data.country_name,
-                        selectedCountryItem:dicGetProfile.data.country,
+                        // countryName: dicGetProfile.data.country_name,
+                        // selectedCountryItem:dicGetProfile.data.country,
                         town:dicGetProfile.data.town,
                         profilePictureURL:dicGetProfile.data.photo
     
@@ -110,7 +110,7 @@ class UserProfileScreen extends ValidationComponent{
                     console.log("Get Profile",dicGetProfile)
                     console.log("Town",this.state.town)
 
-                    this.getAllCountriesListAPICall()
+                    // this.getAllCountriesListAPICall()
 
 
                 }else{
@@ -178,15 +178,15 @@ class UserProfileScreen extends ValidationComponent{
                 }
                 else {
     
-                         this.validate({
-                             countryName: {required:true}
-                         }) 
+                        //  this.validate({
+                        //      countryName: {required:true}
+                        //  }) 
                          
-                         if (this.getErrorMessages()){
-                             alert(LeneovellisteConstants.kCountryEmpty)
-                         }
+                        //  if (this.getErrorMessages()){
+                        //      alert(LeneovellisteConstants.kCountryEmpty)
+                        //  }
                         
-                         else{
+                        //  else{
                              this.validate({
 
                                  town:{required:true}
@@ -201,7 +201,7 @@ class UserProfileScreen extends ValidationComponent{
                                     'username': this.state.userName,
                                     'name': this.state.fullName,
                                     'email': this.state.email,
-                                    'country': 1,//this.state.selectedCountryItem,
+                                    // 'country': 1,//this.state.selectedCountryItem,
                                     'town': this.state.town,
                                     'user_id':this.state.userId
                                   }
@@ -212,7 +212,7 @@ class UserProfileScreen extends ValidationComponent{
                 
                 
                              }
-                         }
+                      //   }
     
                   }
     
@@ -421,11 +421,11 @@ class UserProfileScreen extends ValidationComponent{
         })
     }
 
-    handleCountry = (text) => {
-        this.setState({
-            countryName: text
-        })
-    }
+    // handleCountry = (text) => {
+    //     this.setState({
+    //         countryName: text
+    //     })
+    // }
 
     handleTown = (text) => {
         this.setState({
@@ -433,35 +433,35 @@ class UserProfileScreen extends ValidationComponent{
         })
     }
 
-    openCountryModal = () =>{
-        this.setState({
-            isCountryModalVisible:true
-        })
-    }
+  //   openCountryModal = () =>{
+  //       this.setState({
+  //           isCountryModalVisible:true
+  //       })
+  //   }
 
-  closeCountryModal = () =>{
-      this.setState({
-      isCountryModalVisible:false
-      })
-  }  
+  // closeCountryModal = () =>{
+  //     this.setState({
+  //     isCountryModalVisible:false
+  //     })
+  // }  
   
-  renderItem = ({ item }) => {
-    return (
-        <TouchableOpacity onPress={() => this._choosen(item)}>
-              <View style={profileStyles.flatview}>
-        <Text style={profileStyles.countryName} key={item.country_name}>{item.country_name}</Text>
-      </View>
-      </TouchableOpacity>
-    );
-}
+//   renderItem = ({ item }) => {
+//     return (
+//         <TouchableOpacity onPress={() => this._choosen(item)}>
+//               <View style={profileStyles.flatview}>
+//         <Text style={profileStyles.countryName} key={item.country_name}>{item.country_name}</Text>
+//       </View>
+//       </TouchableOpacity>
+//     );
+// }
 
-_choosen(selectedItem) {
-    this.setState({ 
-        selectedCountryItem:selectedItem.id, 
-        countryName:selectedItem.country_name
-    });
-    this.closeCountryModal()
-  }
+// _choosen(selectedItem) {
+//     this.setState({ 
+//         selectedCountryItem:selectedItem.id, 
+//         countryName:selectedItem.country_name
+//     });
+//     this.closeCountryModal()
+//   }
 
 
     logout = () =>{

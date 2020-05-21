@@ -44,7 +44,7 @@ class CitizenFloatingAction extends Component {
                 switch (name){
                   case "bt_photo":
                     console.log('bt_photo')
-                    ImagePicker.openCamera({
+                    ImagePicker.openPicker({
                       width: 300,
                       height: 400,
                       // cropping: true,

@@ -6,6 +6,8 @@
 
  export const kREGISTRATION_API = "register";
  export const kGETCOUNTRYLIST_API = "get-countries";
+ export const kVERIFYACCOUNT_API = "verify-account";
+
 
  export const kLOGIN_API = "login";
 
