@@ -14,18 +14,17 @@ import {
 import {
     TextField,
     FilledTextField,
-    OutlinedTextField,
+  OutlinedTextField,
   } from 'react-native-material-textfield';
   
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ValidationComponent from 'react-native-form-validator';
-import { Typography, Colors, Spacing } from '../../../styles';
+import {Typography, Colors, Spacing} from '../../../styles';
 import axios from 'axios';
-import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 
 //Dimensions
@@ -40,14 +39,11 @@ export default class Register extends ValidationComponent{
             checked1: false,
             checked2: false,
             checked3: false,
-            // isCountryModalVisible: false,
             userName: '',
-           // firstName: '',
-           // lastName: '',
+        
             fullName:'',
             email: '',
             password: '',
-            // countryName:'',
             town:'',
             arrCountryList: [],
             selectedCountryItem:null,
@@ -66,17 +62,7 @@ export default class Register extends ValidationComponent{
             fullName: text
         })
     }
-    // handleFirstName = (text) => {
-    //     this.setState({
-    //         firstName: text
-    //     })
-    // }
-
-    // handleLastName = (text) => {
-    //     this.setState({
-    //         lastName: text
-    //     })
-    // }
+   
 
     handlEmail = (text) => {
         this.setState({
@@ -89,38 +75,14 @@ export default class Register extends ValidationComponent{
         })
     }
 
-    // handleCountry = (text) => {
-    //     this.setState({
-    //         countryName: text
-    //     })
-    // }
+    
 
-    handleTown = (text) => {
+  handleTown = text => {
         this.setState({
             town: text
         })
     }
-
-    // register = () =>{
-    //     // Call ValidationComponent validate method
-    //     this.validate({
-    //       firstName: {minlength:2, maxlength:20, required: true},
-    //       lastName: {minlength:2, maxlength:20, required: true},
-    //       userName: {minlength:2, maxlength:20, required: true},
-    //       email: {required: true,email: true, maxlength:50},
-    //       password: {required:true,secureTextEntry:true,minlength:6,maxlength:15}
-    //       //number: {numbers: true},
-    //       //date: {date: 'YYYY-MM-DD'}
-    //     });
-    //   }
-
-    componentDidMount(){
-
-    // this.getAllCountriesListAPICall()
-
-    }
-
-    register = () =>{
+  register = () => {
 
         this.validate({
     
@@ -165,6 +127,7 @@ export default class Register extends ValidationComponent{
               })
     
               if (this.getErrorMessages()) {
+    // eslint-disable-next-line no-trailing-spaces
     
                 alert(LeneovellisteConstants.kEmailEmpty)
               }
@@ -234,7 +197,11 @@ export default class Register extends ValidationComponent{
                                     'password': this.state.password,
                                     // 'country': 1,//this.state.selectedCountryItem,
                                     'town': this.state.town,
-                                    'gender': this.state.genderSelected
+                                    'gender': this.state.genderSelected,
+                                    "term_condition": this.state.checked1,
+                                    "agree_to_offer": this.state.checked2,
+                                    "agree_to_partner": this.state.checked3
+                                  
                                   }
                 
                                   console.log(registrationParams);
@@ -488,94 +455,18 @@ export default class Register extends ValidationComponent{
                 // onSubmitEditing={() => { this.addressInput.focus() }}
                 blurOnSubmit={false}
               />
-                                    {/* <Icon style={registerStyles.icon}
-                                        name= {this.state.isPasswordSecured?'visibility-off':'visibility'}
-                                        size={25}
-                                        color='#D3D3D3'
-                                        onPress={()=>{
-                                            this.setState({
-                                              isPasswordSecured:!this.state.isPasswordSecured
-                                            })
-                                        }}
-                                    /> */}
-                                {/* </View> */}
 
-                                <GooglePlacesAutocomplete
-                                                // ref={(input) => { this.addressInput = input; }}
-
-      placeholder='City'
-      minLength={2} // minimum length of text to search
-      autoFocus={false}
-      returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-      keyboardAppearance={'light'} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
-      listViewDisplayed='auto'    // true/false/undefined
-      fetchDetails={true}
-      renderDescription={row => row.description} // custom description render
-      onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-         this.setState({
-          town: details.formatted_address,
-        //   countryName:details.formatted_address
-         })
-
+             <GooglePlacesAutocomplete
+      placeholder='Search'
+      onPress={(data, details = null) => {
+        // 'details' is provided when fetchDetails = true
+        console.log(data, details);
       }}
-
-      getDefaultValue={() => ''}
-
       query={{
-        // available options: https://developers.google.com/places/web-service/autocomplete
         key: 'AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk',
-        language: 'en', // language of the results
-        types: '(cities)' // default: 'geocode'
+        language: 'en',
       }}
-  
-      // currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-      // currentLocationLabel="Current location"
-      nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-      GoogleReverseGeocodingQuery={{
-        // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-      }}
-      GooglePlacesSearchQuery={{
-        // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-        rankby: 'distance',
-        type: 'cafe'
-      }}
-      
-      GooglePlacesDetailsQuery={{
-        // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-        fields: 'formatted_address',
-      }}
-
-      filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-    //   predefinedPlaces={[homePlace, workPlace]}
-
-      debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
-
-  //  placeholder='City'
-    // minLength={2}
-  //  autoFocus={false}
-  // returnKeyType={'default'}
-  //  fetchDetails={true}
-   styles={registerStyles.input}
-
-//   styles={{
-//     textInputContainer: {
-//       backgroundColor: 'rgba(0,0,0,0)',
-//       borderTopWidth: 0,
-//       borderBottomWidth:0
-//     },
-//     textInput: {
-//       marginLeft: 0,
-//       marginRight: 0,
-//       height: 38,
-//       color: '#5d5d5d',
-//       fontSize: 16
-//     },
-//     predefinedPlacesDescription: {
-//       color: '#1faadb'
-//     },
-//   }}
-//   currentLocation={false}
-/>
+    />
                             <View style={{marginTop:20}}>
                             <View style={registerStyles.checkContainer}>
                                     <CheckBox

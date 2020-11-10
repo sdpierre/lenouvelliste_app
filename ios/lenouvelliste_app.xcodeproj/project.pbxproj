@@ -7,28 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* lenouvelliste_appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* lenouvelliste_appTests.m */; };
+		042426192525C2D800109C92 /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042426182525C2D800109C92 /* OneSignal.framework */; };
+		043B6F28255A731F00E1763F /* lenouvelliste_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B6F27255A731F00E1763F /* lenouvelliste_appTests.swift */; };
+		043B6FAF255A88AC00E1763F /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		0957F7F11161467B91892B6A /* AkkoPro-Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D49B077D7CD841AAB163E979 /* AkkoPro-Condensed.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		13EB5C66D1784F66B877B7B2 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = FD67F037A1C34BABBB995A2D /* Gotham-Book.otf */; };
-		18551DFF24349B1F00ED71EF /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18551DFE24349B1F00ED71EF /* OneSignal.framework */; };
 		18D3CF0B2473CD3B007FD4EE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3CF0A2473CD3B007FD4EE /* File.swift */; };
 		1967BEEB7201403A860E135E /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96E0A56A7527460885605902 /* Roboto_medium.ttf */; };
 		2DCD954D1E0B4F2C00145EB5 /* lenouvelliste_appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* lenouvelliste_appTests.m */; };
 		329C4F252A484386B279F790 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CACC9D12AC3B4FA681AC7F67 /* rubicon-icon-font.ttf */; };
 		64418B5DDACC406481B42A7A /* AkkoPro-BoldCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 271B7066542E4630A11FAE96 /* AkkoPro-BoldCondensed.ttf */; };
+		766B20855A016E519972D03A /* libPods-lenouvelliste_app-lenouvelliste_appTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4310F0C2F26C125ED553F149 /* libPods-lenouvelliste_app-lenouvelliste_appTests.a */; };
 		9AAC84274B4D4B30AC7F1823 /* Georgia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AFCF1EC7C4A047CAA9EF0899 /* Georgia.ttf */; };
-		9F62F7C70C2A02975F5E8151 /* libPods-lenouvelliste_appTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00BD4AA48268987A1F942824 /* libPods-lenouvelliste_appTests.a */; };
 		D27F8A3B877545AF854AC134 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20C29DA6A2D44231A9E1C694 /* Roboto.ttf */; };
 		EE8B95F5BE6C43CC88DD407F /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E0C6341B7DD48ECB6A8575A /* Montserrat-SemiBold.ttf */; };
 		F70AC13234D6017ADA186178 /* libPods-lenouvelliste_app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C433ECC989677309FD614E /* libPods-lenouvelliste_app.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+		043B6F2A255A731F00E1763F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
@@ -62,11 +63,13 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00BD4AA48268987A1F942824 /* libPods-lenouvelliste_appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lenouvelliste_appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		00E356EE1AD99517003FC87E /* lenouvelliste_appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lenouvelliste_appTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* lenouvelliste_appTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lenouvelliste_appTests.m; sourceTree = "<group>"; };
 		02A3E232125C4514BE3FED3F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		042426182525C2D800109C92 /* OneSignal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OneSignal.framework; path = Pods/OneSignal/iOS_SDK/OneSignalSDK/Framework/OneSignal.framework; sourceTree = "<group>"; };
+		043B6F25255A731F00E1763F /* lenouvelliste_appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lenouvelliste_appTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		043B6F27255A731F00E1763F /* lenouvelliste_appTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lenouvelliste_appTests.swift; sourceTree = "<group>"; };
+		043B6F29255A731F00E1763F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1282E315EFE64494A6A8F29C /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* lenouvelliste_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lenouvelliste_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = lenouvelliste_app/AppDelegate.h; sourceTree = "<group>"; };
@@ -76,7 +79,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = lenouvelliste_app/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = lenouvelliste_app/main.m; sourceTree = "<group>"; };
 		16FA2858D5F14C0CB6D94634 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/native-base/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
-		18551DFE24349B1F00ED71EF /* OneSignal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OneSignal.framework; sourceTree = "<group>"; };
 		18D3CF092473CD3A007FD4EE /* lenouvelliste_app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lenouvelliste_app-Bridging-Header.h"; sourceTree = "<group>"; };
 		18D3CF0A2473CD3B007FD4EE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		18F61AC02434A5DE00CE30B1 /* lenouvelliste_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = lenouvelliste_app.entitlements; path = lenouvelliste_app/lenouvelliste_app.entitlements; sourceTree = "<group>"; };
@@ -88,7 +90,9 @@
 		2D02E4901E0B4A5D006451C7 /* lenouvelliste_app-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "lenouvelliste_app-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3550E4C25F364BB1AC1F8747 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		3C5F3C10FF634BC98E46DE46 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		4310F0C2F26C125ED553F149 /* libPods-lenouvelliste_app-lenouvelliste_appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lenouvelliste_app-lenouvelliste_appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		436A4657138D4F3E8F7C28F5 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		5132618E0349E35C5C6748B9 /* Pods-lenouvelliste_app-lenouvelliste_appTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lenouvelliste_app-lenouvelliste_appTests.release.xcconfig"; path = "Target Support Files/Pods-lenouvelliste_app-lenouvelliste_appTests/Pods-lenouvelliste_app-lenouvelliste_appTests.release.xcconfig"; sourceTree = "<group>"; };
 		5212A1C93D5847E17163543B /* Pods-lenouvelliste_appTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lenouvelliste_appTests.release.xcconfig"; path = "Target Support Files/Pods-lenouvelliste_appTests/Pods-lenouvelliste_appTests.release.xcconfig"; sourceTree = "<group>"; };
 		678042B420F54042964951BE /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		6E0C6341B7DD48ECB6A8575A /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../src/res/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 		E897A64E690D401C9A3CA653 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F45436DF6F93358976F55C99 /* Pods-lenouvelliste_app-lenouvelliste_appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lenouvelliste_app-lenouvelliste_appTests.debug.xcconfig"; path = "Target Support Files/Pods-lenouvelliste_app-lenouvelliste_appTests/Pods-lenouvelliste_app-lenouvelliste_appTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FD34F54628334B5CA27B95CC /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		FD67F037A1C34BABBB995A2D /* Gotham-Book.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gotham-Book.otf"; path = "../src/res/fonts/Gotham-Book.otf"; sourceTree = "<group>"; };
 		FE1CA5F159D546F4B652F63F /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
@@ -128,11 +133,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		00E356EB1AD99517003FC87E /* Frameworks */ = {
+		043B6F22255A731F00E1763F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F62F7C70C2A02975F5E8151 /* libPods-lenouvelliste_appTests.a in Frameworks */,
+				766B20855A016E519972D03A /* libPods-lenouvelliste_app-lenouvelliste_appTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,8 +145,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18551DFF24349B1F00ED71EF /* OneSignal.framework in Frameworks */,
+				043B6FAF255A88AC00E1763F /* JavaScriptCore.framework in Frameworks */,
 				F70AC13234D6017ADA186178 /* libPods-lenouvelliste_app.a in Frameworks */,
+				042426192525C2D800109C92 /* OneSignal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +178,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		043B6F26255A731F00E1763F /* lenouvelliste_appTests */ = {
+			isa = PBXGroup;
+			children = (
+				043B6F27255A731F00E1763F /* lenouvelliste_appTests.swift */,
+				043B6F29255A731F00E1763F /* Info.plist */,
+			);
+			path = lenouvelliste_appTests;
+			sourceTree = "<group>";
+		};
 		136C09644DF19889A4AD4F06 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +194,8 @@
 				891BD55C65AA044E897DAD2C /* Pods-lenouvelliste_app.release.xcconfig */,
 				DF835D15F4CBEF484FAB5B95 /* Pods-lenouvelliste_appTests.debug.xcconfig */,
 				5212A1C93D5847E17163543B /* Pods-lenouvelliste_appTests.release.xcconfig */,
+				F45436DF6F93358976F55C99 /* Pods-lenouvelliste_app-lenouvelliste_appTests.debug.xcconfig */,
+				5132618E0349E35C5C6748B9 /* Pods-lenouvelliste_app-lenouvelliste_appTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -201,11 +218,11 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				18551DFE24349B1F00ED71EF /* OneSignal.framework */,
+				042426182525C2D800109C92 /* OneSignal.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				D5C433ECC989677309FD614E /* libPods-lenouvelliste_app.a */,
-				00BD4AA48268987A1F942824 /* libPods-lenouvelliste_appTests.a */,
+				4310F0C2F26C125ED553F149 /* libPods-lenouvelliste_app-lenouvelliste_appTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -278,6 +295,7 @@
 				13B07FAE1A68108700A75B9A /* lenouvelliste_app */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* lenouvelliste_appTests */,
+				043B6F26255A731F00E1763F /* lenouvelliste_appTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				136C09644DF19889A4AD4F06 /* Pods */,
@@ -294,8 +312,8 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* lenouvelliste_app.app */,
-				00E356EE1AD99517003FC87E /* lenouvelliste_appTests.xctest */,
 				2D02E4901E0B4A5D006451C7 /* lenouvelliste_app-tvOSTests.xctest */,
+				043B6F25255A731F00E1763F /* lenouvelliste_appTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -303,23 +321,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* lenouvelliste_appTests */ = {
+		043B6F24255A731F00E1763F /* lenouvelliste_appTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "lenouvelliste_appTests" */;
+			buildConfigurationList = 043B6F2C255A731F00E1763F /* Build configuration list for PBXNativeTarget "lenouvelliste_appTests" */;
 			buildPhases = (
-				696451BA59633A2E7BCC4211 /* [CP] Check Pods Manifest.lock */,
-				00E356EA1AD99517003FC87E /* Sources */,
-				00E356EB1AD99517003FC87E /* Frameworks */,
-				00E356EC1AD99517003FC87E /* Resources */,
+				D193D86924DC4BCBA640FA8E /* [CP] Check Pods Manifest.lock */,
+				043B6F21255A731F00E1763F /* Sources */,
+				043B6F22255A731F00E1763F /* Frameworks */,
+				043B6F23255A731F00E1763F /* Resources */,
+				03E4C5680C77484B67374BEE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				00E356F51AD99517003FC87E /* PBXTargetDependency */,
+				043B6F2B255A731F00E1763F /* PBXTargetDependency */,
 			);
 			name = lenouvelliste_appTests;
 			productName = lenouvelliste_appTests;
-			productReference = 00E356EE1AD99517003FC87E /* lenouvelliste_appTests.xctest */;
+			productReference = 043B6F25255A731F00E1763F /* lenouvelliste_appTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		13B07F861A680F5B00A75B9A /* lenouvelliste_app */ = {
@@ -368,19 +387,20 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
-					00E356ED1AD99517003FC87E = {
-						CreatedOnToolsVersion = 6.2;
+					043B6F24255A731F00E1763F = {
+						CreatedOnToolsVersion = 12.0;
 						DevelopmentTeam = 22BFZL9Q9J;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 22BFZL9Q9J;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -405,14 +425,14 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* lenouvelliste_app */,
-				00E356ED1AD99517003FC87E /* lenouvelliste_appTests */,
 				2D02E48F1E0B4A5D006451C7 /* lenouvelliste_app-tvOSTests */,
+				043B6F24255A731F00E1763F /* lenouvelliste_appTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		00E356EC1AD99517003FC87E /* Resources */ = {
+		043B6F23255A731F00E1763F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -460,26 +480,58 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		696451BA59633A2E7BCC4211 /* [CP] Check Pods Manifest.lock */ = {
+		03E4C5680C77484B67374BEE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
+				"${PODS_ROOT}/Target Support Files/Pods-lenouvelliste_app-lenouvelliste_appTests/Pods-lenouvelliste_app-lenouvelliste_appTests-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_ROOT}/RSKImageCropper/RSKImageCropper/RSKImageCropperStrings.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-lenouvelliste_appTests-checkManifestLockResult.txt",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RSKImageCropperStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lenouvelliste_app-lenouvelliste_appTests/Pods-lenouvelliste_app-lenouvelliste_appTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8FF21C39B4C1DB71782F1932 /* [CP] Check Pods Manifest.lock */ = {
@@ -529,6 +581,7 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
 				"${PODS_ROOT}/RSKImageCropper/RSKImageCropper/RSKImageCropperStrings.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -550,10 +603,33 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RSKImageCropperStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lenouvelliste_app/Pods-lenouvelliste_app-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D193D86924DC4BCBA640FA8E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-lenouvelliste_app-lenouvelliste_appTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -578,11 +654,11 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		00E356EA1AD99517003FC87E /* Sources */ = {
+		043B6F21255A731F00E1763F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* lenouvelliste_appTests.m in Sources */,
+				043B6F28255A731F00E1763F /* lenouvelliste_appTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,10 +683,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
+		043B6F2B255A731F00E1763F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* lenouvelliste_app */;
-			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+			targetProxy = 043B6F2A255A731F00E1763F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -627,75 +703,63 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		00E356F61AD99517003FC87E /* Debug */ = {
+		043B6F2D255A731F00E1763F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF835D15F4CBEF484FAB5B95 /* Pods-lenouvelliste_appTests.debug.xcconfig */;
+			baseConfigurationReference = F45436DF6F93358976F55C99 /* Pods-lenouvelliste_app-lenouvelliste_appTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 22BFZL9Q9J;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.59.0",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/..",
-				);
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = lenouvelliste_appTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "jf.lenouvelliste-appTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lenouvelliste_app.app/lenouvelliste_app";
 			};
 			name = Debug;
 		};
-		00E356F71AD99517003FC87E /* Release */ = {
+		043B6F2E255A731F00E1763F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5212A1C93D5847E17163543B /* Pods-lenouvelliste_appTests.release.xcconfig */;
+			baseConfigurationReference = 5132618E0349E35C5C6748B9 /* Pods-lenouvelliste_app-lenouvelliste_appTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.59.0",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/..",
-				);
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = lenouvelliste_appTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "jf.lenouvelliste-appTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lenouvelliste_app.app/lenouvelliste_app";
 			};
 			name = Release;
@@ -708,15 +772,18 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = lenouvelliste_app/lenouvelliste_app.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development: Jean-Max Chauvet (F9F9RV2RY8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Jean-Max Chauvet (F9F9RV2RY8)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.59.0",
+					"$(PROJECT_DIR)/Pods/OneSignal/iOS_SDK/OneSignalSDK/Framework",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -769,8 +836,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lenouvellistecompany.lenouvelliste;
 				PRODUCT_NAME = lenouvelliste_app;
-				PROVISIONING_PROFILE_SPECIFIER = Lenouvellistenewdevstanley;
-				SWIFT_OBJC_BRIDGING_HEADER = "lenouvelliste_app-Bridging-Header.h";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Documents/Pankaj_Data/All_Projects/React_Native_Project/lenouvelliste_app/ios/lenouvelliste_app-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -786,14 +853,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_ENTITLEMENTS = lenouvelliste_app/lenouvelliste_app.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development: Jean-Max Chauvet (F9F9RV2RY8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Jean-Max Chauvet (F9F9RV2RY8)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.59.0",
+					"$(PROJECT_DIR)/Pods/OneSignal/iOS_SDK/OneSignalSDK/Framework",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -846,8 +915,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lenouvellistecompany.lenouvelliste;
 				PRODUCT_NAME = lenouvelliste_app;
-				PROVISIONING_PROFILE_SPECIFIER = Lenouvellistenewdevstanley;
-				SWIFT_OBJC_BRIDGING_HEADER = "lenouvelliste_app-Bridging-Header.h";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Documents/Pankaj_Data/All_Projects/React_Native_Project/lenouvelliste_app/ios/lenouvelliste_app-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -866,6 +935,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.59.0",
@@ -905,6 +975,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.59.0",
@@ -959,8 +1030,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development: Jean-Max Chauvet (F9F9RV2RY8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Jean-Max Chauvet (F9F9RV2RY8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -984,7 +1055,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDevelopmentPro;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1017,8 +1088,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Le Nouvelliste (22BFZL9Q9J)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Le Nouvelliste (22BFZL9Q9J)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 22BFZL9Q9J;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1034,7 +1105,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE_SPECIFIER = LenouvellisteDistributionPro;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1043,11 +1114,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "lenouvelliste_appTests" */ = {
+		043B6F2C255A731F00E1763F /* Build configuration list for PBXNativeTarget "lenouvelliste_appTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				00E356F61AD99517003FC87E /* Debug */,
-				00E356F71AD99517003FC87E /* Release */,
+				043B6F2D255A731F00E1763F /* Debug */,
+				043B6F2E255A731F00E1763F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

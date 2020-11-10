@@ -1,18 +1,19 @@
-import React, { Component } from "react";
-import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
+import React, {Component} from 'react';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LoginNavigator from './loginFlow/LoginNavigator';
-import BreakingNavigator from "./breaking/BreakingNavigator";
-import CitizenNavigator from "../screens/citizen/CitizenNavigator";
-import HomeNavigator from "../screens/home/HomeNavigator";
-import SelectionNavigator from './selection/SelectionNavigator'
+import BreakingNavigator from './breaking/BreakingNavigator';
+import CitizenNavigator from '../screens/citizen/CitizenNavigator';
+import HomeNavigator from '../screens/home/HomeNavigator';
+import SelectionNavigator from './selection/SelectionNavigator';
 import MenuNavigator from './menu/MenuNavigator';
+import SplashScreen from './loginFlow/components/Splash';
 
 const getScreenRegisteredFunctions = navState => {
-  // When we use stack navigators. 
+  // When we use stack navigators.
   // Also needed for react-navigation@2
-  const { routes, index, params } = navState;
+  const {routes, index, params} = navState;
 
   if (navState.hasOwnProperty('index')) {
     return getScreenRegisteredFunctions(routes[index]);
@@ -21,78 +22,76 @@ const getScreenRegisteredFunctions = navState => {
   else {
     return params;
   }
-}
+};
 
 const bottomTabNavigator = createBottomTabNavigator(
-
-    {
-      Home:  {
-        screen: HomeNavigator,
-        navigationOptions: {
-          title: "Aujourd'hui",
-        },
+  {
+    Home: {
+      screen: HomeNavigator,
+      navigationOptions: {
+        title: "Aujourd'hui",
       },
-      
-      Breaking: {
-        screen: BreakingNavigator,
-        navigationOptions: {
-          title: "À la minute",
-        },
-      },
-      Newspaw: CitizenNavigator,
-      Favoris: SelectionNavigator,
-      Menu: MenuNavigator,
     },
-    {
-      defaultNavigationOptions: ({ navigation }) => (
-        {
-        tabBarIcon: ({ focused, horizontal, tintColor }) => {
-          const { routeName } = navigation.state;
-  
-          let iconName;
-          if (routeName === "Home") {
-            iconName = `home${focused ? "" : "-outline"}`;
-          } else if (routeName === "Breaking") {
-            iconName = `bell${focused ? "" : "-outline"}`;
-          } else if (routeName === "Newspaw") {
-            iconName = `comment${focused ? "" : "-outline"}`;
-          } else if (routeName === "Favoris") {
-            iconName = `bookmark${focused ? "" : "-outline"}`;
-          } else if (routeName === "Menu") {
-            iconName = `menu${focused ? "" : ""}`;
-          }
-  
-          // You can return any component that you like here!
-          return <Ionicons name={iconName} size={25} color={tintColor} />;
+
+    Breaking: {
+      screen: BreakingNavigator,
+      navigationOptions: {
+        title: 'À la minute',
+      },
+    },
+    Newspaw: CitizenNavigator,
+    Favoris: SelectionNavigator,
+    Menu: MenuNavigator,
+  },
+  {
+    defaultNavigationOptions: ({navigation}) => ({
+      tabBarIcon: ({focused, horizontal, tintColor}) => {
+        const {routeName} = navigation.state;
+
+        let iconName;
+        if (routeName === 'Home') {
+          iconName = `home${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Breaking') {
+          iconName = `bell${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Newspaw') {
+          iconName = `comment${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Favoris') {
+          iconName = `bookmark${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Menu') {
+          iconName = `menu${focused ? '' : ''}`;
         }
-      }),
-      tabBarOptions: {
-        activeTintColor: "#267DEA",
-        inactiveTintColor: "gray",
-        style: {
-          paddingTop: 5,
-          paddingBottom:5
-        }
-      }
-    }
-  );
 
-  const AppNavigator = createStackNavigator(
-    {
-      login: {
-        screen: LoginNavigator,
+        // You can return any component that you like here!
+        return <Ionicons name={iconName} size={25} color={tintColor} />;
       },
-      tabs: {
-        screen: bottomTabNavigator,
+    }),
+    tabBarOptions: {
+      activeTintColor: '#267DEA',
+      inactiveTintColor: 'gray',
+      style: {
+        paddingTop: 5,
+        paddingBottom: 5,
       },
     },
-    {
-      initialRouteName: 'login',
-      headerMode: 'none',
+  },
+);
+
+const AppNavigator = createStackNavigator(
+  {
+    splash: {
+      screen: SplashScreen,
     },
-  );
-  
-  export default AppNavigator;
+    login: {
+      screen: LoginNavigator,
+    },
+    tabs: {
+      screen: bottomTabNavigator,
+    },
+  },
+  {
+    initialRouteName: 'splash',
+    headerMode: 'none',
+  },
+);
 
-
-
+export default AppNavigator;

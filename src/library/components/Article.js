@@ -20,7 +20,6 @@ import {connect} from 'react-redux';
 import Bookmark from 'library/components/Bookmark';
 import Share from 'library/components/Share';
 import ImageLoad from 'react-native-image-placeholder';
-import Nophoto from 'library/components/nophoto';
 
 //Realm
 import Realm from 'realm';
@@ -53,7 +52,6 @@ class Article extends React.Component {
         },
       ],
     });
-    
 
     dbData = realm.objects('book_news');
 
@@ -88,7 +86,7 @@ class Article extends React.Component {
 
     const time = moment(date || moment.now()).fromNow();
     moment.locale('fr');
-    
+
     const {navigate} = this.props;
 
     var bookmarkedArticle = realm
@@ -97,79 +95,72 @@ class Article extends React.Component {
     let alreadyBookmarked = bookmarkedArticle.length > 0;
 
     return (
-      
-      <View>
-        <TouchableHighlight
-          onPress={() =>
-            navigate('News', {
-              id: saveArticle.id,
-              surTitle: surtitre,
-              title: titre,
-              headline: headline,
-              body: article,
-              photo: photo,
-              date: date,
-              author: author,
-              url: url,
-              booked: this.state.isBookmarked,
-              nophoto: nophoto,
-            })
-          }>
-          <View style={styles.container}>
-            <View style={{backgroundColor: '#FFFF', marginBottom:10}}>
-              <View style={styles.articleContainer}>
-                <View>
-                  <Text style={styles.articleSurtitle}>{surtitre}</Text>
+      <TouchableHighlight
+        onPress={() =>
+          navigate('News', {
+            id: saveArticle.id,
+            surTitle: surtitre,
+            title: titre,
+            headline: headline,
+            body: article,
+            photo: photo,
+            date: date,
+            author: author,
+            url: url,
+            booked: this.state.isBookmarked,
+            nophoto: nophoto,
+          })
+        }>
+        <View style={styles.container}>
+          <View style={{backgroundColor: '#FFFF', marginBottom: 10}}>
+            <View style={styles.articleContainer}>
+              <View style={{flex: 1}}>
+                <Text style={styles.articleSurtitle}>{surtitre}</Text>
 
-                  <Text style={styles.articleTitle}>{titre}</Text>
+                <Text style={styles.articleTitle}>{titre}</Text>
 
-                  <View style={{flex: 2, flexDirection: 'row'}}>
-                    <View>
-                      <Text style={styles.articleTag}>
-                        {rubrique} . {time}
-                      </Text>
-                    </View>
-
-                    <View style={{marginRight: 10}}>
-                      {/* <TouchableOpacity onPress={()=>this.onBookmarkClicked(saveArticle)}> */}
-                      <TouchableOpacity
-                        onPress={() => {
-                          this.onBookmarkClicked(saveArticle);
-                          Vibration.vibrate();
-                        }}>
-                        <Text>
-                          <MaterialCommunityIcons
-                            name={
-                              alreadyBookmarked
-                                ? 'bookmark'
-                                : 'bookmark-outline'
-                            }
-                            size={25}
-                            color={alreadyBookmarked ? 'red' : '#808080'}
-                          />
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-
-                    <View>
-                      <Share titre={titre} url={url} />
-                    </View>
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.articleTag}>
+                      {rubrique} . {time}
+                    </Text>
                   </View>
-                </View>
 
-                <View style={styles.articleImage}>
-                  <ImageLoad
-                    style={{width: 80, height: 80}}
-                    placeholderSource={require('../../../src/res/images/noimage.jpg')}
-                    loadingStyle={{size: 'large', color: 'blue'}}
-                    source={{uri: photo || nophoto}}
-                  />
+                  <View style={{marginRight: 10}}>
+                    {/* <TouchableOpacity onPress={()=>this.onBookmarkClicked(saveArticle)}> */}
+                    <TouchableOpacity
+                      onPress={() => {
+                        this.onBookmarkClicked(saveArticle);
+                        Vibration.vibrate();
+                      }}>
+                      <Text>
+                        <MaterialCommunityIcons
+                          name={
+                            alreadyBookmarked ? 'bookmark' : 'bookmark-outline'
+                          }
+                          size={25}
+                          color={alreadyBookmarked ? 'red' : '#808080'}
+                        />
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <Share titre={titre} url={url} />
                 </View>
+              </View>
+
+              <View style={styles.articleImage}>
+                <ImageLoad
+                  style={{width: 80, height: 80}}
+                  placeholderSource={require('../../../src/res/images/noimage.jpg')}
+                  loadingStyle={{size: 'large', color: 'blue'}}
+                  source={{uri: photo || nophoto}}
+                />
               </View>
             </View>
           </View>
-        </TouchableHighlight>
-      </View>
+        </View>
+      </TouchableHighlight>
     );
   }
   onBookmarkClicked = article => {
@@ -243,7 +234,8 @@ const styles = StyleSheet.create({
   articleContainer: {
     flex: 1,
     paddingTop: 20,
-    paddingLeft: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     paddingBottom: 10,
     flexDirection: 'row',
     marginBottom: 8,
@@ -283,8 +275,9 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   articleImage: {
-    paddingLeft: 30,
+    paddingLeft: 20,
     paddingTop: 20,
+    
   },
 
   preview: {

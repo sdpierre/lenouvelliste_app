@@ -15,29 +15,29 @@ import {
   ImageBackground,
   Dimensions,
   AsyncStorage,
-  Alert,
+  Alert
 } from 'react-native';
 import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants';
-import {setUserInfo} from '../../../redux/actions';
-import {connect} from 'react-redux';
+import { setUserInfo } from '../../../redux/actions';
+import { connect } from 'react-redux';
 import {
   TextField,
   FilledTextField,
   OutlinedTextField,
 } from 'react-native-material-textfield';
-import {Container, Header, Body, Right, Left, Content} from 'native-base';
+import { Container, Header, Body, Right, Left, Content } from 'native-base';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Button, Input} from 'react-native-elements';
+import { Button, Input } from 'react-native-elements';
 
-import {Form, Item, Label} from 'native-base';
+import { Form, Item, Label } from 'native-base';
 import LogoTitle from 'library/components/logo';
-import {Colors} from '../../../styles';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { Colors } from '../../../styles';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 //Dimensions
 var deviceWidth = Dimensions.get('window').width;
@@ -53,41 +53,39 @@ class Login extends ValidationComponent {
     this.state = {
       email: '',
       password: '',
-      isPasswordSecured: true,     
-      userId:'',
-      ActivityIndicator:false
+      isPasswordSecured: true,
+      userId: '',
+      ActivityIndicator: false
     };
   }
 
-  
-  componentDidMount(){
-   console.log('Login component mount')
+
+  componentDidMount() {
+    console.log('Login component mount')
     AsyncStorage.getItem("loggedInUserDetails").then((value) => {
       if (value != null) {
-          var dicLoginData = JSON.parse(value);
-          console.log('userInfo====>', dicLoginData)
+        var dicLoginData = JSON.parse(value);
+        console.log('userInfo====>', dicLoginData)
 
-          this.setState({
-              userId:dicLoginData.id
-          });
-          
-          if (this.state.userId != ''){
+        this.setState({
+          userId: dicLoginData.id
+        });
 
-            this.props.navigation.navigate('Home')
-          }else{
-            
-          }
-         console.log("Login right condition",this.state.userId)
+        if (this.state.userId != '') {
 
-      }else{
+          this.props.navigation.navigate('Home')
+        } else {
 
-          console.log("Login else condition",this.state.userId)
+        }
+        console.log("Login right condition", this.state.userId)
+
+      } else {
+
+        console.log("Login else condition", this.state.userId)
 
       }
-  }).done(
-  );
-
-
+    }).done(
+    );
   }
 
   handlEmail = text => {
@@ -103,28 +101,28 @@ class Login extends ValidationComponent {
 
   login = () => {
     this.validate({
-      email: {required: true},
+      email: { required: true },
     });
 
     if (this.getErrorMessages()) {
       alert(LeneovellisteConstants.kEmailEmpty);
     } else {
       this.validate({
-        email: {email: true},
+        email: { email: true },
       });
 
       if (this.getErrorMessages()) {
         alert(LeneovellisteConstants.kEmailInvalid);
       } else {
         this.validate({
-          password: {required: true},
+          password: { required: true },
         });
 
         if (this.getErrorMessages()) {
           alert(LeneovellisteConstants.kPasswordEmpty);
         } else {
           this.validate({
-            password: {minlength: 5},
+            password: { minlength: 5 },
           });
 
           if (this.getErrorMessages()) {
@@ -138,14 +136,14 @@ class Login extends ValidationComponent {
             console.log(loginParams);
 
             this.loginAPICall(loginParams);
-           
+
           }
         }
       }
     }
   };
 
-  
+
   loginAPICall(params) {
     var user = {};
 
@@ -168,21 +166,14 @@ class Login extends ValidationComponent {
           this.props.navigation.navigate('Menu', {
             userInfo: user,
           });
-          // const resetAction = NavigationActions.reset({
-          //   index: 0,
-          //   actions: [
-          //     NavigationActions.navigate({routeName: 'Home'})
-          //   ],
-          //   key: null
-          // })
-          // dispatch(resetAction)
-    
+
+
         } else {
           console.log('Login error', msg);
           alert(msg);
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         // console.log(error);
         alert(error);
         console.log('In case of undefined');
@@ -195,38 +186,86 @@ class Login extends ValidationComponent {
 
     const iconpass = () => (
       <Icon
-      style={styles.icon}
-      name={
-        this.state.isPasswordSecured
-          ? 'visibility-off'
-          : 'visibility'
-      }
-      size={25}
-      color="#D3D3D3"
-      onPress={() => {
-        this.setState({
-          isPasswordSecured: !this.state.isPasswordSecured,
-        });
-      }}
-    />
-      );
+        style={styles.icon}
+        name={
+          this.state.isPasswordSecured
+            ? 'visibility-off'
+            : 'visibility'
+        }
+        size={25}
+        color="#D3D3D3"
+        onPress={() => {
+          this.setState({
+            isPasswordSecured: !this.state.isPasswordSecured,
+          });
+        }}
+      />
+    );
 
     return (
       <Container>
-      <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-        <Image
-          style={styles.logo}
-          source={{
-            uri: 'https://images.lenouvelliste.com/app/logo.png',
-         }}
-        />
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Image
+            style={styles.logo}
+            source={{
+              uri: 'https://images.lenouvelliste.com/app/logo.png',
+            }}
+          />
 
-      {/* <Text style={styles.loginText}>Connectez-vous</Text> */}
-      
-      <View style={{width:300}}>
-     
+          {/* <Text style={styles.loginText}>Connectez-vous</Text> */}
+
+          <View style={{ width: 300 }}>
+
             <View>
-              <TextField
+
+
+              <TextInput style={{height: 50, borderBottomColor: '#D8D8D8',
+        borderBottomWidth: 1,}}
+                placeholder="E-mail, nom d'utilisateur"
+                tintColor='#0082C6'
+                placeholderTextColor='#9b9b9b'
+                keyboardType={'email-address'}
+                onChangeText={this.handlEmail}
+                value={this.state.email}
+                returnKeyType={'next'}
+                onSubmitEditing={() => {
+                  this.secondTextInput.focus();
+                }}
+                blurOnSubmit={false}
+                autoCapitalize='none'
+              />
+              {/* <TextInput
+                placeholder="E-mail, nom d'utilisateur"
+                tintColor='#0082C6'
+                placeholderTextColor='#9b9b9b'
+                keyboardType={'email-address'}
+                onChangeText={(val) => this.handlEmail}
+                value={this.state.email}
+                returnKeyType={'next'}
+                onSubmitEditing={() => {
+                  //this.secondTextInput.focus();
+                }}
+                blurOnSubmit={false}
+                autoCapitalize='none'
+              /> */}
+              <TextInput style={{height: 50, borderBottomColor: '#D8D8D8',
+        borderBottomWidth: 1,}}
+                placeholder="Mot de passe"
+                tintColor="#0082C6"
+                renderRightAccessory={iconpass}
+                ref={input => {
+                  this.secondTextInput = input;
+                }}
+                 secureTextEntry={this.state.isPasswordSecured}
+                // secureTextEntry={true}
+                placeholderTextColor="#9b9b9b"
+                onChangeText={this.handlePassword}
+                value={this.state.password}
+              />
+
+
+
+              {/* <TextInput
                 label="E-mail, nom d'utilisateur"
                 tintColor="#0082C6"
                 placeholderTextColor="#9b9b9b"
@@ -241,24 +280,12 @@ class Login extends ValidationComponent {
                 autoCapitalize="none"
               />
 
-              <TextField
-                label="Mot de passe"
-                tintColor="#0082C6"
-                renderRightAccessory={iconpass}
-                ref={input => {
-                  this.secondTextInput = input;
-                }}
-                 secureTextEntry={this.state.isPasswordSecured}
-                // secureTextEntry={true}
-                placeholderTextColor="#9b9b9b"
-                onChangeText={this.handlePassword}
-                value={this.state.password}
-              />
-            
-              <Button style={{marginTop:40}} title="Je me connecte" onPress={this.login} />
-              <Button type="outline" style={{marginTop:20}} title="S'inscrire" onPress={this.login} onPress={() => {
-                  this.props.navigation.navigate('Register');
-                }} />
+              
+             */}
+              <Button style={{ marginTop: 40 }} title="Je me connecte" onPress={this.login} />
+              <Button type="outline" style={{ marginTop: 20 }} title="S'inscrire" onPress={this.login} onPress={() => {
+                this.props.navigation.navigate('Register');
+              }} />
 
               <TouchableOpacity
                 style={{
@@ -270,13 +297,13 @@ class Login extends ValidationComponent {
                   console.log('>>>Forgot Pressed<<<');
                   this.props.navigation.navigate('Forgot');
                 }}>
-                  
-                <Text style={styles.forgot}> Mot de passe oublié ? </Text>
-              </TouchableOpacity> 
 
-      </View>
-      </View>
-      </View>
+                <Text style={styles.forgot}> Mot de passe oublié ? </Text>
+              </TouchableOpacity>
+
+            </View>
+          </View>
+        </View>
       </Container>
     );
   }
@@ -309,11 +336,11 @@ const styles = StyleSheet.create({
     //height:deviceHeight+64
   },
   logo: {
-    height:80,
-    width:280,
+    height: 80,
+    width: 280,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:30
+    marginBottom: 30
   },
   input: {
     width: deviceWidth - 70,

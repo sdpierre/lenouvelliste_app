@@ -44,11 +44,11 @@ class CitizenFloatingAction extends Component {
                 switch (name){
                   case "bt_photo":
                     console.log('bt_photo')
-                    ImagePicker.openPicker({
+                    ImagePicker.openCamera({
                       width: 300,
                       height: 400,
                       // cropping: true,
-                      includeBase64:true,
+                     // includeBase64:true,
                       mediaType:'photo'
                     }).then(image => {
 
@@ -69,7 +69,8 @@ class CitizenFloatingAction extends Component {
                       }).then(video => {
 
                          console.log("Video",video);
-                        navigate('CitizenSaveScreen')
+                        navigate('CitizenSaveScreen',{videoData:video
+                        });
 
                       });
                       break;
