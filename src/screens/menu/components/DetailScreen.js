@@ -59,8 +59,6 @@ class DetailScreen extends React.Component {
 />
           <View style={Spacing.container}> 
           
-
-
            <Text style={Typography.headline}>{category}</Text>
            <Text style={Typography.xlargeTitle}>{title}</Text>
 

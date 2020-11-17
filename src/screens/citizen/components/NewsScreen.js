@@ -1,5 +1,16 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, Dimensions,TouchableHighlight,TouchableOpacity, Modal, Linking } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  Dimensions,
+  TouchableHighlight,
+  TouchableOpacity,
+  Modal,
+  Linking,
+  Alert,
+} from 'react-native';
 
 import {setAppInfo} from '../../../redux/actions';
 import {connect} from 'react-redux';
@@ -13,16 +24,21 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import FitImage from 'react-native-fit-image';
 import Video from 'react-native-video';
 import MapView, {Marker} from 'react-native-maps';
+import Geolocation from 'react-native-geolocation-service';
 
 import { Typography, Colors, Spacing } from "../../../styles";
 import { Container, Header, Left, Body, Right, Icon, Title, Content, ListItem, List} from 'native-base';
 import { Button} from 'react-native-elements'
+
+import Geocoder from 'react-native-geocoding';
+
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE = 0;
 const LONGITUDE = 0;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
 class CitizenNewsScreen extends React.Component {
 
   constructor(props){
@@ -47,10 +63,38 @@ class CitizenNewsScreen extends React.Component {
       long: this.props.navigation.getParam('long'),
       lat: this.props.navigation.getParam('lat'),
       duration: 0,
-      isVisible: false
+      isVisible: false,
+      address:''
     }
 
   } 
+
+
+  componentDidMount(){
+    Geocoder.init("AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk"); // use a valid API key
+
+    this.wathcId = Geolocation.getCurrentPosition(position => {
+      const {latitude, longitude} = position.coords;
+      this.getAddressFromLatLong(latitude,longitude)
+    });
+
+  }
+
+  getAddressFromLatLong(lat,long){
+
+    console.log('lat',lat)
+    console.log('long',long)
+    Geocoder.from(41.89, 12.49)
+		.then(json => {
+       var addressComponent = json.results[0].address_components[0];
+      console.log('Address',addressComponent);
+      this.setState({
+        address:addressComponent.long_name
+      })
+		})
+		.catch(error => console.warn(error));
+
+  }
 
   // hide show modal
   displayModal(show){
@@ -220,7 +264,7 @@ return (
                     onPress={() => {
                       this.displayModal(true);
                     }}>
-           <Text style={styles.CitizennewsLocationStyle}>Location Goes Here, click to see on map</Text></TouchableOpacity>
+           <Text style={styles.CitizennewsLocationStyle}>{this.state.address}</Text></TouchableOpacity>
            <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
 
           

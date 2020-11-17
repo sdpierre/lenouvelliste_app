@@ -1,5 +1,16 @@
-import React, { Component } from 'react';
-import { TouchableWithoutFeedback, ActivityIndicator, NativeModules, Platform, StyleSheet, Text, Modal, View, TouchableOpacity, TextInput, Image, ScrollView, ImageBackground, Dimensions, AsyncStorage, Alert,FlatList } from 'react-native';
+import React, {Component} from 'react';
+import {
+  Platform,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Image,
+  PermissionsAndroid,
+  Dimensions,
+  AsyncStorage,
+  Alert,
+  FlatList,
+} from 'react-native';
 import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
@@ -23,7 +34,15 @@ import { FloatingAction } from "react-native-floating-action";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //Image Picker
 import ImagePicker from 'react-native-image-crop-picker';
+import {
+    TextField,
+    FilledTextField,
+    OutlinedTextField,
+  } from 'react-native-material-textfield';
+  import AnimatedLoader from "react-native-animated-loader";
+
 import { withNavigation } from 'react-navigation';
+//import RNThumbnail from 'react-native-thumbnail-fixed';
 
 
 //Dimensions
@@ -34,25 +53,92 @@ var deviceHeight = (Dimensions.get('window').height);
 var buttonHeight = Platform.OS == 'android' ? 50 : 55
 var elementSpacing = Platform.OS == 'android' ? 12 : 19
 var imageData = {};
+var videoData = {};
 
+import Geolocation from 'react-native-geolocation-service';
 
 export default class CitizenSaveScreen extends ValidationComponent {
     constructor(props) {
-        super(props)
+    super(props);
+
+    global.lat = '';
+    global.long = '';
 
         this.state ={ 
             title:'',
             description:'',
-            // imageData:{},
             arrPhotos:[],
             videoData:'',
             showAddButton:true,
-            userId:''
-
+            userId:'',
+            visible: false,
         }
     }
 
     componentDidMount(){
+
+        if(Platform.OS == 'ios'){
+
+
+            Geolocation.getCurrentPosition(
+                position => {
+                    
+                      global.lat = position.coords.latitude;
+                      global.long = position.coords.longitude;
+              },
+                error => {
+                  // See error code charts below.
+                  console.log(error.code, error.message);
+                },
+                {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+              );
+  
+              return true;
+            
+
+        }else{
+
+            async function requestLocationPermission() {
+                try {
+                  const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                    {
+                      title: 'Location Access Required',
+                      message: 'This App needs to Access your location',
+                    },
+                  );
+                  if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                  
+                    
+                    
+                    Geolocation.getCurrentPosition(
+                      position => {
+                          
+                            global.lat = position.coords.latitude;
+                            global.long = position.coords.longitude;
+                        console.log(global.lat+" "+global.long);
+                    },
+                      error => {
+                        // See error code charts below.
+                        console.log(error.code, error.message);
+                      },
+                      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+                    );
+        
+                    return true;
+                  } else {
+                    alert('Permission Denied');
+                    return false;
+                  }
+                } catch (err) {
+                  console.warn(err);
+                  return false;
+                }
+              }
+              requestLocationPermission();
+        }
+        
+    
         AsyncStorage.getItem("loggedInUserDetails").then((value) => {
             if (value != null) {
                 var dicLoginData = JSON.parse(value);
@@ -72,12 +158,29 @@ export default class CitizenSaveScreen extends ValidationComponent {
         );
 
         const { navigation } = this.props;
-        imageData = navigation.getParam('imageData'); 
 
-        console.log('received image imagedata',imageData);
+        if(this.props.navigation.state.params.imageData != undefined){
+            console.log('In image condition');
+            imageData = navigation.getParam('imageData'); 
 
-        this.state.arrPhotos.push(imageData)
-        // this.getArrayOfImages();
+            console.log('received image imagedata',imageData);
+    
+            this.state.arrPhotos.push(imageData)
+    
+        }else{
+
+            console.log('In video condition')
+
+            this.setState({
+                showAddButton:false
+            })
+
+            videoData = navigation.getParam('videoData'); 
+           
+
+        }
+     
+          
 
     }
 
@@ -101,7 +204,6 @@ export default class CitizenSaveScreen extends ValidationComponent {
     }
 
     sendClick = () =>{        
-    
         this.validate({
         title:{required:true}
       })
@@ -120,21 +222,8 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
           }else{
 
-              var citizenPostParams = {
-                  'user_id': this.state.userId  ,
-                  'category_id': 1,
-                  'title': this.state.title,
-                  'description': this.state.description,
-                  'lat': '27.2038',
-                  'long': '77.5011',
-                //   'image':this.state.arrPhotos,
-                  'video':''
-
-              }
-
-                console.log(citizenPostParams);
-
-                this.apiCallToSendCitizenPost(citizenPostParams);
+                
+                this.apiCallToSendCitizenPost();
 
           }
 
@@ -143,20 +232,59 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
     }
 
-    apiCallToSendCitizenPost=(params)=>{    
+    apiCallToSendCitizenPost=()=>{  
+        
+        this.setState({
+            visible: !this.state.visible
+          });
+    
 
         const formData = new FormData()
 
-         this.state.arrPhotos.forEach((element, i) => {
-            const newFile = {
-                uri:element.path,type:element.mime, name:element.path.split("/").pop()
-            }
-            formData.append('image[]',newFile)
 
-         });
+        if(this.state.arrPhotos.length > 0){
+
+            var params = {
+                'user_id': this.state.userId,
+                'category_id': 1,
+                'title': this.state.title,
+                'description': this.state.description,
+                'lat': global.lat,
+                'long': global.long,
+                'video':''
+
+            }
+
+            this.state.arrPhotos.forEach((element, i) => {
+                const newFile = {
+                    uri:element.path,type:element.mime, name:element.path.split("/").pop()
+                }
+                formData.append('image[]',newFile)
+    
+             });
+    
+        }else{
+
+            var params = {
+                'user_id': this.state.userId  ,
+                'category_id': 1,
+                'title': this.state.title,
+                'description': this.state.description,
+                'lat': global.lat,
+                'long': global.long,
+                'image[]':[]
+            }
+
+            const newFile = {
+                uri:videoData.path,type:videoData.mime, name:videoData.path.split("/").pop()
+            }
+            formData.append('video',newFile)
+
+        }
+
+        console.log(params);
 
         console.log("data", formData);
-        
 
         const config = {
             method: 'post',
@@ -173,7 +301,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
         axios(config)
 
             .then(response => {
-
+        
                 console.log("Citizen Post Response",response.data);
 
                 let msg = response.data.message;
@@ -185,7 +313,11 @@ export default class CitizenSaveScreen extends ValidationComponent {
                          msg,
                         [
                           {text: 'OK', onPress:()=>{
-        
+
+                            this.setState({
+                                visible:false
+                              });
+                    
                             this.goToCitizenProgress()
                               
                         }
@@ -194,8 +326,11 @@ export default class CitizenSaveScreen extends ValidationComponent {
                         { cancelable: false }
                       )
                       
-
                 } else {
+
+                    this.setState({
+                        visible:false
+                      });
 
                     console.log("Citizen post error",msg)
                     alert(msg);
@@ -203,49 +338,15 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
             })
             .catch(function (error) {
-
                 console.log(error);
                 alert(error.response)
+                this.setState({
+                    visible:false
+                  });        
+
                 console.log('In case of undefined')
     
             });
-
-
-        //     axios.post(LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kCITIZENPOST_API, params)
-    
-        //   .then(response => {
-    
-            //  console.log("Citizen Post Response",response);
-        //     let msg = response.data.message;
-        //     if (response.data.status == true) {
-
-        //     Alert.alert(
-        //         'Message',
-        //          msg,
-        //         [
-        //           {text: 'OK', onPress:()=>{
-
-        //             this.goToCitizenProgress()
-                      
-        //         }
-        //          },
-        //         ],
-        //         { cancelable: false }
-        //       )
-    
-        //     } else {
-    
-        //       console.log("Citizen post error",msg)
-        //       alert(msg);
-             
-        //     }
-    
-        //   })
-        //   .catch(function (error) {
-    
-    
-        //   });
-    
 
     }
 
@@ -261,7 +362,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
             width: 300,
             height: 400,
             // cropping: true,
-            includeBase64:true,
+           // includeBase64:true,
             mediaType:'photo'
           }).then(image => {
 
@@ -328,7 +429,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
     
 
     render() {
-        // console.log('array of photos in render',this.state.arrPhotos)
+        const { visible } = this.state;
         return (
                 <Container>
                     <Header style={{ backgroundColor: 'white', }}>
@@ -351,7 +452,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
                           onPress={this.addMoreImages} style={{alignSelf:'flex-end'}}>
                      <AntDesign name="pluscircleo" size={30} style={Colors.gray} /> 
                      </TouchableOpacity>:null}
-                    <FlatList 
+                     {this.state.arrPhotos.length>0?<FlatList 
                         horizontal
                         data={this.state.arrPhotos}
                         renderItem={this.renderItem}
@@ -360,48 +461,48 @@ export default class CitizenSaveScreen extends ValidationComponent {
                         style={{width:deviceWidth-70,height:110}}
 
                     />
+:<TouchableOpacity>
+<View style={styles.videoView}>
+<Image source={require('../../../library/images/blackBg.png')} style={{height:100,width:100}}/> 
+<Image source={require('../../../library/images/playIcon.png')} style={{height:40,width:40,position:'absolute'}}/> 
+</View>
+</TouchableOpacity>
+}
                     </View>
+                    
+                <TextField
+                label="Title"
+                tintColor="#0082c5"
+                placeholderTextColor="#9b9b9b"
+                keyboardType={'default'}
+                onChangeText={this.handlTitle}
+                value={this.state.title}
+                // style={styles.input}
+                returnKeyType={'next'}
 
+              />
 
-                    <View style ={{flexDirection:'column',marginBottom:10}}>
-                     <Text style ={{color:'lightgray',fontSize:16,fontFamily:'Gotham-book'}}>Title</Text>
-                    <TextInput
-                                    placeholder="Title"
-                                    placeholderTextColor='#9b9b9b'
-                                    keyboardType={'default'}
-                                    onChangeText={this.handlTitle}
-                                    value={this.state.title}
-                                    style={styles.input}
-                                    returnKeyType='next'
-                    />
-                    </View>
+                <TextField
+                label="Description"
+                tintColor="#0082c5"
+                placeholderTextColor="#9b9b9b"
+                keyboardType={'default'}
+                onChangeText={this.handleDescription}
+                value={this.state.description}
+                // style={styles.input}
+                returnKeyType={'next'}
 
-                    <View style ={{flexDirection:'column'}}>
-                     <Text style ={{color:'lightgray',fontSize:16,fontFamily:'Gotham-book'}}>Description</Text>
-                    <TextInput
-                                    placeholder="Description"
-                                    placeholderTextColor='#9b9b9b'
-                                    keyboardType={'default'}
-                                    onChangeText={this.handleDescription}
-                                    value={this.state.description}
-                                    style={styles.input}
-                                    multiline={true}
-                                    numberOfLines={4}
-                                    returnKeyType='done'
-                                    autoCapitalize = 'none'
-                    />
-
-                    </View>
+              />
 
                     <Button
                             title="SEND"
-                            buttonStyle={{backgroundColor:'red', marginTop:20}}
+                            buttonStyle={{marginTop:20}}
                             onPress={this.sendClick}
                             />
                     
                     <Button
                             title="SAVE FOR LATER"
-                            buttonStyle={{backgroundColor:'red', marginTop:20}}
+                             buttonStyle={{marginTop:20}}
                             onPress={this.goToCitizenProgress}
                             />
 
@@ -409,6 +510,14 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
                             </View>
                         </View>
+                        <AnimatedLoader
+        visible={visible}
+        overlayColor="rgba(255,255,255,0.75)"
+        source={require("../../../utils/loader.json")}
+        animationStyle={styles.lottie}
+        speed={1}
+      />
+
                     </Content>
                 </Container>
 
@@ -485,6 +594,18 @@ const styles = StyleSheet.create({
         marginLeft:5,
         marginRight:5
       },
-  
 
+      videoView: {
+        justifyContent: 'center',
+        borderRadius: 2,
+        marginLeft:5,
+        marginRight:5,
+        height:100,
+        width:100,
+        alignItems:'center'
+      },
+      lottie: {
+        width: 100,
+        height: 100
+      }
 });

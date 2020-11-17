@@ -8,9 +8,11 @@ import ForgotScreen from '../loginFlow/components/Forgot'
 import ForgotPWOTPScreen from '../loginFlow/components/ForgotPWOTP'
 import ResetPasswordScreen from '../loginFlow/components/ResetPW'
 import ForgotDoneScreen from '../loginFlow/components/ForgotDone'
-
+//import SplashScreen from '../loginFlow/components/Splash'
 const LoginStackNav = createStackNavigator({
-    
+    // Splash:{
+    //     screen: SplashScreen
+    // },
     Account: {
         screen: LoginScreen,
         // navigationOptions: ({ navigation }) => ({

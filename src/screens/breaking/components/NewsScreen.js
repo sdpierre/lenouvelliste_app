@@ -1,19 +1,13 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  Modal,
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native';
+import {Text, View} from 'react-native';
 
-import { setAppInfo } from '../../../redux/actions';
-import { connect } from 'react-redux';
+import {setAppInfo} from '../../../redux/actions';
+import {connect} from 'react-redux';
 import moment from 'moment';
 import 'moment/min/locales';
 import HTMLView from 'react-native-htmlview';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Typography, Colors, Spacing } from '../../../styles';
+import {Typography, Colors, Spacing} from '../../../styles';
 import {
   Container,
   Header,
@@ -21,11 +15,7 @@ import {
   Body,
   Right,
   Button,
-  Icon,
-  Title,
   Content,
-  ListItem,
-  List,
 } from 'native-base';
 import Share from 'library/components/Share';
 
@@ -38,20 +28,17 @@ class NewsScreen extends React.Component {
       date: this.props.navigation.getParam('date'),
       category: this.props.navigation.getParam('category'),
       url: this.props.navigation.getParam('url'),
-
-      
     };
   }
 
   render() {
-    const { title } = this.state;
-    const { url } = this.state;
-    const { body } = this.state;
-    const { date } = this.state;
-    const { category } = this.state;
+    const {title} = this.state;
+    const {url} = this.state;
+    const {body} = this.state;
+    const {date} = this.state;
+    const {category} = this.state;
 
     return (
-
       <Container>
         <Header>
           <Left>
@@ -62,8 +49,8 @@ class NewsScreen extends React.Component {
               }}>
               <Ionicons name="close" size={30} style={Colors.gray} />
             </Button>
-            <Body></Body>
-            <Right></Right>
+            <Body />
+            <Right />
           </Left>
           <Right>
             <Share titre={title} url={url} />
@@ -74,7 +61,7 @@ class NewsScreen extends React.Component {
             <Text style={Typography.headline}>{category}</Text>
             <Text style={Typography.xlargeTitle}>{title}</Text>
             <Text style={Typography.subHead}>
-              {( moment(date || moment.now()).fromNow())}
+              {moment(date || moment.now()).fromNow()}
             </Text>
             <HTMLView
               value={'<div>' + body + '</div>'}
@@ -84,7 +71,6 @@ class NewsScreen extends React.Component {
           </View>
         </Content>
       </Container>
-
     );
   }
 }
@@ -100,4 +86,7 @@ const mapDispatchToProps = dispatch => {
     },
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(NewsScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewsScreen);

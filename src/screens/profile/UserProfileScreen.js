@@ -22,7 +22,7 @@ import TextInput from 'react-native-material-textinput'
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../utils/LenouvellisteConstants';
 import { NavigationActions, StackActions } from 'react-navigation';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Image from 'react-native-image-progress';
 import ProgressBar from 'react-native-progress/Bar';
@@ -43,10 +43,8 @@ class UserProfileScreen extends ValidationComponent{
             userName: '',
             fullName:'',
             email: '',
-            // countryName:'',
             town:'',
             arrCountryList: [],
-            // selectedCountryItem:null,
             userId:'',
             avatarPath:'',
             isImageUploaded: false,
@@ -78,7 +76,6 @@ class UserProfileScreen extends ValidationComponent{
 
 
     }          
-
     getUserProfileAPICall = () => {
         var dicGetProfile = {};
 
@@ -421,50 +418,7 @@ class UserProfileScreen extends ValidationComponent{
         })
     }
 
-    // handleCountry = (text) => {
-    //     this.setState({
-    //         countryName: text
-    //     })
-    // }
-
-    handleTown = (text) => {
-        this.setState({
-            town: text
-        })
-    }
-
-  //   openCountryModal = () =>{
-  //       this.setState({
-  //           isCountryModalVisible:true
-  //       })
-  //   }
-
-  // closeCountryModal = () =>{
-  //     this.setState({
-  //     isCountryModalVisible:false
-  //     })
-  // }  
-  
-//   renderItem = ({ item }) => {
-//     return (
-//         <TouchableOpacity onPress={() => this._choosen(item)}>
-//               <View style={profileStyles.flatview}>
-//         <Text style={profileStyles.countryName} key={item.country_name}>{item.country_name}</Text>
-//       </View>
-//       </TouchableOpacity>
-//     );
-// }
-
-// _choosen(selectedItem) {
-//     this.setState({ 
-//         selectedCountryItem:selectedItem.id, 
-//         countryName:selectedItem.country_name
-//     });
-//     this.closeCountryModal()
-//   }
-
-
-    logout = () =>{
+ logout = () =>{
 
         Alert.alert(
             'Message',
@@ -520,12 +474,12 @@ class UserProfileScreen extends ValidationComponent{
       const username = this.state.userName;
         return (
           <Container>
-            <ScrollView>
-            <KeyboardAwareScrollView
+            <ScrollView keyboardShouldPersistTaps="handled">
+           {/*  <KeyboardAwareScrollView
       resetScrollToCoords={{ x: 0, y: 0 }}
 
       scrollEnabled={true}
-    >
+    > */}
               <ImageBackground
                 source={require('../../res/images/bg.png')}
                 style={profileStyles.image}>
@@ -618,6 +572,8 @@ class UserProfileScreen extends ValidationComponent{
               </ImageBackground>
 
               <View style={{padding: 30}}>
+
+                 
                 <Text style={Typography.sectionTitleBlack}>
                   Mon compte
                 </Text>
@@ -661,6 +617,61 @@ class UserProfileScreen extends ValidationComponent{
                   editable={false}
                 />
 
+                  <GooglePlacesAutocomplete
+
+      placeholder={'Search location here'}
+      minLength={2} // minimum length of text to search
+      autoFocus={false}
+      returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+      keyboardAppearance={'light'} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
+      listViewDisplayed='auto'    // true/false/undefined
+      fetchDetails={true}
+      renderDescription={row => row.description} // custom description render
+      onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+         this.setState({
+          town: details.formatted_address,
+         })
+
+      }}
+
+
+      query={{
+        // available options: https://developers.google.com/places/web-service/autocomplete
+        key: 'AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk',
+        language: 'en', // language of the results
+        types: '(cities)' // default: 'geocode'
+      }}
+  
+      // currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+      // currentLocationLabel="Current location"
+      nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+      GoogleReverseGeocodingQuery={{
+        // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+      }}
+      GooglePlacesSearchQuery={{
+        // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+        rankby: 'distance',
+        type: 'cafe'
+      }}
+      
+      GooglePlacesDetailsQuery={{
+        // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
+        fields: 'formatted_address',
+      }}
+
+      filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+    //   predefinedPlaces={[homePlace, workPlace]}
+
+      debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
+
+ 
+   styles={profileStyles.input}
+
+
+/>
+
+             
+
                 <Button
                   style={{marginTop: 20}}
                   title="Valider"
@@ -681,7 +692,7 @@ class UserProfileScreen extends ValidationComponent{
                   </TouchableOpacity>
                 </View>
               </View>
-              </KeyboardAwareScrollView>
+              {/* </KeyboardAwareScrollView> */}
               </ScrollView>
           </Container>
         );
@@ -773,6 +784,19 @@ const profileStyles = StyleSheet.create({
     },
     countryCode: {
       color: 'red',
-    }
+    },
+    input: {
+        width: deviceWidth - 70,
+        padding: 10,
+        height:45,
+        borderWidth: 1.8,
+        borderRadius:5,
+        borderColor: '#D3D3D3',
+        marginBottom: 10,
+        paddingLeft: 15,
+       // color: '#D3D3D3',
+        color:'#000',
+        alignSelf: 'center',
+    },
 
 })

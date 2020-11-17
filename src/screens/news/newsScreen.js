@@ -14,9 +14,8 @@ import Octicons from "react-native-vector-icons/Octicons";
 import FitImage from 'react-native-fit-image';
 import Share from "library/components/Share";
 import { Button } from 'react-native-elements'
-
-
-
+import Pagination from "react-native-snap-carousel";
+import { sliderStyle, sliderWidth, itemWidth } from '../../styles/sliderStyle';
 import { Typography, Colors, Buttons, Spacing } from "../../styles";
 import { Container, Header, Left, Body, Right, Icon, Title, Content, ListItem, List } from 'native-base';
 import IoniconsMaterial from "react-native-vector-icons/MaterialCommunityIcons";
@@ -41,9 +40,30 @@ class NewsScreen extends React.Component {
       url: this.props.navigation.getParam('url'),
       booked: this.props.navigation.getParam('booked'),
       id: this.props.navigation.getParam('id'),
-      nophoto:'https://images.lenouvelliste.com/noimageandroid.jpg'
+      nophoto:'https://images.lenouvelliste.com/noimageandroid.jpg',
+      arrPhotos:[]
     }
   }
+
+
+  componentDidMount(){
+
+    this.state.arrPhotos.push(this.state.photo)
+
+    console.log('Array of photos',this.state.arrPhotos)
+  }
+  
+  _renderItem = ({item, index}) => {
+    return (
+        <View style={styles.slide}>
+          <FitImage
+            source={{ uri: item || '' }}
+            style={Spacing.fitImage}
+          />
+        </View>
+    );
+}
+
 
   render() {
 
@@ -107,10 +127,23 @@ class NewsScreen extends React.Component {
         </Header>
         <Content>
 
-          <FitImage
+          {/* <FitImage
             source={{ uri: photo || nophoto }}
             style={Spacing.fitImage}
-          />
+          /> */}
+
+        <Pagination
+          ref={c => {
+            this._carousel = c;
+          }}
+          data={this.state.arrPhotos}
+          renderItem={this._renderItem}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
+          dotsLength={5}
+          activeDotIndex={1}
+        />
+
           <View style={styles.container}>
 
             <Text style={Typography.headline}>{surTitle}</Text>

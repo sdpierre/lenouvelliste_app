@@ -7,16 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  Platform,
-  AsyncStorage
-} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 
 import {Provider} from 'react-redux';
 import {createReduxContainer} from 'react-navigation-redux-helpers';
@@ -28,29 +19,26 @@ import AppNavigator from './src/screens/AppNavigator';
 //OneSignal
 import OneSignal from 'react-native-onesignal';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+
+import ImagePicker from 'react-native-image-picker';
 
 const AppNav = createReduxContainer(AppNavigator);
 const mapStateToProps = state => ({
   state: state.nav,
 });
 const AppContainer = connect(mapStateToProps)(AppNav);
+console.disableYellowBox = true;
 
 export default class App extends Component {
   constructor(properties) {
     super(properties);
 
-     this.state=({
-      userId:''
-     })
+    this.state = {
+      userId: '',
+    };
 
-    if (Platform.OS == 'ios') {
+  if (Platform.OS == 'ios') {
       console.log('In ios');
       OneSignal.init('3728d7a9-c5b3-4c83-a88d-a085f6765274'); //iOS App ID
     } else {
@@ -68,7 +56,6 @@ export default class App extends Component {
     OneSignal.removeEventListener('ids', this.onIds);
   }
 
-  
   onReceived(notification) {
     console.log('Notification received: ', notification);
   }
@@ -92,7 +79,7 @@ export default class App extends Component {
     const buttons = ['Map', 'Satellite'];
     return (
       <Provider store={store}>
-         <AppContainer/>
+        <AppContainer />
       </Provider>
     );
   }
