@@ -55,8 +55,8 @@ export default class CitizenProgressScreen extends Component {
                         </Body>
                         <Right></Right>
                     </Header>
-                    <Content>
-                        <View style={{ flex: 0, height: 500, padding: 35 }}>
+                    <View>
+                    <View style={{ flex: 0, height: 500, padding: 35 }}>
                             <View style={{ flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
 
                                 <Text style={styles.citizenSaveText}>Progress coming soon</Text>
@@ -81,6 +81,9 @@ export default class CitizenProgressScreen extends Component {
 
                             </View>
                         </View>
+                    </View>
+                    <Content>
+                        
                     </Content>
                 </Container>
 

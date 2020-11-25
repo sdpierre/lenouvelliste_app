@@ -8,7 +8,7 @@ import { withNavigation } from 'react-navigation';
 
 class CitizenFloatingAction extends Component {
   constructor(props){
-    super(props)
+    super()
   }
   static navigationOptions = {
     title: "Right position"
@@ -53,7 +53,8 @@ class CitizenFloatingAction extends Component {
                     }).then(image => {
 
                       console.log("Image",image);
-                      navigate('CitizenSaveScreen',{
+                      //CitizenSaveScreen
+                      navigate('CitizenMapScreen',{
                         imageData:image
                     });
 
@@ -68,8 +69,8 @@ class CitizenFloatingAction extends Component {
                         mediaType: 'video',
                       }).then(video => {
 
-                         console.log("Video",video);
-                        navigate('CitizenSaveScreen',{videoData:video
+                         //console.log("Video",video);
+                        navigate('CitizenMapScreen',{'videoData':video
                         });
 
                       });

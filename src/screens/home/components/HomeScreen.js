@@ -27,7 +27,7 @@ let fetchOverNet;
 
 class HomeScreen extends React.Component {
   constructor(props) {
-    super(props);
+    super();
 
     realm = new Realm({
       path: 'NewsDb.realm',

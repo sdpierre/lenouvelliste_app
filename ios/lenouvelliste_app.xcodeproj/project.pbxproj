@@ -837,7 +837,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lenouvellistecompany.lenouvelliste;
 				PRODUCT_NAME = lenouvelliste_app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Documents/Pankaj_Data/All_Projects/React_Native_Project/lenouvelliste_app/ios/lenouvelliste_app-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "lenouvelliste_app-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -916,7 +916,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lenouvellistecompany.lenouvelliste;
 				PRODUCT_NAME = lenouvelliste_app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Documents/Pankaj_Data/All_Projects/React_Native_Project/lenouvelliste_app/ios/lenouvelliste_app-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "lenouvelliste_app-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
