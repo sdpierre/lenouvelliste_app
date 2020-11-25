@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { StyleSheet, Text, View, Modal, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Modal, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native';
 
 import { setAppInfo } from '../../redux/actions';
 import { connect } from 'react-redux';
@@ -40,29 +40,29 @@ class NewsScreen extends React.Component {
       url: this.props.navigation.getParam('url'),
       booked: this.props.navigation.getParam('booked'),
       id: this.props.navigation.getParam('id'),
-      nophoto:'https://images.lenouvelliste.com/noimageandroid.jpg',
-      arrPhotos:[]
+      nophoto: 'https://images.lenouvelliste.com/noimageandroid.jpg',
+      arrPhotos: []
     }
   }
 
 
-  componentDidMount(){
+  componentDidMount() {
 
     this.state.arrPhotos.push(this.state.photo)
 
-    console.log('Array of photos',this.state.arrPhotos)
+    console.log('Array of photos', this.state.arrPhotos)
   }
-  
-  _renderItem = ({item, index}) => {
+
+  _renderItem = ({ item, index }) => {
     return (
-        <View style={styles.slide}>
-          <FitImage
-            source={{ uri: item || '' }}
-            style={Spacing.fitImage}
-          />
-        </View>
+      <View style={styles.slide}>
+        <FitImage
+          source={{ uri: item || '' }}
+          style={Spacing.fitImage}
+        />
+      </View>
     );
-}
+  }
 
 
   render() {
@@ -79,16 +79,16 @@ class NewsScreen extends React.Component {
     const { id } = this.state;
     //console.log('NewsAlreadyBooked>> ', booked);
     var obj = realm
-    .objects('book_news')
-    .filtered('id =' + id);
-    booked=obj.length>0;
+      .objects('book_news')
+      .filtered('id =' + id);
+    booked = obj.length > 0;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     // const { navigation } = this.props;
     // const title = navigation.getParam('title');
     // console.log('Photo',this.state.photo)
     // console.log('Photo',this.state.nophoto)
 
-    if (photo == null){
+    if (photo == null) {
       this.state.photo = ""
     }
 
@@ -98,51 +98,46 @@ class NewsScreen extends React.Component {
       <Container>
         <Header>
           <Left>
-            
+
             <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
-         
+
           </Left>
 
           <Right>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}> 
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
               {/* <View style={{marginRight: 20}}>
               <Octicons name="text-size" size={25} style={Colors.gray} />
               </View> */}
 
-              <View style={{ marginRight: 20}}>
-              <TouchableOpacity onPress={() => { 
-                // console.log('>>>ViewClicked<<<'); 
-                this.onBookmarkClicked(id) }}>
-                <MaterialCommunityIcons name={booked ? 'bookmark' : "bookmark-outline"} size={25} color={booked ? 'red' : "#808080"} />
-              </TouchableOpacity>
+              <View style={{ marginRight: 20 }}>
+                <TouchableOpacity onPress={() => {
+                  // console.log('>>>ViewClicked<<<'); 
+                  this.onBookmarkClicked(id)
+                }}>
+                  <MaterialCommunityIcons name={booked ? 'bookmark' : "bookmark-outline"} size={25} color={booked ? 'red' : "#808080"} />
+                </TouchableOpacity>
               </View>
 
-              <View style={{marginRight: 5}}>
-              <Share titre={title} url={url} />
+              <View style={{ marginRight: 5 }}>
+                <Share titre={title} url={url} />
               </View>
-            
-              </View>
+
+            </View>
           </Right>
         </Header>
-        <Content>
-
-          {/* <FitImage
-            source={{ uri: photo || nophoto }}
-            style={Spacing.fitImage}
-          /> */}
-
-        <Pagination
-          ref={c => {
-            this._carousel = c;
-          }}
-          data={this.state.arrPhotos}
-          renderItem={this._renderItem}
-          sliderWidth={sliderWidth}
-          itemWidth={itemWidth}
-          dotsLength={5}
-          activeDotIndex={1}
-        />
+        <ScrollView>
+          <Pagination
+            ref={c => {
+              this._carousel = c;
+            }}
+            data={this.state.arrPhotos}
+            renderItem={this._renderItem}
+            sliderWidth={sliderWidth}
+            itemWidth={itemWidth}
+            dotsLength={5}
+            activeDotIndex={1}
+          />
 
           <View style={styles.container}>
 
@@ -153,28 +148,29 @@ class NewsScreen extends React.Component {
 
             <Text style={styles.author}>Par {author}</Text>
 
-            <Text style={Typography.subHead}>{( moment(date || moment.now()).fromNow())}</Text>
+            <Text style={Typography.subHead}>{(moment(date || moment.now()).fromNow())}</Text>
 
             <HTMLView
               value={"<div>" + body + "</div>"}
               addLineBreaks={false}
               stylesheet={Typography.body}
             />
-            
+
           </View>
-        </Content>
+        </ScrollView>
+        
       </Container>
     );
   }
 
   onBookmarkClicked = (id) => {
     var obj = realm
-    .objects('book_news')
-    .filtered('id =' + id);
+      .objects('book_news')
+      .filtered('id =' + id);
     realm.write(() => {
       //realm.deleteAll();
 
-    
+
       if (obj.length > 0) {
         /*if(this.state.isSelection){
           alert('You can remove article from Home Tab by pressing on Bookmark icon.')
@@ -193,18 +189,18 @@ class NewsScreen extends React.Component {
         // }
 
       } else {
-        let art={
-          titre:this.state.title,
-          headline:this.state.headline,
-          date:this.state.date,
-          photo:this.state.photo,
-          surtitre:this.state.surTitle,
-          nophoto:this.state.nophoto,
-          rubrique:'',
-          article:this.state.body,
-          author:this.state.author,
-          id:this.state.id,
-          url:this.state.url,
+        let art = {
+          titre: this.state.title,
+          headline: this.state.headline,
+          date: this.state.date,
+          photo: this.state.photo,
+          surtitre: this.state.surTitle,
+          nophoto: this.state.nophoto,
+          rubrique: '',
+          article: this.state.body,
+          author: this.state.author,
+          id: this.state.id,
+          url: this.state.url,
         }
         realm.create('book_news', art);
         this.setState({
@@ -249,50 +245,50 @@ const styles = StyleSheet.create({
     ...Typography.mediumTitle,
     fontWeight: 'bold',
   },
-  titre_premium: { 
+  titre_premium: {
     fontSize: 20,
     fontFamily: "AkkoPro-BoldCondensed",
-    color:'#000',
-    textAlign:'center',
-    marginBottom:30
+    color: '#000',
+    textAlign: 'center',
+    marginBottom: 30
   },
   caption_premium: {
     textTransform: 'uppercase',
-    color:'#C0C0C0',
+    color: '#C0C0C0',
     fontSize: 10,
-    textAlign:'center',
+    textAlign: 'center',
     fontFamily: 'Gotham-book',
   },
   prix_premium: {
     fontSize: 90,
     fontFamily: "AkkoPro-Condensed",
-    color:'#000',
-    height:90,
-    textAlign:'center',
+    color: '#000',
+    height: 90,
+    textAlign: 'center',
   },
   button_premium: {
-    marginTop:30
+    marginTop: 30
   },
   login_premium: {
-    fontSize:14,
-    textAlign:'center',
-    marginTop:20
-    
+    fontSize: 14,
+    textAlign: 'center',
+    marginTop: 20
+
   },
   inclus_premium: {
-    fontSize:16,
+    fontSize: 16,
     fontFamily: "AkkoPro-Condensed",
     textTransform: 'uppercase',
     borderTopColor: '#0089D0',
     borderTopWidth: 5,
-    marginBottom:10,
-    marginTop:10
+    marginBottom: 10,
+    marginTop: 10
 
 
   },
   desc_premium: {
     fontFamily: 'Gotham-book',
-    fontSize:12,
+    fontSize: 12,
     textAlign: 'left'
   }
 

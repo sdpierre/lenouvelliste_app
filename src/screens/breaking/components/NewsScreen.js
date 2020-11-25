@@ -1,13 +1,13 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 
-import {setAppInfo} from '../../../redux/actions';
-import {connect} from 'react-redux';
+import { setAppInfo } from '../../../redux/actions';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import 'moment/min/locales';
 import HTMLView from 'react-native-htmlview';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Typography, Colors, Spacing} from '../../../styles';
+import { Typography, Colors, Spacing } from '../../../styles';
 import {
   Container,
   Header,
@@ -30,13 +30,12 @@ class NewsScreen extends React.Component {
       url: this.props.navigation.getParam('url'),
     };
   }
-
   render() {
-    const {title} = this.state;
-    const {url} = this.state;
-    const {body} = this.state;
-    const {date} = this.state;
-    const {category} = this.state;
+    const { title } = this.state;
+    const { url } = this.state;
+    const { body } = this.state;
+    const { date } = this.state;
+    const { category } = this.state;
 
     return (
       <Container>
@@ -56,7 +55,7 @@ class NewsScreen extends React.Component {
             <Share titre={title} url={url} />
           </Right>
         </Header>
-        <Content>
+        <ScrollView>
           <View style={Spacing.container}>
             <Text style={Typography.headline}>{category}</Text>
             <Text style={Typography.xlargeTitle}>{title}</Text>
@@ -69,12 +68,14 @@ class NewsScreen extends React.Component {
               stylesheet={Typography.body}
             />
           </View>
-        </Content>
+        </ScrollView>
+        {/* <Content>
+
+        </Content> */}
       </Container>
     );
   }
 }
-
 const mapStateToProps = state => ({
   appInfo: state.appInfo || 'Please Wait...',
 });

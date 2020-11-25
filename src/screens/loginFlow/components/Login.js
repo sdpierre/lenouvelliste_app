@@ -49,7 +49,6 @@ var elementSpacing = Platform.OS == 'android' ? 12 : 19;
 class Login extends ValidationComponent {
   constructor(props) {
     super(props);
-
     this.state = {
       email: '',
       password: '',
@@ -58,36 +57,26 @@ class Login extends ValidationComponent {
       ActivityIndicator: false
     };
   }
-
-
   componentDidMount() {
     console.log('Login component mount')
     AsyncStorage.getItem("loggedInUserDetails").then((value) => {
       if (value != null) {
         var dicLoginData = JSON.parse(value);
         console.log('userInfo====>', dicLoginData)
-
         this.setState({
           userId: dicLoginData.id
         });
-
         if (this.state.userId != '') {
-
           this.props.navigation.navigate('Home')
         } else {
-
         }
         console.log("Login right condition", this.state.userId)
-
       } else {
-
         console.log("Login else condition", this.state.userId)
-
       }
     }).done(
     );
   }
-
   handlEmail = text => {
     this.setState({
       email: text,
@@ -98,7 +87,6 @@ class Login extends ValidationComponent {
       password: text,
     });
   };
-
   login = () => {
     this.validate({
       email: { required: true },
@@ -136,23 +124,18 @@ class Login extends ValidationComponent {
             console.log(loginParams);
 
             this.loginAPICall(loginParams);
-
           }
         }
       }
     }
   };
-
-
   loginAPICall(params) {
     var user = {};
-
     axios
       .post(
         LeneovellisteConstants.BASE_URL + LeneovellisteConstants.kLOGIN_API,
         params,
       )
-
       .then(response => {
         console.log('Login Response', response.data);
         let msg = response.data.message;
@@ -166,8 +149,6 @@ class Login extends ValidationComponent {
           this.props.navigation.navigate('Menu', {
             userInfo: user,
           });
-
-
         } else {
           console.log('Login error', msg);
           alert(msg);
@@ -179,11 +160,7 @@ class Login extends ValidationComponent {
         console.log('In case of undefined');
       });
   }
-
-
-
   render() {
-
     const iconpass = () => (
       <Icon
         style={styles.icon}
@@ -201,7 +178,6 @@ class Login extends ValidationComponent {
         }}
       />
     );
-
     return (
       <Container>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -211,14 +187,9 @@ class Login extends ValidationComponent {
               uri: 'https://images.lenouvelliste.com/app/logo.png',
             }}
           />
-
           {/* <Text style={styles.loginText}>Connectez-vous</Text> */}
-
           <View style={{ width: 300 }}>
-
             <View>
-
-
               <TextInput style={{height: 50, borderBottomColor: '#D8D8D8',
         borderBottomWidth: 1,}}
                 placeholder="E-mail, nom d'utilisateur"
@@ -234,20 +205,6 @@ class Login extends ValidationComponent {
                 blurOnSubmit={false}
                 autoCapitalize='none'
               />
-              {/* <TextInput
-                placeholder="E-mail, nom d'utilisateur"
-                tintColor='#0082C6'
-                placeholderTextColor='#9b9b9b'
-                keyboardType={'email-address'}
-                onChangeText={(val) => this.handlEmail}
-                value={this.state.email}
-                returnKeyType={'next'}
-                onSubmitEditing={() => {
-                  //this.secondTextInput.focus();
-                }}
-                blurOnSubmit={false}
-                autoCapitalize='none'
-              /> */}
               <TextInput style={{height: 50, borderBottomColor: '#D8D8D8',
         borderBottomWidth: 1,}}
                 placeholder="Mot de passe"
@@ -263,25 +220,6 @@ class Login extends ValidationComponent {
                 value={this.state.password}
               />
 
-
-
-              {/* <TextInput
-                label="E-mail, nom d'utilisateur"
-                tintColor="#0082C6"
-                placeholderTextColor="#9b9b9b"
-                keyboardType={'email-address'}
-                onChangeText={this.handlEmail}
-                value={this.state.email}
-                returnKeyType={'next'}
-                onSubmitEditing={() => {
-                  this.secondTextInput.focus();
-                }}
-                blurOnSubmit={false}
-                autoCapitalize="none"
-              />
-
-              
-             */}
               <Button style={{ marginTop: 40 }} title="Je me connecte" onPress={this.login} />
               <Button type="outline" style={{ marginTop: 20 }} title="S'inscrire" onPress={this.login} onPress={() => {
                 this.props.navigation.navigate('Register');
@@ -308,7 +246,6 @@ class Login extends ValidationComponent {
     );
   }
 }
-
 const mapStateToProps = state => ({
   user: state.user || 'Please Wait...',
 });
