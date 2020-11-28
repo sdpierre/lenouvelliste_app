@@ -6,6 +6,7 @@ import {
     Left,
     Body,
     Right,
+    Title
   } from "native-base";  
 import { Colors,Typography } from '../../styles';
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -495,7 +496,9 @@ class UserProfileScreen extends ValidationComponent{
                       }}
                     />
                   </Left>
+                  
                   <Body />
+                  <Title><Text> kjbjkbj </Text></Title>
                   <Right>
                     <MaterialCommunityIcons
                       name="logout"

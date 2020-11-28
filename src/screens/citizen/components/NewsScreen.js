@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Modal,
   Linking,
-  Alert,
+  Alert, ScrollView
 } from 'react-native';
 
 import { setAppInfo } from '../../../redux/actions';
@@ -31,6 +31,7 @@ import { Container, Header, Left, Body, Right, Icon, Title, Content, ListItem, L
 import { Button } from 'react-native-elements'
 
 import Geocoder from 'react-native-geocoding';
+// import { ScrollView } from 'react-native-gesture-handler';
 
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -191,17 +192,17 @@ class CitizenNewsScreen extends React.Component {
 
 
     return (
-
-      <View style={{ flex: 1 }}>
+      <Container>
+      
+        
         <Header>
           <Left>
-            <Button type="clear" onPress={() => { this.props.navigation.goBack() }}>
-              <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
-            </Button>
+          <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
           </Left>
           <Body></Body>
           <Right></Right>
         </Header>
+<ScrollView>
 
         <Modal
           animationType={"slide"}
@@ -229,78 +230,79 @@ class CitizenNewsScreen extends React.Component {
             </View>
           </View>
 
-        </Modal>
+          </Modal>
+          
+       
 
-        <Content>
-
-
-
-          <View style={{ height: 300, width: '100%' }}>
-            <Video
-              source={{ uri: media }}
-              resizeMode={'cover'}
-              controls={true}
-              repeat={false}
-
-
-              ref={(ref) => {
-                this.player = ref
-              }}
-              onBuffer={this.onBuffer}
-              onError={this.videoError}
-              onLoad={this.onLoad}
-              style={styles.backgroundVideo} />
-          </View>
+        
+        
+        {/* <View style={{height:300, width:'100%'}}> 
+        <Video 
+          source={{uri: media }}
+          resizeMode={'cover'}
+          controls={true}
+          repeat={false}
 
 
-          <FitImage
-            source={{ uri: media || nophoto }}
-            style={Spacing.fitImage}
-          />
-          <View style={styles.CitizennewsMainContainer}>
-
-            <Text style={styles.CitizennewsCategoryStyle}>Address</Text>
-            <TouchableOpacity
-              onPress={() => {
-                this.displayModal(true);
-              }}>
-              <Text style={styles.CitizennewsLocationStyle}>{this.state.address}</Text></TouchableOpacity>
-            <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
+       ref={(ref) => {
+         this.player = ref
+       }}
+       onBuffer={this.onBuffer}
+       onError={this.videoError}
+       onLoad={this.onLoad}
+       style={styles.backgroundVideo} />
+      </View> */}
 
 
-            <View style={{ marginTop: 10, flex: 1, flexDirection: "row" }}>
-              <View>
+        <FitImage
+          source={{ uri: media || nophoto }}
+          style={Spacing.fitImage}
+        />
+          <View style={styles.CitizennewsMainContainer}> 
+           
+           <Text style={styles.CitizennewsCategoryStyle}>Address</Text>
+           <TouchableOpacity
+                    onPress={() => {
+                      this.displayModal(true);
+                    }}>
+           <Text style={styles.CitizennewsLocationStyle}>{this.state.address}</Text></TouchableOpacity>
+           <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
 
-                <Image
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 40 / 2,
-                    overflow: "hidden",
-                    borderWidth: 1,
-                    borderColor: "#979797"
-                  }}
-                  source={{ uri: userphoto }}
-                />
-              </View>
-              <View style={{ padding: 5 }}>
-                <Text style={styles.CitizennewsUsernameStyle}>
-                  {username}
-                </Text>
-                <Text style={styles.CitizennewsMomentStyle}>
-                  {(time = moment(date || moment.now()).fromNow())}
-                </Text>
-              </View>
-            </View>
+          
+           <View style={{ marginTop: 10, flex: 1, flexDirection: "row" }}>
+           <View>
 
-            <View style={{ alignItems: 'center' }}>
+                    <Image
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 40 / 2,
+                        overflow: "hidden",
+                        borderWidth: 1,
+                        borderColor: "#979797"
+                      }}
+                      source={{ uri: userphoto }}
+                    />
+                  </View>
+                  <View style={{ padding: 5 }}>
+                    <Text style={styles.CitizennewsUsernameStyle}>
+                      {username}
+                    </Text>
+                    <Text style={styles.CitizennewsMomentStyle}>
+                      {(time = moment(date || moment.now()).fromNow())}
+                    </Text>
+                  </View>
+                  </View>
 
-            </View>
-            <Text style={Typography.bodyWhite}>{body}</Text>
-
-          </View>
-        </Content>
+                  <View style={{ alignItems: 'center'}}>
+   
       </View>
+          <Text style={Typography.bodyWhite}>{body}</Text>
+        
+        </View>
+        
+      </ScrollView>
+      </Container>
     );
   }
 }

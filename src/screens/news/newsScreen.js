@@ -98,7 +98,7 @@ class NewsScreen extends React.Component {
       <Container>
         <Header>
           <Left>
-
+            
             <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
 
           </Left>
