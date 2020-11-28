@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Modal,
   Linking,
-  Alert,
+  Alert, ScrollView
 } from 'react-native';
 
 import {setAppInfo} from '../../../redux/actions';
@@ -31,6 +31,7 @@ import { Container, Header, Left, Body, Right, Icon, Title, Content, ListItem, L
 import { Button} from 'react-native-elements'
 
 import Geocoder from 'react-native-geocoding';
+// import { ScrollView } from 'react-native-gesture-handler';
 
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -191,17 +192,17 @@ return (
    
 
     return (
+      <Container>
       
-      <View style={{flex: 1}}>
+        
         <Header>
           <Left>
-            <Button type="clear" onPress={()=>{this.props.navigation.goBack()}}>
-              <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
-            </Button>
+          <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
           </Left>
           <Body></Body>
           <Right></Right>
         </Header>
+<ScrollView>
 
         <Modal
             animationType = {"slide"}
@@ -231,11 +232,11 @@ return (
 
           </Modal>
           
-        <Content>
+       
 
         
         
-        <View style={{height:300, width:'100%'}}> 
+        {/* <View style={{height:300, width:'100%'}}> 
         <Video 
           source={{uri: media }}
           resizeMode={'cover'}
@@ -250,7 +251,7 @@ return (
        onError={this.videoError}
        onLoad={this.onLoad}
        style={styles.backgroundVideo} />
-      </View>
+      </View> */}
 
 
         <FitImage
@@ -299,8 +300,9 @@ return (
           <Text style={Typography.bodyWhite}>{body}</Text>
         
         </View>
-        </Content>
-      </View>
+        
+      </ScrollView>
+      </Container>
     );
   }
 }
