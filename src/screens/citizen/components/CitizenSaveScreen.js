@@ -211,14 +211,11 @@ export default class CitizenSaveScreen extends ValidationComponent {
             }
         }
     }
-
     apiCallToSendCitizenPost = () => {
 
         this.setState({
             visible: !this.state.visible
         });
-
-
         const formData = new FormData()
 
 
@@ -264,7 +261,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
         console.log(params);
 
-        console.log("data", formData);
+        console.log("citizen post data = ", formData);
 
         const config = {
             method: 'post',
