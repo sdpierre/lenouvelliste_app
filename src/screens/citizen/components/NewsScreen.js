@@ -109,8 +109,6 @@ class CitizenNewsScreen extends React.Component {
     this.props.navigation.navigate('NewsMap')
 
   }
-
-
   _renderModalContent = (markers) => {
 
     console.log(markers);
@@ -159,13 +157,8 @@ class CitizenNewsScreen extends React.Component {
         </View>
 
       </View>
-
-
-
     );
   }
-
-
   render() {
     const { title } = this.state;
     const { body } = this.state;
@@ -188,55 +181,48 @@ class CitizenNewsScreen extends React.Component {
         subtitle: '1234 Foo Drive'
       }
     ];
-
-
-
     return (
       <Container>
-      
-        
         <Header>
           <Left>
-          <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
+            <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
           </Left>
           <Body></Body>
           <Right></Right>
         </Header>
-<ScrollView>
+        <ScrollView>
 
-        <Modal
-          animationType={"slide"}
-          style={styles.modal}
-          presentationStyle="formSheet"
-          transparent={true}
-          visible={this.state.isVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has now been closed.');
-          }}>
-
-
-          <View
-            style={{
-              backgroundColor: 'transparent',
-              flex: 1,
-              justifyContent: 'flex-end'
+          <Modal
+            animationType={"slide"}
+            style={styles.modal}
+            presentationStyle="formSheet"
+            transparent={true}
+            visible={this.state.isVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has now been closed.');
             }}>
             <View
               style={{
-                backgroundColor: 'white',
-                height: '40%'
+                backgroundColor: 'transparent',
+                flex: 1,
+                justifyContent: 'flex-end'
               }}>
-              {this._renderModalContent(markers)}
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  height: '40%'
+                }}>
+                {this._renderModalContent(markers)}
+              </View>
             </View>
-          </View>
 
           </Modal>
-          
-       
 
-        
-        
-        {/* <View style={{height:300, width:'100%'}}> 
+
+
+
+
+          {/* <View style={{height:300, width:'100%'}}> 
         <Video 
           source={{uri: media }}
           resizeMode={'cover'}
@@ -254,54 +240,54 @@ class CitizenNewsScreen extends React.Component {
       </View> */}
 
 
-        <FitImage
-          source={{ uri: media || nophoto }}
-          style={Spacing.fitImage}
-        />
-          <View style={styles.CitizennewsMainContainer}> 
-           
-           <Text style={styles.CitizennewsCategoryStyle}>Address</Text>
-           <TouchableOpacity
-                    onPress={() => {
-                      this.displayModal(true);
-                    }}>
-           <Text style={styles.CitizennewsLocationStyle}>{this.state.address}</Text></TouchableOpacity>
-           <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
+          <FitImage
+            source={{ uri: media || nophoto }}
+            style={Spacing.fitImage}
+          />
+          <View style={styles.CitizennewsMainContainer}>
 
-          
-           <View style={{ marginTop: 10, flex: 1, flexDirection: "row" }}>
-           <View>
+            <Text style={styles.CitizennewsCategoryStyle}>Address</Text>
+            <TouchableOpacity
+              onPress={() => {
+                this.displayModal(true);
+              }}>
+              <Text style={styles.CitizennewsLocationStyle}>{this.state.address}</Text></TouchableOpacity>
+            <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
 
-                    <Image
-                      style={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: 40 / 2,
-                        overflow: "hidden",
-                        borderWidth: 1,
-                        borderColor: "#979797"
-                      }}
-                      source={{ uri: userphoto }}
-                    />
-                  </View>
-                  <View style={{ padding: 5 }}>
-                    <Text style={styles.CitizennewsUsernameStyle}>
-                      {username}
-                    </Text>
-                    <Text style={styles.CitizennewsMomentStyle}>
-                      {(time = moment(date || moment.now()).fromNow())}
-                    </Text>
-                  </View>
-                  </View>
 
-                  <View style={{ alignItems: 'center'}}>
-   
-      </View>
-          <Text style={Typography.bodyWhite}>{body}</Text>
-        
-        </View>
-        
-      </ScrollView>
+            <View style={{ marginTop: 10, flex: 1, flexDirection: "row" }}>
+              <View>
+
+                <Image
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 40 / 2,
+                    overflow: "hidden",
+                    borderWidth: 1,
+                    borderColor: "#979797"
+                  }}
+                  source={{ uri: userphoto }}
+                />
+              </View>
+              <View style={{ padding: 5 }}>
+                <Text style={styles.CitizennewsUsernameStyle}>
+                  {username}
+                </Text>
+                <Text style={styles.CitizennewsMomentStyle}>
+                  {(time = moment(date || moment.now()).fromNow())}
+                </Text>
+              </View>
+            </View>
+
+            <View style={{ alignItems: 'center' }}>
+
+            </View>
+            <Text style={Typography.bodyWhite}>{body}</Text>
+
+          </View>
+
+        </ScrollView>
       </Container>
     );
   }
