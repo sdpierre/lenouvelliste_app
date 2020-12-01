@@ -93,7 +93,10 @@ class CitizenScreen extends React.Component {
         resp.forEach(element => {
           realm.create('all_citi_news', element);
         });
+        
       });
+      console.log("all newspaw data",this.offlineData)
+      console.log("data",resp)
       this.setState({data: resp, refreshing: false});
     })
     .catch(e => {
@@ -150,13 +153,15 @@ class CitizenScreen extends React.Component {
                 <TouchableHighlight
                   onPress={() =>
                     navigate("News", {
+                      id: item.id,
                       title: item.title,
                       media: item.media,
                       body: item.body,
                       username: item.username,
                       userphoto: item.userphoto,
                       category: item.name,
-                      date: item.date
+                      date: item.date,
+                      type: item.type,
                     })
                   }
                 >

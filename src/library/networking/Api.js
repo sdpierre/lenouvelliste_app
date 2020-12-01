@@ -53,3 +53,12 @@ export async function getSectionNews(id) {
   );
   return result.data;
 }
+
+export async function getCitizenMedia(id) {
+  console.log('http://lenouvelis.com/public/api/citizen_media/' + id)
+  let result = await fetch('http://lenouvelis.com/public/api/citizen_media/' + id).then(
+    response => response.json(),
+  );
+  console.log("result.data",result)
+  return result;
+}

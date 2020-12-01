@@ -50,6 +50,7 @@ class CitizenTop extends Component {
           underlayColor="#ffffff00"
           onPress={() => {
             nav('NewsCarousel', {
+              id: item.id,
               title: item.title,
               body: item.body,
               category: item.category,
@@ -75,10 +76,6 @@ class CitizenTop extends Component {
             />
     </View> */}
             </ImageOverlay>
-
-
-
-
             <View style={{ backgroundColor: '#191D25', padding: 30 }}>
               <Text style={CitizenStyle.tag}>{item.category}</Text>
               <Text style={CitizenStyle.title}>{item.title}</Text>
