@@ -33,6 +33,15 @@ import { Button } from 'react-native-elements'
 import Geocoder from 'react-native-geocoding';
 // import { ScrollView } from 'react-native-gesture-handler';
 
+import { getCitizenMedia } from "../../../library/networking/Api"
+import NetInfo from '@react-native-community/netinfo';
+let fetchOverNet;
+import {
+  IndicatorViewPager,
+  PagerDotIndicator,
+} from '@shankarmorwal/rn-viewpager';
+import { element } from 'prop-types';
+
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE = 0;
@@ -52,6 +61,7 @@ class CitizenNewsScreen extends React.Component {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
+      id: this.props.navigation.getParam('id'),
       title: this.props.navigation.getParam('title'),
       body: this.props.navigation.getParam('body'),
       date: this.props.navigation.getParam('date'),
@@ -65,20 +75,48 @@ class CitizenNewsScreen extends React.Component {
       lat: this.props.navigation.getParam('lat'),
       duration: 0,
       isVisible: false,
-      address: ''
+      address: '',
+      imageArr:[],
+      isVisibleImage:true,
+      isVisibleVideo:false,
     }
-
+    this.fetchNews = this.fetchNews.bind(this);
   }
-
-
   componentDidMount() {
+    NetInfo.fetch()
+            .then(conn => {
+
+                fetchOverNet = conn.isConnected;
+            })
+            .then(() => {
+
+                if (fetchOverNet) this.fetchNews();
+                else {
+                    this.setState({
+                        refreshing: false,
+                        data: sectionDataDb,
+                        visible:false
+
+                    });
+                }
+            });
+    if (this.state.type == "image"){
+      console.log("Image type",this.state.type)
+        this.setState({isVisibleImage:true, isVisibleVideo:false})
+        console.log("isVisibleImage",this.state.isVisibleImage,"isVisibleVideo",this.state.isVisibleVideo)
+    }else{
+      console.log("Video type",this.state.type)
+      this.setState({isVisibleImage:false, isVisibleVideo:true})
+      console.log("isVisibleImage",this.state.isVisibleImage,"isVisibleVideo",this.state.isVisibleVideo)
+    }
+    console.log("newScreen id",this.state.id),
+    
     Geocoder.init("AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk"); // use a valid API key
 
     this.wathcId = Geolocation.getCurrentPosition(position => {
       const { latitude, longitude } = position.coords;
       this.getAddressFromLatLong(latitude, longitude)
     });
-
   }
 
   getAddressFromLatLong(lat, long) {
@@ -101,6 +139,21 @@ class CitizenNewsScreen extends React.Component {
   displayModal(show) {
     this.setState({ isVisible: show })
   }
+  //Fetch citizenMedia from API
+  fetchNews() {
+    console.log(" fetchNews newScreen id",this.state.id),
+    getCitizenMedia(this.state.id)
+        .then(resp => {
+          console.log("respose citizenMedia calling api",resp.news_media)
+            
+           this.setState({ imageArr: resp.news_media });
+           console.log("imageArr",this.state.imageArr)
+        })
+        .catch(e => {
+            console.log('ExceptionSection>>> citizenMedia', e);
+            this.setState({ refreshing: false });
+        });
+}
 
   onLoad = data => this.setState({ duration: data.duration, isLoading: false });
 
@@ -109,8 +162,6 @@ class CitizenNewsScreen extends React.Component {
     this.props.navigation.navigate('NewsMap')
 
   }
-
-
   _renderModalContent = (markers) => {
 
     console.log(markers);
@@ -159,13 +210,8 @@ class CitizenNewsScreen extends React.Component {
         </View>
 
       </View>
-
-
-
     );
   }
-
-
   render() {
     const { title } = this.state;
     const { body } = this.state;
@@ -188,57 +234,46 @@ class CitizenNewsScreen extends React.Component {
         subtitle: '1234 Foo Drive'
       }
     ];
-
-
-
+    
     return (
-      <Container>
       
-        
+      <Container>
         <Header>
           <Left>
-          <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
+            <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
           </Left>
           <Body></Body>
           <Right></Right>
         </Header>
-<ScrollView>
+        <ScrollView>
 
-        <Modal
-          animationType={"slide"}
-          style={styles.modal}
-          presentationStyle="formSheet"
-          transparent={true}
-          visible={this.state.isVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has now been closed.');
-          }}>
-
-
-          <View
-            style={{
-              backgroundColor: 'transparent',
-              flex: 1,
-              justifyContent: 'flex-end'
+          <Modal
+            animationType={"slide"}
+            style={styles.modal}
+            presentationStyle="formSheet"
+            transparent={true}
+            visible={this.state.isVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has now been closed.');
             }}>
             <View
               style={{
-                backgroundColor: 'white',
-                height: '40%'
+                backgroundColor: 'transparent',
+                flex: 1,
+                justifyContent: 'flex-end'
               }}>
-              {this._renderModalContent(markers)}
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  height: '40%'
+                }}>
+                {this._renderModalContent(markers)}
+              </View>
             </View>
-          </View>
-
           </Modal>
-          
-       
-
-        
-        
-        {/* <View style={{height:300, width:'100%'}}> 
+          {/* <View style={{height:300, width:'100%'}}> 
         <Video 
-          source={{uri: media }}
+          source={{uri: this.state.imageArr.media_url }}
           resizeMode={'cover'}
           controls={true}
           repeat={false}
@@ -253,55 +288,68 @@ class CitizenNewsScreen extends React.Component {
        style={styles.backgroundVideo} />
       </View> */}
 
+          <View style={{flex: 1,height:350,width:"100%",top:0}}>
+              <IndicatorViewPager
+                style={styles.pagerStyle}
+                indicator={
+                  <PagerDotIndicator pageCount={this.state.imageArr.length} 
+                  selectedDotStyle={{backgroundColor:"#FFCD00"}}/>
+                }>
+                {this.state.imageArr.map(element => (
+                    <View key={element}>
+                      <Image style={{ width: "100%", height: "100%" }} source={{ uri: element.media_url }} />
+                    </View>
+                  )
+                )}
+                {/* <FitImage
+                  source={{ uri: media || nophoto }}
+                  style={Spacing.fitImage}
+                /> */}
+              </IndicatorViewPager>
+          </View>
+          <View style={styles.CitizennewsMainContainer}>
 
-        <FitImage
-          source={{ uri: media || nophoto }}
-          style={Spacing.fitImage}
-        />
-          <View style={styles.CitizennewsMainContainer}> 
-           
-           <Text style={styles.CitizennewsCategoryStyle}>Address</Text>
-           <TouchableOpacity
-                    onPress={() => {
-                      this.displayModal(true);
-                    }}>
-           <Text style={styles.CitizennewsLocationStyle}>{this.state.address}</Text></TouchableOpacity>
-           <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
+            <Text style={styles.CitizennewsCategoryStyle}>Address</Text>
+            <TouchableOpacity
+              onPress={() => {
+                this.displayModal(true);
+              }}>
+              <Text style={styles.CitizennewsLocationStyle}>{this.state.address}</Text></TouchableOpacity>
+            <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
 
-          
-           <View style={{ marginTop: 10, flex: 1, flexDirection: "row" }}>
-           <View>
 
-                    <Image
-                      style={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: 40 / 2,
-                        overflow: "hidden",
-                        borderWidth: 1,
-                        borderColor: "#979797"
-                      }}
-                      source={{ uri: userphoto }}
-                    />
-                  </View>
-                  <View style={{ padding: 5 }}>
-                    <Text style={styles.CitizennewsUsernameStyle}>
-                      {username}
-                    </Text>
-                    <Text style={styles.CitizennewsMomentStyle}>
-                      {(time = moment(date || moment.now()).fromNow())}
-                    </Text>
-                  </View>
-                  </View>
+            <View style={{ marginTop: 10, flex: 1, flexDirection : "row"}}>
+              <View>
+                <Image
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 40 / 2,
+                    overflow: "hidden",
+                    borderWidth: 1,
+                    borderColor: "#979797"
+                  }}
+                  source={{ uri: userphoto }}
+                />
+              </View>
+              <View style={{ padding: 5 }}>
+                <Text style={styles.CitizennewsUsernameStyle}>
+                  {username}
+                </Text>
+                <Text style={styles.CitizennewsMomentStyle}>
+                  {(time = moment(date || moment.now()).fromNow())}
+                </Text>
+              </View>
+            </View>
 
-                  <View style={{ alignItems: 'center'}}>
-   
-      </View>
-          <Text style={Typography.bodyWhite}>{body}</Text>
-        
-        </View>
-        
-      </ScrollView>
+            <View style={{ alignItems: 'center' }}>
+
+            </View>
+            <Text style={Typography.bodyWhite}>{body}</Text>
+
+          </View>
+
+        </ScrollView>
       </Container>
     );
   }
@@ -383,7 +431,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 80,
     padding: 40
-  }
+  },
+  background1: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#C70039',
+  },
+  background2: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FF5733',
+  },
+  background3: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFC300',
+  },
+  textStyle: {
+    color: 'white',
+    fontSize: 30,
+  },
+  pagerStyle: {
+    flex:1,
+    backgroundColor: 'white',
+  },
 });
 
 const mapStateToProps = (state) => ({

@@ -294,7 +294,6 @@ export default class CitizenSaveScreen extends ValidationComponent {
                                     this.setState({
                                         visible: false
                                     });
-
                                     this.goToCitizenProgress()
 
                                 }
@@ -510,9 +509,6 @@ export default class CitizenSaveScreen extends ValidationComponent {
                                 buttonStyle={{ marginTop: 20 }}
                                 onPress={this.goToCitizenProgress}
                             />
-
-
-
                         </View>
                     </View>
                     <AnimatedLoader
