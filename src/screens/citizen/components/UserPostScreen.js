@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Content, ListItem, List} from 'native-base';
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 export default class HelloWorldApp extends Component {
@@ -18,11 +19,11 @@ export default class HelloWorldApp extends Component {
           <Body></Body>
           <Right></Right>
         </Header>
-        <Content>
+        <ScrollView>
       <View style={Spacing.container}>
         <Text>Hello, world Stanley in Profile Screen!</Text>
       </View>
-      </Content>
+      </ScrollView>
       </Container>
     );
   }
