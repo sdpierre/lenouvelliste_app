@@ -24,26 +24,19 @@ import {
     Title
 } from "native-base";
 import { Button } from 'react-native-elements';
-import Ionicons from "react-native-vector-icons/Ionicons";
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Colors } from '../../../styles';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { FloatingAction } from "react-native-floating-action";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 //Image Picker
 import ImagePicker from 'react-native-image-crop-picker';
-import {
-    TextField,
-    FilledTextField,
-    OutlinedTextField,
-} from 'react-native-material-textfield';
+
 import AnimatedLoader from "react-native-animated-loader";
 
 import { withNavigation } from 'react-navigation';
 //import RNThumbnail from 'react-native-thumbnail-fixed';
-
+import Realm from 'realm';
+let realm;
 
 //Dimensions
 var deviceWidth = (Dimensions.get('window').width);
@@ -73,6 +66,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
             userId: '',
             visible: false,
         }
+        realm = new Realm({ path: 'MediaPost.realm' });
     }
     UNSAFE_componentWillMount() {
         const { navigation } = this.props;
@@ -211,17 +205,12 @@ export default class CitizenSaveScreen extends ValidationComponent {
             }
         }
     }
-
     apiCallToSendCitizenPost = () => {
 
         this.setState({
             visible: !this.state.visible
         });
-
-
         const formData = new FormData()
-
-
         if (this.state.arrPhotos.length > 0) {
 
             var params = {
@@ -240,9 +229,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
                     uri: element.path, type: element.mime, name: element.path.split("/").pop()
                 }
                 formData.append('image[]', newFile)
-
             });
-
         } else {
 
             var params = {
@@ -264,7 +251,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
         console.log(params);
 
-        console.log("data", formData);
+        console.log("citizen post data = ", formData);
 
         const config = {
             method: 'post',
@@ -297,9 +284,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
                                     this.setState({
                                         visible: false
                                     });
-
                                     this.goToCitizenProgress()
-
                                 }
                             },
                         ],
@@ -329,7 +314,56 @@ export default class CitizenSaveScreen extends ValidationComponent {
             });
 
     }
+    saveForLaterClick = () => {
+        this.validate({
+            title: { required: true }
+        })
+        if (this.getErrorMessages()) {
+            alert(LeneovellisteConstants.kCitizenPostTitle)
+        } else {
+            this.validate({
+                description: { required: true }
+            })
+            if (this.getErrorMessages()) {
+                alert(LeneovellisteConstants.kCitizenPostDescription)
+            } else {
+                console.log("The photo data is = ",this.state.arrPhotos)
+            }
+        }
+    }
+    saveToLoacalStorage() {
+        var isImage = false
+        var mediaType = "viedo"
+        if (this.state.arrPhotos.length > 0){
+            isImage = true
+            mediaType = "image"
+        }
 
+        realm.write(() => {
+            var ID =
+                realm.objects('post_details').sorted('post_id', true).length > 0
+                    ? realm.objects('post_details').sorted('post_id', true)[0]
+                        .user_id + 1
+                    : 1;
+            realm.create('post_details', {
+                post_id: ID,
+                post_title: that.state.user_name,
+                post_type: that.state.user_contact,
+                post_description: that.state.user_address,
+            });
+            Alert.alert(
+                'Success',
+                'You are registered successfully',
+                [
+                    {
+                        text: 'Ok',
+                        onPress: () => that.props.navigation.navigate('HomeScreen'),
+                    },
+                ],
+                { cancelable: false }
+            );
+        });
+    }
     goToCitizenProgress = () => {
 
         this.props.navigation.navigate('CitizenProgressScreen')
@@ -511,11 +545,8 @@ export default class CitizenSaveScreen extends ValidationComponent {
                             <Button
                                 title="SAVE FOR LATER"
                                 buttonStyle={{ marginTop: 20 }}
-                                onPress={this.goToCitizenProgress}
+                                onPress={this.saveForLaterClick}
                             />
-
-
-
                         </View>
                     </View>
                     <AnimatedLoader
