@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import {
   Text,
   View,
@@ -23,12 +23,16 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FitImage from 'react-native-fit-image';
 import Video from 'react-native-video';
+//import MediaControls, {PLAYER_STATES} from 'react-native-media-controls';
+import MediaControls,{PLAYER_STATES}  from "react-native-media-controls";
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 
 import { Typography, Colors, Spacing } from "../../../styles";
 import { Container, Header, Left, Body, Right, Icon, Title, Content, ListItem, List } from 'native-base';
-import { Button } from 'react-native-elements'
+import { Button } from 'react-native-elements';
+
+import ImageLoad from 'react-native-image-placeholder';
 
 import Geocoder from 'react-native-geocoding';
 // import { ScrollView } from 'react-native-gesture-handler';
@@ -36,6 +40,9 @@ import Geocoder from 'react-native-geocoding';
 import { getCitizenMedia } from "../../../library/networking/Api"
 import NetInfo from '@react-native-community/netinfo';
 let fetchOverNet;
+let videoUrl;
+var videoViewHeight=300;
+var imageViewHeight=300;
 import {
   IndicatorViewPager,
   PagerDotIndicator,
@@ -47,7 +54,7 @@ const ASPECT_RATIO = width / height;
 const LATITUDE = 0;
 const LONGITUDE = 0;
 const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO; 
 
 class CitizenNewsScreen extends React.Component {
 
@@ -79,6 +86,7 @@ class CitizenNewsScreen extends React.Component {
       imageArr:[],
       isVisibleImage:true,
       isVisibleVideo:false,
+      paused: true,
     }
     this.fetchNews = this.fetchNews.bind(this);
   }
@@ -101,13 +109,15 @@ class CitizenNewsScreen extends React.Component {
                 }
             });
     if (this.state.type == "image"){
-      console.log("Image type",this.state.type)
-        this.setState({isVisibleImage:true, isVisibleVideo:false})
-        console.log("isVisibleImage",this.state.isVisibleImage,"isVisibleVideo",this.state.isVisibleVideo)
+      videoViewHeight=0;
+      imageViewHeight=300;
+      console.log("videoViewHeight",videoViewHeight,"imageViewHeight",imageViewHeight)
+      this.setState({isVisibleImage:true, isVisibleVideo:false})
     }else{
-      console.log("Video type",this.state.type)
+      imageViewHeight=0;
+      videoViewHeight=300;
+      console.log("videoViewHeight",videoViewHeight,"imageViewHeight",imageViewHeight)
       this.setState({isVisibleImage:false, isVisibleVideo:true})
-      console.log("isVisibleImage",this.state.isVisibleImage,"isVisibleVideo",this.state.isVisibleVideo)
     }
     console.log("newScreen id",this.state.id),
     
@@ -147,7 +157,9 @@ class CitizenNewsScreen extends React.Component {
           console.log("respose citizenMedia calling api",resp.news_media)
             
            this.setState({ imageArr: resp.news_media });
-           console.log("imageArr",this.state.imageArr)
+           console.log("imageArr",this.state.imageArr[0].media_url)
+           videoUrl = this.state.imageArr[0].media_url
+           console.log("imageArr2",videoUrl)
         })
         .catch(e => {
             console.log('ExceptionSection>>> citizenMedia', e);
@@ -162,6 +174,7 @@ class CitizenNewsScreen extends React.Component {
     this.props.navigation.navigate('NewsMap')
 
   }
+  
   _renderModalContent = (markers) => {
 
     console.log(markers);
@@ -234,7 +247,26 @@ class CitizenNewsScreen extends React.Component {
         subtitle: '1234 Foo Drive'
       }
     ];
-    
+     pauseVideo = () => {
+     var curr = this.state.currentIndex;
+     console.warn(curr);
+     if(this.player[curr]) {
+       this.setState({paused: true });
+     }
+   }
+
+   playVideo = () => {
+     var curr = this.state.currentIndex;
+     console.warn(curr);
+     if(this.player[curr]) {
+     this.setState({paused: false});
+     }
+   }
+
+   handlePlaying = (isVisible) => {
+     isVisible ? this.playVideo() : this.pauseVideo();
+   }
+
     return (
       
       <Container>
@@ -260,7 +292,7 @@ class CitizenNewsScreen extends React.Component {
               style={{
                 backgroundColor: 'transparent',
                 flex: 1,
-                justifyContent: 'flex-end'
+                justifyContent: 'flex-end',
               }}>
               <View
                 style={{
@@ -271,40 +303,59 @@ class CitizenNewsScreen extends React.Component {
               </View>
             </View>
           </Modal>
-          {/* <View style={{height:300, width:'100%'}}> 
-        <Video 
-          source={{uri: this.state.imageArr.media_url }}
-          resizeMode={'cover'}
-          controls={true}
-          repeat={false}
+          <View style={{height:videoViewHeight, width:'100%',top:0}}  visible={this.state.isVisibleVideo}> 
+            <Video
+                source={{uri: videoUrl}}
+                resizeMode="contain"
+                controls={true}
+                repeat={false}
+                ref={(ref) => {
+                  this.player = ref
+                }}
+                onBuffer={this.onBuffer}
+                onError={this.videoError}
+                onLoad={this.onLoad}
+                style={styles.backgroundVideo} />
+            {/* <MediaControls
+                duration={this.state.duration}
+                isLoading={this.state.isLoading}
+                mainColor="#333"
+                onFullScreen={this.onFullScreen}
+                onPaused={this.onPaused}
+                onReplay={this.onReplay}
+                onSeek={this.onSeek}
+                onSeeking={this.onSeeking}
+                playerState={this.state.playerState}
+                progress={this.state.currentTime}
+                toolbar={this.renderToolbar()}
+            /> */}
+          </View>
 
-
-       ref={(ref) => {
-         this.player = ref
-       }}
-       onBuffer={this.onBuffer}
-       onError={this.videoError}
-       onLoad={this.onLoad}
-       style={styles.backgroundVideo} />
-      </View> */}
-
-          <View style={{flex: 1,height:350,width:"100%",top:0}}>
-              <IndicatorViewPager
-                style={styles.pagerStyle}
-                indicator={
-                  <PagerDotIndicator pageCount={this.state.imageArr.length} 
-                  selectedDotStyle={{backgroundColor:"#FFCD00"}}/>
-                }>
-                {this.state.imageArr.map(element => (
-                    <View key={element}>
-                      <Image style={{ width: "100%", height: "100%" }} source={{ uri: element.media_url }} />
-                    </View>
-                  )
-                )}
                 {/* <FitImage
                   source={{ uri: media || nophoto }}
                   style={Spacing.fitImage}
                 /> */}
+          <View style={{flex: 1,height:imageViewHeight,width:"100%",top:0,overflow: 'hidden'}} visible={this.state.isVisibleImage}>
+              <IndicatorViewPager
+                style={styles.pagerStyle}
+                visible={this.state.isVisibleImage}
+                indicator={
+                  <PagerDotIndicator pageCount={this.state.imageArr.length} 
+                  selectedDotStyle={{backgroundColor:"#FFCD00"}} visible={this.state.isVisibleImage}/>
+                }>
+                {this.state.imageArr.map(element => (
+                    <View key={element}>
+                      {/* <Image style={{ width: "100%", height: "100%" }} source={{ uri: element.media_url }} /> */}
+                      <ImageLoad
+                        style={{ width: "100%", height: "100%" }}
+                        placeholderSource={require('../../../../src/res/images/noimage.jpg')}
+                        loadingStyle={{size: 'large', color: 'blue'}}
+                        source={{ uri: element.media_url }}
+                        //resizeMode="cover"
+                      />
+                    </View>
+                  )
+                )}
               </IndicatorViewPager>
           </View>
           <View style={styles.CitizennewsMainContainer}>
@@ -420,11 +471,15 @@ const styles = StyleSheet.create({
     color: "#282929"
   },
   backgroundVideo: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
+    flex:1,
+    height:videoViewHeight, 
+    width:'100%',
+    //position: 'absolute',
+    // top: 0,
+    // left: 0,
+    // bottom: 0,
+    // right: 0,
+    //justifyContent: 'center',
   },
   modal: {
     justifyContent: 'center',
