@@ -43,10 +43,17 @@ let fetchOverNet;
 let videoUrl;
 var videoViewHeight=300;
 var imageViewHeight=300;
+// import { 
+//   IndicatorViewPager,  
+//   PagerDotIndicator,
+//   ViewPager
+// } from '@react-native-community/viewpager';
+
 import {
   IndicatorViewPager,
   PagerDotIndicator,
 } from '@shankarmorwal/rn-viewpager';
+
 import { element } from 'prop-types';
 
 let { width, height } = Dimensions.get('window');
@@ -61,6 +68,7 @@ class CitizenNewsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      Address: null,
       latlng: { latitude: 18.533333, longitude: -72.333336 },
       region: {
         latitude: LATITUDE,
@@ -91,6 +99,8 @@ class CitizenNewsScreen extends React.Component {
     this.fetchNews = this.fetchNews.bind(this);
   }
   componentDidMount() {
+
+    console.log('ou we kounya', this.state.long)
     NetInfo.fetch()
             .then(conn => {
 
@@ -111,16 +121,18 @@ class CitizenNewsScreen extends React.Component {
     if (this.state.type == "image"){
       videoViewHeight=0;
       imageViewHeight=300;
-      console.log("videoViewHeight",videoViewHeight,"imageViewHeight",imageViewHeight)
+      //console.log("videoViewHeight",videoViewHeight,"imageViewHeight",imageViewHeight)
       this.setState({isVisibleImage:true, isVisibleVideo:false})
     }else{
       imageViewHeight=0;
       videoViewHeight=300;
-      console.log("videoViewHeight",videoViewHeight,"imageViewHeight",imageViewHeight)
+     // console.log("videoViewHeight",videoViewHeight,"imageViewHeight",imageViewHeight)
       this.setState({isVisibleImage:false, isVisibleVideo:true})
     }
-    console.log("newScreen id",this.state.id),
+    //console.log("newScreen id",this.state.id),
     
+
+    // Geocoder
     Geocoder.init("AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk"); // use a valid API key
 
     this.wathcId = Geolocation.getCurrentPosition(position => {
@@ -129,21 +141,40 @@ class CitizenNewsScreen extends React.Component {
     });
   }
 
-  getAddressFromLatLong(lat, long) {
+  getAddressFromLatLong() {
+    Geolocation.getCurrentPosition(
+      (position) => {
+       this.setState({
+            latitude: this.state.lat,
+            longitude: this.state.long,
+          });
+          Geocoder.from(position.coords.latitude, position.coords.longitude)
+              .then(json => {
+                  console.log(json);
+var addressComponent = json.results[0].formatted_address;
+            this.setState({
+                     Address: addressComponent
+                  })
+                  console.log('anmweyeyyyeyeyeyey',addressComponent);
+              })
+              .catch(error => console.warn(error));
+      },
+      (error) => {
+          // See error code charts below.
+          this.setState({
+                  error: error.message
+              }),
+              console.log(error.code, error.message);
+      },
+      {
+          enableHighAccuracy: false,
+          timeout: 10000,
+          maximumAge: 100000
+      }
+  );
+};
 
-    console.log('lat', lat)
-    console.log('long', long)
-    Geocoder.from(41.89, 12.49)
-      .then(json => {
-        var addressComponent = json.results[0].address_components[0];
-        console.log('Address', addressComponent);
-        this.setState({
-          address: addressComponent.long_name
-        })
-      })
-      .catch(error => console.warn(error));
-
-  }
+  
 
   // hide show modal
   displayModal(show) {
@@ -151,18 +182,18 @@ class CitizenNewsScreen extends React.Component {
   }
   //Fetch citizenMedia from API
   fetchNews() {
-    console.log(" fetchNews newScreen id",this.state.id),
+    //console.log(" fetchNews newScreen id",this.state.id),
     getCitizenMedia(this.state.id)
         .then(resp => {
-          console.log("respose citizenMedia calling api",resp.news_media)
+          //console.log("respose citizenMedia calling api",resp.news_media)
             
            this.setState({ imageArr: resp.news_media });
-           console.log("imageArr",this.state.imageArr[0].media_url)
+           //console.log("imageArr",this.state.imageArr[0].media_url)
            videoUrl = this.state.imageArr[0].media_url
-           console.log("imageArr2",videoUrl)
+           //console.log("imageArr2",videoUrl)
         })
         .catch(e => {
-            console.log('ExceptionSection>>> citizenMedia', e);
+            //console.log('ExceptionSection>>> citizenMedia', e);
             this.setState({ refreshing: false });
         });
 }
@@ -177,7 +208,33 @@ class CitizenNewsScreen extends React.Component {
   
   _renderModalContent = (markers) => {
 
-    console.log(markers);
+    //console.log(markers);
+
+    function getAddressFromCoordinates({ lat, long }) {
+      return new Promise((resolve) => {
+        const url = `https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?apiKey=${AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk}&mode=retrieveAddresses&prox=${latitude},${longitude}`
+        fetch(url)
+          .then(res => res.json())
+          .then((resJson) => {
+            // the response had a deeply nested structure :/
+            if (resJson
+              && resJson.Response
+              && resJson.Response.View
+              && resJson.Response.View[0]
+              && resJson.Response.View[0].Result
+              && resJson.Response.View[0].Result[0]) {
+              resolve(resJson.Response.View[0].Result[0].Location.Address.Label)
+            } else {
+              resolve()
+            }
+          })
+          console.log('test', Address)
+          .catch((e) => {
+            //console.log('Error in getAddressFromCoordinates', e)
+            resolve()
+          })
+      })
+    }
     return (
 
       <View>
@@ -239,6 +296,8 @@ class CitizenNewsScreen extends React.Component {
     const { lat } = this.state;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     const { navigate } = this.props;
+
+    console.log(userphoto);
     var markers = [
       {
         latitude: 45.65,
@@ -359,13 +418,13 @@ class CitizenNewsScreen extends React.Component {
               </IndicatorViewPager>
           </View>
           <View style={styles.CitizennewsMainContainer}>
-
-            <Text style={styles.CitizennewsCategoryStyle}>Address</Text>
+{/* 
+            <Text style={styles.CitizennewsCategoryStyle}>Adresse</Text> */}
             <TouchableOpacity
               onPress={() => {
                 this.displayModal(true);
               }}>
-              <Text style={styles.CitizennewsLocationStyle}>{this.state.address}</Text></TouchableOpacity>
+              <Text style={styles.CitizennewsLocationStyle}>{this.state.Address}</Text></TouchableOpacity>
             <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
 
 
@@ -378,7 +437,9 @@ class CitizenNewsScreen extends React.Component {
                     borderRadius: 40 / 2,
                     overflow: "hidden",
                     borderWidth: 1,
-                    borderColor: "#979797"
+                    borderColor: "#979797",
+                    marginTop:8,
+                    marginRight:6
                   }}
                   source={{ uri: userphoto }}
                 />
@@ -393,7 +454,7 @@ class CitizenNewsScreen extends React.Component {
               </View>
             </View>
 
-            <View style={{ alignItems: 'center' }}>
+            <View style={{ backgroundColor:'#D8D8D8', height:50, width:300, marginTop:30, alignSelf:"center"}}>
 
             </View>
             <Text style={Typography.bodyWhite}>{body}</Text>
@@ -428,7 +489,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20
   },
   CitizennewsCategoryStyle: {
-    fontSize: 13,
+    fontSize: 14,
     textTransform: "uppercase",
     fontFamily: "AkkoPro-BoldCondensed",
     color: "#FFCD00",
