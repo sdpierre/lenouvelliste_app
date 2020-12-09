@@ -59,6 +59,8 @@ target 'lenouvelliste_app' do
 
   pod 'RealmJS', :path => '../node_modules/realm'
 
+  pod 'react-native-viewpager', :path => '../node_modules/@react-native-community/viewpager'
+
   target 'lenouvelliste_appTests' do
     inherit! :complete
     # Pods for testing
