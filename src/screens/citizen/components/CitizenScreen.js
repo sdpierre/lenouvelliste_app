@@ -5,6 +5,7 @@ import { Platform,
   View,
   ActivityIndicator,
   Image,
+  ImageBackground,
   FlatList,
   ScrollView,
   TouchableHighlight } from 'react-native';
@@ -141,10 +142,23 @@ class CitizenScreen extends React.Component {
           renderItem={({ item }) => (
             <View style={styles.CitizennewsStyleContainer}>
               <View>
-                <Image
-                  style={{ width: 350, height: 300 }}
-                  source={{ uri: item.thumb }}
-                />
+                <ImageBackground
+                  style={{ width: 350, height: 300,justifyContent:"center",alignItems:"center" }}
+                  source={{ uri: item.thumb }}>
+                    {item.type == 'image' 
+                      ?
+                        <Image
+                          style={{ width: 100, height: 100 }}
+                          //source={require("../../../res/images/play.png")} //Have to change icon for type image
+                          resizeMode="stretch"
+                        />
+                      : <Image
+                          style={{ width: 100, height: 100 }}
+                          source={require("../../../res/images/play.png")}
+                          resizeMode="stretch"
+                        />
+                    }
+              </ImageBackground>
               </View>
               <View style={styles.CitizennewsContentStyleContainer}>
                 <Text style={styles.CitizennewsCategoryStyle}>

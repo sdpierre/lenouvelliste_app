@@ -363,7 +363,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
     }
     goToCitizenProgress = () => {
 
-        this.props.navigation.navigate('CitizenProgressScreen')
+        this.props.navigation.navigate('Home')
 
     }
 

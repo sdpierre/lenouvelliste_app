@@ -20,7 +20,7 @@ let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE = 0;
 const LONGITUDE = 0;
-const LATITUDE_DELTA = 0.0922;
+const LATITUDE_DELTA = 0;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 import { Container, Header, Left, Body, Right, Icon, Title, Content } from 'native-base';
 import { Button, ButtonGroup } from 'react-native-elements';
@@ -148,7 +148,7 @@ export default class CitizenMapScreen extends Component {
 
             <MapView
               style={{ flex: 1, height: '100%' }}
-              region={this.state.latlng}
+              region={this.state.region}
               followsUserLocation={true}
               showsUserLocation={true}
               mapType={
