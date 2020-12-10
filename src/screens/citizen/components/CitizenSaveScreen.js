@@ -14,6 +14,7 @@ import {
 import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
+import CompressModule from 'react-native-sili-video-compression';
 
 import {
     Container,
@@ -68,6 +69,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
         }
         realm = new Realm({ path: 'MediaPost.realm' });
     }
+    
     UNSAFE_componentWillMount() {
         const { navigation } = this.props;
 
@@ -80,15 +82,12 @@ export default class CitizenSaveScreen extends ValidationComponent {
             this.state.arrPhotos.push(imageData)
 
         } else {
-
-            console.log('In video condition')
-
             this.setState({
                 showAddButton: false
             })
 
             videoData = navigation.getParam('videoData');
-
+            console.log('In video condition',videoData)
         }
         AsyncStorage.getItem("loggedInUserDetails").then((value) => {
             if (value != null) {
@@ -241,9 +240,11 @@ export default class CitizenSaveScreen extends ValidationComponent {
                 'long': global.long,
                 'image[]': []
             }
-
+            // const newFile = {
+            //     uri: videoData.path, type: videoData.mime, name: videoData.path.split("/").pop()
+            // }
             const newFile = {
-                uri: videoData.path, type: videoData.mime, name: videoData.path.split("/").pop()
+                uri: videoData.uri, type: 'video/mp4', name: videoData.uri.split("/").pop()
             }
             formData.append('video', newFile)
 
@@ -290,17 +291,13 @@ export default class CitizenSaveScreen extends ValidationComponent {
                         ],
                         { cancelable: false }
                     )
-
                 } else {
-
                     this.setState({
                         visible: false
                     });
-
                     console.log("Citizen post error", msg)
                     alert(msg);
                 }
-
             })
             .catch(function (error) {
                 console.log(error);
@@ -375,6 +372,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
         ImagePicker.openCamera({
             width: 300,
             height: 400,
+            compressImageQuality:0.5,
             // cropping: true,
             // includeBase64:true,
             mediaType: 'photo'
