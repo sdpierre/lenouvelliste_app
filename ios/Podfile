@@ -60,6 +60,9 @@ target 'lenouvelliste_app' do
   pod 'RealmJS', :path => '../node_modules/realm'
 
   pod 'react-native-viewpager', :path => '../node_modules/@react-native-community/viewpager'
+#  pod 'RNVideoCompression', :path => '../node_modules/react-native-sili-video-compression'
+
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
   target 'lenouvelliste_appTests' do
     inherit! :complete
