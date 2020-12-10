@@ -9,19 +9,16 @@ import {
   TouchableOpacity,
   Modal,
   Linking,
+  FlatList,
   Alert, ScrollView
 } from 'react-native';
 
+import { Col, Row, Grid } from "react-native-easy-grid";
 import { setAppInfo } from '../../../redux/actions';
 import { connect } from 'react-redux';
 import moment from "moment";
 import "moment/min/locales";
-import HTMLView from 'react-native-htmlview';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import FitImage from 'react-native-fit-image';
 import Video from 'react-native-video';
 //import MediaControls, {PLAYER_STATES} from 'react-native-media-controls';
 import MediaControls,{PLAYER_STATES}  from "react-native-media-controls";
@@ -35,7 +32,6 @@ import { Button } from 'react-native-elements';
 import ImageLoad from 'react-native-image-placeholder';
 
 import Geocoder from 'react-native-geocoding';
-// import { ScrollView } from 'react-native-gesture-handler';
 
 import { getCitizenMedia } from "../../../library/networking/Api"
 import NetInfo from '@react-native-community/netinfo';
@@ -43,11 +39,6 @@ let fetchOverNet;
 let videoUrl;
 var videoViewHeight=300;
 var imageViewHeight=300;
-// import { 
-//   IndicatorViewPager,  
-//   PagerDotIndicator,
-//   ViewPager
-// } from '@react-native-community/viewpager';
 
 import {
   IndicatorViewPager,
@@ -58,24 +49,13 @@ import { element } from 'prop-types';
 
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
-const LATITUDE = 0;
-const LONGITUDE = 0;
-const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO; 
+
+
 
 class CitizenNewsScreen extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      Address: null,
-      latlng: { latitude: 18.533333, longitude: -72.333336 },
-      region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      },
       id: this.props.navigation.getParam('id'),
       title: this.props.navigation.getParam('title'),
       body: this.props.navigation.getParam('body'),
@@ -91,290 +71,210 @@ class CitizenNewsScreen extends React.Component {
       duration: 0,
       isVisible: false,
       address: '',
-      imageArr:[],
-      isVisibleImage:true,
-      isVisibleVideo:false,
+      imageArr: [],
+      isVisibleImage: true,
+      isVisibleVideo: false,
       paused: true,
-    }
+    
+    };
     this.fetchNews = this.fetchNews.bind(this);
   }
   componentDidMount() {
-
-    console.log('ou we kounya', this.state.long)
     NetInfo.fetch()
-            .then(conn => {
-
-                fetchOverNet = conn.isConnected;
-            })
-            .then(() => {
-
-                if (fetchOverNet) this.fetchNews();
-                else {
-                    this.setState({
-                        refreshing: false,
-                        data: sectionDataDb,
-                        visible:false
-
-                    });
-                }
-            });
-    if (this.state.type == "image"){
-      videoViewHeight=0;
-      imageViewHeight=300;
+      .then(conn => {
+        fetchOverNet = conn.isConnected;
+      })
+      .then(() => {
+        if (fetchOverNet) this.fetchNews();
+        else {
+          this.setState({
+            refreshing: false,
+            data: sectionDataDb,
+            visible: false,
+          });
+        }
+      });
+    if (this.state.type == 'image') {
+      videoViewHeight = 0;
+      imageViewHeight = 300;
       //console.log("videoViewHeight",videoViewHeight,"imageViewHeight",imageViewHeight)
-      this.setState({isVisibleImage:true, isVisibleVideo:false})
-    }else{
-      imageViewHeight=0;
-      videoViewHeight=300;
-     // console.log("videoViewHeight",videoViewHeight,"imageViewHeight",imageViewHeight)
-      this.setState({isVisibleImage:false, isVisibleVideo:true})
+      this.setState({isVisibleImage: true, isVisibleVideo: false});
+    } else {
+      imageViewHeight = 0;
+      videoViewHeight = 300;
+      // console.log("videoViewHeight",videoViewHeight,"imageViewHeight",imageViewHeight)
+      this.setState({isVisibleImage: false, isVisibleVideo: true});
     }
     //console.log("newScreen id",this.state.id),
-    
 
     // Geocoder
-    Geocoder.init("AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk"); // use a valid API key
+    Geocoder.init('AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk'); // use a valid API key
 
     this.wathcId = Geolocation.getCurrentPosition(position => {
-      const { latitude, longitude } = position.coords;
-      this.getAddressFromLatLong(latitude, longitude)
+      const {latitude} = this.state.lat;
+      const {longitude} = this.state.long;
+      this.getAddressFromLatLong(latitude, longitude);
     });
   }
 
   getAddressFromLatLong() {
     Geolocation.getCurrentPosition(
-      (position) => {
-       this.setState({
-            latitude: this.state.lat,
-            longitude: this.state.long,
-          });
-          Geocoder.from(position.coords.latitude, position.coords.longitude)
-              .then(json => {
-                  console.log(json);
-var addressComponent = json.results[0].formatted_address;
+      position => {
+        this.setState({});
+        Geocoder.from(this.state.lat, this.state.long)
+          .then(json => {
+            var addressComponent = json.results[0].formatted_address;
             this.setState({
-                     Address: addressComponent
-                  })
-                  console.log('anmweyeyyyeyeyeyey',addressComponent);
-              })
-              .catch(error => console.warn(error));
+              Address: addressComponent,
+            });
+          })
       },
-      (error) => {
-          // See error code charts below.
-          this.setState({
-                  error: error.message
-              }),
-              console.log(error.code, error.message);
-      },
-      {
-          enableHighAccuracy: false,
-          timeout: 10000,
-          maximumAge: 100000
-      }
-  );
-};
-
-  
+    );
+  }
 
   // hide show modal
   displayModal(show) {
-    this.setState({ isVisible: show })
+    this.setState({isVisible: show});
   }
   //Fetch citizenMedia from API
   fetchNews() {
     //console.log(" fetchNews newScreen id",this.state.id),
     getCitizenMedia(this.state.id)
-        .then(resp => {
-          //console.log("respose citizenMedia calling api",resp.news_media)
-            
-           this.setState({ imageArr: resp.news_media });
-           //console.log("imageArr",this.state.imageArr[0].media_url)
-           videoUrl = this.state.imageArr[0].media_url
-           //console.log("imageArr2",videoUrl)
-        })
-        .catch(e => {
-            //console.log('ExceptionSection>>> citizenMedia', e);
-            this.setState({ refreshing: false });
-        });
-}
+      .then(resp => {
+        //console.log("respose citizenMedia calling api",resp.news_media)
 
-  onLoad = data => this.setState({ duration: data.duration, isLoading: false });
+        this.setState({imageArr: resp.news_media});
+        //console.log("imageArr",this.state.imageArr[0].media_url)
+        videoUrl = this.state.imageArr[0].media_url;
+        //console.log("imageArr2",videoUrl)
+      })
+      .catch(e => {
+        //console.log('ExceptionSection>>> citizenMedia', e);
+        this.setState({refreshing: false});
+      });
+  }
+
+  onLoad = data => this.setState({duration: data.duration, isLoading: false});
 
   goToCitizenNewsMapScreen = () => {
+    this.props.navigation.navigate('NewsMap');
+  };
 
-    this.props.navigation.navigate('NewsMap')
+  render() {
+    const {title} = this.state;
+    const {body} = this.state;
+    const {date} = this.state;
+    const {category} = this.state;
+    const {headline} = this.state;
+    const {username} = this.state;
+    const {media} = this.state;
+    const {userphoto} = this.state;
+    const {type} = this.state;
+    const {long} = this.state;
+    const {lat} = this.state;
+    const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
+    const {navigate} = this.props.navigation;
 
-  }
-  
-  _renderModalContent = (markers) => {
+    pauseVideo = () => {
+      var curr = this.state.currentIndex;
+      console.warn(curr);
+      if (this.player[curr]) {
+        this.setState({paused: true});
+      }
+    };
 
-    //console.log(markers);
+    playVideo = () => {
+      var curr = this.state.currentIndex;
+      console.warn(curr);
+      if (this.player[curr]) {
+        this.setState({paused: false});
+      }
+    };
 
-    function getAddressFromCoordinates({ lat, long }) {
-      return new Promise((resolve) => {
-        const url = `https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?apiKey=${AIzaSyA2SaIqhCmxkgyJsws5AoVK09IOZ0g9wYk}&mode=retrieveAddresses&prox=${latitude},${longitude}`
-        fetch(url)
-          .then(res => res.json())
-          .then((resJson) => {
-            // the response had a deeply nested structure :/
-            if (resJson
-              && resJson.Response
-              && resJson.Response.View
-              && resJson.Response.View[0]
-              && resJson.Response.View[0].Result
-              && resJson.Response.View[0].Result[0]) {
-              resolve(resJson.Response.View[0].Result[0].Location.Address.Label)
-            } else {
-              resolve()
-            }
-          })
-          console.log('test', Address)
-          .catch((e) => {
-            //console.log('Error in getAddressFromCoordinates', e)
-            resolve()
-          })
-      })
-    }
-    return (
+    handlePlaying = isVisible => {
+      isVisible ? this.playVideo() : this.pauseVideo();
+    };
 
-      <View>
-        <MapView
-          region={{
-            latitude: 18.533333,
-            longitude: -72.333336,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA,
-          }}
-          ref="map"
-          loadingEnabled
-          style={{ width: '100%', height: '100%' }}
-          annotations={markers}
-          zoomEnabled={true}
-          minZoomLevel={15}>
-          <Marker
-            coordinate={{ latitude: 18.533333, longitude: -72.333336 }}
-            image={require('../../../res/images/pin.png')}
-          />
-        </MapView>
+    const DATA = [
+      {
+        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'Craindre le pire pour secteur privé lorem ipsum dumy dolor standard',
+      },
+      {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Craindre le pire pour secteur privé lorem ipsum dumy dolor standard',
+      },
+      {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Craindre le pire pour secteur privé lorem ipsum dumy dolor standard',
+      },
+      {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Craindre le pire pour secteur privé lorem ipsum dumy dolor standard',
+      },
+      {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Craindre le pire pour secteur privé lorem ipsum dumy dolor standard',
+      },
+    ];
 
-        <View
-          style={{
-            position: 'absolute',//use absolute position to show button on top of the map
-            top: '60%', //for center align
-            alignSelf: 'center', //for align to right
-          }}
-        >
-          <Button
-            icon={
-              <MaterialCommunityIcons
-                name="close"
-                size={15}
-                color="white"
-              />
-            }
-            style={{ marginTop: 40 }}
-            onPress={() => {
-              this.setState({ isVisible: !this.state.isVisible });
-            }}
-          />
+    const Item = ({ title }) => (
+      <View style={{borderTopColor:'#656565',borderStyle:'solid',borderTopWidth:1, flex:1, flexDirection:'row', paddingTop:20, paddingBottom:20}}>
+
+        <View>  
+        <Image
+        style={{ width: 25, height: 25, marginRight:15}}
+        source={require('../../../res/images/imageIcon.png')}
+      />
+        </View>            
+        <View> 
+        <Text style={{fontFamily: 'Georgia',
+            fontSize: 16,
+            color: '#E7E7E7',
+            letterSpacing: 0,
+            lineHeight: 21}}>{title}</Text>
         </View>
-
+        
       </View>
     );
-  }
-  render() {
-    const { title } = this.state;
-    const { body } = this.state;
-    const { date } = this.state;
-    const { category } = this.state;
-    const { headline } = this.state;
-    const { username } = this.state;
-    const { media } = this.state;
-    const { userphoto } = this.state;
-    const { type } = this.state;
-    const { long } = this.state;
-    const { lat } = this.state;
-    const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
-    const { navigate } = this.props;
-
-    console.log(userphoto);
-    var markers = [
-      {
-        latitude: 45.65,
-        longitude: -78.90,
-        title: 'Foo Place',
-        subtitle: '1234 Foo Drive'
-      }
-    ];
-     pauseVideo = () => {
-     var curr = this.state.currentIndex;
-     console.warn(curr);
-     if(this.player[curr]) {
-       this.setState({paused: true });
-     }
-   }
-
-   playVideo = () => {
-     var curr = this.state.currentIndex;
-     console.warn(curr);
-     if(this.player[curr]) {
-     this.setState({paused: false});
-     }
-   }
-
-   handlePlaying = (isVisible) => {
-     isVisible ? this.playVideo() : this.pauseVideo();
-   }
+    const renderItem = ({ item }) => (
+      <Item title={item.title} />
+    );
+    
 
     return (
-      
       <Container>
         <Header>
           <Left>
-            <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
+            <MaterialCommunityIcons
+              name="arrow-left"
+              size={25}
+              style={Colors.gray}
+              onPress={() => {
+                this.props.navigation.goBack();
+              }}
+            />
           </Left>
-          <Body></Body>
-          <Right></Right>
+          <Body />
+          <Right />
         </Header>
-        <ScrollView>
-
-          <Modal
-            animationType={"slide"}
-            style={styles.modal}
-            presentationStyle="formSheet"
-            transparent={true}
-            visible={this.state.isVisible}
-            onRequestClose={() => {
-              Alert.alert('Modal has now been closed.');
-            }}>
-            <View
-              style={{
-                backgroundColor: 'transparent',
-                flex: 1,
-                justifyContent: 'flex-end',
-              }}>
-              <View
-                style={{
-                  backgroundColor: 'white',
-                  height: '40%'
-                }}>
-                {this._renderModalContent(markers)}
-              </View>
-            </View>
-          </Modal>
-          <View style={{height:videoViewHeight, width:'100%',top:0}}  visible={this.state.isVisibleVideo}> 
+        <ScrollView style={{backgroundColor: '#191D25'}}>
+          <View
+            style={{height: videoViewHeight, width: '100%', top: 0}}
+            visible={this.state.isVisibleVideo}>
             <Video
-                source={{uri: videoUrl}}
-                resizeMode="contain"
-                controls={true}
-                repeat={false}
-                ref={(ref) => {
-                  this.player = ref
-                }}
-                onBuffer={this.onBuffer}
-                onError={this.videoError}
-                onLoad={this.onLoad}
-                style={styles.backgroundVideo} />
+              source={{uri: videoUrl}}
+              resizeMode="contain"
+              controls={true}
+              repeat={false}
+              ref={ref => {
+                this.player = ref;
+              }}
+              onBuffer={this.onBuffer}
+              onError={this.videoError}
+              onLoad={this.onLoad}
+              style={styles.backgroundVideo}
+            />
             {/* <MediaControls
                 duration={this.state.duration}
                 isLoading={this.state.isLoading}
@@ -390,77 +290,149 @@ var addressComponent = json.results[0].formatted_address;
             /> */}
           </View>
 
-                {/* <FitImage
-                  source={{ uri: media || nophoto }}
-                  style={Spacing.fitImage}
-                /> */}
-          <View style={{flex: 1,height:imageViewHeight,width:"100%",top:0,overflow: 'hidden'}} visible={this.state.isVisibleImage}>
-              <IndicatorViewPager
-                style={styles.pagerStyle}
-                visible={this.state.isVisibleImage}
-                indicator={
-                  <PagerDotIndicator pageCount={this.state.imageArr.length} 
-                  selectedDotStyle={{backgroundColor:"#FFCD00"}} visible={this.state.isVisibleImage}/>
-                }>
-                {this.state.imageArr.map(element => (
-                    <View key={element}>
-                      {/* <Image style={{ width: "100%", height: "100%" }} source={{ uri: element.media_url }} /> */}
-                      <ImageLoad
-                        style={{ width: "100%", height: "100%" }}
-                        placeholderSource={require('../../../../src/res/images/noimage.jpg')}
-                        loadingStyle={{size: 'large', color: 'blue'}}
-                        source={{ uri: element.media_url }}
-                        //resizeMode="cover"
-                      />
-                    </View>
-                  )
-                )}
-              </IndicatorViewPager>
+          <View
+            style={{
+              flex: 1,
+              height: imageViewHeight,
+              width: '100%',
+              top: 0,
+              overflow: 'hidden',
+            }}
+            visible={this.state.isVisibleImage}>
+            <IndicatorViewPager
+              style={styles.pagerStyle}
+              visible={this.state.isVisibleImage}
+              indicator={
+                <PagerDotIndicator
+                  pageCount={this.state.imageArr.length}
+                  selectedDotStyle={{backgroundColor: '#FFCD00'}}
+                  visible={this.state.isVisibleImage}
+                />
+              }>
+              {this.state.imageArr.map(element => (
+                <View key={element}>
+                  {/* <Image style={{ width: "100%", height: "100%" }} source={{ uri: element.media_url }} /> */}
+                  <ImageLoad
+                    style={{width: '100%', height: '100%'}}
+                    placeholderSource={require('../../../../src/res/images/noimage.jpg')}
+                    loadingStyle={{size: 'large', color: 'blue'}}
+                    source={{uri: element.media_url}}
+                    //resizeMode="cover"
+                  />
+                </View>
+              ))}
+            </IndicatorViewPager>
           </View>
           <View style={styles.CitizennewsMainContainer}>
-{/* 
+            {/* 
             <Text style={styles.CitizennewsCategoryStyle}>Adresse</Text> */}
             <TouchableOpacity
               onPress={() => {
                 this.displayModal(true);
               }}>
-              <Text style={styles.CitizennewsLocationStyle}>{this.state.Address}</Text></TouchableOpacity>
+              <Text style={styles.CitizennewsLocationStyle}>
+                {this.state.Address}{' '}
+              </Text>
+            </TouchableOpacity>
+
             <Text style={styles.CitizennewsTitleStyle}>{title}</Text>
 
-
-            <View style={{ marginTop: 10, flex: 1, flexDirection : "row"}}>
-              <View>
-                <Image
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 40 / 2,
-                    overflow: "hidden",
-                    borderWidth: 1,
-                    borderColor: "#979797",
-                    marginTop:8,
-                    marginRight:6
-                  }}
-                  source={{ uri: userphoto }}
-                />
+            {/* Link to profil and report */}
+            <View style={{flex: 1, flexDirection: 'row', marginTop: 20}}>
+              <View
+                style={{
+                
+                  flexGrow: 1,
+                }}>
+                <TouchableOpacity onPress={() => navigate('Profil')}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'flex-end',
+                    }}>
+                    <View style={{flex: 1, flexDirection: 'row'}}>
+                      <View>
+                        <Image
+                          style={{
+                            width: 40,
+                            height: 40,
+                            borderRadius: 40 / 2,
+                            overflow: 'hidden',
+                            borderWidth: 1,
+                            borderColor: '#979797',
+                            marginTop: 8,
+                            marginRight: 6,
+                          }}
+                          source={{uri: userphoto}}
+                        />
+                      </View>
+                      <View style={{padding: 5}}>
+                        <Text style={styles.CitizennewsUsernameStyle}>
+                          {username}
+                        </Text>
+                        <Text style={styles.CitizennewsMomentStyle}>
+                          {(time = moment(date || moment.now()).fromNow())}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
               </View>
-              <View style={{ padding: 5 }}>
-                <Text style={styles.CitizennewsUsernameStyle}>
-                  {username}
-                </Text>
-                <Text style={styles.CitizennewsMomentStyle}>
-                  {(time = moment(date || moment.now()).fromNow())}
+              <View
+                style={{
+                  width: 30,
+                 
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                <Text>
+                  <MaterialCommunityIcons
+                    name="flag"
+                    size={20}
+                    style={{color: 'red'}}
+                    onPress={() => {
+                      this.props.navigation.goBack();
+                    }}
+                  />
                 </Text>
               </View>
             </View>
+            {/* Link to profil and report */}
+            <Image
+              style={{
+                width: 300,
+                height: 50,
+                marginRight: 15,
+                marginTop: 30,
+                marginBottom: 20,
+                alignSelf: 'center',
+                resizeMode: 'stretch',
+              }}
+              source={{uri: 'http://placeimg.com/300/50/any'}}
+            />
 
-            <View style={{ backgroundColor:'#D8D8D8', height:50, width:300, marginTop:30, alignSelf:"center"}}>
-
-            </View>
             <Text style={Typography.bodyWhite}>{body}</Text>
 
-          </View>
+            <View>
+              <Text
+                style={{
+                  fontFamily: 'AkkoPro-BoldCondensed',
+                  fontSize: 16,
+                  color: '#EEEEEE',
+                  marginTop: 30,
+                  marginBottom: 10,
+                  letterSpacing: 0.64,
+                }}>
+                RELATED ARTICLES
+              </Text>
 
+              <FlatList
+                data={DATA}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+              />
+            </View>
+          </View>
         </ScrollView>
       </Container>
     );
@@ -470,7 +442,7 @@ var addressComponent = json.results[0].formatted_address;
 const styles = StyleSheet.create({
   CitizennewsMainContainer: {
     ...Spacing.container,
-    backgroundColor: "#191D25",
+   
     flex: 1,
   },
   CitizennewsStyleContainer: {
