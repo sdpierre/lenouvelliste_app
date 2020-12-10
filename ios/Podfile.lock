@@ -244,12 +244,20 @@ PODS:
     - React-cxxreact (= 0.63.3)
     - React-jsi (= 0.63.3)
   - React-jsinspector (0.63.3)
+  - react-native-camera (3.40.0):
+    - React-Core
+    - react-native-camera/RCT (= 3.40.0)
+    - react-native-camera/RN (= 3.40.0)
+  - react-native-camera/RCT (3.40.0):
+    - React-Core
+  - react-native-camera/RN (3.40.0):
+    - React-Core
   - react-native-create-thumbnail (1.2.1):
     - React
   - react-native-geolocation (2.0.2):
     - React
-  - react-native-image-picker (2.3.1):
-    - React
+  - react-native-image-picker (2.3.4):
+    - React-Core
   - react-native-maps (0.27.1):
     - React
   - react-native-netinfo (5.5.1):
@@ -346,6 +354,8 @@ PODS:
     - React
   - RNVectorIcons (6.6.0):
     - React
+  - RNVideoCompression (1.2.1):
+    - React
   - RSKImageCropper (3.0.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -389,6 +399,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-create-thumbnail (from `../node_modules/react-native-create-thumbnail`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
@@ -414,6 +425,7 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - RNVideoCompression (from `../node_modules/react-native-sili-video-compression/ios`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -468,6 +480,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-camera:
+    :path: "../node_modules/react-native-camera"
   react-native-create-thumbnail:
     :path: "../node_modules/react-native-create-thumbnail"
   react-native-geolocation:
@@ -518,6 +532,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  RNVideoCompression:
+    :path: "../node_modules/react-native-sili-video-compression/ios"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -552,9 +568,10 @@ SPEC CHECKSUMS:
   React-jsi: df07aa95b39c5be3e41199921509bfa929ed2b9d
   React-jsiexecutor: b56c03e61c0dd5f5801255f2160a815f4a53d451
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
+  react-native-camera: 5c1fbfecf63b802b8ca4a71c60d30a71550fb348
   react-native-create-thumbnail: f5265b03ec18ccc86f754c7cb63f919147a78ce0
-  react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
-  react-native-image-picker: 6a850c41f57f0848d918c2a77aedd7aa272ffa30
+  react-native-geolocation: cbd9d6bd06bac411eed2671810f454d4908484a8
+  react-native-image-picker: 32d1ad2c0024ca36161ae0d5c2117e2d6c441f11
   react-native-maps: f4b89da81626ad7f151a8bfcb79733295d31ce5c
   react-native-netinfo: 3bf235d94cc291cf0673ad9fd9eaae82f84ed8a9
   react-native-onesignal: 417b2ae5c3148a47a6ef70b6af443186048b2022
@@ -577,10 +594,11 @@ SPEC CHECKSUMS:
   RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
   RNScreens: b9ea46d65967a1f74b9aaa1229d0f74f58d216b5
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
+  RNVideoCompression: 385e2ded5cb167c6ae781f16470b2c59aca783ef
   RSKImageCropper: 81f449b4df96bdaf28e1ad6dcce28dcda2235458
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: a7c4a1e872b0a399f6d022a67ba8a882511c1cd9
+PODFILE CHECKSUM: 1dd16453bee375e06a4843c3a02b54ed3ea68385
 
 COCOAPODS: 1.8.4
