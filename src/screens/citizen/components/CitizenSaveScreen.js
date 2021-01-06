@@ -375,7 +375,18 @@ export default class CitizenSaveScreen extends ValidationComponent {
                     console.log("image Array", imageBase64Array.length)
                     this.saveToLoacalStorage(imageBase64Array)
                 } else {
+                    var path = RNFS.DocumentDirectoryPath + "/" + videoData.uri.split("/").pop()
+                    console.log("Path......", path)
 
+
+                        RNFS.copyFile(videoData.uri, path)
+                            .then((success) => {
+                                console.log('FILE WRITTEN!', success);
+                            })
+                            .catch((err) => {
+                                console.log("ERROR ON WRITTEN FILE!", err.message);
+                            });
+                    this.saveToLoacalStorage(path)
                 }
             }
         }
@@ -383,7 +394,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
     saveToLoacalStorage(imageBase64Array) {
         console.log("save for later data", imageBase64Array)
         var isImage = false
-        var mediaType = "viedo"
+        var mediaType = "video"
         if (this.state.arrPhotos.length > 0) {
             isImage = true
             mediaType = "image"
@@ -396,15 +407,27 @@ export default class CitizenSaveScreen extends ValidationComponent {
                         .id + 1
                     : 1;
             console.log("iddddd....", ID)
-            realm.create('post_details', {
-                user_id: this.state.userId.toString(),
-                title: this.state.title,
-                description: this.state.description,
-                video: 'string',
-                type: mediaType,
-                image: imageBase64Array,
-                id: ID,
-            });
+            if (mediaType == "image"){
+                realm.create('post_details', {
+                    user_id: this.state.userId.toString(),
+                        title: this.state.title,
+                        description: this.state.description,
+                        video: 'string',
+                        type: mediaType,
+                        image: imageBase64Array,
+                        id: ID,
+                });
+            }else{
+                realm.create('post_details', {
+                    user_id: this.state.userId.toString(),
+                        title: this.state.title,
+                        description: this.state.description,
+                        video: imageBase64Array,
+                        type: mediaType,
+                        image: [],
+                        id: ID,
+                });
+            }
             Alert.alert(
                 'Success',
                 "Your post is succesfully saved.",
