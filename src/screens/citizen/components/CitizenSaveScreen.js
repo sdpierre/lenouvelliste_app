@@ -14,7 +14,7 @@ import {
 import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
-import CompressModule from 'react-native-sili-video-compression';
+//import CompressModule from 'react-native-sili-video-compression';
 
 import {
     Container,
@@ -38,6 +38,7 @@ import { withNavigation } from 'react-navigation';
 //import RNThumbnail from 'react-native-thumbnail-fixed';
 import Realm from 'realm';
 let realm;
+var RNFS = require('react-native-fs');
 
 //Dimensions
 var deviceWidth = (Dimensions.get('window').width);
@@ -68,8 +69,29 @@ export default class CitizenSaveScreen extends ValidationComponent {
             visible: false,
         }
         realm = new Realm({ path: 'MediaPost.realm' });
+        realm = new Realm({
+            path: 'MediaPost.realm',
+            schema: [
+                {
+                    name: 'post_details',
+                    primaryKey: 'id',
+                    properties: {
+                        id: 'int',
+                        user_id: 'string',
+                        title: 'string',
+                        description: 'string',
+                        type: 'string',
+                        video: 'string',
+                        image: 'string[]',
+                    },
+                },
+            ],
+        });
+        dbData = realm.objects('post_details');
+        console.log("realm data :", dbData.length)
+        console.log("react database data:", realm)
     }
-    
+
     UNSAFE_componentWillMount() {
         const { navigation } = this.props;
 
@@ -87,7 +109,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
             })
 
             videoData = navigation.getParam('videoData');
-            console.log('In video condition',videoData)
+            console.log('In video condition', videoData)
         }
         AsyncStorage.getItem("loggedInUserDetails").then((value) => {
             if (value != null) {
@@ -274,14 +296,12 @@ export default class CitizenSaveScreen extends ValidationComponent {
                 let msg = response.data.message;
 
                 if (response.data.status == true) {
-
                     Alert.alert(
                         'Message',
                         msg,
                         [
                             {
                                 text: 'OK', onPress: () => {
-
                                     this.setState({
                                         visible: false
                                     });
@@ -324,37 +344,74 @@ export default class CitizenSaveScreen extends ValidationComponent {
             if (this.getErrorMessages()) {
                 alert(LeneovellisteConstants.kCitizenPostDescription)
             } else {
-                console.log("The photo data is = ",this.state.arrPhotos)
+                console.log("The photo data is = ", this.state.arrPhotos)
+                if (this.state.arrPhotos.length > 0) {
+                    var imageBase64Array = []
+                    this.state.arrPhotos.forEach((element, i) => {
+
+                        console.log("path:::", element.path)
+                        var path = RNFS.DocumentDirectoryPath + "/" + element.path.split("/").pop()
+                        console.log("Path......", path)
+
+
+                        RNFS.copyFile(element.path, path)
+                            .then((success) => {
+                                console.log('FILE WRITTEN!', success);
+                            })
+                            .catch((err) => {
+                                console.log("ERROR ON WRITTEN FILE!", err.message);
+                            });
+
+                        // RNFS.writeFile(path, element.path.split("/").pop(), 'utf8')
+                        //     .then((success) => {
+                        //         console.log('FILE WRITTEN!',success);
+                        //     })
+                        //     .catch((err) => {
+                        //         console.log("ERROR ON WRITTEN FILE!",err.message);
+                        //     });
+                        imageBase64Array.push(path)
+                    });
+                    console.log("image Array", imageBase64Array)
+                    console.log("image Array", imageBase64Array.length)
+                    this.saveToLoacalStorage(imageBase64Array)
+                } else {
+
+                }
             }
         }
     }
-    saveToLoacalStorage() {
+    saveToLoacalStorage(imageBase64Array) {
+        console.log("save for later data", imageBase64Array)
         var isImage = false
         var mediaType = "viedo"
-        if (this.state.arrPhotos.length > 0){
+        if (this.state.arrPhotos.length > 0) {
             isImage = true
             mediaType = "image"
         }
-
         realm.write(() => {
+            console.log("iddddd....", ID)
             var ID =
-                realm.objects('post_details').sorted('post_id', true).length > 0
-                    ? realm.objects('post_details').sorted('post_id', true)[0]
-                        .user_id + 1
+                realm.objects('post_details').sorted('id', true).length > 0
+                    ? realm.objects('post_details').sorted('id', true)[0]
+                        .id + 1
                     : 1;
+            console.log("iddddd....", ID)
             realm.create('post_details', {
-                post_id: ID,
-                post_title: that.state.user_name,
-                post_type: that.state.user_contact,
-                post_description: that.state.user_address,
+                user_id: this.state.userId.toString(),
+                title: this.state.title,
+                description: this.state.description,
+                video: 'string',
+                type: mediaType,
+                image: imageBase64Array,
+                id: ID,
             });
             Alert.alert(
                 'Success',
-                'You are registered successfully',
+                "Your post is succesfully saved.",
                 [
                     {
                         text: 'Ok',
-                        onPress: () => that.props.navigation.navigate('HomeScreen'),
+                        onPress: () => this.props.navigation.navigate('Home'),
                     },
                 ],
                 { cancelable: false }
@@ -362,22 +419,19 @@ export default class CitizenSaveScreen extends ValidationComponent {
         });
     }
     goToCitizenProgress = () => {
-
         this.props.navigation.navigate('Home')
-
     }
-
     addMoreImages = () => {
         console.log('Getting called')
         ImagePicker.openCamera({
             width: 300,
             height: 400,
-            compressImageQuality:0.5,
+            compressImageQuality: 0.5,
             // cropping: true,
             // includeBase64:true,
             mediaType: 'photo'
         }).then(image => {
-
+            console.log("MyImageData is =", image.data)
             // var arrImages =[];
             // arrImages.push(image.data)
             this.state.arrPhotos.push(image)

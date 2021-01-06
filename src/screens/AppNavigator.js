@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
-import LoginNavigator from '../screens/loginFlow/loginNavigator';
+import LoginNavigator from '../screens/loginFlow/LoginNavigator';
 //import LoginNavigator from './loginFlow/loginNavigator';
 import BreakingNavigator from './breaking/BreakingNavigator';
 import CitizenNavigator from '../screens/citizen/CitizenNavigator';
@@ -21,7 +21,7 @@ const getScreenRegisteredFunctions = navState => {
   }
   // When we have the final screen params
   else {
-    return params;
+    return params;  
   }
 };
 

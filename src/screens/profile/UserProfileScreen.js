@@ -509,6 +509,12 @@ class UserProfileScreen extends ValidationComponent{
                   </Right>
                 </Header>
                 <View style={{justifyContent: 'center',  alignItems: 'center'}}>
+                <TouchableOpacity style={{backgroundColor:"red",width:100,height:50,top:0}} 
+                  onPress={() => {
+                    this.props.navigation.navigate('SaveForLater');
+                  }}>
+                  <Text> Post</Text>
+                </TouchableOpacity>
                   <TouchableOpacity
                     onPress={this.chooseAvatar.bind(this)}>
                     <View

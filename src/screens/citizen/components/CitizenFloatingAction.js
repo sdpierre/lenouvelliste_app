@@ -54,7 +54,6 @@ class CitizenFloatingAction extends Component {
                 // includeBase64:true,
                 mediaType: 'photo'
               }).then(image => {
-
                 console.log("Image", image);
                 //CitizenSaveScreen
                 navigate('CitizenMapScreen', {
@@ -66,13 +65,13 @@ class CitizenFloatingAction extends Component {
               console.log('Video<<<')
               const options = {
                 mediaType: 'video',
-                videoQuality: 'low',
+                videoQuality: 'medium',
                 durationLimit: 20,
                 thumbnail: true,
                 allowsEditing: true,
               };
               ImagePicker.launchCamera(options, (response) => {
-                console.log('camera response is = ', response.data)
+                console.log('camera response is = ', response,response.data)
                 if (response.didCancel) {
                   // console.warn('User cancelled video picker');
                 } else if (response.error) {
@@ -93,7 +92,7 @@ class CitizenFloatingAction extends Component {
               //   });
 
               // });
-              break;
+              break;                        
           }
         }}
       />
