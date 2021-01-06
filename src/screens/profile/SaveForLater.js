@@ -32,6 +32,7 @@ import {
   Content,
   Left,
   Button,
+  Right,
 } from "native-base";
 //Realm
 import Realm from 'realm';
@@ -301,17 +302,18 @@ goToCitizenProgress = () => {
                 </Button>
             </Left>
             <Body><Title>{title}</Title></Body>
+            <Right></Right>
           </Header>
         
           <View style={styles.MainContainer}>
             <FlatList
               data={this.state.bookmarkData}
               renderItem={({ item }) =>
-                <View style={{flexDirection:"row",backgroundColor:"white"}}>
+                <View style={{flexDirection:"row",backgroundColor:"white",marginBottom:10}}>
                   <View style={{flex: 1,paddingLeft:20,marginTop:20}}>
                     <Text style={styles.articleTitle}>{item.title}</Text>
                     <Text style={styles.articleTitle}>{item.description}</Text>
-                    <TouchableOpacity style={{ backgroundColor: "#0089d0", top: 5,justifyContent:"center",alignItems:"center",height:30 }}
+                    <TouchableOpacity style={{ backgroundColor: "#0089d0", top: 5,justifyContent:"center",alignItems:"center",height:30,marginBottom:10 }}
                       onPress={() => {
                         this.apiCallToSendCitizenPost(item)
                       }}>
@@ -439,8 +441,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     marginLeft: 0,
     marginRight: 0,
-    height: 100,
-    width: 100,
+    height: 90,
+    width: 90,
     alignItems: 'center'
 },
   lottie: {

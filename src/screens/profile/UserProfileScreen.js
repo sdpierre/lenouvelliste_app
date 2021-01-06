@@ -470,10 +470,7 @@ class UserProfileScreen extends ValidationComponent {
       return false;
     }
   }
-
-
   render() {
-
     const username = this.state.userName;
     return (
       <Container>
@@ -500,7 +497,7 @@ class UserProfileScreen extends ValidationComponent {
               </Left>
 
               <Body />
-              <Title><Text> kjbjkbj </Text></Title>
+              <Title></Title>
               <Right>
                 <MaterialCommunityIcons
                   name="logout"
@@ -562,7 +559,7 @@ class UserProfileScreen extends ValidationComponent {
                     )}
                 </View>
               </TouchableOpacity>
-              <View style={{flexDirection:'row', alignItems:'center',justifyContent:'center',marginTop: 10,width:'100%'}}>
+              <View style={{flexDirection:'row',marginTop: 10,width:'100%'}}>
               <View style={{flex:1 }}></View>
               <Text style={profileStyles.username}>
                 {' '}
