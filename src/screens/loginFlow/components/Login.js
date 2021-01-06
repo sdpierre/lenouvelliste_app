@@ -191,7 +191,7 @@ class Login extends ValidationComponent {
           <View style={{ width: 300 }}>
             <View>
               <TextInput style={{height: 50, borderBottomColor: '#D8D8D8',
-        borderBottomWidth: 1,}}
+        borderBottomWidth: 1}}
                 placeholder="E-mail, nom d'utilisateur"
                 tintColor='#0082C6'
                 placeholderTextColor='#9b9b9b'
@@ -220,10 +220,15 @@ class Login extends ValidationComponent {
                 value={this.state.password}
               />
 
+<View style={{marginTop:30}}>
               <Button style={{ marginTop: 40 }} title="Je me connecte" onPress={this.login} />
-              <Button type="outline" style={{ marginTop: 20 }} title="S'inscrire" onPress={this.login} onPress={() => {
+              </View>
+
+              <View style={{marginTop:20}}>
+              <Button type="outline" title="S'inscrire" onPress={this.login} onPress={() => {
                 this.props.navigation.navigate('Register');
               }} />
+              </View>
 
               <TouchableOpacity
                 style={{
