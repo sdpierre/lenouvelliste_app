@@ -186,6 +186,7 @@ class SaveForLater extends React.Component {
         }
         console.log('Parameter is = ', params)
         item.image.forEach((element, i) => {
+          console.log("item>>>>>>>",item)
             const newFile = {
               uri: element, type: "image/jpeg", name: element.split("/").pop()
             }
@@ -302,7 +303,7 @@ goToCitizenProgress = () => {
                 </Button>
             </Left>
             <Body><Title>{title}</Title></Body>
-            <Right></Right>
+            <Right><View></View></Right>
           </Header>
         
           <View style={styles.MainContainer}>
@@ -313,7 +314,8 @@ goToCitizenProgress = () => {
                   <View style={{flex: 1,paddingLeft:20,marginTop:20}}>
                     <Text style={styles.articleTitle}>{item.title}</Text>
                     <Text style={styles.articleTitle}>{item.description}</Text>
-                    <TouchableOpacity style={{ backgroundColor: "#0089d0", top: 5,justifyContent:"center",alignItems:"center",height:30,marginBottom:10 }}
+                    <View style={{flexDirection:"row"}}>
+                    <TouchableOpacity style={styles.styleButton}
                       onPress={() => {
                         this.apiCallToSendCitizenPost(item)
                       }}>
@@ -321,6 +323,19 @@ goToCitizenProgress = () => {
                         POST
                       </Text>
                     </TouchableOpacity>
+                    <View style={{flex:1}}></View>
+                    <TouchableOpacity style={styles.styleButton}
+                      onPress={() => {
+                        this.props.navigation.navigate("PostDetail",{
+                          postData : item
+                        })
+                      }}>
+                      <Text style={{fontFamily: "Montserrat-SemiBold",color:"white"}}>
+                        EDIT
+                      </Text>
+                    </TouchableOpacity>
+                    </View>
+                    
                   </View>
                   <View style={styles.articleImage}>
                     {item.image.length > 0 ?
@@ -444,6 +459,15 @@ const styles = StyleSheet.create({
     height: 90,
     width: 90,
     alignItems: 'center'
+},
+styleButton:{
+  backgroundColor: "#0089d0",
+  top: 5,
+  justifyContent:"center",
+  alignItems:"center",height:30,
+  marginBottom:10 ,
+  width:"45%",
+  borderRadius:5
 },
   lottie: {
     width: 100,
