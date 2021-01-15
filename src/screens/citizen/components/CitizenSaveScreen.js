@@ -139,6 +139,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
                     global.lat = position.coords.latitude;
                     global.long = position.coords.longitude;
+                    console.log("lat long.....",position.coords.latitude + " " + position.coords.longitude);
                 },
                 error => {
                     // See error code charts below.
@@ -168,7 +169,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
                                 global.lat = position.coords.latitude;
                                 global.long = position.coords.longitude;
-                                console.log(global.lat + " " + global.long);
+                                console.log("lat long.....",position.coords.latitude + " " + position.coords.longitude);
                             },
                             error => {
                                 // See error code charts below.
