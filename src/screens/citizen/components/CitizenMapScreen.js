@@ -29,90 +29,41 @@ import { Button, ButtonGroup } from 'react-native-elements';
 export default class CitizenMapScreen extends Component {
   constructor() {
     super();
-    global.lat = '';
-    global.long = '';
-
     global.latlng = { latitude: 18.533333, longitude: -72.333336 },
-    global.region = {
-      latitude: LATITUDE,
-      longitude: LONGITUDE,
-      latitudeDelta: LATITUDE_DELTA,
-      longitudeDelta: LONGITUDE_DELTA,
-    },
-
-    this.state = {
-      mapTypeIndex: 0,
-      latlng: { latitude: 18.533333, longitude: -72.333336 },
-      region: {
+      global.region = {
         latitude: LATITUDE,
         longitude: LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
-      imageData: '',
-      videoData: ''
-    };
+
+      this.state = {
+        mapTypeIndex: 0,
+        imageData: '',
+        videoData: '',
+        locationGot: false
+      };
     this.chooseMapType = this.chooseMapType.bind(this);
   }
   componentDidMount() {
-
-    // console.log("Image Data Map",this.state.imageData);
-    // navigator.geolocation.getCurrentPosition(
-    //   position => {
-    //     this.setState({
-    //       region: {
-    //         latitude: position.coords.latitude,
-    //         longitude: position.coords.longitude,
-    //         latitudeDelta: LATITUDE_DELTA,
-    //         longitudeDelta: LONGITUDE_DELTA,
-    //       }
-    //     });
-    //   },
-    // (error) => console.log(error.message),
-    // { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    // );
-    // this.watchID = navigator.geolocation.watchPosition(
-    //   position => {
-    //     this.setState({
-    //       region: {
-    //         latitude: position.coords.latitude,
-    //         longitude: position.coords.longitude,
-    //         latitudeDelta: LATITUDE_DELTA,
-    //         longitudeDelta: LONGITUDE_DELTA,
-    //       }
-    //     });
-    //   }
-    // );
-
-    // this.wathcId = Geolocation.getCurrentPosition(position => {
-    //   const { latitude, longitude } = position.coords;
-    //   const newCoordinate = {
-    //     latitude,
-    //     longitude,
-    //   };
-    //   this.setState({ latlng: newCoordinate });
-    // });
-
-    // console.log("current lat long",this.state.latlng.latitude,this.state.latlng.longitude)
 
     if (Platform.OS == 'ios') {
       console.log(' ios Did mount calling')
 
       Geolocation.getCurrentPosition(
-        position => {
-          global.lat = position.coords.latitude;
-          global.long = position.coords.longitude;
+        (position) => {
+           
           global.latlng = { latitude: position.coords.latitude, longitude: position.coords.longitude }
-          this.setState({ 
-            latlng: { latitude: position.coords.latitude, longitude: position.coords.longitude },
-            region: {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                  latitudeDelta: LATITUDE_DELTA,
-                  longitudeDelta: LONGITUDE_DELTA,
-                }
+          global.region = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          }
+          this.setState({
+            locationGot: true
           })
-          console.log("lat long.....", this.state.latlng.latitude + " " +  this.state.latlng.longitude);
+          //console.log("lat long.....", this.state.latlng.latitude + " " + this.state.latlng.longitude);
         },
         error => {
           // See error code charts below.
@@ -122,71 +73,51 @@ export default class CitizenMapScreen extends Component {
       );
       return true;
     } else {
-
-      console.log(' android Did mount calling')
-      async function requestLocationPermission() {
-        try {
-          const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-            {
-              title: 'Location Access Required',
-              message: 'This App needs to Access your location',
-            },
-          );
-          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-
-            Geolocation.getCurrentPosition(
-              position => {
-
-                global.lat = position.coords.latitude;
-                global.long = position.coords.longitude;
-
-      //             const { latitude, longitude } = position.coords;
-      // const newCoordinate = {
-      //   latitude,
-      //   longitude,
-      // };
-      // this.setState({ latlng: newCoordinate });
-      global.latlng = { latitude: position.coords.latitude, longitude: position.coords.longitude }
-      global.latlng = { latitude: global.lat, longitude: global.lat},
-      global.region = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA,
-          }
-                // this.setState({
-                //   latlng: { latitude: position.coords.latitude, longitude: position.coords.longitude },
-                //   region: {
-                //     latitude: position.coords.latitude,
-                //     longitude: position.coords.longitude,
-                //     latitudeDelta: LATITUDE_DELTA,
-                //     longitudeDelta: LONGITUDE_DELTA,
-                //   }
-                // })
-                console.log("lat long.....android....", global.latlng);
-              },
-              error => {
-                // See error code charts below.
-                console.log(error.code, error.message);
-              },
-              { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
-            );
-
-            return true;
-          } else {
-            alert('Permission Denied');
-            return false;
-          }
-        } catch (err) {
-          console.warn(err);
-          return false;
-        }
-      }
-      requestLocationPermission();
+      this.getLocation_Android()
     }
   }
+   getLocation_Android = async() => {
+    console.log(' android Did mount calling')
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Location Access Required',
+          message: 'This App needs to Access your location',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
 
+        Geolocation.getCurrentPosition(
+          (position) => {
+            global.latlng = { latitude: position.coords.latitude, longitude: position.coords.longitude }
+              global.region = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA,
+              }
+            this.setState({
+              locationGot: true
+            })
+            console.log("lat long.....android....", global.latlng);
+          },
+          error => {
+            // See error code charts below.
+            console.log(error.code, error.message);
+          },
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 });
+
+        return true;
+      } else {
+        alert('Permission Denied');
+        return false;
+      }
+    } catch (err) {
+      console.warn(err);
+      return false;
+    }
+  }
   chooseMapType = index => {
     this.setState({ mapTypeIndex: index });
   };
@@ -247,27 +178,24 @@ export default class CitizenMapScreen extends Component {
             </View>
 
             <View style={{ height: 400 }}>
-
-              <MapView
-                style={{ flex: 1, height: '100%' }}
-                region={global.region}
-                followsUserLocation={true}
-                showsUserLocation={true}
-                zoomEnabled={true}
-                animateToRegion={global.region}
-                mapType={
-                  this.state.mapTypeIndex === 0 ? 'standard' : 'satellite'
-                }>
-
-                <Marker
-                  draggable
+              {this.state.locationGot ?
+                <MapView
+                  style={{ flex: 1, height: '100%' }}
+                  region={global.region}
                   followsUserLocation={true}
-                  coordinate={global.latlng}
-                  // onDragEnd={e =>
-                  //   this.setState({ latlng: e.nativeEvent.coordinate })
-                  // }
-                />
-              </MapView>
+                  showsUserLocation={true}
+                  zoomEnabled={true}
+                  animateToRegion={global.region}
+                  mapType={
+                    this.state.mapTypeIndex === 0 ? 'standard' : 'satellite'
+                  }>
+                  <Marker
+                    draggable
+                    followsUserLocation={true}
+                    coordinate={global.latlng}
+                  />
+                </MapView>
+                : null}
             </View>
 
             <View style={{ flex: 1, padding: 35 }}>

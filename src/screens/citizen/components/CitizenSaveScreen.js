@@ -139,7 +139,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
                     global.lat = position.coords.latitude;
                     global.long = position.coords.longitude;
-                    console.log("lat long.....",position.coords.latitude + " " + position.coords.longitude);
+                    console.log("lat long.....", position.coords.latitude + " " + position.coords.longitude);
                 },
                 error => {
                     // See error code charts below.
@@ -169,7 +169,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
                                 global.lat = position.coords.latitude;
                                 global.long = position.coords.longitude;
-                                console.log("lat long.....",position.coords.latitude + " " + position.coords.longitude);
+                                console.log("lat long.....", position.coords.latitude + " " + position.coords.longitude);
                             },
                             error => {
                                 // See error code charts below.
@@ -283,7 +283,8 @@ export default class CitizenSaveScreen extends ValidationComponent {
             params,
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': "multipart/form-data",
+                "mimeType": "multipart/form-data",
             }
         }
 
@@ -376,25 +377,25 @@ export default class CitizenSaveScreen extends ValidationComponent {
                         .id + 1
                     : 1;
             console.log("iddddd....", ID)
-            if (mediaType == "image"){
+            if (mediaType == "image") {
                 realm.create('post_details', {
                     user_id: this.state.userId.toString(),
-                        title: this.state.title,
-                        description: this.state.description,
-                        video: 'string',
-                        type: mediaType,
-                        image: imageBase64Array,
-                        id: ID,
+                    title: this.state.title,
+                    description: this.state.description,
+                    video: 'string',
+                    type: mediaType,
+                    image: imageBase64Array,
+                    id: ID,
                 });
-            }else{
+            } else {
                 realm.create('post_details', {
                     user_id: this.state.userId.toString(),
-                        title: this.state.title,
-                        description: this.state.description,
-                        video: imageBase64Array,
-                        type: mediaType,
-                        image: [],
-                        id: ID,
+                    title: this.state.title,
+                    description: this.state.description,
+                    video: imageBase64Array,
+                    type: mediaType,
+                    image: [],
+                    id: ID,
                 });
             }
             Alert.alert(

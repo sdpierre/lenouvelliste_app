@@ -38,7 +38,7 @@ class HomeScreen extends React.Component {
           properties: {
             id: 'int',
             article: 'string',
-            author: 'string',
+           // author: 'string',
             date: 'string',
             headline: 'string',
             nophoto: 'string',
@@ -84,7 +84,7 @@ class HomeScreen extends React.Component {
           properties: {
             id: 'int',
             article: "string",
-            author: "string",
+           // author: "string",
             date: 'string',
             headline: "string",
             nophoto: "string",
