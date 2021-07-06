@@ -30,7 +30,8 @@ export default class CitizenMapScreen extends Component {
     super();
     this.state = {
       mapTypeIndex: 0,
-      latlng: { latitude: 18.533333, longitude: -72.333336 },
+      lat: null,
+      lng: null,
       region: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
@@ -74,22 +75,17 @@ export default class CitizenMapScreen extends Component {
     //   }
     // );
 
-    this.wathcId = Geolocation.getCurrentPosition(position => {
-      const { latitude, longitude } = position.coords;
-      const newCoordinate = {
-        latitude,
-        longitude,
-      };
-      this.setState({ latlng: newCoordinate });
-    });
-
-    console.log(this.state.latlng)
+  this.wathcId = Geolocation.getCurrentPosition(position => {
+      this.setState({ lat: position.coords.latitude, lng: position.coords.longitude});
+      },
+      error => console.log(error)
+    );
   }
-
+  
   chooseMapType = index => {
     this.setState({ mapTypeIndex: index });
   };
-
+  
   goToSaveCitizen = () => {
     const { navigation } = this.props;
     const strImageData = navigation.getParam('imageData');
@@ -106,7 +102,7 @@ export default class CitizenMapScreen extends Component {
     }
   }
   componentWillUnmount() {
-    //navigator.geolocation.clearWatch(this.watchID);
+    navigator.geolocation.clearWatch(this.watchID);
   }
   render() {
 
@@ -159,10 +155,11 @@ export default class CitizenMapScreen extends Component {
               <Marker
                 draggable
                 followsUserLocation={true}
-                coordinate={this.state.latlng}
-                onDragEnd={e =>
-                  this.setState({ latlng: e.nativeEvent.coordinate })
-                }
+                // coordinate={this.state.latlng}
+                coordinate={{latitude: this.state.lat,longitude: this.state.lng}}
+                // onDragEnd={e =>
+                //   this.setState({ latlng: e.nativeEvent.coordinate })
+                // }
               />
             </MapView>
           </View>

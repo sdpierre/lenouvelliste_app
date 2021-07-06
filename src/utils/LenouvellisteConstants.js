@@ -1,6 +1,6 @@
 //API Constants
 
-export const BASE_URL = 'http://lenouvelis.com/api/';
+export const BASE_URL = 'http://lenouvelliste.com/api/';
 
 export const kREGISTRATION_API = 'register';
 export const kGETCOUNTRYLIST_API = 'get-countries';
