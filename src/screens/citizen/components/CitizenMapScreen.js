@@ -129,6 +129,7 @@ export default class CitizenMapScreen extends Component {
           </Body>
           <Right></Right>
         </Header>
+        <ScrollView>
         <View style={{flex:1}}>
         <View
             style={{
@@ -176,7 +177,7 @@ export default class CitizenMapScreen extends Component {
             </View>
           </View>
         </View>
-        
+        </ScrollView>
       </Container>
     );
   }

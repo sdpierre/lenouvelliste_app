@@ -8,7 +8,7 @@ import {
     StyleSheet,
     FlatList,
     Text,
-    AsyncStorage
+    AsyncStorage,Alert
 } from "react-native";
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -18,6 +18,8 @@ import Realm from 'realm';
 import { getSectionAll } from '../../../library/networking/Api'
 import LogoTitle from 'library/components/logo';
 import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
+import { NavigationActions, StackActions } from 'react-navigation';
+
 import {
     Container,
     Header,
@@ -64,7 +66,7 @@ class MenuScreen extends Component {
     }
 
     componentDidMount = () => {
-              
+            console.log("menu",this.state.data);  
         NetInfo.fetch()
             .then(conn => {
 
@@ -82,6 +84,32 @@ class MenuScreen extends Component {
             });   
               
     }
+
+    // --------------Login Alert------------------
+  showLoginAlert() {
+    console.log("Login...Alert!")
+    Alert.alert(
+      'Alert',
+      "Please first login.",
+      [
+        {
+          text: 'OK', onPress: () => {
+            // this.props.navigation.navigate('Account')
+            const resetAction = StackActions.reset({
+              index: 0,
+              key: null,
+              actions: [NavigationActions.navigate({ routeName: 'login' })],
+            });
+            this.props.navigation.dispatch(resetAction);
+          }
+        },
+      ],
+      { cancelable: false }
+    )
+  }
+// ----------------End------------------------
+
+
   
      componentWillReceiveProps(nextProps){
         let authUser = nextProps.user.userInfo;
@@ -93,6 +121,15 @@ class MenuScreen extends Component {
         }
         this.setState({isLoggedin});
       }
+      // ----------------On User Profile button-----------
+userProfile(){
+    if(this.isLoggedin){
+        this.props.navigation.navigate('UserProfile');
+    }else{
+        this.showLoginAlert();
+    }
+}
+// ----------------End------------------
 
     fetchNews() {
         getSectionAll()
@@ -122,9 +159,10 @@ class MenuScreen extends Component {
                     </Body>
                     <Right>
 
-                    <Button transparent onPress={()=>{this.props.navigation.navigate('UserProfile')}}>
+                    {/* <Button transparent onPress={()=>{this.props.navigation.navigate('')}}> */}
+                    {/* <Button transparent onPress={()=>{this.userProfile()}}>
                 <FontAwesome color="#d00" name='user-circle-o' size={25} />
-                </Button>
+                </Button> */}
 
                     {/* {
                 isLoggedin?
@@ -135,6 +173,15 @@ class MenuScreen extends Component {
                 <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
                 </Button>
             } */}
+            {
+                isLoggedin?
+                <Button transparent onPress={()=>{this.userProfile()}}>
+                <FontAwesome color="#d00" name='user-circle-o' size={25} />
+                </Button>
+                :<Button transparent onPress={()=>{this.userProfile()}}>
+                <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
+                </Button>
+            }
                         {/* <Button transparent onPress={this.state.isLoggedInUser?() => { this.props.navigation.navigate('UserProfile')}:()=>this.props.navigation.navigate('Account')}>
                             <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
                         </Button> */}

@@ -7,9 +7,9 @@ import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.reactlibrary.RNVideoCompressionPackage;
+// import io.realm.react.RealmReactPackage;
+// import io.realm.react.RealmReactPackage;
 import io.realm.react.RealmReactPackage;
-import io.realm.react.RealmReactPackage;
-//import io.realm.react.RealmReactPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
@@ -32,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
             new RNCViewPagerPackage();
+            new RealmReactPackage();
           return packages;
         }
 

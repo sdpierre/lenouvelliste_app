@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, SafeAreaView, StyleSheet, Alert } from "react-native";
+import { View, SafeAreaView, StyleSheet, Alert,AsyncStorage } from "react-native";
 import { FloatingAction } from "react-native-floating-action";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //Image Picker
@@ -7,16 +7,112 @@ import ImagePicker1 from 'react-native-image-crop-picker';
 import { withNavigation } from 'react-navigation';
 import ImagePicker from 'react-native-image-picker'
 import Video from 'react-native-video'
+import { NavigationActions, StackActions } from 'react-navigation';
+
+
 
 class CitizenFloatingAction extends Component {
   constructor(props) {
     super()
+    this.state = {
+      
+      isLoggedin: false,
+  }
   }
   static navigationOptions = {
     title: "Right position"
   };
 
+  
+
+  // --------------Login Alert------------------
+  showLoginAlert() {
+    console.log("Login...Alert!")
+    Alert.alert(
+      'Alert',
+      "Please first login.",
+      [
+        {
+          text: 'OK', onPress: () => {
+            // this.props.navigation.navigate('Account')
+            const resetAction = StackActions.reset({
+              index: 0,
+              key: null,
+              actions: [NavigationActions.navigate({ routeName: 'login' })],
+            });
+            this.props.navigation.dispatch(resetAction);
+          }
+        },
+      ],
+      { cancelable: false }
+    )
+  }
+// -----------------Check user---------------------------
+userProfile(name){
+  AsyncStorage.getItem("loggedInUserDetails").then((value) => {
+    if (value != null) {
+      switch (name) {
+        case "bt_photo":
+          console.log('bt_photo')
+          ImagePicker1.openCamera({
+            width: 300,
+            height: 400,  
+            compressImageQuality:0.5,
+            // cropping: true,
+            // includeBase64:true,
+            mediaType: 'photo'
+          }).then(image => {
+            console.log("Image", image);
+            //CitizenSaveScreen
+            navigate('CitizenMapScreen', {
+              imageData: image
+            });
+          });
+          break;
+        case "bt_video":
+          console.log('Video<<<')
+          const options = {
+            mediaType: 'video',
+            videoQuality: 'medium',
+            durationLimit: 20,
+            thumbnail: true,
+            allowsEditing: true,
+          };
+          ImagePicker.launchCamera(options, (response) => {
+            console.log('camera response is = ', response,response.data)
+            if (response.didCancel) {
+              // console.warn('User cancelled video picker');
+            } else if (response.error) {
+              // console.warn('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+              console.warn('User tapped custom button: ', response.customButton);
+            } else {
+              navigate('CitizenMapScreen', { 'videoData': response });
+            }
+          })
+          // ImagePicker1.openCamera({
+          //   mediaType: 'video',
+          //   compressVideoPreset:'LowQuality',
+          // }).then(video => {
+          //    console.log("Video",video);
+  
+          //   navigate('CitizenMapScreen',{'videoData':video
+          //   });
+  
+          // });
+          break;                        
+      }
+    }
+
+     else{
+      this.showLoginAlert(); 
+    }
+  })}
+// ----------------End------------------
+
+
   render() {
+    
     const actions = [
       {
         text: "Photo",
@@ -42,59 +138,7 @@ class CitizenFloatingAction extends Component {
         // onPressItem={name => {
         //   Alert.alert("Icon pressed", `the icon ${name} was pressed`);
         // }}
-        onPressItem={name => {
-          switch (name) {
-            case "bt_photo":
-              console.log('bt_photo')
-              ImagePicker1.openCamera({
-                width: 300,
-                height: 400,  
-                compressImageQuality:0.5,
-                // cropping: true,
-                // includeBase64:true,
-                mediaType: 'photo'
-              }).then(image => {
-                console.log("Image", image);
-                //CitizenSaveScreen
-                navigate('CitizenMapScreen', {
-                  imageData: image
-                });
-              });
-              break;
-            case "bt_video":
-              console.log('Video<<<')
-              const options = {
-                mediaType: 'video',
-                videoQuality: 'medium',
-                durationLimit: 20,
-                thumbnail: true,
-                allowsEditing: true,
-              };
-              ImagePicker.launchCamera(options, (response) => {
-                console.log('camera response is = ', response,response.data)
-                if (response.didCancel) {
-                  // console.warn('User cancelled video picker');
-                } else if (response.error) {
-                  // console.warn('ImagePicker Error: ', response.error);
-                } else if (response.customButton) {
-                  console.warn('User tapped custom button: ', response.customButton);
-                } else {
-                  navigate('CitizenMapScreen', { 'videoData': response });
-                }
-              })
-              // ImagePicker1.openCamera({
-              //   mediaType: 'video',
-              //   compressVideoPreset:'LowQuality',
-              // }).then(video => {
-              //    console.log("Video",video);
-
-              //   navigate('CitizenMapScreen',{'videoData':video
-              //   });
-
-              // });
-              break;                        
-          }
-        }}
+        onPressItem={name => {this.userProfile()}}
       />
       //  </SafeAreaView>
     );

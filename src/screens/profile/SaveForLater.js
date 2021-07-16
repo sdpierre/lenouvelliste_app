@@ -11,6 +11,7 @@ import {
   AsyncStorage,
   PermissionsAndroid,
   Alert,
+  Image,
 } from "react-native";
 import { Typography, Colors, Buttons, Spacing, Margins } from "../../styles";
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -190,7 +191,6 @@ class SaveForLater extends React.Component {
             formData.append('image[]', newFile)
         });
     } else {
-
         var params = {
             'user_id': this.state.userId,
             'category_id': 1,
@@ -202,12 +202,10 @@ class SaveForLater extends React.Component {
         }
 
         const newFile = {
-            uri: videoData.uri, type: 'video/mp4', name: videoData.uri.split("/").pop()
+            uri: item.video, type: 'video/mp4', name: item.video.split("/").pop()
         }
-        console.log("file size", videoData)
         
         formData.append('video', newFile)
-        
     }
 
     console.log(params);
@@ -312,12 +310,12 @@ goToCitizenProgress = () => {
                 <View style={{flexDirection:"row",backgroundColor:"white"}}>
                   <View style={{flex: 1,paddingLeft:20,marginTop:20}}>
                     <Text style={styles.articleTitle}>{item.title}</Text>
-
                     <Text style={styles.articleTitle}>{item.description}</Text>
-                    <TouchableOpacity style={{backgroundColor:"red",top:5}}
-                      onPress={() => { this.apiCallToSendCitizenPost(item)
+                    <TouchableOpacity style={{ backgroundColor: "#0089d0", top: 5,justifyContent:"center",alignItems:"center",height:30 }}
+                      onPress={() => {
+                        this.apiCallToSendCitizenPost(item)
                       }}>
-                      <Text>
+                      <Text style={{fontFamily: "Montserrat-SemiBold",color:"white"}}>
                         POST
                       </Text>
                     </TouchableOpacity>
@@ -325,7 +323,7 @@ goToCitizenProgress = () => {
                   <View style={styles.articleImage}>
                     {item.image.length > 0 ?
                     <ImageLoad
-                      style={{width: 80, height: 80}}
+                      style={{width: 90, height: 90}}
                       placeholderSource={require('../../../src/res/images/noimage.jpg')}
                       loadingStyle={{size: 'large', color: 'blue'}}
                       source={{uri: item.image[0] }}
@@ -340,7 +338,6 @@ goToCitizenProgress = () => {
               }
                   </View>
                 </View>}
-              
               keyExtractor={(item, index) => index.toString()}
             />
            
@@ -440,8 +437,8 @@ const styles = StyleSheet.create({
   videoView: {
     justifyContent: 'center',
     borderRadius: 2,
-    marginLeft: 5,
-    marginRight: 5,
+    marginLeft: 0,
+    marginRight: 0,
     height: 100,
     width: 100,
     alignItems: 'center'

@@ -47,6 +47,9 @@ target 'lenouvelliste_app' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  # pod 'react-native-onesignal',
+  # :path => "../node_modules/react-native-onesignal/react-native-onesignal.podspec",
+  # :inhibit_warnings => true
 
 
 
@@ -73,10 +76,10 @@ target 'lenouvelliste_app' do
   #
   # Note that if you have u se_frameworks! enabled, Flipper will not work and
   # you should disable these next few lines.
-  use_flipper!
-  post_install do |installer|
-    flipper_post_install(installer)
-  end
+  # use_flipper!({ 'Flipper' => '0.95.0' })
+  # post_install do |installer|
+  #   flipper_post_install(installer)
+  # end
 end
 
 #target 'lenouvelliste_app-tvOS' do
