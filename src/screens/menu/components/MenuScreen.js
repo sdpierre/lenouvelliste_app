@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { withNavigation } from "react-navigation";
-import {setAppInfo} from '../../../redux/actions';
-import {connect} from 'react-redux';
+import { setAppInfo } from '../../../redux/actions';
+import { connect } from 'react-redux';
 
 import {
     View,
     StyleSheet,
     FlatList,
     Text,
-    AsyncStorage,Alert
+    AsyncStorage, Alert
 } from "react-native";
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -57,7 +57,7 @@ class MenuScreen extends Component {
             isLoggedin: false,
         }
 
-      //  console.log("IsLoggedInUser",this.state.isLoggedInUser)
+        //  console.log("IsLoggedInUser",this.state.isLoggedInUser)
         sectionListDb = realm.objects('section_list');
 
         this.fetchNews = this.fetchNews.bind(this);
@@ -66,7 +66,7 @@ class MenuScreen extends Component {
     }
 
     componentDidMount = () => {
-            console.log("menu",this.state.data);  
+        console.log("menu", this.state.data);
         NetInfo.fetch()
             .then(conn => {
 
@@ -81,55 +81,53 @@ class MenuScreen extends Component {
                         data: sectionListDb,
                     });
                 }
-            });   
-              
+            });
+
     }
 
     // --------------Login Alert------------------
-  showLoginAlert() {
-    console.log("Login...Alert!")
-    Alert.alert(
-      'Alert',
-      "Please first login.",
-      [
-        {
-          text: 'OK', onPress: () => {
-            // this.props.navigation.navigate('Account')
-            const resetAction = StackActions.reset({
-              index: 0,
-              key: null,
-              actions: [NavigationActions.navigate({ routeName: 'login' })],
-            });
-            this.props.navigation.dispatch(resetAction);
-          }
-        },
-      ],
-      { cancelable: false }
-    )
-  }
-// ----------------End------------------------
+    showLoginAlert() {
+        console.log("Login...Alert!")
+        Alert.alert(
+            'Alert',
+            "Please first login.",
+            [
+                {
+                    text: 'OK', onPress: () => {
+                        // this.props.navigation.navigate('Account')
+                        const resetAction = StackActions.reset({
+                            index: 0,
+                            key: null,
+                            actions: [NavigationActions.navigate({ routeName: 'login' })],
+                        });
+                        this.props.navigation.dispatch(resetAction);
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
+    }
+    // ----------------End------------------------
 
-
-  
-     componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         let authUser = nextProps.user.userInfo;
         // let refreshToken = nextProps.navigation.getParam("refreshToken");
         console.log('authUser------', authUser);
         let isLoggedin = false;
-        if(authUser){
-          isLoggedin = true;
+        if (authUser) {
+            isLoggedin = true;
         }
-        this.setState({isLoggedin});
-      }
-      // ----------------On User Profile button-----------
-userProfile(){
-    if(this.isLoggedin){
-        this.props.navigation.navigate('UserProfile');
-    }else{
-        this.showLoginAlert();
+        this.setState({ isLoggedin });
     }
-}
-// ----------------End------------------
+    // ----------------On User Profile button-----------
+    userProfile() {
+        if (this.isLoggedin) {
+            this.props.navigation.navigate('UserProfile');
+        } else {
+            this.showLoginAlert();
+        }
+    }
+    // ----------------End------------------
 
     fetchNews() {
         getSectionAll()
@@ -148,23 +146,23 @@ userProfile(){
     }
 
     render() {
-        let isLoggedin = this.props.user.userInfo?true: false;
-        console.log('userInfo', this.props.user.userInfo);    
+        let isLoggedin = this.props.user.userInfo ? true : false;
+        console.log('userInfo', this.props.user.userInfo);
         return (
             <Container>
                 <Header>
-<Left></Left>
+                    <Left></Left>
                     <Body>
                         <LogoTitle />
                     </Body>
                     <Right>
 
-                    {/* <Button transparent onPress={()=>{this.props.navigation.navigate('')}}> */}
-                    {/* <Button transparent onPress={()=>{this.userProfile()}}>
+                        {/* <Button transparent onPress={()=>{this.props.navigation.navigate('')}}> */}
+                        {/* <Button transparent onPress={()=>{this.userProfile()}}>
                 <FontAwesome color="#d00" name='user-circle-o' size={25} />
                 </Button> */}
 
-                    {/* {
+                        {/* {
                 isLoggedin?
                 <Button transparent onPress={()=>{this.props.navigation.navigate('UserProfile')}}>
                 <FontAwesome color="#d00" name='user-circle-o' size={25} />
@@ -173,15 +171,15 @@ userProfile(){
                 <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
                 </Button>
             } */}
-            {
-                isLoggedin?
-                <Button transparent onPress={()=>{this.userProfile()}}>
-                <FontAwesome color="#d00" name='user-circle-o' size={25} />
-                </Button>
-                :<Button transparent onPress={()=>{this.userProfile()}}>
-                <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
-                </Button>
-            }
+                        {
+                            isLoggedin ?
+                                <Button transparent onPress={() => { this.userProfile() }}>
+                                    <FontAwesome color="#d00" name='user-circle-o' size={25} />
+                                </Button>
+                                : <Button transparent onPress={() => { this.userProfile() }}>
+                                    <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
+                                </Button>
+                        }
                         {/* <Button transparent onPress={this.state.isLoggedInUser?() => { this.props.navigation.navigate('UserProfile')}:()=>this.props.navigation.navigate('Account')}>
                             <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
                         </Button> */}
@@ -210,7 +208,7 @@ userProfile(){
                             </Text>
                         }} />
                 </Container>
-                <CitizenFloatingAction/>
+                <CitizenFloatingAction />
             </Container>
         )
     }

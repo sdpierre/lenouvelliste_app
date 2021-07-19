@@ -103,7 +103,7 @@ class CitizenScreen extends React.Component {
   }
 // ------------------login Alert-------------
   showLoginAlert() {
-    console.log("Alert home ..........nikita")
+    console.log("Alert home ..........")
     Alert.alert(
       'Alert',
       "Please first login.",

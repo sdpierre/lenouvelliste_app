@@ -45,7 +45,6 @@ class NewsScreen extends React.Component {
     }
   }
 
-
   componentDidMount() {
 
     this.state.arrPhotos.push(this.state.photo)

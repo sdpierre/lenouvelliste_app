@@ -180,6 +180,11 @@ class Login extends ValidationComponent {
     );
     return (
       <Container>
+        <Header>
+          <Left>
+            <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => this.props.navigation.navigate('Home')} />
+          </Left>
+        </Header>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Image
             style={styles.logo}
@@ -190,8 +195,10 @@ class Login extends ValidationComponent {
           {/* <Text style={styles.loginText}>Connectez-vous</Text> */}
           <View style={{ width: 300 }}>
             <View>
-              <TextInput style={{height: 50, borderBottomColor: '#D8D8D8',
-        borderBottomWidth: 1}}
+              <TextInput style={{
+                height: 50, borderBottomColor: '#D8D8D8',
+                borderBottomWidth: 1
+              }}
                 placeholder="E-mail, nom d'utilisateur"
                 tintColor='#0082C6'
                 placeholderTextColor='#9b9b9b'
@@ -205,29 +212,31 @@ class Login extends ValidationComponent {
                 blurOnSubmit={false}
                 autoCapitalize='none'
               />
-              <TextInput style={{height: 50, borderBottomColor: '#D8D8D8',
-        borderBottomWidth: 1,}}
+              <TextInput style={{
+                height: 50, borderBottomColor: '#D8D8D8',
+                borderBottomWidth: 1,
+              }}
                 placeholder="Mot de passe"
                 tintColor="#0082C6"
                 renderRightAccessory={iconpass}
                 ref={input => {
                   this.secondTextInput = input;
                 }}
-                 secureTextEntry={this.state.isPasswordSecured}
+                secureTextEntry={this.state.isPasswordSecured}
                 // secureTextEntry={true}
                 placeholderTextColor="#9b9b9b"
                 onChangeText={this.handlePassword}
                 value={this.state.password}
               />
 
-<View style={{marginTop:30}}>
-              <Button style={{ marginTop: 40 }} title="Je me connecte" onPress={this.login} />
+              <View style={{ marginTop: 30 }}>
+                <Button style={{ marginTop: 40 }} title="Je me connecte" onPress={this.login} />
               </View>
 
-              <View style={{marginTop:20}}>
-              <Button type="outline" title="S'inscrire" onPress={this.login} onPress={() => {
-                this.props.navigation.navigate('Register');
-              }} />
+              <View style={{ marginTop: 20 }}>
+                <Button type="outline" title="S'inscrire" onPress={this.login} onPress={() => {
+                  this.props.navigation.navigate('Register');
+                }} />
               </View>
 
               <TouchableOpacity
