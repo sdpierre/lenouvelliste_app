@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.reactlibrary.RNVideoCompressionPackage;
