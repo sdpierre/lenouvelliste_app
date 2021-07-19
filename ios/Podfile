@@ -64,6 +64,10 @@ target 'lenouvelliste_app' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
+
   target 'lenouvelliste_appTests' do
     inherit! :complete
     # Pods for testing
