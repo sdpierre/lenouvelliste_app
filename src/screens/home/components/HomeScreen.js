@@ -38,7 +38,7 @@ class HomeScreen extends React.Component {
           properties: {
             id: 'int',
             article: 'string',
-           // author: 'string',
+            author: 'string',
             date: 'string',
             headline: 'string',
             nophoto: 'string',
@@ -86,11 +86,11 @@ class HomeScreen extends React.Component {
             article: "string",
            // author: "string",
             date: 'string',
-            headline: "string",
+            // headline: "string",
             nophoto: "string",
             photo: "string?",
             rubrique: "string?",
-            surtitre: "string",
+            surtitre: "string?",
             titre: 'string',
             url: 'string?',
           },
@@ -261,7 +261,7 @@ class HomeScreen extends React.Component {
                 return (
                   <React.Fragment>
                     <Text style={styles.sectionTitle}> les plus lus </Text>
-                    <Mostread mostread={item} navigate={navigate} mostReadData={this.state.mostReadData} isBookmarked={false} />
+                    {/* <Mostread mostread={item} navigate={navigate} mostReadData={this.state.mostReadData} isBookmarked={false} /> */}
                     <Article
                       article={item}
                       navigate={navigate}
