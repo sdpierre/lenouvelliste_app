@@ -6,7 +6,7 @@ class LogoTitle extends React.Component {
     return (
       <Image
       source={{
-        uri:'https://images.lenouvelliste.com/noimageandroid.jpg',
+        uri:'https://lenouvelliste.com/images/lenouvellisteprofil.jpg',
         }}
         style={{ width: 130, height: 40 }}
       />
