@@ -48,6 +48,8 @@ import {
   PagerDotIndicator,
 } from '@shankarmorwal/rn-viewpager';
 import { element } from 'prop-types';
+import { NavigationActions, StackActions } from 'react-navigation';
+
 
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -211,7 +213,7 @@ class CitizenNewsScreen extends React.Component {
             icon={
               <MaterialCommunityIcons
                 name="close"
-                size={15}
+                size={10}
                 color="white"
               />
             }

@@ -45,7 +45,6 @@ class NewsScreen extends React.Component {
     }
   }
 
-
   componentDidMount() {
 
     this.state.arrPhotos.push(this.state.photo)
@@ -88,6 +87,8 @@ class NewsScreen extends React.Component {
     // const title = navigation.getParam('title');
     // console.log('Photo',this.state.photo)
     // console.log('Photo',this.state.nophoto)
+    console.log("This page.........")
+
 
     if (photo == null) {
       this.state.photo = ""
@@ -145,7 +146,6 @@ class NewsScreen extends React.Component {
           />
 
           <View style={styles.container}>
-
             <Text style={Typography.headline}>{surTitle}</Text>
             <Text style={Typography.xlargeTitle}>{title}</Text>
 

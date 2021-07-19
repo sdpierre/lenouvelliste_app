@@ -26,18 +26,18 @@ class CitizenTop extends Component {
     };
   }
 
-  /*
-  navigateToDetail("NewsCarousel", {
-          title: item.title,
-          body : item.body,
-          category: item.category,
-          headline: item.title,
-          date: item.date,
-          username : item.username,
-          media : item.media,
-          userphoto : item.userphoto,      
   
-        })*/
+  // navigateToDetail=("NewsCarousel", {
+  //         title: item.title,
+  //         body : item.body,
+  //         category: item.category,
+  //         headline: item.title,
+  //         date: item.date,
+  //         username : item.username,
+  //         media : item.media,
+  //         userphoto : item.userphoto,      
+  
+  //       });
 
   _renderItem({ item, index }) {
 
@@ -51,6 +51,7 @@ class CitizenTop extends Component {
           onPress={() => {
             nav('NewsCarousel', {
               id: item.id,
+              user_id:item.user_id,
               title: item.title,
               body: item.body,
               category: item.category,

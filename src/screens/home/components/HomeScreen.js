@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Text } from 'react-native';
+import { View, StyleSheet, FlatList, Text, Alert} from 'react-native';
 import { Typography, Colors, Buttons, Spacing, Margins } from '../../../styles';
 import { getHomeNews, getCitizenTopNews, getMostRead } from 'library/networking/Api';
 import moment from 'moment';
@@ -28,7 +28,7 @@ let fetchOverNet;
 class HomeScreen extends React.Component {
   constructor(props) {
     super();
-
+    // this.showLoginAlert()
     realm = new Realm({
       path: 'NewsDb.realm',
       schema: [
@@ -110,11 +110,15 @@ class HomeScreen extends React.Component {
     mostReadDataDb = RealmMostRead.objects('most_read')
     console.log('most_readSize>>>>>', mostReadDataDb.length);
 
-    this.fetchNews = this.fetchNews.bind(this);
+    //  this.fetchNews = this.fetchNews.bind(this);
     //this.fetchFromDataBase=this.fetchFromDataBase.bind(this);
   }
+
+
+
   // Called after a component is mounted
   componentDidMount() {
+    // this.showLoginAlert()
     // setInterval(() => {
       this.setState({
         visible: !this.state.visible
@@ -140,13 +144,13 @@ class HomeScreen extends React.Component {
           });
         }
       });
-
-
   }
 
   fetchNews() {
     getHomeNews()
+      
       .then(resp => {
+        console.log('ExceptionHOMEReponse>>>', resp);
         realm.write(() => {
           realm.deleteAll();
 
@@ -154,6 +158,7 @@ class HomeScreen extends React.Component {
             realm.create('home_news', element);
           });
         });
+        console.log('firstApi',resp);
         this.setState({ data: resp, refreshing: false,visible:false });
       })
       .catch(e => {
@@ -170,6 +175,7 @@ class HomeScreen extends React.Component {
             realmTop.create('corousel_news', element);
           });
         });
+        console.log('secApi',respTop);
         this.setState({ dataCorousel: respTop, refreshing: false });
       })
       .catch(e => {
@@ -179,6 +185,7 @@ class HomeScreen extends React.Component {
 
     getMostRead()
       .then(data => {
+      console.log("getMostRead",data)
         RealmMostRead.write(() => {
           RealmMostRead.deleteAll();
 
@@ -186,6 +193,8 @@ class HomeScreen extends React.Component {
             RealmMostRead.create('most_read', element);
           });
         });
+        // console.log('thirdApi',data);
+        // alert("called");
         this.setState({ mostReadData: data, refreshing: false })
 
       })
@@ -202,17 +211,17 @@ class HomeScreen extends React.Component {
         refreshing: true,
       },
       () => {
-        if (fetchOverNet)
-          this.fetchNews()
-        else { 
-          {
-            alert('Internet connection required!')
-            this.setState(
-              {
-                refreshing: false
-              })
-          }
-        }
+        // if (fetchOverNet)
+        //   this.fetchNews()
+        // else { 
+        //   {
+        //     alert('Internet connection required!')
+        //     this.setState(
+        //       {
+        //         refreshing: false
+        //       })
+        //   }
+        // }
       },
     );
   }
@@ -230,7 +239,6 @@ class HomeScreen extends React.Component {
     let that = this;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     const { visible } = this.state;
-
     return (
       <Container>
         <Header>

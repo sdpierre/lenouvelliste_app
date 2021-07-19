@@ -10,6 +10,8 @@ export const lightGrey={
 }
 export const gray = {
   color: '#808080',
+  // borderColor:'black',
+  // color:'white'
 };
 export const yellow = {
   color: '#ffcd00',

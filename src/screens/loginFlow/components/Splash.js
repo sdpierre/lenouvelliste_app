@@ -63,8 +63,9 @@ export default class Splash extends Component {
         this.setState({
             visible:false
           });
+          this.props.navigation.navigate('Home')
 
-          this.props.navigation.navigate('Account') 
+          // this.props.navigation.navigate('Account') 
 
           console.log("Login else condition",this.state.userId)
 
