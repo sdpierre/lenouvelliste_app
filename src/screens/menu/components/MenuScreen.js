@@ -8,7 +8,8 @@ import {
     StyleSheet,
     FlatList,
     Text,
-    AsyncStorage, Alert
+    AsyncStorage, Alert,
+    Image
 } from "react-native";
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -19,6 +20,7 @@ import { getSectionAll } from '../../../library/networking/Api'
 import LogoTitle from 'library/components/logo';
 import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
 import { NavigationActions, StackActions } from 'react-navigation';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
     Container,
@@ -124,7 +126,8 @@ class MenuScreen extends Component {
         if (this.isLoggedin) {
             this.props.navigation.navigate('UserProfile');
         } else {
-            this.showLoginAlert();
+            this.props.navigation.navigate('login');
+            // this.props.navigation.dispatch(resetAction);
         }
     }
     // ----------------End------------------
@@ -174,10 +177,18 @@ class MenuScreen extends Component {
                         {
                             isLoggedin ?
                                 <Button transparent onPress={() => { this.userProfile() }}>
-                                    <FontAwesome color="#d00" name='user-circle-o' size={25} />
+                                    {/* <FontAwesome color="#d00" name='user-alt' size={25} /> */}
+                                    <Image
+                                     style={{width:25}}
+                                     source={require('../../../res/images/outline_account_circle.png')}
+                                    />
                                 </Button>
                                 : <Button transparent onPress={() => { this.userProfile() }}>
-                                    <FontAwesome name='user-circle-o' size={25} style={Colors.gray} />
+                                    {/* <FontAwesome name='user-circle' size={25} style={Colors.gray} /> */}
+                                    <Image
+                                     style={{width:25}}
+                                     source={require('../../../res/images/outline_account_circle.png')}
+                                    />
                                 </Button>
                         }
                         {/* <Button transparent onPress={this.state.isLoggedInUser?() => { this.props.navigation.navigate('UserProfile')}:()=>this.props.navigation.navigate('Account')}>

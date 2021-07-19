@@ -38,7 +38,6 @@ import { withNavigation } from 'react-navigation';
 //import RNThumbnail from 'react-native-thumbnail-fixed';
 import Realm from 'realm';
 let realm;
-var RNFS = require('react-native-fs');
 
 //Dimensions
 var deviceWidth = (Dimensions.get('window').width);
@@ -140,6 +139,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
                     global.lat = position.coords.latitude;
                     global.long = position.coords.longitude;
+                    console.log("lat long.....", position.coords.latitude + " " + position.coords.longitude);
                 },
                 error => {
                     // See error code charts below.
@@ -169,7 +169,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
 
                                 global.lat = position.coords.latitude;
                                 global.long = position.coords.longitude;
-                                console.log(global.lat + " " + global.long);
+                                console.log("lat long.....", position.coords.latitude + " " + position.coords.longitude);
                             },
                             error => {
                                 // See error code charts below.
@@ -283,7 +283,8 @@ export default class CitizenSaveScreen extends ValidationComponent {
             params,
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': "multipart/form-data",
+                "mimeType": "multipart/form-data",
             }
         }
 
@@ -348,45 +349,14 @@ export default class CitizenSaveScreen extends ValidationComponent {
                 if (this.state.arrPhotos.length > 0) {
                     var imageBase64Array = []
                     this.state.arrPhotos.forEach((element, i) => {
-
                         console.log("path:::", element.path)
-                        var path = RNFS.DocumentDirectoryPath + "/" + element.path.split("/").pop()
-                        console.log("Path......", path)
-
-
-                        RNFS.copyFile(element.path, path)
-                            .then((success) => {
-                                console.log('FILE WRITTEN!', success);
-                            })
-                            .catch((err) => {
-                                console.log("ERROR ON WRITTEN FILE!", err.message);
-                            });
-
-                        // RNFS.writeFile(path, element.path.split("/").pop(), 'utf8')
-                        //     .then((success) => {
-                        //         console.log('FILE WRITTEN!',success);
-                        //     })
-                        //     .catch((err) => {
-                        //         console.log("ERROR ON WRITTEN FILE!",err.message);
-                        //     });
-                        imageBase64Array.push(path)
+                        imageBase64Array.push(element.path)
                     });
                     console.log("image Array", imageBase64Array)
                     console.log("image Array", imageBase64Array.length)
                     this.saveToLoacalStorage(imageBase64Array)
                 } else {
-                    var path = RNFS.DocumentDirectoryPath + "/" + videoData.uri.split("/").pop()
-                    console.log("Path......", path)
-
-
-                    RNFS.copyFile(videoData.uri, path)
-                        .then((success) => {
-                            console.log('FILE WRITTEN!', success);
-                        })
-                        .catch((err) => {
-                            console.log("ERROR ON WRITTEN FILE!", err.message);
-                        });
-                    this.saveToLoacalStorage(path)
+                    this.saveToLoacalStorage(videoData.uri)
                 }
             }
         }

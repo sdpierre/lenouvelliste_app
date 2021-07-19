@@ -18,6 +18,7 @@ import CitizenSaveScreen from '../citizen/components/CitizenSaveScreen';
 import CitizenProgressScreen from '../citizen/components/CitizenProgressScreen';
 import ChangePasswordScreen from '../profile/ChangePasswordScreen';
 import SaveForLater from '../profile/SaveForLater';
+import PostDetail from '../profile/PostDetail'
 
 const MenuStackNav = createStackNavigator({
     Menu: {
@@ -70,6 +71,9 @@ const MenuStackNav = createStackNavigator({
     },
     SaveForLater: {
         screen: SaveForLater
+    },
+    PostDetail:{
+        screen: PostDetail
     },
 }, {
     initialRouteName: 'Menu',

@@ -128,6 +128,7 @@ android {
     }
 
     defaultConfig {
+        missingDimensionStrategy 'react-native-camera', 'general'
         applicationId "com.lenouvelliste_app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -138,6 +139,7 @@ android {
         versionName "0.0.1"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
+        missingDimensionStrategy 'react-native-camera', 'general'
 
     }
     splits {
@@ -195,6 +197,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0-alpha03'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01'
 
+   //implementation group: 'commons-io', name: 'commons-io', version: '2.7'
+   //implementation "commons-io:commons-io:+"
+  // implementation group: 'org.apache.commons', name: 'commons-text', version: '1.8'
+
+    implementation 'commons-io:commons-io:2.6'
+
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
@@ -215,3 +223,22 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+subprojects {
+    project.configurations.all {
+        afterEvaluate {project ->
+            if (project.hasProperty("android")) {
+                android {
+                    compileSdkVersion rootProject.ext.compileSdkVersion
+                    buildToolsVersion rootProject.ext.buildToolsVersion
+                }
+            }
+        }
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'com.android.support'
+                    && !details.requested.name.contains('multidex') ) {
+                details.useVersion rootProject.ext.buildToolsVersion
+            }
+        }
+    }
+}

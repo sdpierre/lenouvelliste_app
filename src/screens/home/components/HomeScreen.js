@@ -38,7 +38,7 @@ class HomeScreen extends React.Component {
           properties: {
             id: 'int',
             article: 'string',
-            //author: 'string',
+           // author: 'string',
             date: 'string',
             headline: 'string',
             nophoto: 'string',
@@ -84,7 +84,7 @@ class HomeScreen extends React.Component {
           properties: {
             id: 'int',
             article: "string",
-            author: "string",
+           // author: "string",
             date: 'string',
             headline: "string",
             nophoto: "string",
@@ -114,21 +114,7 @@ class HomeScreen extends React.Component {
     //this.fetchFromDataBase=this.fetchFromDataBase.bind(this);
   }
 
-//   showLoginAlert(){
-//     console.log("Alert home ..........nikita")
-//     Alert.alert(
-//         'Alert',
-//         "Please first login.",
-//         [
-//           {
-//             text: 'OK', onPress: () => {
-//               this.props.navigation.navigate('Account') 
-//             }
-//           },
-//         ],
-//         { cancelable: false }
-//       )
-// }
+
 
   // Called after a component is mounted
   componentDidMount() {
@@ -172,6 +158,7 @@ class HomeScreen extends React.Component {
             realm.create('home_news', element);
           });
         });
+        console.log('firstApi',resp);
         this.setState({ data: resp, refreshing: false,visible:false });
       })
       .catch(e => {
@@ -188,7 +175,7 @@ class HomeScreen extends React.Component {
             realmTop.create('corousel_news', element);
           });
         });
-        
+        console.log('secApi',respTop);
         this.setState({ dataCorousel: respTop, refreshing: false });
       })
       .catch(e => {
@@ -206,7 +193,8 @@ class HomeScreen extends React.Component {
             RealmMostRead.create('most_read', element);
           });
         });
-        
+        // console.log('thirdApi',data);
+        // alert("called");
         this.setState({ mostReadData: data, refreshing: false })
 
       })

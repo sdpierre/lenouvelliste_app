@@ -213,7 +213,7 @@ class CitizenNewsScreen extends React.Component {
             icon={
               <MaterialCommunityIcons
                 name="close"
-                size={15}
+                size={10}
                 color="white"
               />
             }

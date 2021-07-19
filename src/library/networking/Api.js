@@ -23,7 +23,7 @@ export async function getAllNews() {
 }
 
 export async function getMostRead() {
-  let result = await fetch(APP_BASE_URL+'mostread/').then(
+  let result = await fetch(APP_BASE_URL+'mostread').then(
     response => response.json(),
   );
   return result.data;
