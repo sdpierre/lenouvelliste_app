@@ -1,4 +1,6 @@
 rootProject.name = 'lenouvelliste_app'
+include ':realm'
+project(':realm').projectDir = new File(rootProject.projectDir, '../node_modules/realm/react-native/android')
 include ':react-native-sili-video-compression'
 project(':react-native-sili-video-compression').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sili-video-compression/android')
 include ':react-native-create-thumbnail'
@@ -8,18 +10,9 @@ project(':@react-native-community_viewpager').projectDir = new File(rootProject.
 project(':@react-native-community_viewpager').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/viewpager/android')
 include ':@react-native-community_viewpager'
 project(':@react-native-community_viewpager').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/viewpager/android')
-
 include ':react-native-camera'
 project(':react-native-camera').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-camera/android')
 include ':react-native-sili-video-compression'
 project(':react-native-sili-video-compression').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sili-video-compression/android')
-include ':realm'
-project(':realm').projectDir = new File(rootProject.projectDir, '../node_modules/realm/android')
-include ':realm'
-project(':realm').projectDir = new File(rootProject.projectDir, '../node_modules/realm/android')
- /*include ':realm'
- project(':realm').projectDir = new File(rootProject.projectDir, '../node_modules/realm/android')*/
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
-include ':realm'
-project(':realm').projectDir = new File(rootProject.projectDir, '../node_modules/realm/android')
