@@ -48,6 +48,7 @@ import {
   PagerDotIndicator,
 } from '@shankarmorwal/rn-viewpager';
 import { element } from 'prop-types';
+import { SafeAreaView } from 'react-native';
 
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -401,6 +402,7 @@ class CitizenNewsScreen extends React.Component {
           </View>
 
         </ScrollView>
+
       </Container>
     );
   }

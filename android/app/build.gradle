@@ -196,10 +196,12 @@ dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01'
 
    //implementation group: 'commons-io', name: 'commons-io', version: '2.7'
-   //implementation "commons-io:commons-io:+"
+   implementation "commons-io:commons-io:+"
   // implementation group: 'org.apache.commons', name: 'commons-text', version: '1.8'
 
-    implementation 'commons-io:commons-io:2.6'
+    // implementation 'commons-io:commons-io:2.6'
+//    implementation 'commons-io:commons-io:2.8.0'
+
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

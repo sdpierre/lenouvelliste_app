@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Modal, StyleSheet, AsyncStorage, ScrollView } from 'react-native';
+import { Text, Modal, StyleSheet, AsyncStorage, ScrollView ,SafeAreaView} from 'react-native';
 import {
   Container,
   Header,
@@ -56,6 +56,7 @@ export default class SettingsScreen extends Component {
   render() {
     return (
       <Container>
+        <SafeAreaView>
         <Header>
           <Left>
             <Button transparent onPress={() => { this.props.navigation.goBack() }}>
@@ -106,6 +107,7 @@ export default class SettingsScreen extends Component {
         </ScrollView>
         {/* <Content>
         </Content> */}
+        </SafeAreaView>
       </Container>
     )
   }

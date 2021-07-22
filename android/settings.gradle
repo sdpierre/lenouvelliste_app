@@ -1,4 +1,8 @@
 rootProject.name = 'lenouvelliste_app'
+include ':react-native-sili-video-compression'
+project(':react-native-sili-video-compression').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sili-video-compression/android')
+include ':react-native-create-thumbnail'
+project(':react-native-create-thumbnail').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-create-thumbnail/android')
 include ':@react-native-community_viewpager'
 project(':@react-native-community_viewpager').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/viewpager/android')
 include ':@react-native-community_viewpager'

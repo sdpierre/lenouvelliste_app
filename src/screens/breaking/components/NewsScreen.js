@@ -18,6 +18,7 @@ import {
   Content,
 } from 'native-base';
 import Share from 'library/components/Share';
+import { SafeAreaView } from 'react-native';
 
 class NewsScreen extends React.Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class NewsScreen extends React.Component {
 
     return (
       <Container>
+        <SafeAreaView>
         <Header>
           <Left>
             <Button
@@ -55,6 +57,7 @@ class NewsScreen extends React.Component {
             <Share titre={title} url={url} />
           </Right>
         </Header>
+        </SafeAreaView>
         <ScrollView>
           <View style={Spacing.container}>
             <Text style={Typography.headline}>{category}</Text>

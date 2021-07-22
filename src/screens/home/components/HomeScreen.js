@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Text } from 'react-native';
+import { View, StyleSheet, FlatList, Text} from 'react-native';
 import { Typography, Colors, Buttons, Spacing, Margins } from '../../../styles';
 import { getHomeNews, getCitizenTopNews, getMostRead } from 'library/networking/Api';
 import moment from 'moment';
@@ -23,11 +23,12 @@ let corouselDataDb = [];
 let mostReadDataDb = [];
 //NetInfo
 import NetInfo from '@react-native-community/netinfo';
+import { SafeAreaView } from 'react-native';
 let fetchOverNet;
 
 class HomeScreen extends React.Component {
   constructor(props) {
-    super();
+     super();
 
     realm = new Realm({
       path: 'NewsDb.realm',
@@ -232,12 +233,15 @@ class HomeScreen extends React.Component {
     const { visible } = this.state;
 
     return (
+      
       <Container>
+        <SafeAreaView>
         <Header>
           <Body>
             <LogoTitle />
           </Body>
         </Header>
+        </SafeAreaView>
     
         <View style={styles.MainContainer}>
 
@@ -323,8 +327,8 @@ class HomeScreen extends React.Component {
         animationStyle={styles.lottie}
         speed={1}
       />
-
       </Container>
+      
     );
   }
 }

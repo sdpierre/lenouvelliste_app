@@ -38,6 +38,7 @@ import { Form, Item, Label } from 'native-base';
 import LogoTitle from 'library/components/logo';
 import { Colors } from '../../../styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { SafeAreaView } from 'react-native';
 
 //Dimensions
 var deviceWidth = Dimensions.get('window').width;
@@ -180,6 +181,15 @@ class Login extends ValidationComponent {
     );
     return (
       <Container>
+        <SafeAreaView>
+        <Header>
+          <Left>
+            <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => this.props.navigation.navigate('Home')} />
+          </Left>
+          <Body></Body>
+          <Right></Right>
+        </Header>
+        </SafeAreaView>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Image
             style={styles.logo}

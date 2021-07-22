@@ -4,7 +4,8 @@ import {
     StyleSheet,
     FlatList,
     Text,
-    Modal
+    Modal,
+    SafeAreaView,
 } from "react-native";
 import {
     Container,
@@ -145,6 +146,7 @@ export default class SectionScreen extends Component {
         return (
             
                 <Container>
+                    <SafeAreaView>
                     <Header>
                         <Left>
                             <Button transparent onPress={() => { this.props.navigation.goBack() }}>
@@ -177,7 +179,7 @@ export default class SectionScreen extends Component {
         speed={1}
       />
 
-
+    </SafeAreaView>
                 </Container>
             
         )

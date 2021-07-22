@@ -1,61 +1,63 @@
+export const BASE_URl = 'https://api.lenouvelliste.com/public/api/';
+
 export async function getBreakingNews() {
-  let result = await fetch('http://lenouvelis.com/api/breakingnews').then(
+  let result = await fetch(BASE_URl+'breakingnews').then(
     response => response.json(),
   );
   return result.data;
 }
 
 export async function getHomeNews() {
-  let result = await fetch('http://lenouvelis.com/api/homenews').then(
+  let result = await fetch(BASE_URl+'homenews').then(
     response => response.json(),
   );
   return result.data;
 }
 
 export async function getAllNews() {
-  let result = await fetch('http://lenouvelis.com/api/getallnews').then(
+  let result = await fetch(BASE_URl+'getallnews').then(
     response => response.json(),
   );
   return result.data;
 }
 
 export async function getMostRead() {
-  let result = await fetch('http://lenouvelis.com/api/mostread/').then(
+  let result = await fetch(BASE_URl+'mostread/').then(
     response => response.json(),
   );
   return result.data;
 }
 
 export async function getCitizenTopNews() {
-  let result = await fetch('http://lenouvelis.com/api/topcitizennews').then(
+  let result = await fetch(BASE_URl+'topcitizennews').then(
     response => response.json(),
   );
   return result.data;
 }
 
 export async function getCitizenNews() {
-  let result = await fetch('http://lenouvelis.com/api/allcitizennews').then(
+  let result = await fetch(BASE_URl+'allcitizennews').then(
     response => response.json(),
   );
   return result.data;
 }
 
 export async function getSectionAll() {
-  let result = await fetch('http://lenouvelis.com/api/sectionall/').then(
+  let result = await fetch(BASE_URl+'sectionall/').then(
     response => response.json(),
   );
   return result.data;
 }
 
 export async function getSectionNews(id) {
-  let result = await fetch('http://lenouvelis.com/api/section/' + id).then(
+  let result = await fetch(BASE_URl+'section/' + id).then(
     response => response.json(),
   );
   return result.data;
 }
 
 export async function getCitizenMedia(id) {
-  let result = await fetch('http://lenouvelis.com/public/api/citizen_media/' + id).then(
+  let result = await fetch(BASE_URl+'citizen_media/' + id).then(
     response => response.json(),
   );
   return result;

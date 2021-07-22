@@ -22,6 +22,7 @@ import OneSignal from 'react-native-onesignal';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import ImagePicker from 'react-native-image-picker';
+import { SafeAreaView } from 'react-native';
 
 const AppNav = createReduxContainer(AppNavigator);
 const mapStateToProps = state => ({
@@ -78,9 +79,13 @@ export default class App extends Component {
   render() {
     const buttons = ['Map', 'Satellite'];
     return (
+      // <SafeAreaView>
       <Provider store={store}>
+        
         <AppContainer />
+        
       </Provider>
+      // </SafeAreaView>
     );
   }
 }

@@ -64,6 +64,8 @@ target 'lenouvelliste_app' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'react-native-create-thumbnail', :path => '../node_modules/react-native-create-thumbnail'
+
   target 'lenouvelliste_appTests' do
     inherit! :complete
     # Pods for testing

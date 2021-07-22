@@ -7,7 +7,8 @@ import {
   Modal,
   TouchableHighlight,
   TouchableOpacity,
-  Image
+  Image,
+  SafeAreaView
 } from "react-native";
 import { setAppInfo } from "../../../redux/actions";
 import { connect } from "react-redux";
@@ -178,6 +179,7 @@ class BreakingScreen extends React.Component {
     let that = this;
     return (
       <Container>
+        <SafeAreaView>
         <Header>
           <Body>
             <Title>{title}</Title>
@@ -223,6 +225,8 @@ class BreakingScreen extends React.Component {
           />
            
         </View>
+        </SafeAreaView>
+
         <CitizenFloatingAction/>
       </Container>
     );

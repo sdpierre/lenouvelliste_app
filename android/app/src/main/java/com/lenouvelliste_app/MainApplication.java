@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactlibrary.RNVideoCompressionPackage;
+import com.reactlibrary.createthumbnail.CreateThumbnailPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.reactlibrary.RNVideoCompressionPackage;
