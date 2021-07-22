@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Modal, Text, StyleSheet, TouchableWithoutFeedback, Dimensions,Alert,AsyncStorage} from 'react-native';
+import { View, Modal, Text, StyleSheet, TouchableWithoutFeedback, TextInput, Dimensions,Alert,AsyncStorage} from 'react-native';
 import {
     Container,
     Header,
@@ -15,7 +15,7 @@ import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import TextInput from 'react-native-material-textinput';
+// import TextInput from 'react-native-material-textinput';
 import {Button} from 'react-native-elements';
 
 //Dimensions
