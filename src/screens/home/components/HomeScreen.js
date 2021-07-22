@@ -39,7 +39,7 @@ class HomeScreen extends React.Component {
           properties: {
             id: 'int',
             article: 'string',
-           // author: 'string',
+            author: 'string',
             date: 'string',
             headline: 'string',
             nophoto: 'string',
@@ -87,11 +87,11 @@ class HomeScreen extends React.Component {
             article: "string",
            // author: "string",
             date: 'string',
-            headline: "string",
+            // headline: "string",
             nophoto: "string",
             photo: "string?",
             rubrique: "string?",
-            surtitre: "string",
+            surtitre: "string?",
             titre: 'string',
             url: 'string?',
           },
@@ -111,11 +111,15 @@ class HomeScreen extends React.Component {
     mostReadDataDb = RealmMostRead.objects('most_read')
     console.log('most_readSize>>>>>', mostReadDataDb.length);
 
-    this.fetchNews = this.fetchNews.bind(this);
+    //  this.fetchNews = this.fetchNews.bind(this);
     //this.fetchFromDataBase=this.fetchFromDataBase.bind(this);
   }
+
+
+
   // Called after a component is mounted
   componentDidMount() {
+    // this.showLoginAlert()
     // setInterval(() => {
       this.setState({
         visible: !this.state.visible
@@ -141,13 +145,13 @@ class HomeScreen extends React.Component {
           });
         }
       });
-
-
   }
 
   fetchNews() {
     getHomeNews()
+      
       .then(resp => {
+        console.log('ExceptionHOMEReponse>>>', resp);
         realm.write(() => {
           realm.deleteAll();
 
@@ -155,6 +159,7 @@ class HomeScreen extends React.Component {
             realm.create('home_news', element);
           });
         });
+        console.log('firstApi',resp);
         this.setState({ data: resp, refreshing: false,visible:false });
       })
       .catch(e => {
@@ -171,6 +176,7 @@ class HomeScreen extends React.Component {
             realmTop.create('corousel_news', element);
           });
         });
+        console.log('secApi',respTop);
         this.setState({ dataCorousel: respTop, refreshing: false });
       })
       .catch(e => {
@@ -180,6 +186,7 @@ class HomeScreen extends React.Component {
 
     getMostRead()
       .then(data => {
+      console.log("getMostRead",data)
         RealmMostRead.write(() => {
           RealmMostRead.deleteAll();
 
@@ -187,6 +194,8 @@ class HomeScreen extends React.Component {
             RealmMostRead.create('most_read', element);
           });
         });
+        // console.log('thirdApi',data);
+        // alert("called");
         this.setState({ mostReadData: data, refreshing: false })
 
       })
@@ -203,17 +212,17 @@ class HomeScreen extends React.Component {
         refreshing: true,
       },
       () => {
-        if (fetchOverNet)
-          this.fetchNews()
-        else { 
-          {
-            alert('Internet connection required!')
-            this.setState(
-              {
-                refreshing: false
-              })
-          }
-        }
+        // if (fetchOverNet)
+        //   this.fetchNews()
+        // else { 
+        //   {
+        //     alert('Internet connection required!')
+        //     this.setState(
+        //       {
+        //         refreshing: false
+        //       })
+        //   }
+        // }
       },
     );
   }
@@ -231,7 +240,6 @@ class HomeScreen extends React.Component {
     let that = this;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     const { visible } = this.state;
-
     return (
       
       <Container>
@@ -265,7 +273,7 @@ class HomeScreen extends React.Component {
                 return (
                   <React.Fragment>
                     <Text style={styles.sectionTitle}> les plus lus </Text>
-                    <Mostread mostread={item} navigate={navigate} mostReadData={this.state.mostReadData} isBookmarked={false} />
+                    {/* <Mostread mostread={item} navigate={navigate} mostReadData={this.state.mostReadData} isBookmarked={false} /> */}
                     <Article
                       article={item}
                       navigate={navigate}

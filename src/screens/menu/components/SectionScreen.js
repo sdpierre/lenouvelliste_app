@@ -32,6 +32,7 @@ let sectionDataDb;
 //Realm
 import Realm from 'realm';
 import Article from "library/components/Article";
+import { Alert } from 'react-native';
 let realm;
 
 export default class SectionScreen extends Component {
@@ -76,6 +77,21 @@ export default class SectionScreen extends Component {
         this.fetchNews = this.fetchNews.bind(this);
 
     }
+
+    // showLoginAlert(){
+    //     Alert.alert(
+    //         'Message',
+    //         "Please first login.",
+    //         [
+    //           {
+    //             text: 'OK', onPress: () => {
+    //               this.props.navigation.navigate('Account') 
+    //             }
+    //           },
+    //         ],
+    //         { cancelable: false }
+    //       )
+    // }
 
     componentDidMount() {
         this.setState({ 

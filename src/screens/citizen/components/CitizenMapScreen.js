@@ -121,7 +121,7 @@ export default class CitizenMapScreen extends Component {
   chooseMapType = index => {
     this.setState({ mapTypeIndex: index });
   };
-
+  
   goToSaveCitizen = () => {
     const { navigation } = this.props;
     const strImageData = navigation.getParam('imageData');
@@ -138,7 +138,7 @@ export default class CitizenMapScreen extends Component {
     }
   }
   componentWillUnmount() {
-    //navigator.geolocation.clearWatch(this.watchID);
+    navigator.geolocation.clearWatch(this.watchID);
   }
   render() {
 

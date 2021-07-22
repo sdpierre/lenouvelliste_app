@@ -5,7 +5,6 @@ include ':react-native-create-thumbnail'
 project(':react-native-create-thumbnail').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-create-thumbnail/android')
 include ':@react-native-community_viewpager'
 project(':@react-native-community_viewpager').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/viewpager/android')
-include ':@react-native-community_viewpager'
 project(':@react-native-community_viewpager').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/viewpager/android')
 include ':@react-native-community_viewpager'
 project(':@react-native-community_viewpager').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/viewpager/android')
@@ -18,8 +17,8 @@ include ':realm'
 project(':realm').projectDir = new File(rootProject.projectDir, '../node_modules/realm/android')
 include ':realm'
 project(':realm').projectDir = new File(rootProject.projectDir, '../node_modules/realm/android')
-/*include ':realm'
-project(':realm').projectDir = new File(rootProject.projectDir, '../node_modules/realm/android')*/
+ /*include ':realm'
+ project(':realm').projectDir = new File(rootProject.projectDir, '../node_modules/realm/android')*/
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
 include ':realm'

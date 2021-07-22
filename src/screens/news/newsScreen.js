@@ -45,7 +45,6 @@ class NewsScreen extends React.Component {
     }
   }
 
-
   componentDidMount() {
 
     this.state.arrPhotos.push(this.state.photo)
@@ -77,6 +76,7 @@ class NewsScreen extends React.Component {
     const { photo } = this.state;
     let { booked } = this.state;
     const { id } = this.state;
+    const { authors } = this.state; 
     //console.log('NewsAlreadyBooked>> ', booked);
     var obj = realm
       .objects('book_news')
@@ -87,9 +87,17 @@ class NewsScreen extends React.Component {
     // const title = navigation.getParam('title');
     // console.log('Photo',this.state.photo)
     // console.log('Photo',this.state.nophoto)
+    console.log("This page.........")
+
 
     if (photo == null) {
       this.state.photo = ""
+    }
+
+    if (author == null) {
+     const authors = this.state.author; 
+    } else {
+     const authors = this.state.author;
     }
 
     // console.log('Photo',this.state.photo)
@@ -98,9 +106,7 @@ class NewsScreen extends React.Component {
       <Container>
         <Header>
           <Left>
-            
             <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
-
           </Left>
 
           <Right>
@@ -140,13 +146,12 @@ class NewsScreen extends React.Component {
           />
 
           <View style={styles.container}>
-
             <Text style={Typography.headline}>{surTitle}</Text>
             <Text style={Typography.xlargeTitle}>{title}</Text>
 
             <Text style={styles.headline}>{headline}</Text>
 
-            <Text style={styles.author}>Par {author}</Text>
+            <Text style={styles.author}>{authors}</Text>
 
             <Text style={Typography.subHead}>{(moment(date || moment.now()).fromNow())}</Text>
 
