@@ -22,11 +22,6 @@ import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants';
 import { setUserInfo } from '../../../redux/actions';
 import { connect } from 'react-redux';
-import {
-  TextField,
-  FilledTextField,
-  OutlinedTextField,
-} from 'react-native-material-textfield';
 import { Container, Header, Body, Right, Left, Content } from 'native-base';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -38,7 +33,6 @@ import { Form, Item, Label } from 'native-base';
 import LogoTitle from 'library/components/logo';
 import { Colors } from '../../../styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { SafeAreaView } from 'react-native';
 
 //Dimensions
 var deviceWidth = Dimensions.get('window').width;
@@ -181,22 +175,13 @@ class Login extends ValidationComponent {
     );
     return (
       <Container>
-        <SafeAreaView>
         <Header>
           <Left>
             <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => this.props.navigation.navigate('Home')} />
           </Left>
-          <Body></Body>
-          <Right></Right>
         </Header>
-        </SafeAreaView>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Image
-            style={styles.logo}
-            source={{
-              uri: 'https://images.lenouvelliste.com/app/logo.png',
-            }}
-          />
+          
           {/* <Text style={styles.loginText}>Connectez-vous</Text> */}
           <View style={{ width: 300 }}>
             <View>
