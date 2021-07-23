@@ -75,7 +75,7 @@ class SelectionScreen extends React.Component {
 
     if(data){
       return (
-        <Container style={Colors.grayBackground}>
+        <Container style={Colors.whiteBackground}>
 
        
 <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#FFF" translucent = {true}/>
