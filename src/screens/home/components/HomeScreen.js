@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Text} from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { Typography, Colors, Buttons, Spacing, Margins } from '../../../styles';
 import { getHomeNews, getCitizenTopNews, getMostRead } from 'library/networking/Api';
 import moment from 'moment';
@@ -28,7 +28,7 @@ let fetchOverNet;
 
 class HomeScreen extends React.Component {
   constructor(props) {
-     super();
+    super();
 
     realm = new Realm({
       path: 'NewsDb.realm',
@@ -83,17 +83,17 @@ class HomeScreen extends React.Component {
           name: 'most_read',
           primaryKey: 'id',
           properties: {
-            id: 'int',
-            article: "string",
-           // author: "string",
-            date: 'string',
+            id: 'string',
+            url: "string",
+            // author: "string",
+            pageViews: 'int',
             // headline: "string",
-            nophoto: "string",
-            photo: "string?",
-            rubrique: "string?",
-            surtitre: "string?",
-            titre: 'string',
-            url: 'string?',
+            pageTitle: "string",
+            // photo: "string?",
+            // rubrique: "string?",
+            // surtitre: "string?",
+            // titre: 'string',
+            // url: 'string?',
           },
         },
       ],
@@ -121,15 +121,15 @@ class HomeScreen extends React.Component {
   componentDidMount() {
     // this.showLoginAlert()
     // setInterval(() => {
-      this.setState({
-        visible: !this.state.visible
-      });
+    this.setState({
+      visible: !this.state.visible
+    });
     // }, 1000);
 
-    
+
     NetInfo.fetch()
       .then(conn => {
-    
+
         fetchOverNet = conn.isConnected;
       })
       .then(() => {
@@ -141,7 +141,7 @@ class HomeScreen extends React.Component {
             data: homeDataDb,
             dataCorousel: corouselDataDb,
             mostReadData: mostReadDataDb,
-            visible:false
+            visible: false
           });
         }
       });
@@ -149,7 +149,7 @@ class HomeScreen extends React.Component {
 
   fetchNews() {
     getHomeNews()
-      
+
       .then(resp => {
         console.log('ExceptionHOMEReponse>>>', resp);
         realm.write(() => {
@@ -159,8 +159,8 @@ class HomeScreen extends React.Component {
             realm.create('home_news', element);
           });
         });
-        console.log('firstApi',resp);
-        this.setState({ data: resp, refreshing: false,visible:false });
+        console.log('firstApi', resp);
+        this.setState({ data: resp, refreshing: false, visible: false });
       })
       .catch(e => {
         console.log('ExceptionHOME>>>', e);
@@ -176,7 +176,7 @@ class HomeScreen extends React.Component {
             realmTop.create('corousel_news', element);
           });
         });
-        console.log('secApi',respTop);
+        console.log('secApi', respTop);
         this.setState({ dataCorousel: respTop, refreshing: false });
       })
       .catch(e => {
@@ -186,17 +186,22 @@ class HomeScreen extends React.Component {
 
     getMostRead()
       .then(data => {
-      console.log("getMostRead",data)
+        console.log("get4", data)
+        let keys = Object.keys(data)
+        console.log("all keys",keys)
+        let datas = []
         RealmMostRead.write(() => {
           RealmMostRead.deleteAll();
-
-          data.forEach(element => {
-            RealmMostRead.create('most_read', element);
+          keys.forEach(element => {
+            let d = data[element]
+            d.id = element
+            datas.push(d)
+            RealmMostRead.create('most_read', d);
           });
         });
-        // console.log('thirdApi',data);
+       console.log('thirdApi',datas);
         // alert("called");
-        this.setState({ mostReadData: data, refreshing: false })
+        this.setState({ mostReadData: datas, refreshing: false })
 
       })
       .catch((e) => {
@@ -205,7 +210,7 @@ class HomeScreen extends React.Component {
       });
 
   }
- 
+
   handleRefresh() {
     this.setState(
       {
@@ -241,16 +246,16 @@ class HomeScreen extends React.Component {
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     const { visible } = this.state;
     return (
-      
+
       <Container>
         <SafeAreaView>
-        <Header>
-          <Body>
-            <LogoTitle />
-          </Body>
-        </Header>
+          <Header>
+            <Body>
+              <LogoTitle />
+            </Body>
+          </Header>
         </SafeAreaView>
-    
+
         <View style={styles.MainContainer}>
 
           <FlatList
@@ -273,7 +278,7 @@ class HomeScreen extends React.Component {
                 return (
                   <React.Fragment>
                     <Text style={styles.sectionTitle}> les plus lus </Text>
-                    {/* <Mostread mostread={item} navigate={navigate} mostReadData={this.state.mostReadData} isBookmarked={false} /> */}
+                    <Mostread mostread={item} navigate={navigate} mostReadData={this.state.mostReadData} isBookmarked={false} />
                     <Article
                       article={item}
                       navigate={navigate}
@@ -323,20 +328,20 @@ class HomeScreen extends React.Component {
             refreshing={this.state.refreshing}
             onRefresh={this.handleRefresh.bind(this)}
           />
-          
+
         </View>
-        
-    
-        <CitizenFloatingAction/>
+
+
+        <CitizenFloatingAction />
         <AnimatedLoader
-        visible={visible}
-        overlayColor="rgba(255,255,255,0.75)"
-        source={require("../../../utils/loader.json")}
-        animationStyle={styles.lottie}
-        speed={1}
-      />
+          visible={visible}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require("../../../utils/loader.json")}
+          animationStyle={styles.lottie}
+          speed={1}
+        />
       </Container>
-      
+
     );
   }
 }
@@ -349,8 +354,8 @@ const styles = StyleSheet.create({
   },
   MainContainer: {
     ...Colors.grayBackground,
-  paddingBottom:50
-    
+    paddingBottom: 50
+
   },
   container: {
     ...Colors.background,

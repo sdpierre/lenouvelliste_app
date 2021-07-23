@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 import Article from "library/components/Article";
 import LogoTitle from "library/components/logo";
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
+import { cos } from "react-native-reanimated";
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
@@ -35,7 +36,8 @@ class Mostread extends React.Component {
     this.state = {
       data: [],
       refreshing: true,
-      propsData:props.mostReadData
+      propsData:props.mostReadData,
+      
     };
     this.fetchMostRead = this.fetchMostRead.bind(this);
     that=this;
@@ -56,23 +58,27 @@ class Mostread extends React.Component {
   }*/
 
   // Called after a component is mounted
-  componentDidMount() {
-   // this.fetchMostRead();
-    //this.handleRefresh();
+  // componentDidMount() {
+  //   console.log("trueData")
+  //   this.fetchMostRead();
+  //   this.handleRefresh();
     
-  }
+  // }
   componentDidUpdate(prevProps) {
     if(!equal(this.props.mostReadData, prevProps.mostReadData)) // Check if it's a new prop
     {
       console.log('NotEqual');
+
       this.setState({
         propsData : this.props.mostReadData
       })
+
       
     }else console.log('equal')
   } 
   fetchMostRead() {
     console.log('Calling MostReadApi');
+
     getMostRead()
       .then(data => this.setState({ data, refreshing: false }))
       .catch(() => this.setState({ refreshing: false }));
@@ -82,7 +88,8 @@ class Mostread extends React.Component {
   handleRefresh() {
     this.setState(
       {
-        refreshing: true
+        refreshing: true,
+        
       },
       () => this.fetchMostRead()
     );
@@ -90,13 +97,13 @@ class Mostread extends React.Component {
 
   render() {
     console.log('MostREad Reresndering');
-   
+  //  console.log("PropsData",this.state.propsData);
     const { navigate } = this.props;
 
     return (
       <FlatList
-      //data={this.state.data}
-      data={this.state.propsData}
+      // data={this.state.data}
+       data={this.state.propsData}
       onRefresh={this.handleRefresh.bind(this)}
       //renderItem={({ item }) => <Text>{item.titre}</Text>}
     
@@ -105,13 +112,14 @@ class Mostread extends React.Component {
                 <TouchableHighlight
                   onPress={() =>
                     navigate("News", {
-                      surTitle: item.surtitre,
-                      title: item.titre,
-                      headline : item.headline,
-                      body: item.article,
-                      photo: item.photo,
-                      date: item.date,
-                      author : item.author,
+                      // surTitle: item.surtitre,
+                      title: item.pageTitle,
+                      pageViews:item.pageViews,
+                      // headline : item.headline,
+                      // body: item.article,
+                      // photo: item.photo,
+                      // date: item.date,
+                      // author : item.author,
                       url : item.url,
                       id: item.id
                     })
@@ -119,7 +127,7 @@ class Mostread extends React.Component {
                 >
                
             <View style={{backgroundColor: '#fff', paddingTop:15,}} >
-              <Text style={{fontSize: 16,width: wp(90),fontFamily: 'Georgia',marginBottom: 10,paddingLeft:20}}> <Ionicons name="format-list-bulleted" size={13} color="#000" /> {item.titre} </Text> 
+              <Text style={{fontSize: 16,width: wp(90),fontFamily: 'Georgia',marginBottom: 10,paddingLeft:20}}> <Ionicons name="format-list-bulleted" size={13} color="#000" /> {item.pageTitle} </Text> 
             </View>
               </TouchableHighlight>
               )}

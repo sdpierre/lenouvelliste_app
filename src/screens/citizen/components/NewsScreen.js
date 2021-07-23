@@ -227,6 +227,7 @@ class CitizenNewsScreen extends React.Component {
     );
   }
   render() {
+
     const { title } = this.state;
     const { body } = this.state;
     const { date } = this.state;
@@ -278,6 +279,7 @@ class CitizenNewsScreen extends React.Component {
           <Body></Body>
           <Right></Right>
         </Header>
+        
         <ScrollView>
 
           <Modal

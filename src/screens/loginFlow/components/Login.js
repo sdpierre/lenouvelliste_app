@@ -68,7 +68,9 @@ class Login extends ValidationComponent {
           userId: dicLoginData.id
         });
         if (this.state.userId != '') {
-          this.props.navigation.navigate('Home')
+          // this.props.navigation.navigate('Home')
+          this.props.navigation.navigate('UserProfile')
+
         } else {
         }
         console.log("Login right condition", this.state.userId)

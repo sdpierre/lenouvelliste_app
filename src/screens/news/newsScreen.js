@@ -21,6 +21,7 @@ import { Container, Header, Left, Body, Right, Icon, Title, Content, ListItem, L
 import IoniconsMaterial from "react-native-vector-icons/MaterialCommunityIcons";
 
 import Realm from 'realm';
+import { SafeAreaView } from 'react-navigation';
 
 //realm
 let realm;
@@ -31,14 +32,15 @@ class NewsScreen extends React.Component {
     realm = new Realm({ path: 'BookmarkDb.realm' });
     this.state = {
       title: this.props.navigation.getParam('title'),
-      body: this.props.navigation.getParam('body'),
-      date: this.props.navigation.getParam('date'),
-      surTitle: this.props.navigation.getParam('surTitle'),
-      headline: this.props.navigation.getParam('headline'),
-      author: this.props.navigation.getParam('author'),
-      photo: this.props.navigation.getParam('photo'),
+      // body: this.props.navigation.getParam('body'),
+      // date: this.props.navigation.getParam('date'),
+      // surTitle: this.props.navigation.getParam('surTitle'),
+      // headline: this.props.navigation.getParam('headline'),
+      // author: this.props.navigation.getParam('author'),
+      // photo: this.props.navigation.getParam('photo'),
       url: this.props.navigation.getParam('url'),
-      booked: this.props.navigation.getParam('booked'),
+      pageViews:this.props.navigation.getParam('pageViews'),
+      // booked: this.props.navigation.getParam('booked'),
       id: this.props.navigation.getParam('id'),
       nophoto: 'https://images.lenouvelliste.com/noimageandroid.jpg',
       arrPhotos: []
@@ -76,7 +78,8 @@ class NewsScreen extends React.Component {
     const { photo } = this.state;
     let { booked } = this.state;
     const { id } = this.state;
-    const { authors } = this.state; 
+    const { authors } = this.state;
+    const {pageViews} = this.state;
     //console.log('NewsAlreadyBooked>> ', booked);
     var obj = realm
       .objects('book_news')
@@ -87,7 +90,7 @@ class NewsScreen extends React.Component {
     // const title = navigation.getParam('title');
     // console.log('Photo',this.state.photo)
     // console.log('Photo',this.state.nophoto)
-    console.log("This page.........")
+    console.log("That page.........")
 
 
     if (photo == null) {
@@ -104,6 +107,7 @@ class NewsScreen extends React.Component {
 
     return (
       <Container>
+        <SafeAreaView>
         <Header>
           <Left>
             <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
@@ -132,6 +136,7 @@ class NewsScreen extends React.Component {
             </View>
           </Right>
         </Header>
+        </SafeAreaView>
         <ScrollView>
           <Pagination
             ref={c => {
@@ -146,20 +151,22 @@ class NewsScreen extends React.Component {
           />
 
           <View style={styles.container}>
-            <Text style={Typography.headline}>{surTitle}</Text>
+            {/* <Text style={Typography.headline}>{surTitle}</Text> */}
             <Text style={Typography.xlargeTitle}>{title}</Text>
 
             <Text style={styles.headline}>{headline}</Text>
+            <Text style={styles.headline}>{url}</Text>
+            <Text style={styles.headline}>{pageViews}</Text>
 
-            <Text style={styles.author}>{authors}</Text>
+            {/* <Text style={styles.author}>{authors}</Text> */}
 
-            <Text style={Typography.subHead}>{(moment(date || moment.now()).fromNow())}</Text>
+            {/* <Text style={Typography.subHead}>{(moment(date || moment.now()).fromNow())}</Text> */}
 
-            <HTMLView
+            {/* <HTMLView
               value={"<div>" + body + "</div>"}
               addLineBreaks={false}
               stylesheet={Typography.body}
-            />
+            /> */}
 
           </View>
         </ScrollView>
