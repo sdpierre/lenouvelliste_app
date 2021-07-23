@@ -10,6 +10,7 @@ import {
     Text,
     AsyncStorage, Alert,
     Image,
+    StatusBar,
     SafeAreaView
 } from "react-native";
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -154,6 +155,8 @@ class MenuScreen extends Component {
         console.log('userInfo', this.props.user.userInfo);
         return (
             <Container>
+                <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#FFF" translucent = {true}/>
+
                 <SafeAreaView>
                 <Header>
                     <Left></Left>
