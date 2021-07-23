@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Modal, Dimensions,TouchableOpacity,Alert } from 'react-native';
+import { Text, View, TextInput, StyleSheet, Modal, Dimensions,TouchableOpacity,Alert } from 'react-native';
 import {
     Container,
     Header,
@@ -11,7 +11,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
-import TextInput from 'react-native-material-textinput'
 import {Button, Input} from 'react-native-elements'
 
 //Dimensions

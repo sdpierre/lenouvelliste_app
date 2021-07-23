@@ -92,3 +92,12 @@ export const smallTitle = {
     letterSpacing: 0.64,
     color: '#FFF'
   };
+
+  export const ScreenTitle = {
+    textAlignVertical: "center",
+    textAlign: "center",
+    color: '#4B4B4B',
+    fontSize: 24,
+    textTransform: 'uppercase',
+    fontFamily: "AkkoPro-BoldCondensed",
+}

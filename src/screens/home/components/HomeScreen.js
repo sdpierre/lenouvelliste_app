@@ -1,19 +1,31 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Text } from 'react-native';
-import { Typography, Colors, Buttons, Spacing, Margins } from '../../../styles';
-import { getHomeNews, getCitizenTopNews, getMostRead } from 'library/networking/Api';
+import {View, StyleSheet, FlatList, Text, StatusBar} from 'react-native';
+import {
+  Typography,
+  Colors,
+  Buttons,
+  Spacing,
+  Margins,
+  Base,
+} from '../../../styles';
+import {
+  getHomeNews,
+  getCitizenTopNews,
+  getMostRead,
+} from 'library/networking/Api';
 import moment from 'moment';
 import 'moment/min/locales';
-import { setAppInfo, setUserInfo } from '../../../redux/actions';
-import { connect } from 'react-redux';
+import {setAppInfo, setUserInfo} from '../../../redux/actions';
+import {connect} from 'react-redux';
 import Article from 'library/components/Article';
 import Mostread from '../components/Mostread';
-import CitizenTopNews from "../components/CitizenTopNews";
+import CitizenTopNews from '../components/CitizenTopNews';
 import LogoTitle from 'library/components/logo';
 import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
-
-import { Container, Header, Body, Title, Content } from 'native-base';
-import AnimatedLoader from "react-native-animated-loader";
+import Banner from 'library/components/banner';
+import MediumRectangle from 'library/components/mediumRectangle';
+import {Container, Header, Body, Title, Content} from 'native-base';
+import AnimatedLoader from 'react-native-animated-loader';
 
 //Realm
 import Realm from 'realm';
@@ -23,7 +35,7 @@ let corouselDataDb = [];
 let mostReadDataDb = [];
 //NetInfo
 import NetInfo from '@react-native-community/netinfo';
-import { SafeAreaView } from 'react-native';
+import {SafeAreaView} from 'react-native';
 let fetchOverNet;
 
 class HomeScreen extends React.Component {
@@ -61,16 +73,16 @@ class HomeScreen extends React.Component {
           primaryKey: 'id',
           properties: {
             id: 'int',
-            title: "string",
-            body: "string",
+            title: 'string',
+            body: 'string',
             category: 'string?',
-            thumb: "string",
-            media: "string",
-            user_id: "string",
-            username: "string",
-            userphoto: "string",
-            nouserphoto: "string",
-            date: 'string?'
+            thumb: 'string',
+            media: 'string',
+            user_id: 'string',
+            username: 'string',
+            userphoto: 'string',
+            nouserphoto: 'string',
+            date: 'string?',
           },
         },
       ],
@@ -103,19 +115,16 @@ class HomeScreen extends React.Component {
       refreshing: true,
       dataCorousel: [],
       mostReadData: [],
-      visible: false
-
+      visible: false,
     };
     homeDataDb = realm.objects('home_news');
     corouselDataDb = realmTop.objects('corousel_news');
-    mostReadDataDb = RealmMostRead.objects('most_read')
+    mostReadDataDb = RealmMostRead.objects('most_read');
     console.log('most_readSize>>>>>', mostReadDataDb.length);
 
     //  this.fetchNews = this.fetchNews.bind(this);
     //this.fetchFromDataBase=this.fetchFromDataBase.bind(this);
   }
-
-
 
   // Called after a component is mounted
   componentDidMount() {
@@ -149,7 +158,6 @@ class HomeScreen extends React.Component {
 
   fetchNews() {
     getHomeNews()
-
       .then(resp => {
         console.log('ExceptionHOMEReponse>>>', resp);
         realm.write(() => {
@@ -164,7 +172,7 @@ class HomeScreen extends React.Component {
       })
       .catch(e => {
         console.log('ExceptionHOME>>>', e);
-        this.setState({ refreshing: false });
+        this.setState({refreshing: false});
       });
 
     getCitizenTopNews()
@@ -181,7 +189,7 @@ class HomeScreen extends React.Component {
       })
       .catch(e => {
         console.log('ExceptionHOMETop>>>', e);
-        this.setState({ refreshing: false });
+        this.setState({refreshing: false});
       });
 
     getMostRead()
@@ -204,11 +212,10 @@ class HomeScreen extends React.Component {
         this.setState({ mostReadData: datas, refreshing: false })
 
       })
-      .catch((e) => {
-        console.log('MostReadError>>', e)
-        this.setState({ refreshing: false })
+      .catch(e => {
+        console.log('MostReadError>>', e);
+        this.setState({refreshing: false});
       });
-
   }
 
   handleRefresh() {
@@ -219,7 +226,7 @@ class HomeScreen extends React.Component {
       () => {
         // if (fetchOverNet)
         //   this.fetchNews()
-        // else { 
+        // else {
         //   {
         //     alert('Internet connection required!')
         //     this.setState(
@@ -240,11 +247,11 @@ class HomeScreen extends React.Component {
   }*/
 
   render() {
-    const { title } = this.state;
-    const { navigate } = this.props.navigation;
+    const {title} = this.state;
+    const {navigate} = this.props.navigation;
     let that = this;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
-    const { visible } = this.state;
+    const {visible} = this.state;
     return (
 
       <Container>
@@ -258,15 +265,20 @@ class HomeScreen extends React.Component {
 
         <View style={styles.MainContainer}>
 
+        <View style={styles.MainContainer}>
           <FlatList
             data={this.state.data}
             //renderItem={({ item }) =><Text>{item.titre}</Text>}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => {
+            renderItem={({item, index}) => {
               if (index === 0)
                 return (
                   <React.Fragment>
-                    <CitizenTopNews topNewsData={this.state.dataCorousel} navigate={navigate} />
+                    <CitizenTopNews
+                      topNewsData={this.state.dataCorousel}
+                      navigate={navigate}
+                    />
+                    <Banner />
                     <Article
                       article={item}
                       navigate={navigate}
@@ -289,6 +301,7 @@ class HomeScreen extends React.Component {
               else if (index === 7)
                 return (
                   <React.Fragment>
+                    <MediumRectangle />
                     <Article
                       article={item}
                       navigate={navigate}
@@ -299,6 +312,7 @@ class HomeScreen extends React.Component {
               else if (index === 14)
                 return (
                   <React.Fragment>
+                    <Banner />
                     <Article
                       article={item}
                       navigate={navigate}
@@ -330,21 +344,20 @@ class HomeScreen extends React.Component {
           />
 
         </View>
-
-
         <CitizenFloatingAction />
         <AnimatedLoader
           visible={visible}
           overlayColor="rgba(255,255,255,0.75)"
-          source={require("../../../utils/loader.json")}
+          source={require('../../../utils/loader.json')}
           animationStyle={styles.lottie}
           speed={1}
         />
+      </View>
       </Container>
-
     );
   }
 }
+
 
 export default HomeScreen;
 
@@ -374,6 +387,6 @@ const styles = StyleSheet.create({
   },
   lottie: {
     width: 100,
-    height: 100
-  }
+    height: 100,
+  },
 });

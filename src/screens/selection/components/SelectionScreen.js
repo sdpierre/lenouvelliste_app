@@ -7,8 +7,9 @@ import {
   StyleSheet,
   FlatList,
   Text,
+  StatusBar
 } from "react-native";
-import { Typography, Colors, Buttons, Spacing, Margins } from "../../../styles";
+import { Typography, Colors, Buttons, Spacing, Margins, Base } from "../../../styles";
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
 import Article from "library/components/Article";
 import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
@@ -75,12 +76,14 @@ class SelectionScreen extends React.Component {
     if(data){
       return (
         <Container style={Colors.grayBackground}>
-<Header>
-          <Body>
-            <Title>{title}</Title>
-          </Body>
-        </Header>
 
+       
+<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#FFF" translucent = {true}/>
+
+<View
+style={Base.ScreenTitleView}>
+<Text style={Typography.ScreenTitle}>{title}</Text>
+</View>
 <View style={styles.MainContainer}>
    <FlatList
     data={this.state.bookmarkData}
@@ -100,11 +103,12 @@ class SelectionScreen extends React.Component {
     }else{
       return(
 <Container>
-<Header>
-  <Body>
-    <Title>{this.state.title}</Title>
-  </Body>
-</Header>
+<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#FFF" translucent = {true}/>
+
+<View
+style={Base.ScreenTitleView}>
+<Text style={Typography.ScreenTitle}>{title}</Text>
+</View>
 
   <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
   <Text>

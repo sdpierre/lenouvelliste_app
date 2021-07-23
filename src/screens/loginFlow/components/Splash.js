@@ -54,8 +54,7 @@ export default class Splash extends Component {
     
             this.props.navigation.navigate('Home')
           }else{
-          this.props.navigation.navigate('Home')
-
+           this.props.navigation.navigate('Account') 
           }
          console.log("Login right condition",this.state.userId)
 
@@ -67,8 +66,6 @@ export default class Splash extends Component {
           this.props.navigation.navigate('Home')
 
           // this.props.navigation.navigate('Account') 
-          //  this.props.navigation.navigate('Home')
-
 
           console.log("Login else condition",this.state.userId)
 

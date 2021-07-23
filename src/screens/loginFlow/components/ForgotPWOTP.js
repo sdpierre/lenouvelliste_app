@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Modal, Dimensions, TouchableWithoutFeedback,Alert } from 'react-native';
+import { Text, View, TextInput, StyleSheet, Modal, Dimensions, TouchableWithoutFeedback,Alert } from 'react-native';
 import {
     Container,
     Header,
@@ -12,7 +12,6 @@ import ValidationComponent from 'react-native-form-validator';
 import axios from 'axios';
 import * as LeneovellisteConstants from '../../../utils/LenouvellisteConstants'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import TextInput from 'react-native-material-textinput'
 import {Button} from 'react-native-elements'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 

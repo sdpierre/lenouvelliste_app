@@ -11,11 +11,7 @@ import {
     Content,
     Right, Left, Radio,
 } from "native-base";
-import {
-    TextField,
-    FilledTextField,
-    OutlinedTextField,
-} from 'react-native-material-textfield';
+
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -246,7 +242,7 @@ export default class Register extends ValidationComponent {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            <TextField
+                            <TextInput
                                 placeholder="Username"
                                 tintColor="#0082c5"
                                 placeholderTextColor="#9b9b9b"
@@ -258,7 +254,7 @@ export default class Register extends ValidationComponent {
                                 onSubmitEditing={() => { this.secondTextInput.focus(); }}
                                 blurOnSubmit={false}
                             />
-                            <TextField
+                            <TextInput
                                 ref={(input) => { this.nameInput = input; }}
                                 placeholder="Name"
                                 tintColor="#0082c5"
@@ -271,7 +267,7 @@ export default class Register extends ValidationComponent {
                                 onSubmitEditing={() => { this.emailInput.focus(); }}
                                 blurOnSubmit={false}
                             />
-                            <TextField
+                            <TextInput
                                 ref={(input) => { this.emailInput = input; }}
                                 placeholder="Email"
                                 tintColor="#0082c5"
@@ -285,7 +281,7 @@ export default class Register extends ValidationComponent {
                                 blurOnSubmit={false}
                                 autoCapitalize='none'
                             />
-                            <TextField
+                            <TextInput
                                 ref={(input) => { this.passwordInput = input; }}
                                 secureTextEntry={this.state.isPasswordSecured}
                                 placeholder="Password"
