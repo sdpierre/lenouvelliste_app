@@ -125,11 +125,14 @@ class MenuScreen extends Component {
     }
     // ----------------On User Profile button-----------
     userProfile() {
-        if (this.isLoggedin) {
-            this.props.navigation.navigate('UserProfile');
-        } else {
+        if (!this.isLoggedin) {
+            //  this.props.navigation.navigate('UserProfile');
             this.props.navigation.navigate('login');
+        } else {
             // this.props.navigation.dispatch(resetAction);
+            //  this.props.navigation.navigate('login');
+
+            
         }
     }
     // ----------------End------------------

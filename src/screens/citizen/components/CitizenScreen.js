@@ -9,7 +9,9 @@ import {
   ImageBackground,
   FlatList,
   ScrollView,
-  TouchableHighlight, Alert
+  TouchableHighlight, 
+  Alert,
+  SafeAreaView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { setAppInfo } from '../../../redux/actions';
@@ -75,7 +77,6 @@ class CitizenScreen extends React.Component {
   componentDidMount() {
     // console.log("city",user_id);
     // this.showLoginAlert()
-    this.userProfile();
     NetInfo.fetch()
       .then(conn => {
         fetchOverNet = conn.isConnected;
@@ -91,46 +92,6 @@ class CitizenScreen extends React.Component {
         }
       });
   }
-  componentWillReceiveProps(nextProps){
-    let authUser = nextProps.user.userInfo;
-    // let refreshToken = nextProps.navigation.getParam("refreshToken");
-    console.log('authUser------', authUser);
-    let isLoggedin = false;
-    if(authUser){
-      isLoggedin = true;
-    }
-    this.setState({isLoggedin});
-  }
-// ------------------login Alert-------------
-  showLoginAlert() {
-    console.log("Alert home ..........")
-    Alert.alert(
-      'Alert',
-      "Please first login.",
-      [
-        {
-          text: 'OK', onPress: () => {
-            // this.props.navigation.navigate('Account')
-            const resetAction = StackActions.reset({
-              index: 0,
-              key: null,
-              actions: [NavigationActions.navigate({ routeName: 'login' })],
-            });
-            this.props.navigation.dispatch(resetAction);
-          }
-        },
-      ],
-      { cancelable: false }
-    )
-  }
-// --------------End-----------------------
-// ----------------On User Profile button-----------
-userProfile(){
-  if(!this.isLoggedin){
-    this.showLoginAlert();
-  }
-}
-// ----------------End------------------
 
   fetchNews() {
     getCitizenNews()
@@ -166,9 +127,7 @@ userProfile(){
             {
               refreshing: false
             })
-
         }
-
       }
     );
   }
@@ -176,15 +135,16 @@ userProfile(){
   render() {
     const { title } = this.state;
     const { navigate } = this.props.navigation;
-    // let isLoggedin = this.props.user.userInfo?true: false;
-    // console.log('userInfo', this.props.user.userInfo);    
+    
     return (
       <View style={{ flex: 1 }}>
+        <SafeAreaView>
         <Header>
           <Body>
             <Title>Newspaw</Title>
           </Body>
         </Header>
+        </SafeAreaView>
         <View style={styles.CitizennewsMainContainer}>
           <FlatList
             data={this.state.data}
@@ -282,6 +242,8 @@ userProfile(){
           />
           <CitizenFloatingAction />
         </View>
+        
+        
       </View>
     );
   }

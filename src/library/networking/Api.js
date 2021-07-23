@@ -1,5 +1,5 @@
 export const BASE_URl = 'https://api.lenouvelliste.com/public/api/';
-
+// https://lenouvelliste.com/api/trending
 export async function getBreakingNews() {
   let result = await fetch(BASE_URl+'breakingnews').then(
     response => response.json(),
@@ -21,11 +21,17 @@ export async function getAllNews() {
   return result.data;
 }
 
+// export async function getMostRead() {
+//   let result = await fetch(BASE_URl+'mostread/').then(
+//     response => response.json(),
+//   );
+//   return result.data;
+// }
 export async function getMostRead() {
-  let result = await fetch(BASE_URl+'mostread/').then(
+  let result = await fetch('https://lenouvelliste.com/api/trending').then(
     response => response.json(),
   );
-  return result.data;
+   return result;
 }
 
 export async function getCitizenTopNews() {

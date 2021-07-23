@@ -22,6 +22,7 @@ const HomeStackNav = createStackNavigator(
     NewsCarousel: {
       screen: CitizenNewsScreen,
     },
+    
     CitizenMapScreen: {
       screen: CitizenMapScreen,
     },

@@ -40,6 +40,7 @@ import {
 import IoniconsMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Realm from 'realm';
+import { SafeAreaView } from 'react-navigation';
 
 //realm
 let realm;
@@ -49,14 +50,15 @@ class NewsScreen extends React.Component {
     realm = new Realm({path: 'BookmarkDb.realm'});
     this.state = {
       title: this.props.navigation.getParam('title'),
-      body: this.props.navigation.getParam('body'),
-      date: this.props.navigation.getParam('date'),
-      surTitle: this.props.navigation.getParam('surTitle'),
-      headline: this.props.navigation.getParam('headline'),
-      author: this.props.navigation.getParam('author'),
-      photo: this.props.navigation.getParam('photo'),
+      // body: this.props.navigation.getParam('body'),
+      // date: this.props.navigation.getParam('date'),
+      // surTitle: this.props.navigation.getParam('surTitle'),
+      // headline: this.props.navigation.getParam('headline'),
+      // author: this.props.navigation.getParam('author'),
+      // photo: this.props.navigation.getParam('photo'),
       url: this.props.navigation.getParam('url'),
-      booked: this.props.navigation.getParam('booked'),
+      pageViews:this.props.navigation.getParam('pageViews'),
+      // booked: this.props.navigation.getParam('booked'),
       id: this.props.navigation.getParam('id'),
       nophoto: 'https://images.lenouvelliste.com/noimageandroid.jpg',
       arrPhotos: [],
@@ -78,17 +80,19 @@ class NewsScreen extends React.Component {
   };
 
   render() {
-    const {title} = this.state;
-    const {url} = this.state;
-    const {body} = this.state;
-    const {date} = this.state;
-    const {surTitle} = this.state;
-    const {headline} = this.state;
-    const {author} = this.state;
-    const {photo} = this.state;
-    let {booked} = this.state;
-    const {id} = this.state;
-    const {authors} = this.state;
+
+    const { title } = this.state;
+    const { url } = this.state;
+    const { body } = this.state;
+    const { date } = this.state;
+    const { surTitle } = this.state;
+    const { headline } = this.state;
+    const { author } = this.state;
+    const { photo } = this.state;
+    let { booked } = this.state;
+    const { id } = this.state;
+    const { authors } = this.state;
+    const {pageViews} = this.state;
     //console.log('NewsAlreadyBooked>> ', booked);
     var obj = realm.objects('book_news').filtered('id =' + id);
     booked = obj.length > 0;
@@ -97,7 +101,8 @@ class NewsScreen extends React.Component {
     // const title = navigation.getParam('title');
     // console.log('Photo',this.state.photo)
     // console.log('Photo',this.state.nophoto)
-    console.log('This page.........');
+    console.log("That page.........")
+
 
     if (photo == null) {
       this.state.photo = '';
@@ -113,45 +118,8 @@ class NewsScreen extends React.Component {
 
     return (
       <Container>
+       
 
-<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#FFFFFF" translucent = {true}/>
-<View
-style={Base.NewsScreenNavigationView}>
-  <View> 
-<MaterialCommunityIcons
-              name="arrow-left"
-              size={25}
-              style={Colors.gray}
-              onPress={() => {
-                this.props.navigation.goBack();
-              }}
-            /></View>
-
-<View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              {/* <View style={{marginRight: 20}}>
-              <Octicons name="text-size" size={25} style={Colors.gray} />
-              </View> */}
-
-              <View style={{marginRight: 20}}>
-                <TouchableOpacity
-                  onPress={() => {
-                    // console.log('>>>ViewClicked<<<');
-                    this.onBookmarkClicked(id);
-                  }}>
-                  <MaterialCommunityIcons
-                    name={booked ? 'bookmark' : 'bookmark-outline'}
-                    size={25}
-                    color={booked ? 'red' : '#808080'}
-                  />
-                </TouchableOpacity>
-              </View>
-
-              <View style={{marginRight: 5}}>
-                <Share titre={title} url={url} />
-              </View>
-            </View>
-</View>
         <ScrollView>
           <Pagination
             ref={c => {
@@ -166,22 +134,23 @@ style={Base.NewsScreenNavigationView}>
           />
 
           <View style={styles.container}>
-            <Text style={Typography.headline}>{surTitle}</Text>
+            {/* <Text style={Typography.headline}>{surTitle}</Text> */}
             <Text style={Typography.xlargeTitle}>{title}</Text>
 
             <Text style={styles.headline}>{headline}</Text>
+            <Text style={styles.headline}>{url}</Text>
+            <Text style={styles.headline}>{pageViews}</Text>
 
-            <Text style={styles.author}>{authors}</Text>
+            {/* <Text style={styles.author}>{authors}</Text> */}
 
-            <Text style={Typography.subHead}>
-              {moment(date || moment.now()).fromNow()}
-            </Text>
+            {/* <Text style={Typography.subHead}>{(moment(date || moment.now()).fromNow())}</Text> */}
 
-            <HTMLView
-              value={'<div>' + body + '</div>'}
+            {/* <HTMLView
+              value={"<div>" + body + "</div>"}
               addLineBreaks={false}
               stylesheet={Typography.body}
-            />
+            /> */}
+
           </View>
         </ScrollView>
       </Container>

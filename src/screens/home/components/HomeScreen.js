@@ -95,17 +95,17 @@ class HomeScreen extends React.Component {
           name: 'most_read',
           primaryKey: 'id',
           properties: {
-            id: 'int',
-            article: 'string',
+            id: 'string',
+            url: "string",
             // author: "string",
-            date: 'string',
+            pageViews: 'int',
             // headline: "string",
-            nophoto: 'string',
-            photo: 'string?',
-            rubrique: 'string?',
-            surtitre: 'string?',
-            titre: 'string',
-            url: 'string?',
+            pageTitle: "string",
+            // photo: "string?",
+            // rubrique: "string?",
+            // surtitre: "string?",
+            // titre: 'string',
+            // url: 'string?',
           },
         },
       ],
@@ -131,12 +131,14 @@ class HomeScreen extends React.Component {
     // this.showLoginAlert()
     // setInterval(() => {
     this.setState({
-      visible: !this.state.visible,
+      visible: !this.state.visible
     });
     // }, 1000);
 
+
     NetInfo.fetch()
       .then(conn => {
+
         fetchOverNet = conn.isConnected;
       })
       .then(() => {
@@ -148,7 +150,7 @@ class HomeScreen extends React.Component {
             data: homeDataDb,
             dataCorousel: corouselDataDb,
             mostReadData: mostReadDataDb,
-            visible: false,
+            visible: false
           });
         }
       });
@@ -166,7 +168,7 @@ class HomeScreen extends React.Component {
           });
         });
         console.log('firstApi', resp);
-        this.setState({data: resp, refreshing: false, visible: false});
+        this.setState({ data: resp, refreshing: false, visible: false });
       })
       .catch(e => {
         console.log('ExceptionHOME>>>', e);
@@ -183,7 +185,7 @@ class HomeScreen extends React.Component {
           });
         });
         console.log('secApi', respTop);
-        this.setState({dataCorousel: respTop, refreshing: false});
+        this.setState({ dataCorousel: respTop, refreshing: false });
       })
       .catch(e => {
         console.log('ExceptionHOMETop>>>', e);
@@ -192,17 +194,23 @@ class HomeScreen extends React.Component {
 
     getMostRead()
       .then(data => {
-        console.log('getMostRead', data);
+        console.log("get4", data)
+        let keys = Object.keys(data)
+        console.log("all keys",keys)
+        let datas = []
         RealmMostRead.write(() => {
           RealmMostRead.deleteAll();
-
-          data.forEach(element => {
-            RealmMostRead.create('most_read', element);
+          keys.forEach(element => {
+            let d = data[element]
+            d.id = element
+            datas.push(d)
+            RealmMostRead.create('most_read', d);
           });
         });
-        // console.log('thirdApi',data);
+       console.log('thirdApi',datas);
         // alert("called");
-        this.setState({mostReadData: data, refreshing: false});
+        this.setState({ mostReadData: datas, refreshing: false })
+
       })
       .catch(e => {
         console.log('MostReadError>>', e);
@@ -245,16 +253,17 @@ class HomeScreen extends React.Component {
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     const {visible} = this.state;
     return (
+
       <Container>
-        <StatusBar
-          barStyle="dark-content"
-          hidden={false}
-          backgroundColor={Colors.white}
-          translucent={true}
-        />
-        <View style={Base.ScreenTitleView}>
-          <LogoTitle />
-        </View>
+        <SafeAreaView>
+          <Header>
+            <Body>
+              <LogoTitle />
+            </Body>
+          </Header>
+        </SafeAreaView>
+
+        <View style={styles.MainContainer}>
 
         <View style={styles.MainContainer}>
           <FlatList
@@ -333,8 +342,8 @@ class HomeScreen extends React.Component {
             refreshing={this.state.refreshing}
             onRefresh={this.handleRefresh.bind(this)}
           />
-        </View>
 
+        </View>
         <CitizenFloatingAction />
         <AnimatedLoader
           visible={visible}
@@ -343,10 +352,12 @@ class HomeScreen extends React.Component {
           animationStyle={styles.lottie}
           speed={1}
         />
+      </View>
       </Container>
     );
   }
 }
+
 
 export default HomeScreen;
 
@@ -356,7 +367,8 @@ const styles = StyleSheet.create({
   },
   MainContainer: {
     ...Colors.grayBackground,
-    paddingBottom: 50,
+    paddingBottom: 50
+
   },
   container: {
     ...Colors.background,
