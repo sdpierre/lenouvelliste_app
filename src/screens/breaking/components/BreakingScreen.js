@@ -5,16 +5,18 @@ import {
   StyleSheet,
   FlatList,
   Modal,
+  StatusBar,
   TouchableHighlight,
   TouchableOpacity,
   Image,
   SafeAreaView
 } from "react-native";
+
 import { setAppInfo } from "../../../redux/actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import "moment/min/locales";
-import { Typography, Colors, Buttons, Spacing, Margins } from "../../../styles";
+import { Typography, Colors, Buttons, Spacing, Margins, Base } from "../../../styles";
 
 import { getBreakingNews } from "library/networking/Api";
 import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
@@ -179,12 +181,16 @@ class BreakingScreen extends React.Component {
     let that = this;
     return (
       <Container>
+
+<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = {Colors.white} translucent = {true}/>
+
+<View
+style={Base.ScreenTitleView}>
+<Text style={Typography.ScreenTitle}>{title}</Text>
+</View>
+
         <SafeAreaView>
-        <Header>
-          <Body>
-            <Title>{title}</Title>
-          </Body>
-        </Header>
+     
         
         <View style={styles.MainContainer}>
           <FlatList
