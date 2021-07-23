@@ -11,6 +11,8 @@ import {
   Switch,
   View,
 } from "native-base";
+import { version } from '../../../../package.json';
+
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Typography, Colors, Buttons, Spacing } from "../../../styles";
@@ -101,7 +103,10 @@ export default class SettingsScreen extends Component {
               <Text>Politique de confidentialité</Text>
             </ListItem>
             <ListItem>
-              <Text>Version</Text>
+            <Text style={{ flex: 1 }}>Version</Text>
+              <Text>
+                {version}
+              </Text>
             </ListItem>
           </List>
         </ScrollView>
