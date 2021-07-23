@@ -1,19 +1,31 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Text} from 'react-native';
-import { Typography, Colors, Buttons, Spacing, Margins } from '../../../styles';
-import { getHomeNews, getCitizenTopNews, getMostRead } from 'library/networking/Api';
+import {View, StyleSheet, FlatList, Text, StatusBar} from 'react-native';
+import {
+  Typography,
+  Colors,
+  Buttons,
+  Spacing,
+  Margins,
+  Base,
+} from '../../../styles';
+import {
+  getHomeNews,
+  getCitizenTopNews,
+  getMostRead,
+} from 'library/networking/Api';
 import moment from 'moment';
 import 'moment/min/locales';
-import { setAppInfo, setUserInfo } from '../../../redux/actions';
-import { connect } from 'react-redux';
+import {setAppInfo, setUserInfo} from '../../../redux/actions';
+import {connect} from 'react-redux';
 import Article from 'library/components/Article';
 import Mostread from '../components/Mostread';
-import CitizenTopNews from "../components/CitizenTopNews";
+import CitizenTopNews from '../components/CitizenTopNews';
 import LogoTitle from 'library/components/logo';
 import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
-
-import { Container, Header, Body, Title, Content } from 'native-base';
-import AnimatedLoader from "react-native-animated-loader";
+import Banner from 'library/components/banner';
+import MediumRectangle from 'library/components/mediumRectangle';
+import {Container, Header, Body, Title, Content} from 'native-base';
+import AnimatedLoader from 'react-native-animated-loader';
 
 //Realm
 import Realm from 'realm';
@@ -23,12 +35,12 @@ let corouselDataDb = [];
 let mostReadDataDb = [];
 //NetInfo
 import NetInfo from '@react-native-community/netinfo';
-import { SafeAreaView } from 'react-native';
+import {SafeAreaView} from 'react-native';
 let fetchOverNet;
 
 class HomeScreen extends React.Component {
   constructor(props) {
-     super();
+    super();
 
     realm = new Realm({
       path: 'NewsDb.realm',
@@ -61,16 +73,16 @@ class HomeScreen extends React.Component {
           primaryKey: 'id',
           properties: {
             id: 'int',
-            title: "string",
-            body: "string",
+            title: 'string',
+            body: 'string',
             category: 'string?',
-            thumb: "string",
-            media: "string",
-            user_id: "string",
-            username: "string",
-            userphoto: "string",
-            nouserphoto: "string",
-            date: 'string?'
+            thumb: 'string',
+            media: 'string',
+            user_id: 'string',
+            username: 'string',
+            userphoto: 'string',
+            nouserphoto: 'string',
+            date: 'string?',
           },
         },
       ],
@@ -84,14 +96,14 @@ class HomeScreen extends React.Component {
           primaryKey: 'id',
           properties: {
             id: 'int',
-            article: "string",
-           // author: "string",
+            article: 'string',
+            // author: "string",
             date: 'string',
             // headline: "string",
-            nophoto: "string",
-            photo: "string?",
-            rubrique: "string?",
-            surtitre: "string?",
+            nophoto: 'string',
+            photo: 'string?',
+            rubrique: 'string?',
+            surtitre: 'string?',
             titre: 'string',
             url: 'string?',
           },
@@ -103,33 +115,28 @@ class HomeScreen extends React.Component {
       refreshing: true,
       dataCorousel: [],
       mostReadData: [],
-      visible: false
-
+      visible: false,
     };
     homeDataDb = realm.objects('home_news');
     corouselDataDb = realmTop.objects('corousel_news');
-    mostReadDataDb = RealmMostRead.objects('most_read')
+    mostReadDataDb = RealmMostRead.objects('most_read');
     console.log('most_readSize>>>>>', mostReadDataDb.length);
 
     //  this.fetchNews = this.fetchNews.bind(this);
     //this.fetchFromDataBase=this.fetchFromDataBase.bind(this);
   }
 
-
-
   // Called after a component is mounted
   componentDidMount() {
     // this.showLoginAlert()
     // setInterval(() => {
-      this.setState({
-        visible: !this.state.visible
-      });
+    this.setState({
+      visible: !this.state.visible,
+    });
     // }, 1000);
 
-    
     NetInfo.fetch()
       .then(conn => {
-    
         fetchOverNet = conn.isConnected;
       })
       .then(() => {
@@ -141,7 +148,7 @@ class HomeScreen extends React.Component {
             data: homeDataDb,
             dataCorousel: corouselDataDb,
             mostReadData: mostReadDataDb,
-            visible:false
+            visible: false,
           });
         }
       });
@@ -149,7 +156,6 @@ class HomeScreen extends React.Component {
 
   fetchNews() {
     getHomeNews()
-      
       .then(resp => {
         console.log('ExceptionHOMEReponse>>>', resp);
         realm.write(() => {
@@ -159,12 +165,12 @@ class HomeScreen extends React.Component {
             realm.create('home_news', element);
           });
         });
-        console.log('firstApi',resp);
-        this.setState({ data: resp, refreshing: false,visible:false });
+        console.log('firstApi', resp);
+        this.setState({data: resp, refreshing: false, visible: false});
       })
       .catch(e => {
         console.log('ExceptionHOME>>>', e);
-        this.setState({ refreshing: false });
+        this.setState({refreshing: false});
       });
 
     getCitizenTopNews()
@@ -176,17 +182,17 @@ class HomeScreen extends React.Component {
             realmTop.create('corousel_news', element);
           });
         });
-        console.log('secApi',respTop);
-        this.setState({ dataCorousel: respTop, refreshing: false });
+        console.log('secApi', respTop);
+        this.setState({dataCorousel: respTop, refreshing: false});
       })
       .catch(e => {
         console.log('ExceptionHOMETop>>>', e);
-        this.setState({ refreshing: false });
+        this.setState({refreshing: false});
       });
 
     getMostRead()
       .then(data => {
-      console.log("getMostRead",data)
+        console.log('getMostRead', data);
         RealmMostRead.write(() => {
           RealmMostRead.deleteAll();
 
@@ -196,16 +202,14 @@ class HomeScreen extends React.Component {
         });
         // console.log('thirdApi',data);
         // alert("called");
-        this.setState({ mostReadData: data, refreshing: false })
-
+        this.setState({mostReadData: data, refreshing: false});
       })
-      .catch((e) => {
-        console.log('MostReadError>>', e)
-        this.setState({ refreshing: false })
+      .catch(e => {
+        console.log('MostReadError>>', e);
+        this.setState({refreshing: false});
       });
-
   }
- 
+
   handleRefresh() {
     this.setState(
       {
@@ -214,7 +218,7 @@ class HomeScreen extends React.Component {
       () => {
         // if (fetchOverNet)
         //   this.fetchNews()
-        // else { 
+        // else {
         //   {
         //     alert('Internet connection required!')
         //     this.setState(
@@ -235,33 +239,37 @@ class HomeScreen extends React.Component {
   }*/
 
   render() {
-    const { title } = this.state;
-    const { navigate } = this.props.navigation;
+    const {title} = this.state;
+    const {navigate} = this.props.navigation;
     let that = this;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
-    const { visible } = this.state;
+    const {visible} = this.state;
     return (
-      
       <Container>
-        <SafeAreaView>
-        <Header>
-          <Body>
-            <LogoTitle />
-          </Body>
-        </Header>
-        </SafeAreaView>
-    
-        <View style={styles.MainContainer}>
+        <StatusBar
+          barStyle="dark-content"
+          hidden={false}
+          backgroundColor={Colors.white}
+          translucent={true}
+        />
+        <View style={Base.ScreenTitleView}>
+          <LogoTitle />
+        </View>
 
+        <View style={styles.MainContainer}>
           <FlatList
             data={this.state.data}
             //renderItem={({ item }) =><Text>{item.titre}</Text>}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => {
+            renderItem={({item, index}) => {
               if (index === 0)
                 return (
                   <React.Fragment>
-                    <CitizenTopNews topNewsData={this.state.dataCorousel} navigate={navigate} />
+                    <CitizenTopNews
+                      topNewsData={this.state.dataCorousel}
+                      navigate={navigate}
+                    />
+                    <Banner />
                     <Article
                       article={item}
                       navigate={navigate}
@@ -273,7 +281,7 @@ class HomeScreen extends React.Component {
                 return (
                   <React.Fragment>
                     <Text style={styles.sectionTitle}> les plus lus </Text>
-                    {/* <Mostread mostread={item} navigate={navigate} mostReadData={this.state.mostReadData} isBookmarked={false} /> */}
+                    <Mostread mostread={item} navigate={navigate} mostReadData={this.state.mostReadData} isBookmarked={false} />
                     <Article
                       article={item}
                       navigate={navigate}
@@ -284,6 +292,7 @@ class HomeScreen extends React.Component {
               else if (index === 7)
                 return (
                   <React.Fragment>
+                    <MediumRectangle />
                     <Article
                       article={item}
                       navigate={navigate}
@@ -294,6 +303,7 @@ class HomeScreen extends React.Component {
               else if (index === 14)
                 return (
                   <React.Fragment>
+                    <Banner />
                     <Article
                       article={item}
                       navigate={navigate}
@@ -323,20 +333,17 @@ class HomeScreen extends React.Component {
             refreshing={this.state.refreshing}
             onRefresh={this.handleRefresh.bind(this)}
           />
-          
         </View>
-        
-    
-        <CitizenFloatingAction/>
+
+        <CitizenFloatingAction />
         <AnimatedLoader
-        visible={visible}
-        overlayColor="rgba(255,255,255,0.75)"
-        source={require("../../../utils/loader.json")}
-        animationStyle={styles.lottie}
-        speed={1}
-      />
+          visible={visible}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require('../../../utils/loader.json')}
+          animationStyle={styles.lottie}
+          speed={1}
+        />
       </Container>
-      
     );
   }
 }
@@ -349,8 +356,7 @@ const styles = StyleSheet.create({
   },
   MainContainer: {
     ...Colors.grayBackground,
-  paddingBottom:50
-    
+    paddingBottom: 50,
   },
   container: {
     ...Colors.background,
@@ -369,6 +375,6 @@ const styles = StyleSheet.create({
   },
   lottie: {
     width: 100,
-    height: 100
-  }
+    height: 100,
+  },
 });
