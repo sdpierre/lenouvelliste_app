@@ -8,6 +8,7 @@ import { withNavigation } from 'react-navigation';
 import ImagePicker from 'react-native-image-picker'
 import Video from 'react-native-video'
 import { NavigationActions, StackActions } from 'react-navigation';
+// import { parse } from "@babel/core";
 
 
 
@@ -25,12 +26,24 @@ class CitizenFloatingAction extends Component {
   };
 
    componentDidMount(){
-    const userData = AsyncStorage.getItem("loggedInUserDetails");
-    if(userData !=''){
-      this.setState({isUserExist : true});
-    }else{
-      this.setState({isUserExist:false});
-    }
+    //  const userData = AsyncStorage.getItem("loggedInUserDetails");
+    AsyncStorage.getItem("loggedInUserDetails").then((value) => {
+      console.log("Origin1......",value)
+      if(value != null){
+        this.setState({isUserExist : true});
+        console.log("if..........",isUserExist)
+      }else{
+        this.setState({isUserExist:false});
+        console.log("else......",isUserExist);
+      }
+    })
+    // console.log('userD',userData);
+    // if(userData !=''){
+    //   this.setState({isUserExist : true});
+
+    // }else{
+    //   this.setState({isUserExist:false});
+    // }
    }
   
   // --------------Login Alert------------------
@@ -147,8 +160,8 @@ class CitizenFloatingAction extends Component {
 
       <FloatingAction
         // actions={actions}
-         onPressMain = { ()=>{this.state.isUserExist? this.showLoginAlert():'' }}
-        actions={!this.state.isUserExist?actions:''}
+         onPressMain = { ()=>{this.state.isUserExist == false? this.showLoginAlert():'' }}
+        actions={this.state.isUserExist == true?actions:''}
         position="right"
         // onPressItem={name => {
         //   Alert.alert("Icon pressed", `the icon ${name} was pressed`);
