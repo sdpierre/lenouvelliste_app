@@ -182,7 +182,7 @@ class BreakingScreen extends React.Component {
     return (
       <Container>
 
-<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = {Colors.white} translucent = {true}/>
+<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#FFFFFF" translucent = {true}/>
 
 <View
 style={Base.ScreenTitleView}>
