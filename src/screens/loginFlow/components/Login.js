@@ -14,6 +14,7 @@ import {
   ScrollView,
   ImageBackground,
   Dimensions,
+  StatusBar,
   AsyncStorage,
   Alert
 } from 'react-native';
@@ -31,7 +32,7 @@ import { Button, Input } from 'react-native-elements';
 
 import { Form, Item, Label } from 'native-base';
 import LogoTitle from 'library/components/logo';
-import { Colors } from '../../../styles';
+import { Colors, Base } from '../../../styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 //Dimensions
@@ -177,11 +178,17 @@ class Login extends ValidationComponent {
     );
     return (
       <Container>
-        <Header>
-          <Left>
-            <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => this.props.navigation.navigate('Home')} />
-          </Left>
-        </Header>
+
+        <StatusBar
+          barStyle="dark-content"
+          hidden={false}
+          backgroundColor="#FFFFFF"
+          translucent={true}
+        />
+        <View style={Base.NewsScreenNavigationView}>
+        <View><MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => this.props.navigation.navigate('Home')} /></View>
+        </View>
+ 
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           
           {/* <Text style={styles.loginText}>Connectez-vous</Text> */}
