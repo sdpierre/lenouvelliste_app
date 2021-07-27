@@ -122,6 +122,8 @@ class HomeScreen extends React.Component {
     mostReadDataDb = RealmMostRead.objects('most_read');
     console.log('most_readSize>>>>>', mostReadDataDb.length);
 
+    
+
     //  this.fetchNews = this.fetchNews.bind(this);
     //this.fetchFromDataBase=this.fetchFromDataBase.bind(this);
   }
@@ -255,15 +257,16 @@ class HomeScreen extends React.Component {
     return (
 
       <Container>
-        <SafeAreaView>
-          <Header>
-            <Body>
-              <LogoTitle />
-            </Body>
-          </Header>
-        </SafeAreaView>
 
-        <View style={styles.MainContainer}>
+<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#FFFFFF" translucent = {true}/>
+
+<View
+style={Base.ScreenTitleView}>
+<LogoTitle />
+  </View>
+        
+
+     
 
         <View style={styles.MainContainer}>
           <FlatList
@@ -352,7 +355,7 @@ class HomeScreen extends React.Component {
           animationStyle={styles.lottie}
           speed={1}
         />
-      </View>
+      
       </Container>
     );
   }
