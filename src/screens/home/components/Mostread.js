@@ -112,10 +112,10 @@ class Mostread extends React.Component {
                 <TouchableHighlight
                   onPress={() =>
                     navigate("News", {
-                      // surTitle: item.surtitre,
+                      //  surTitle: item.surtitre,
                       title: item.pageTitle,
                       pageViews:item.pageViews,
-                      // headline : item.headline,
+                      //  headline : item.headline,
                       // body: item.article,
                       // photo: item.photo,
                       // date: item.date,

@@ -30,7 +30,6 @@ const mapStateToProps = state => ({
 });
 const AppContainer = connect(mapStateToProps)(AppNav);
 console.disableYellowBox = true;
-
 export default class App extends Component {
   constructor(properties) {
     super(properties);

@@ -62,12 +62,12 @@ class Login extends ValidationComponent {
         this.setState({
           userId: dicLoginData.id
         });
-        if (this.state.userId != '') {
-          // this.props.navigation.navigate('Home')
-          this.props.navigation.navigate('UserProfile')
+        // if (this.state.userId != '') {
+        //    this.props.navigation.navigate('Home')
+        //   // this.props.navigation.navigate('UserProfile')
 
-        } else {
-        }
+        // } else {
+        // }
         console.log("Login right condition", this.state.userId)
       } else {
         console.log("Login else condition", this.state.userId)

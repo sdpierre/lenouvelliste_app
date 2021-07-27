@@ -196,20 +196,20 @@ class HomeScreen extends React.Component {
 
     getMostRead()
       .then(data => {
-        console.log("get4", data)
+        // console.log("get4", data)
         let keys = Object.keys(data)
-        console.log("all keys",keys)
+        // console.log("all keys",keys)
         let datas = []
         RealmMostRead.write(() => {
           RealmMostRead.deleteAll();
           keys.forEach(element => {
             let d = data[element]
-            d.id = element
-            datas.push(d)
+            //  d = element
+              datas.push(d)
             RealmMostRead.create('most_read', d);
           });
         });
-       console.log('thirdApi',datas);
+      //  console.log('thirdApi',data);
         // alert("called");
         this.setState({ mostReadData: datas, refreshing: false })
 
@@ -254,6 +254,7 @@ class HomeScreen extends React.Component {
     let that = this;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     const {visible} = this.state;
+    console.log("Data3",this.state.mostReadData);
     return (
 
       <Container>
@@ -347,7 +348,6 @@ style={Base.ScreenTitleView}>
           />
 
         </View>
-        <CitizenFloatingAction />
         <AnimatedLoader
           visible={visible}
           overlayColor="rgba(255,255,255,0.75)"
@@ -356,6 +356,8 @@ style={Base.ScreenTitleView}>
           speed={1}
         />
       
+      <CitizenFloatingAction />
+
       </Container>
     );
   }
