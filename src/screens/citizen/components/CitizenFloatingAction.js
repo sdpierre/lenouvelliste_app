@@ -10,8 +10,6 @@ import Video from 'react-native-video'
 import { NavigationActions, StackActions } from 'react-navigation';
 // import { parse } from "@babel/core";
 
-
-
 class CitizenFloatingAction extends Component {
   constructor(props) {
     super()
@@ -31,19 +29,13 @@ class CitizenFloatingAction extends Component {
       console.log("Origin1......",value)
       if(value != null){
         this.setState({isUserExist : true});
-        console.log("if..........",isUserExist)
+        console.log("if..........",this.state.isUserExist)
       }else{
         this.setState({isUserExist:false});
-        console.log("else......",isUserExist);
+        console.log("else......",this.state.isUserExist);
       }
     })
-    // console.log('userD',userData);
-    // if(userData !=''){
-    //   this.setState({isUserExist : true});
-
-    // }else{
-    //   this.setState({isUserExist:false});
-    // }
+    
    }
   
   // --------------Login Alert------------------
@@ -68,69 +60,7 @@ class CitizenFloatingAction extends Component {
       { cancelable: false }
     )
   }
-// -----------------Check user---------------------------
-// userProfile(name){
-//   AsyncStorage.getItem("loggedInUserDetails").then((value) => {
-//     if (value != null) {
-//       switch (name) {
-//         case "bt_photo":
-//           console.log('bt_photo')
-//           ImagePicker1.openCamera({
-//             width: 300,
-//             height: 400,  
-//             compressImageQuality:0.5,
-//             // cropping: true,
-//             // includeBase64:true,
-//             mediaType: 'photo'
-//           }).then(image => {
-//             console.log("Image", image);
-//             //CitizenSaveScreen
-//             navigate('CitizenMapScreen', {
-//               imageData: image
-//             });
-//           });
-//           break;
-//         case "bt_video":
-//           console.log('Video<<<')
-//           const options = {
-//             mediaType: 'video',
-//             videoQuality: 'medium',
-//             durationLimit: 20,
-//             thumbnail: true,
-//             allowsEditing: true,
-//           };
-//           ImagePicker.launchCamera(options, (response) => {
-//             console.log('camera response is = ', response,response.data)
-//             if (response.didCancel) {
-//               // console.warn('User cancelled video picker');
-//             } else if (response.error) {
-//               // console.warn('ImagePicker Error: ', response.error);
-//             } else if (response.customButton) {
-//               console.warn('User tapped custom button: ', response.customButton);
-//             } else {
-//               navigate('CitizenMapScreen', { 'videoData': response });
-//             }
-//           })
-//           // ImagePicker1.openCamera({
-//           //   mediaType: 'video',
-//           //   compressVideoPreset:'LowQuality',
-//           // }).then(video => {
-//           //    console.log("Video",video);
-  
-//           //   navigate('CitizenMapScreen',{'videoData':video
-//           //   });
-  
-//           // });
-//           break;                        
-//       }
-//     }
-
-//      else{
-//       this.showLoginAlert(); 
-//     }
-//   })}
-
-// ----------------End------------------
+// ------------------------End-------------------
 
 
   render() {
@@ -160,16 +90,18 @@ class CitizenFloatingAction extends Component {
 
       <FloatingAction
         // actions={actions}
-         onPressMain = { ()=>{this.state.isUserExist == false? this.showLoginAlert():'' }}
+        onPressMain = { ()=>{this.state.isUserExist == false? this.showLoginAlert():'' }}
         actions={this.state.isUserExist == true?actions:''}
         position="right"
         // onPressItem={name => {
         //   Alert.alert("Icon pressed", `the icon ${name} was pressed`);
         // }}
-        // onPressItem={name => {this.userProfile()}}
-        onPress={name =>{
+        // onPress={name => {this.userProfile()}}
+          onPressItem={name =>{
+          // alert("amjee raji ne jhalar waji")
           AsyncStorage.getItem("loggedInUserDetails").then((value) => {
-            // if (value != null) {
+            
+              if (value != null) {
               switch (name) {
                 case "bt_photo":
                   console.log('bt_photo')
@@ -200,28 +132,29 @@ class CitizenFloatingAction extends Component {
                   ImagePicker.launchCamera(options, (response) => {
                     console.log('camera response is = ', response,response.data)
                     if (response.didCancel) {
-                      // console.warn('User cancelled video picker');
+                       console.warn('User cancelled video picker');
                     } else if (response.error) {
-                      // console.warn('ImagePicker Error: ', response.error);
+                       console.warn('ImagePicker Error: ', response.error);
+
                     } else if (response.customButton) {
                       console.warn('User tapped custom button: ', response.customButton);
                     } else {
                       navigate('CitizenMapScreen', { 'videoData': response });
                     }
                   })
-                  // ImagePicker1.openCamera({
-                  //   mediaType: 'video',
-                  //   compressVideoPreset:'LowQuality',
-                  // }).then(video => {
-                  //    console.log("Video",video);
+                  ImagePicker1.openCamera({
+                    mediaType: 'video',
+                    compressVideoPreset:'LowQuality',
+                  }).then(video => {
+                     console.log("Video",video);
           
-                  //   navigate('CitizenMapScreen',{'videoData':video
-                  //   });
+                    navigate('CitizenMapScreen',{'videoData':video
+                    });
           
-                  // });
+                  });
                   break;                        
           
-                }})}}
+        }}})}}
       />
       //  </SafeAreaView>
     );

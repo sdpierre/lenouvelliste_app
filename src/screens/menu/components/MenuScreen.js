@@ -119,7 +119,6 @@ class MenuScreen extends Component {
         console.log('authUser------', authUser);
         let isLoggedin = false;
         if (authUser) {
-             alert("userloggedin")
             isLoggedin = true;
             // this.setState({isLoggedin: true});
         }
@@ -129,12 +128,10 @@ class MenuScreen extends Component {
     userProfile() {
     AsyncStorage.getItem("loggedInUserDetails").then((value) => {
         if (value != null) {
-            alert("userProfile");
            this.props.navigation.navigate('UserProfile');
            // this.props.navigation.navigate('login');
        }
        else {
-              alert("login")
            // this.props.navigation.dispatch(resetAction);
            this.props.navigation.navigate('login');
 

@@ -210,6 +210,8 @@ export default class CitizenSaveScreen extends ValidationComponent {
         }
     }
     sendClick = () => {
+        // alert("clicked")
+        // return;
         this.validate({
             title: { required: true }
         })
@@ -221,6 +223,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
             })
             if (this.getErrorMessages()) {
                 alert(LeneovellisteConstants.kCitizenPostDescription)
+                
             } else {
                 this.apiCallToSendCitizenPost();
             }
@@ -293,7 +296,7 @@ export default class CitizenSaveScreen extends ValidationComponent {
             .then(response => {
 
                 console.log("Citizen Post Response", response.data);
-
+                console.log("NewConsole1.......",response);
                 let msg = response.data.message;
 
                 if (response.data.status == true) {
