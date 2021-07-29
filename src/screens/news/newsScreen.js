@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Image, StyleSheet, Text, View, Modal, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native';
+import { Image, StyleSheet, Text, StatusBar, View, Modal, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native';
 
 import { setAppInfo } from '../../redux/actions';
 import { connect } from 'react-redux';
@@ -16,7 +16,7 @@ import Share from "library/components/Share";
 import { Button } from 'react-native-elements'
 import Pagination from "react-native-snap-carousel";
 import { sliderStyle, sliderWidth, itemWidth } from '../../styles/sliderStyle';
-import { Typography, Colors, Buttons, Spacing } from "../../styles";
+import { Typography, Colors, Buttons, Spacing, Base } from "../../styles";
 import { Container, Header, Left, Body, Right, Icon, Title, Content, ListItem, List } from 'native-base';
 import IoniconsMaterial from "react-native-vector-icons/MaterialCommunityIcons";
 import { getMostDetail } from '../../library/networking/Api';
@@ -139,38 +139,55 @@ class NewsScreen extends React.Component {
 
     return (
       <Container>
-        <SafeAreaView>
-          <Header>
-            <Left>
-              <MaterialCommunityIcons name="arrow-left" size={25} style={Colors.gray} onPress={() => { this.props.navigation.goBack() }} />
-            </Left>
+        <StatusBar
+          barStyle="dark-content"
+          hidden={false}
+          backgroundColor="#FFFFFF"
+          translucent={true}
+        />
+        <View style={Base.NewsScreenNavigationView}>
+       <View>
+       <MaterialCommunityIcons
+                name="arrow-left"
+                size={25}
+                style={Colors.gray}
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}
+              />
+       </View>
 
-            <Right>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-
+       <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
                 {/* <View style={{marginRight: 20}}>
               <Octicons name="text-size" size={25} style={Colors.gray} />
               </View> */}
 
-                <View style={{ marginRight: 20 }}>
-                  <TouchableOpacity onPress={() => {
-                    // console.log('>>>ViewClicked<<<'); 
-                    this.onBookmarkClicked(id)
-                  }}>
-                    <MaterialCommunityIcons name={booked ? 'bookmark' : "bookmark-outline"} size={25} color={booked ? 'red' : "#808080"} />
+                <View style={{marginRight: 20}}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      // console.log('>>>ViewClicked<<<');
+                      this.onBookmarkClicked(id);
+                    }}>
+                    <MaterialCommunityIcons
+                      name={booked ? 'bookmark' : 'bookmark-outline'}
+                      size={25}
+                      color={booked ? 'red' : '#808080'}
+                    />
                   </TouchableOpacity>
                 </View>
 
-                <View style={{ marginRight: 5 }}>
+                <View style={{marginRight: 5}}>
                   <Share titre={title} url={url} />
                 </View>
-
               </View>
-            </Right>
-          </Header>
-        </SafeAreaView>
+        </View>
+
         <ScrollView>
-          {this.state.arrPhotos.length > 0 ?
+          {this.state.arrPhotos.length > 0 ? (
             <Pagination
               ref={c => {
                 this._carousel = c;
@@ -181,7 +198,8 @@ class NewsScreen extends React.Component {
               itemWidth={itemWidth}
               dotsLength={5}
               activeDotIndex={1}
-            /> : null}
+            />
+          ) : null}
 
           <View style={styles.container}>
             <Text style={Typography.headline}>{surTitle}</Text>
@@ -189,20 +207,19 @@ class NewsScreen extends React.Component {
 
             <Text style={styles.headline}>{headline}</Text>
 
-
             <Text style={styles.author}>{author}</Text>
 
-            <Text style={Typography.subHead}>{(moment(date || moment.now()).fromNow())}</Text>
+            <Text style={Typography.subHead}>
+              {moment(date || moment.now()).fromNow()}
+            </Text>
 
             <HTMLView
-              value={"<div>" + body + "</div>"}
+              value={'<div>' + body + '</div>'}
               addLineBreaks={false}
               stylesheet={Typography.body}
             />
-
           </View>
         </ScrollView>
-
       </Container>
     );
   }
