@@ -14,6 +14,7 @@ import {createReduxContainer} from 'react-navigation-redux-helpers';
 import {connect} from 'react-redux';
 import {store} from './src/redux/store';
 import AppNavigator from './src/screens/AppNavigator';
+
 // import CitizenSaveScreen from './src/screens/citizen/components/CitizenSaveScreen';
 
 //OneSignal
@@ -23,7 +24,9 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import ImagePicker from 'react-native-image-picker';
 import { SafeAreaView } from 'react-native';
+import { createAppContainer } from '@react-navigation/native';
 
+const MainContainer = createAppContainer(AppNavigator);
 const AppNav = createReduxContainer(AppNavigator);
 const mapStateToProps = state => ({
   state: state.nav,
@@ -60,12 +63,14 @@ export default class App extends Component {
     console.log('Notification received: ', notification);
   }
 
-  onOpened(openResult) {
-    console.log('Message: ', openResult.notification.payload.body);
-    console.log('Data: ', openResult.notification.payload.additionalData);
-    console.log('isActive: ', openResult.notification.isAppInFocus);
-    console.log('openResult: ', openResult);
-  }
+  // onOpened(openResult){
+  //   console.log('Message: ', openResult.notification.payload.body);
+  //   console.log('Data: ', openResult.notification.payload.additionalData);
+  //   console.log('isActive: ', openResult.notification.isAppInFocus);
+  //   console.log('openResult: ', openResult);
+  //   console.log("NewNotifi1>>>>>>>>",openResult.notification.payload.body);
+  //   this.props.navigation.navigate("NewsMap"); 
+  // }
   openCamera() {
     ImagePicker.openCamera({
       width: 300,
@@ -78,13 +83,13 @@ export default class App extends Component {
   render() {
     const buttons = ['Map', 'Satellite'];
     return (
-      // <SafeAreaView>
+      
       <Provider store={store}>
         
         <AppContainer />
         
       </Provider>
-      // </SafeAreaView>
+      
     );
   }
 }
