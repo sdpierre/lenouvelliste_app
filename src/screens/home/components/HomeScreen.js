@@ -26,6 +26,7 @@ import Banner from 'library/components/banner';
 import MediumRectangle from 'library/components/mediumRectangle';
 import {Container, Header, Body, Title, Content} from 'native-base';
 import AnimatedLoader from 'react-native-animated-loader';
+import OneSignal from 'react-native-onesignal';
 
 //Realm
 import Realm from 'realm';
@@ -127,16 +128,27 @@ class HomeScreen extends React.Component {
     //  this.fetchNews = this.fetchNews.bind(this);
     //this.fetchFromDataBase=this.fetchFromDataBase.bind(this);
   }
-
+  // --------------------Notification Open-------------------
+  Redirect=(Notification_id)=>{
+    setTimeout(() => {
+    this.props.navigation.navigate("News",{"Notification_id":Notification_id});
+    },1000);
+  }
+  onOpened = (openResult)=> {
+    const Notification_id = openResult.notification.payload.additionalData.id_article; 
+    console.log('openResult: ', openResult.notification.payload.additionalData.id_article);
+     this.Redirect(Notification_id);
+  }
+// ----------------------End-----------------------
   // Called after a component is mounted
   componentDidMount() {
-    // this.showLoginAlert()
+    
+    OneSignal.addEventListener('opened', this.onOpened);
     // setInterval(() => {
     this.setState({
       visible: !this.state.visible
     });
     // }, 1000);
-
 
     NetInfo.fetch()
       .then(conn => {
@@ -196,9 +208,7 @@ class HomeScreen extends React.Component {
 
     getMostRead()
       .then(data => {
-        // console.log("get4", data)
         let keys = Object.keys(data)
-        // console.log("all keys",keys)
         let datas = []
         RealmMostRead.write(() => {
           RealmMostRead.deleteAll();
@@ -209,8 +219,6 @@ class HomeScreen extends React.Component {
             RealmMostRead.create('most_read', d);
           });
         });
-      //  console.log('thirdApi',data);
-        // alert("called");
         this.setState({ mostReadData: datas, refreshing: false })
 
       })

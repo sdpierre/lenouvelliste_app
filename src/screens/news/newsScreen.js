@@ -32,6 +32,7 @@ class NewsScreen extends React.Component {
     super(props);
     realm = new Realm({ path: 'BookmarkDb.realm' });
     this.state = {
+
       title: this.props.navigation.getParam('title'),
       body: this.props.navigation.getParam('body'),
       date: this.props.navigation.getParam('date'),
@@ -45,18 +46,36 @@ class NewsScreen extends React.Component {
       id: this.props.navigation.getParam('id'),
       nophoto: 'https://images.lenouvelliste.com/noimageandroid.jpg',
       arrPhotos: [],
-      MostReadNewsdata: []
+      MostReadNewsdata: [],
+      from_noti: false
     }
   }
 
   componentDidMount() {
+    //console.log('newId', this.state.id);
     if (this.props.navigation.getParam("body") == undefined) {
-      this.fetchMostreadNews();
+      if (this.props.navigation.getParam("title") == undefined) {
+        let id = this.props.navigation.getParam("Notification_id")
+        this.setState({
+          id: id
+        })
+        this.fetchMostreadNews(id);
 
+      } else {
+        let id = this.props.navigation.getParam('id')
+        this.fetchMostreadNews(id);
+      }
+    }else{
+      let id = this.props.navigation.getParam('id')
+        this.fetchMostreadNews(id);
+      // this.setState({
+      //   arrPhotos:[this.props.navigation.getParam('photo')]
+      // })
+      // this.state.arrPhotos.push(this.state.photo)
+    
+      // console.log('Array of photos', this.state.arrPhotos)
     }
-    this.state.arrPhotos.push(this.state.photo)
-
-    console.log('Array of photos', this.state.arrPhotos)
+    
   }
 
   _renderItem = ({ item, index }) => {
@@ -64,17 +83,20 @@ class NewsScreen extends React.Component {
     return (
       <View style={styles.slide}>
         <FitImage
-          source={{ uri: item || '' }}
+           source={{ uri: item?item:'https://images.lenouvelliste.com/noimageandroid.jpg'}}
+          // source={{ uri: item || ''}}
           style={Spacing.fitImage}
         />
       </View>
     );
   }
   // ---------------Fetch News Detail----------
-  fetchMostreadNews() {
-    getMostDetail(this.state.id)
+
+  fetchMostreadNews(id) {
+    getMostDetail(id)
+
       .then(data => {
-        console.log("New1", data);
+        console.log("New2", data);
         if (data.length > 0) {
           let details = data[0]
           let arr = []
@@ -94,8 +116,9 @@ class NewsScreen extends React.Component {
       })
       .catch(e => {
         console.log('ExceptionDetail>>>', e);
-         this.setState({ refreshing: false });
+        this.setState({ refreshing: false });
       });
+
   }
   // --------------------end-------------------
 
@@ -113,11 +136,16 @@ class NewsScreen extends React.Component {
     const { id } = this.state;
     const { authors } = this.state;
     const { pageViews } = this.state;
-    //console.log('NewsAlreadyBooked>> ', booked);
-    var obj = realm
-      .objects('book_news')
-      .filtered('id =' + id);
-    booked = obj.length > 0;
+    if (this.props.navigation.getParam("title") == undefined) {
+      booked = false
+    } else {
+      console.log('NewsAlreadyBooked>> ', booked);
+      var obj = realm
+        .objects('book_news')
+        .filtered('id =' + id);
+      booked = obj.length > 0;
+    }
+
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     // const { navigation } = this.props;
     // const title = navigation.getParam('title');

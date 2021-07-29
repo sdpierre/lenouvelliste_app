@@ -46,6 +46,7 @@ const bottomTabNavigator = createBottomTabNavigator(
   },
   {
     defaultNavigationOptions: ({navigation}) => ({
+
       tabBarIcon: ({focused, horizontal, tintColor}) => {
         const {routeName} = navigation.state;
 
@@ -77,7 +78,7 @@ const bottomTabNavigator = createBottomTabNavigator(
   },
 );
 
-const AppNavigator = createStackNavigator(
+const AppNavigator  = createStackNavigator(
   {
     splash: {
       screen: SplashScreen,
