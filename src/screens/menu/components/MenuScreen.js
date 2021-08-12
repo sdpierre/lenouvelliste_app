@@ -16,7 +16,7 @@ import {
 import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { Typography, Colors, Buttons, Spacing } from "../../../styles";
+import { Typography, Colors, Buttons, Spacing, Base } from "../../../styles";
 import Realm from 'realm';
 import { getSectionAll } from '../../../library/networking/Api'
 import LogoTitle from 'library/components/logo';
@@ -166,15 +166,21 @@ class MenuScreen extends Component {
             <Container>
                 <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#FFF" translucent = {true}/>
 
-                <SafeAreaView>
-                    <Header>
-                        <Left></Left>
-                        <Body>
-                            <LogoTitle />
-                        </Body>
-                        <Right>
+                <View style={Base.NewsScreenNavigationView}>
+                    <View>
 
-                            {/* <Button transparent onPress={()=>{this.props.navigation.navigate('')}}> */}
+                    </View>
+                    <View>
+                    <LogoTitle />
+                    </View>
+
+ {/* button */}
+ <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+{/* <Button transparent onPress={()=>{this.props.navigation.navigate('')}}> */}
                             {/* <Button transparent onPress={()=>{this.userProfile()}}>
                 <FontAwesome color="#d00" name='user-circle-o' size={25} />
                 </Button> */}
@@ -200,7 +206,7 @@ class MenuScreen extends Component {
                                     : <Button transparent onPress={() => { this.userProfile() }}>
                                         {/* <FontAwesome name='user-circle' size={25} style={Colors.gray} /> */}
                                         <Image
-                                            style={{ width: 25 }}
+                                            style={{ width: 25,marginRight:5 }}
                                             source={require('../../../res/images/outline_account_circle.png')}
                                         />
                                     </Button>
@@ -211,9 +217,9 @@ class MenuScreen extends Component {
                             <Button transparent onPress={() => { this.props.navigation.navigate('Settings') }}>
                                 <AntDesign name='setting' size={25} style={Colors.gray} />
                             </Button>
-                        </Right>
-                    </Header>
-                </SafeAreaView>
+</View>
+ {/* button */}
+</View>
 
                 <Container style={styles.menuContainer}>
                     <FlatList

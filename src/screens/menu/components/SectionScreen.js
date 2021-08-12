@@ -6,6 +6,7 @@ import {
     Text,
     Modal,
     SafeAreaView,
+    StatusBar
 } from "react-native";
 import {
     Container,
@@ -16,8 +17,9 @@ import {
     Right, Left,
     Button
 } from "native-base";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Typography, Colors, Buttons, Spacing } from "../../../styles";
+import { Typography, Colors, Buttons, Spacing, Base} from "../../../styles";
 //Article 
 // import Article from './ArticleMenu';
 import AnimatedLoader from 'react-native-animated-loader';
@@ -162,16 +164,26 @@ export default class SectionScreen extends Component {
         return (
             
                 <Container>
+                    <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#FFFFFF" translucent = {true}/>
+
+<View
+style={Base.NewsScreenNavigationView}>
+    <View>
+       <MaterialCommunityIcons
+                name="arrow-left"
+                size={25}
+                style={Colors.gray}
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}
+              />
+       </View>
+<Text style={Typography.ScreenTitle}>{this.state.title}</Text>
+
+<View></View>
+</View>
                     <SafeAreaView>
-                    <Header>
-                        <Left>
-                            <Button transparent onPress={() => { this.props.navigation.goBack() }}>
-                                <Ionicons name="ios-arrow-back" size={30} style={Colors.gray} />
-                            </Button>
-                        </Left>
-                        <Body><Title style={{ textTransform: 'capitalize' }}>{this.state.title}</Title></Body>
-                        <Right></Right>
-                    </Header>
+ 
 
                     <FlatList data={this.state.data}
                         keyExtractor={(item, index) => index.toString()}

@@ -69,6 +69,10 @@ target 'lenouvelliste_app' do
 
   pod 'react-native-create-thumbnail', :path => '../node_modules/react-native-create-thumbnail'
 
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'lenouvelliste_appTests' do
     inherit! :complete
     # Pods for testing

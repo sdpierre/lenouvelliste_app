@@ -1,13 +1,13 @@
 
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import LoginScreen from '../loginFlow/components/Login';
-import RegisterScreen from '../loginFlow/components/Register';
-import RegisterdoneScreen from '../loginFlow/components/RegisterDone';
-import ForgotScreen from '../loginFlow/components/Forgot'
-import ForgotPWOTPScreen from '../loginFlow/components/ForgotPWOTP'
-import ResetPasswordScreen from '../loginFlow/components/ResetPW'
-import ForgotDoneScreen from '../loginFlow/components/ForgotDone'
+import LoginScreen from './components/Login';
+import RegisterScreen from './components/Register';
+import RegisterdoneScreen from './components/RegisterDone';
+import ForgotScreen from './components/Forgot'
+import ForgotPWOTPScreen from './components/ForgotPWOTP'
+import ResetPasswordScreen from './components/ResetPW'
+import ForgotDoneScreen from './components/ForgotDone'
 //import SplashScreen from '../loginFlow/components/Splash'
 const LoginStackNav = createStackNavigator({
     // Splash:{

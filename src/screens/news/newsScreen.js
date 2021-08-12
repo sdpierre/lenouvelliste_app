@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Image, StyleSheet, Text, StatusBar, View, Modal, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native';
+import { Image, StyleSheet, Text, StatusBar, View, Modal, TouchableHighlight, BackHandler, TouchableOpacity, ScrollView } from 'react-native';
 
 import { setAppInfo } from '../../redux/actions';
 import { connect } from 'react-redux';
@@ -24,6 +24,7 @@ import { getMostDetail } from '../../library/networking/Api';
 import Realm from 'realm';
 import { SafeAreaView } from 'react-navigation';
 
+
 //realm
 let realm, RealmMostReadDetail;
 class NewsScreen extends React.Component {
@@ -31,6 +32,7 @@ class NewsScreen extends React.Component {
   constructor(props) {
     super(props);
     realm = new Realm({ path: 'BookmarkDb.realm' });
+    this.backButtonClick = this.backButtonClick.bind(this);
     this.state = {
 
       title: this.props.navigation.getParam('title'),
@@ -51,8 +53,10 @@ class NewsScreen extends React.Component {
     }
   }
 
+  
   componentDidMount() {
     //console.log('newId', this.state.id);
+    BackHandler.addEventListener('hardwareBackPress', this.backButtonClick);
     if (this.props.navigation.getParam("body") == undefined) {
       if (this.props.navigation.getParam("title") == undefined) {
         let id = this.props.navigation.getParam("Notification_id")
@@ -78,6 +82,19 @@ class NewsScreen extends React.Component {
     
   }
 
+  componentWillUnmount(){
+    BackHandler.removeEventListener('hardwareBackPress', this.backButtonClick);
+  }
+
+  backButtonClick(){
+    if(this.props.navigation && this.props.navigation.goBack){
+      this.props.navigation.goBack(null);
+      return true;
+    }
+    return false;
+  }
+
+  
   _renderItem = ({ item, index }) => {
     //alert(item)
     return (
@@ -164,7 +181,6 @@ class NewsScreen extends React.Component {
     }
 
     // console.log('Photo',this.state.photo)
-
     return (
       <Container>
         <StatusBar

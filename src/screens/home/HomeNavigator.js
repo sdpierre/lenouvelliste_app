@@ -36,6 +36,7 @@ const HomeStackNav = createStackNavigator(
   {
     initialRouteName: 'Home',
     headerMode: 'none',
+  
     mode: 'card',
   },
 );

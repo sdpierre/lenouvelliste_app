@@ -42,7 +42,7 @@ export async function getMostDetail(id) {
 }
 
 export async function getCitizenTopNews() {
-  let result = await fetch(BASE_URl+'topcitizennews').then(
+  let result = await fetch(BASE_URl+'citizennews_featured').then(
     response => response.json(),
   );
   return result.data;

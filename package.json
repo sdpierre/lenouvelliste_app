@@ -26,7 +26,7 @@
     "fsync": "0.0.0",
     "lottie-react-native": "^3.3.2",
     "moment": "^2.24.0",
-    "native-base": "^2.13.8",
+    "native-base": "^2.15.2",
     "or": "^0.2.0",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
@@ -70,6 +70,9 @@
     "react-native-slider": "^0.11.0",
     "react-native-slideshow": "^1.0.1",
     "react-native-snap-carousel": "^3.8.4",
+    "react-native-svg": "^12.1.1",
+    "react-native-svg-transformer": "^0.14.3",
+    "react-native-svg-uri": "^1.2.3",
     "react-native-vector-icons": "^6.6.0",
     "react-native-video": "^4.4.5",
     "react-navigation": "^4.1.1",
@@ -82,6 +85,8 @@
     "rmdir": "^1.2.0",
     "rn-viewpager": "^1.2.9",
     "scandir": "^0.1.2",
+    "styled-components": "^5.3.0",
+    "styled-system": "^5.1.5",
     "yarn": "^1.22.4"
   },
   "devDependencies": {

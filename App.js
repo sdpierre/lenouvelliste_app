@@ -23,8 +23,7 @@ import OneSignal from 'react-native-onesignal';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import ImagePicker from 'react-native-image-picker';
-import { SafeAreaView } from 'react-native';
-import { createAppContainer } from '@react-navigation/native';
+import {createAppContainer} from '@react-navigation/native';
 
 const MainContainer = createAppContainer(AppNavigator);
 const AppNav = createReduxContainer(AppNavigator);
@@ -41,7 +40,7 @@ export default class App extends Component {
       userId: '',
     };
 
-  if (Platform.OS == 'ios') {
+    if (Platform.OS == 'ios') {
       console.log('In ios');
       OneSignal.init('3728d7a9-c5b3-4c83-a88d-a085f6765274'); //iOS App ID
     } else {
@@ -69,7 +68,7 @@ export default class App extends Component {
   //   console.log('isActive: ', openResult.notification.isAppInFocus);
   //   console.log('openResult: ', openResult);
   //   console.log("NewNotifi1>>>>>>>>",openResult.notification.payload.body);
-  //   this.props.navigation.navigate("NewsMap"); 
+  //   this.props.navigation.navigate("NewsMap");
   // }
   openCamera() {
     ImagePicker.openCamera({
@@ -83,13 +82,9 @@ export default class App extends Component {
   render() {
     const buttons = ['Map', 'Satellite'];
     return (
-      
       <Provider store={store}>
-        
         <AppContainer />
-        
       </Provider>
-      
     );
   }
 }

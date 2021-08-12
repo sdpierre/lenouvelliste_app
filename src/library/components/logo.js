@@ -5,8 +5,8 @@ class LogoTitle extends React.Component {
   render() {
     return (
       <Image
-        source={require('../../res/images/logo_blue.png')}
-        style={{ width: 130, height: 40 }}
+        source={require('../../res/images/logolnv.png')}
+        style={{ width: 100, height: 35, resizeMode: 'stretch' }}
       />
     );
   }

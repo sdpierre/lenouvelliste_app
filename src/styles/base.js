@@ -1,18 +1,18 @@
-import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp,
-  } from 'react-native-responsive-screen';
+import { backgroundColor, padding } from 'styled-system';
   
-  
-export const ScreenTitleView = {
+export const lottie = {
+    width: 100,
+    height: 100
+};
+export const HomeScreenTitleView = {
     flexDirection: 'row',
-    paddingBottom: 15,
-    marginTop:"10%",
-    justifyContent: 'center',
+    backgroundColor: '#2D7DEA',
+    height:80,
     alignItems: 'center',
-    borderBottomColor: '#D8D8D8',
-    borderBottomWidth: 1,
-    textAlign: 'center'
+    padding:10,
+    justifyContent: 'space-between',
+    paddingTop:40,
+
 };
 
 export const NewsScreenNavigationView = {

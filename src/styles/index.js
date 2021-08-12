@@ -8,10 +8,11 @@ import * as Typography from './typography'
 import * as Inputs from './inputs'
 import * as Margins from './margins'
 import * as sliderStyle from './sliderStyle'
+import * as HomeScreenStyle from './HomeScreenStyle'
 
 
 
-export { Typography, Spacing, Colors, Buttons, Inputs, Margins, sliderStyle, Base }
+export { Typography, Spacing, Colors, Buttons, Inputs, Margins, sliderStyle, Base, HomeScreenStyle }
 
 export const sectionTitle = {
         textTransform: 'uppercase',

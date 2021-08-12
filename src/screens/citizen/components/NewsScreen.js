@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Modal,
   Linking,
+  BackHandler,
   Alert, ScrollView
 } from 'react-native';
 
@@ -61,6 +62,7 @@ class CitizenNewsScreen extends React.Component {
 
   constructor(props) {
     super(props);
+    this.backButtonClick = this.backButtonClick.bind(this);
     this.state = {
       latlng: { latitude: 18.533333, longitude: -72.333336 },
       region: {
@@ -92,6 +94,7 @@ class CitizenNewsScreen extends React.Component {
     this.fetchNews = this.fetchNews.bind(this);
   }
   componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.backButtonClick);
     NetInfo.fetch()
             .then(conn => {
 
@@ -128,6 +131,18 @@ class CitizenNewsScreen extends React.Component {
       const { latitude, longitude } = position.coords;
       this.getAddressFromLatLong(latitude, longitude)
     });
+  }
+
+  componentWillUnmount(){
+    BackHandler.removeEventListener('hardwareBackPress', this.backButtonClick);
+  }
+
+  backButtonClick(){
+    if(this.props.navigation && this.props.navigation.goBack){
+      this.props.navigation.goBack(null);
+      return true;
+    }
+    return false;
   }
 
   getAddressFromLatLong(lat, long) {

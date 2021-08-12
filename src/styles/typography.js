@@ -52,6 +52,17 @@ export const smallTitle = {
     },
   };
 
+  export const HomeSectionTitle ={ 
+    textTransform: 'uppercase',
+    fontFamily: 'AkkoPro-BoldCondensed',
+    paddingLeft: 18,
+    paddingBottom: 10,
+    paddingTop: 10,
+    fontSize: 16,
+    letterSpacing: 0.64,
+    color: '#2E2E2D',
+  };
+
   export const bodyWhite ={ 
     color: '#FFF',
     fontSize: 16,

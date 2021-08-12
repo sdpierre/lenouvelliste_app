@@ -37,7 +37,6 @@ class Mostread extends React.Component {
       data: [],
       refreshing: true,
       propsData:props.mostReadData,
-      
     };
     this.fetchMostRead = this.fetchMostRead.bind(this);
     that=this;
@@ -72,8 +71,6 @@ class Mostread extends React.Component {
       this.setState({
         propsData : this.props.mostReadData
       })
-
-      
     }else console.log('equal')
   } 
   fetchMostRead() {

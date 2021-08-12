@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, FlatList, Text, StatusBar} from 'react-native';
+import {View, StyleSheet, FlatList, Text, StatusBar, SafeAreaView } from 'react-native';
 import {
   Typography,
   Colors,
@@ -7,6 +7,7 @@ import {
   Spacing,
   Margins,
   Base,
+  HomeScreenStyle
 } from '../../../styles';
 import {
   getHomeNews,
@@ -18,15 +19,15 @@ import 'moment/min/locales';
 import {setAppInfo, setUserInfo} from '../../../redux/actions';
 import {connect} from 'react-redux';
 import Article from 'library/components/Article';
-import Mostread from '../components/Mostread';
-import CitizenTopNews from '../components/CitizenTopNews';
+import Mostread from './Mostread';
+import CitizenTopNews from './CitizenTopNews';
 import LogoTitle from 'library/components/logo';
 import CitizenFloatingAction from '../../citizen/components/CitizenFloatingAction';
 import Banner from 'library/components/banner';
 import MediumRectangle from 'library/components/mediumRectangle';
-import {Container, Header, Body, Title, Content} from 'native-base';
 import AnimatedLoader from 'react-native-animated-loader';
 import OneSignal from 'react-native-onesignal';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //Realm
 import Realm from 'realm';
@@ -36,13 +37,13 @@ let corouselDataDb = [];
 let mostReadDataDb = [];
 //NetInfo
 import NetInfo from '@react-native-community/netinfo';
-import {SafeAreaView} from 'react-native';
 let fetchOverNet;
+
 
 class HomeScreen extends React.Component {
   constructor(props) {
     super();
-
+    
     realm = new Realm({
       path: 'NewsDb.realm',
       schema: [
@@ -79,7 +80,7 @@ class HomeScreen extends React.Component {
             category: 'string?',
             thumb: 'string',
             media: 'string',
-            user_id: 'string',
+            user_id: 'int',
             username: 'string',
             userphoto: 'string',
             nouserphoto: 'string',
@@ -123,10 +124,11 @@ class HomeScreen extends React.Component {
     mostReadDataDb = RealmMostRead.objects('most_read');
     console.log('most_readSize>>>>>', mostReadDataDb.length);
 
+  
     
 
     //  this.fetchNews = this.fetchNews.bind(this);
-    //this.fetchFromDataBase=this.fetchFromDataBase.bind(this);
+    // this.fetchFromDataBase=this.fetchFromDataBase.bind(this);
   }
   // --------------------Notification Open-------------------
   Redirect=(Notification_id)=>{
@@ -188,9 +190,10 @@ class HomeScreen extends React.Component {
         console.log('ExceptionHOME>>>', e);
         this.setState({refreshing: false});
       });
-
+      
     getCitizenTopNews()
       .then(respTop => {
+        console.log('ExceptionCITIZENTOPReponse>>>', respTop);
         realmTop.write(() => {
           realmTop.deleteAll();
 
@@ -228,54 +231,59 @@ class HomeScreen extends React.Component {
       });
   }
 
+  
   handleRefresh() {
     this.setState(
       {
         refreshing: true,
       },
       () => {
-        // if (fetchOverNet)
-        //   this.fetchNews()
-        // else {
-        //   {
-        //     alert('Internet connection required!')
-        //     this.setState(
-        //       {
-        //         refreshing: false
-        //       })
-        //   }
-        // }
+        if (fetchOverNet)
+          this.fetchNews()
+        else {
+          {
+            alert('Internet connection required!')
+            this.setState(
+              {
+                refreshing: false
+              })
+          }
+        }
       },
     );
   }
+  
 
-  /*componentWillUnmount(){
-    realm.close();
+  // componentWillUnmount(){
+  //   realm.close();
 
-    realmTop.close();
+  //   realmTop.close();
 
-  }*/
+  // }
 
   render() {
-    const {title} = this.state;
+    
     const {navigate} = this.props.navigation;
     let that = this;
     const nophoto = 'https://images.lenouvelliste.com/noimageandroid.jpg';
     const {visible} = this.state;
-    console.log("Data3",this.state.mostReadData);
+    console.log("Data2",this.state.dataCorousel);
     return (
 
-      <Container>
+      <SafeAreaView style={styles.container}>
 
-<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#FFFFFF" translucent = {true}/>
-
-<View
-style={Base.ScreenTitleView}>
+<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#2D7DEA" translucent = {true}/>
+<View style={HomeScreenStyle.HomeScreenTitleView}>
+  <View style={{flex:1}}>
+    <Icon name="bell" size={25} color="#FFF" />
+  </View>
+  <View >
 <LogoTitle />
+</View>
+<View style={{flex:1}}>
+</View>
   </View>
         
-
-     
 
         <View style={styles.MainContainer}>
           <FlatList
@@ -301,7 +309,7 @@ style={Base.ScreenTitleView}>
               else if (index === 3)
                 return (
                   <React.Fragment>
-                    <Text style={styles.sectionTitle}> les plus lus </Text>
+                    <Text style={HomeScreenStyle.HomeScreenSectionTitle}> les plus lus </Text>
                     <Mostread mostread={item} navigate={navigate} mostReadData={this.state.mostReadData} isBookmarked={false} />
                     <Article
                       article={item}
@@ -360,46 +368,24 @@ style={Base.ScreenTitleView}>
           visible={visible}
           overlayColor="rgba(255,255,255,0.75)"
           source={require('../../../utils/loader.json')}
-          animationStyle={styles.lottie}
+          animationStyle={Base.lottie}
           speed={1}
         />
       
       <CitizenFloatingAction />
 
-      </Container>
+      </SafeAreaView>
     );
   }
 }
 
-
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  button: {
-    ...Buttons.smallRounded,
-  },
-  MainContainer: {
-    ...Colors.grayBackground,
-    paddingBottom: 50
-
-  },
+ 
   container: {
-    ...Colors.background,
-    ...Spacing.container,
-    ...Colors.whiteBackground,
-  },
-  sectionTitle: {
-    textTransform: 'uppercase',
-    fontFamily: 'AkkoPro-BoldCondensed',
-    paddingLeft: 18,
-    paddingBottom: 10,
-    paddingTop: 10,
-    fontSize: 16,
-    letterSpacing: 0.64,
-    color: '#2E2E2D',
-  },
-  lottie: {
-    width: 100,
-    height: 100,
+    ...Colors.grayBackground,
+    flex:1,
+    paddingBottom: 50,
   },
 });

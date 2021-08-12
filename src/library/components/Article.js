@@ -277,7 +277,6 @@ const styles = StyleSheet.create({
   articleImage: {
     paddingLeft: 20,
     paddingTop: 20,
-    
   },
 
   preview: {

@@ -11,11 +11,12 @@ import {
   ScrollView,
   TouchableHighlight, 
   Alert,
-  SafeAreaView
+  SafeAreaView,
+  StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
 import { setAppInfo } from '../../../redux/actions';
-import { Typography, Colors, Buttons, Spacing } from "../../../styles";
+import { Typography, Colors, Buttons, Spacing, Base } from "../../../styles";
 
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Content } from 'native-base';
 import moment from "moment";
@@ -64,7 +65,7 @@ class CitizenScreen extends React.Component {
     });
 
     this.state = {
-      title: "Citizen",
+      title: "Newspaw",
       data: [],
       isLoggedin: false,
       refreshing: true
@@ -138,13 +139,12 @@ class CitizenScreen extends React.Component {
     
     return (
       <View style={{ flex: 1 }}>
-        <SafeAreaView>
-        <Header>
-          <Body>
-            <Title>Newspaw</Title>
-          </Body>
-        </Header>
-        </SafeAreaView>
+       <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#FFFFFF" translucent = {true}/>
+
+<View
+style={Base.ScreenTitleView}>
+<Text style={Typography.ScreenTitle}>{title}</Text>
+</View>
         <View style={styles.CitizennewsMainContainer}>
           <FlatList
             data={this.state.data}

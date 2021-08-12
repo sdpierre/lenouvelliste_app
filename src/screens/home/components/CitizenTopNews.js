@@ -1,173 +1,138 @@
-import React, { Component } from "react";
-import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
-import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
-import Carousel from "react-native-snap-carousel";
-import { Typography, Colors, Buttons, Spacing } from "../../../styles";
-import { styles, sliderStyle, sliderWidth, itemWidth } from '../../../styles/sliderStyle';
-import { TouchableHighlight } from "react-native-gesture-handler";
+import React from "react";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity, Dimensions, 
+} from "react-native";
+//Equal
+import equal from 'fast-deep-equal'
+
+import { Typography, Colors, Buttons, Spacing, Margins } from "../../../styles";
+
+import { getMostRead } from "library/networking/Api";
 import moment from "moment";
-import 'moment/min/locales';
-import ImageOverlay from "react-native-image-overlay";
+import "moment/min/locales";
+import { setAppInfo, setUserInfo } from "../../../redux/actions";
+import { connect } from "react-redux";
+import Article from "library/components/Article";
+import LogoTitle from "library/components/logo";
+import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
+import { cos } from "react-native-reanimated";
 
-let nav;
+const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
-let height = 300;
-
-class CitizenTop extends Component {
+function wp (percentage) {
+    const value = (percentage * viewportWidth) / 100;
+    return Math.round(value);
+}
+let that;
+class Mostread extends React.Component {
   constructor(props) {
     super(props);
-
-    nav = this.props.navigate;
+    console.log('MostreadCalled<<<');
     this.state = {
-      isLoading: true,
-
-      entries: this.props.topNewsData,
-
+      data: [],
+      refreshing: true,
+      propsData:props.mostReadData,
     };
+    this.fetchMostRead = this.fetchMostRead.bind(this);
+    that=this;
   }
 
+  /*static getDerivedStateFromProps(props, state) {
+    console.log('DerivedCalled')
+    that.setState({
+      propsData:props.mostread
+    })
+    }*/
+
+  /*componentWillReceiveProps(nextProps){
+    console.log('WillREceivePropsCalled')
+      this.setState({
+        propsData:nextProps
+      })
+  }*/
+
+  // Called after a component is mounted
+  // componentDidMount() {
+  //   console.log("trueData")
+  //   this.fetchMostRead();
+  //   this.handleRefresh();
+    
+  // }
+  componentDidUpdate(prevProps) {
+    if(!equal(this.props.mostReadData, prevProps.mostReadData)) // Check if it's a new prop
+    {
+      console.log('NotEqual');
+
+      this.setState({
+        propsData : this.props.mostReadData
+      })
+    }else console.log('equal')
+  } 
+  fetchMostRead() {
+    console.log('Calling MostReadApi');
+
+    getMostRead()
+      .then(data => this.setState({ data, refreshing: false }))
+      .catch(() => this.setState({ refreshing: false }));
+  }
   
-  // navigateToDetail=("NewsCarousel", {
-  //         title: item.title,
-  //         body : item.body,
-  //         category: item.category,
-  //         headline: item.title,
-  //         date: item.date,
-  //         username : item.username,
-  //         media : item.media,
-  //         userphoto : item.userphoto,      
-  
-  //       });
 
-  _renderItem({ item, index }) {
-
-    const time = moment(item.date || moment.now()).fromNow();
-    moment.locale('fr');
-
-    return (
-      <View>
-        <TouchableHighlight
-          underlayColor="#ffffff00"
-          onPress={() => {
-            nav('NewsCarousel', {
-              id: item.id,
-              user_id:item.user_id,
-              title: item.title,
-              body: item.body,
-              category: item.category,
-              headline: item.title,
-              date: item.date,
-              username: item.username,
-              media: item.media,
-              userphoto: item.userphoto,
-              type: item.type,
-              long: item.long,
-              lat: item.lat,
-            });
-          }}>
-          <View style={CitizenStyle.card}>
-            <ImageOverlay
-              source={{ uri: item.thumb }}
-              height={0.7 * height}
-              contentPosition="center">
-              {/* <View>
-                <Image
-                style={{}}
-                source={require('../../../res/images/play.png')}
-            />
-    </View> */}
-            </ImageOverlay>
-            <View style={{ backgroundColor: '#191D25', padding: 30 }}>
-              <Text style={CitizenStyle.tag}>{item.category}</Text>
-              <Text style={CitizenStyle.title}>{item.title}</Text>
-
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                 
-                }}>
-
-                {/* <View style={{ backgroundColor: '', width: '20%' }}>
-                  <Text style={CitizenStyle.views}><Ionicons name="eye" size={10} /> 450</Text>
-                </View> */}
-
-                <View style={{ width: '50%' }}><Text style={CitizenStyle.moment}>{time}</Text>
-                </View>
-
-                <View style={{ width: '50%' }}><Text style={CitizenStyle.share}><Ionicons name="share" size={30} color="#fff" /></Text>
-                </View>
-
-              </View>
-
-            </View>
-          </View>
-        </TouchableHighlight>
-      </View>
+  handleRefresh() {
+    this.setState(
+      {
+        refreshing: true,
+        
+      },
+      () => this.fetchMostRead()
     );
   }
+
   render() {
+    console.log('MostREad Reresndering');
+  //  console.log("PropsData",this.state.propsData);
+    const { navigate } = this.props;
+
     return (
-      <View style={{ paddingBottom: 10}}>
-        <View  style={{ paddingLeft: 30}}> 
-        <Text style={Typography.sectionTitleBlack}>Newspaw</Text>
-        </View>
-        <Carousel
-          ref={c => {
-            this._carousel = c;
-          }}
-          data={this.state.entries}
-          renderItem={this._renderItem}
-          sliderWidth={sliderWidth}
-          itemWidth={itemWidth}
-        />
-      </View>
+      <FlatList
+      // data={this.state.data}
+       data={this.state.propsData}
+      onRefresh={this.handleRefresh.bind(this)}
+      //renderItem={({ item }) => <Text>{item.titre}</Text>}
+    
+              renderItem={({ item }) => (
+
+                <TouchableHighlight
+                  onPress={() =>
+                    navigate("News", {
+                      //  surTitle: item.surtitre,
+                      title: item.pageTitle,
+                      pageViews:item.pageViews,
+                      //  headline : item.headline,
+                      // body: item.article,
+                      // photo: item.photo,
+                      // date: item.date,
+                      // author : item.author,
+                      url : item.url,
+                      id: item.id
+                    })
+                  }
+                >
+               
+            <View style={{backgroundColor: '#fff', paddingTop:15,}} >
+              <Text style={{fontSize: 16,width: wp(90),fontFamily: 'Georgia',marginBottom: 10,paddingLeft:20}}> <Ionicons name="format-list-bulleted" size={13} color="#000" /> {item.pageTitle} </Text> 
+            </View>
+              </TouchableHighlight>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+
     );
   }
 }
-export default CitizenTop;
 
-
-const CitizenStyle = StyleSheet.create({
-
-  card: {
-    borderRadius: 7,
-    overflow: 'hidden',
-    marginBottom: 10,
-  },
-  image: {
-  },
-  content: {
-    margin: 20,
-    padding: 5,
-  },
-  tag: {
-    color: '#ffcd00',
-    fontFamily: "AkkoPro-BoldCondensed",
-    textTransform: 'uppercase',
-  },
-  title: {
-    marginTop: 10,
-    fontSize: 18,
-    color: "#fff",
-    marginBottom: 20,
-    fontFamily: "Georgia"
-  },
-  moment: {
-    fontSize: 12,
-    color: '#fff',
-    fontFamily: 'Gotham-book',
-  },
-  views: {
-    fontSize: 12,
-    color: '#ffcd00',
-    fontFamily: 'Gotham-book',
-  },
-  share: {
-    fontSize: 12,
-    textAlign: 'right',
-    fontFamily: 'Gotham-book',
-  }
-});
-
-export { CitizenStyle };
+export default Mostread;
